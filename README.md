@@ -1,2 +1,24 @@
 # Hladinomer - odosielacie scripty
-Hladinomer - monitor výšky hladiny studne. Odosielacie scripty pre Arduino, ESP32, ESP8266. Podporované technológie Wifi, Ethernet, LoRa, Sigfox, GSM.
+* Tento repozitár obsahuje voľne dostupné zdrojové kódy, ktoré odosielajú dáta na webové rozhranie
+* Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
+* Viac o projekte: https://arduino.php5.sk/studna-voda.php
+* Je možné využiť Ethernet, GSM, WiFi a ďalšie technológie na prenos údajov do webového rozhrania
+* Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne
+* Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine
+* Webové rozhranie je možné zakúpiť si: martinius96@gmail.com
+
+**Scripty sú dostupné pre:**
+* Arduino + Ethernet W5100/W5500 - HTTP protokol
+* ESP8266 (NodeMCU) - HTTP/HTTPS protokol
+* ESP32 (DevKit) - HTTP/HTTPS protokol
+* Arduino + LoRa Semtech 127X
+* Arduino + GSM M10 modem - HTTP protokol
+* Arduino + Sigfox - HTTPS callback
+
+**Podporte projekt - pre uvoľnenie projektu**
+* Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
+
+# Schéma zapojenia mikrokontrolérov + HC-SR04
+![Schéma zapojenia - hladinomer](https://i.imgur.com/8QaFlVy.png)
+# Ukážka webaplikácie
+![Hladinomer - Prehľad](https://i.imgur.com/Qe0FbZe.png)
