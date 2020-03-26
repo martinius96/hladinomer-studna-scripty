@@ -4,6 +4,7 @@
 /*|E-mail: martinius96@gmail.com                    |*/
 /*|Web: https://arduino.php5.sk                     |*/
 /*|Licencia pouzitia: MIT                           |*/
+/*|Revízia: 26. Marec 2020                          |*/
 /*|-------------------------------------------------|*/
 
 #include <avr\wdt.h>
@@ -14,21 +15,35 @@
 #define pinEcho       4
 #define maxVzdialenost 450
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 char* host = "www.arduino.php5.sk";
-IPAddress ip(192, 168, 1, 101);
-EthernetClient client;
+byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
+//IPAddress ip(192, 168, 0, 2);
+//IPAddress dnServer(192, 168, 0, 1);
+//IPAddress gateway(192, 168, 0, 1);
+//IPAddress subnet(255, 255, 255, 0);
 void setup() {
   Serial.begin(115200);
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
     Ethernet.begin(mac);
+    //Ethernet.begin(mac, ip);
+    //Ethernet.begin(mac, ip, dns);
+    //Ethernet.begin(mac, ip, dns, gateway);
+    //Ethernet.begin(mac, ip, dns, gateway, subnet);
   }
   wdt_enable(WDTO_8S);
 }
 
 void loop() {
   wdt_reset();
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    Ethernet.begin(mac);
+    //Ethernet.begin(mac, ip);
+    //Ethernet.begin(mac, ip, dns);
+    //Ethernet.begin(mac, ip, dns, gateway);
+    //Ethernet.begin(mac, ip, dns, gateway, subnet);
+  }
   int vzdialenost = sonar.ping_cm();
   delay(50);
   if (vzdialenost > 0) {
