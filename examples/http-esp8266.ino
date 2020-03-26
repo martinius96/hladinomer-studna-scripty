@@ -69,12 +69,12 @@ void loop() {
       Serial.println("Pripojenie zlyhalo...");
     }
     client.stop();
+    for (int i = 0; i <= 300; i++) {
+      delay(1000);
+    }
   }
   else {
     Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
     delay(500);
-    for (int i = 0; i <= 300; i++) {
-      delay(1000);
-    }
   }
 }
