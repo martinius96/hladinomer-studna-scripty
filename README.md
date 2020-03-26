@@ -11,9 +11,6 @@
 * Arduino + Ethernet W5100/W5500 - HTTP protokol
 * ESP8266 (NodeMCU) - HTTP/HTTPS protokol
 * ESP32 (DevKit) - HTTP/HTTPS protokol
-* Arduino + LoRa Semtech 127X
-* Arduino + GSM M10 modem - HTTP protokol
-* Arduino + Sigfox - HTTPS callback
 
 **Podporte projekt - pre uvoľnenie projektu**
 * Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
@@ -22,3 +19,5 @@
 ![Schéma zapojenia - hladinomer](https://i.imgur.com/8QaFlVy.png)
 # Ukážka webaplikácie
 ![Hladinomer - Prehľad](https://i.imgur.com/Qe0FbZe.png)
+![Hladinomer - Grafická reprezentácia nameraných údajov](https://i.imgur.com/2FfyDiw.png)
+![Hladinomer - Tabuľka rozdielových záznamov](https://i.imgur.com/cRgJkdN.png)
