@@ -1,12 +1,11 @@
- 
-/*|---------------------------------|*/
-/*|Projekt: Hladinomer              |*/
-/*|Autor: Martin Chlebovec          |*/
-/*|E-mail: martinius96@gmail.com    |*/
-/*|Web: https://arduino.php5.sk     |*/
-/*|Licencia pouzitia: MIT           |*/
-/*|Arduino Core 2.3.0+              |*/
-/*|---------------------------------|*/
+/*|-------------------------------------------------|*/
+/*|Projekt: Hladinomer - ESP8266 - HTTP             |*/
+/*|Autor: Martin Chlebovec                          |*/
+/*|E-mail: martinius96@gmail.com                    |*/
+/*|Web: https://arduino.php5.sk                     |*/
+/*|Licencia pouzitia: MIT                           |*/
+/*|Revízia: 26. Marec 2020                          |*/
+/*|-------------------------------------------------|*/
 
 #include <ESP8266WiFi.h>
 #include <NewPingESP8266.h>
@@ -20,7 +19,6 @@ const char * ssid = "wifi_meno"; //meno wifi siete
 const char * password = "wifi_heslo"; //heslo na wifi siet
 const char * host = "www.arduino.php5.sk"; //bez https a bez www
 
-const int httpPort = 80;
 WiFiClient client;
 void setup() {
   Serial.begin(115200);
@@ -54,22 +52,29 @@ void loop() {
     Serial.print("Vzdialenost medzi senzorom a predmetom je: ");
     Serial.print(vzdialenost);
     Serial.println(" cm.");
-    if (client.connect(host, httpPort)) {
-      String hodnota = String(vzdialenost);
-      Serial.println("Pripojenie uspesne na webserver, vykonavam request... ");
-      String url = "/studna/data.php?hodnota=" + hodnota;
-      client.print(String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "User-Agent: NodeMCU\r\n" + "Connection: close\r\n\r\n");
-      Serial.println("Hodnoty do databazy uspesne odoslane");
-      client.stop();
+    String data = "hodnota=" + String(vzdialenost);
+    String url = "/studna/data.php";
+    if (client.connect(host, 80)) {
+      client.println("POST " + url + " HTTP/1.0");
+      client.println("Host: " + (String)host);
+      client.println("User-Agent: ESP8266");
+      client.println("Connection: close");
+      client.println("Content-Type: application/x-www-form-urlencoded;");
+      client.print("Content-Length: ");
+      client.println(data.length());
+      client.println();
+      client.println(data);
+      Serial.println("Data uspesne odoslane na web");
     } else {
       Serial.println("Pripojenie zlyhalo...");
     }
+    client.stop();
   }
   else {
     Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
     delay(500);
-  }
-  for (int i = 0; i <= 300; i++) {
-    delay(1000);
+    for (int i = 0; i <= 300; i++) {
+      delay(1000);
+    }
   }
 }
