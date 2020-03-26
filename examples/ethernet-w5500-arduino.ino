@@ -21,6 +21,7 @@ byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
 //IPAddress dnServer(192, 168, 0, 1);
 //IPAddress gateway(192, 168, 0, 1);
 //IPAddress subnet(255, 255, 255, 0);
+EthernetClient client;
 void setup() {
   Serial.begin(115200);
   if (Ethernet.begin(mac) == 0) {
