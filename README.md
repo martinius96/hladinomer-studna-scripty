@@ -23,7 +23,7 @@
 ![Hladinomer - Tabuľka rozdielových záznamov](https://i.imgur.com/cRgJkdN.png)
 
 # Výpočet maximálnej hĺbky studne
-* Maximálna hĺbka studne bez odrazov (so zohľadnením charakteristík senzora HC-SR04.
+* Maximálna hĺbka studne bez odrazov (so zohľadnením charakteristík senzora HC-SR04)
 * **Výpočet trigonometriou:**
 * **Efektívny lúč Echo prijímača:** 15°
 * **Priemer studne:** XY (cm)
