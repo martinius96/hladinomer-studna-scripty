@@ -18,7 +18,7 @@
 # Podporovaný hardvér
 ![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
 # Schéma zapojenia mikrokontrolérov + HC-SR04
-![Schéma zapojenia - hladinomer](https://i.imgur.com/8QaFlVy.png)
+![Schéma zapojenia - hladinomer](https://i.imgur.com/e4AqAIG.png)
 # Ukážka webaplikácie
 ![Hladinomer - Prehľad](https://i.imgur.com/Qe0FbZe.png)
 ![Hladinomer - Grafická reprezentácia nameraných údajov](https://i.imgur.com/2FfyDiw.png)
