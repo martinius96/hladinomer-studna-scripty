@@ -11,8 +11,8 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <NewPing.h>
-#define pinTrigger    3
-#define pinEcho       4
+#define pinTrigger    5
+#define pinEcho       6
 #define maxVzdialenost 450
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
 char* host = "www.arduino.php5.sk";
