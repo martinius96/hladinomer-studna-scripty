@@ -15,6 +15,8 @@
 **Podporte projekt - pre uvoľnenie projektu**
 * Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
 
+# Podporovaný hardvér
+![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
 # Schéma zapojenia mikrokontrolérov + HC-SR04
 ![Schéma zapojenia - hladinomer](https://i.imgur.com/8QaFlVy.png)
 # Ukážka webaplikácie
