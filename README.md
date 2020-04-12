@@ -1,5 +1,6 @@
 # Hladinomer - odosielacie scripty
-* Tento repozitár obsahuje voľne dostupné zdrojové kódy, ktoré odosielajú dáta na webové rozhranie
+* Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry
+* Mikrokontroléry odosielajú dáta na webové rozhranie, kde sa archivujú a používateľovi webové rozhranie vypisuje dynamicky dáta
 * Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
 * Viac o projekte: https://arduino.php5.sk/studna-voda.php
 * Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
