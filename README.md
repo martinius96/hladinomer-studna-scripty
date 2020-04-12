@@ -4,7 +4,7 @@
 * Viac o projekte: https://arduino.php5.sk/studna-voda.php
 * Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
 * Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne
-* Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine
+* Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
 * **Webové rozhranie je možné zakúpiť si: martinius96@gmail.com**
 
 # Spustenie systému
