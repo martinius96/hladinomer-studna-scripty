@@ -5,8 +5,13 @@
 * Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
 * Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne
 * Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine
-* Webové rozhranie je možné zakúpiť si: martinius96@gmail.com
+* **Webové rozhranie je možné zakúpiť si: martinius96@gmail.com**
 
+# Spustenie systému
+* Obsah priečinka src rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries
+* Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
+* Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
+#
 **Scripty sú dostupné pre:**
 * Arduino + Ethernet W5100/W5500 - HTTP protokol
 * ESP8266 (NodeMCU) - HTTP/HTTPS protokol
