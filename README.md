@@ -26,7 +26,7 @@
 # Schéma zapojenia mikrokontrolérov + HC-SR04
 ![Schéma zapojenia - hladinomer](https://i.imgur.com/e4AqAIG.png)
 # Ukážka webaplikácie
-![Hladinomer - Prehľad hĺbky studne v reálnom čase](hhttps://i.imgur.com/bUifgSE.png)
+![Hladinomer - Prehľad hĺbky studne v reálnom čase](https://i.imgur.com/bUifgSE.png)
 ![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/2FfyDiw.png)
 ![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/Oxar3HS.png)
 ![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/V1fQsq5.jpg)
