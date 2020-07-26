@@ -32,11 +32,3 @@
 ![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/2FfyDiw.png)
 ![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/Oxar3HS.png)
 ![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/V1fQsq5.jpg)
-
-# Výpočet maximálnej hĺbky studne
-* Maximálna hĺbka studne bez odrazov (so zohľadnením charakteristík senzora HC-SR04)
-* **Výpočet trigonometriou:**
-* **Efektívny lúč Echo prijímača:** 15°
-* **Priemer studne:** XY (cm)
-* **Maximálna hĺbka** = XY / tan(rad[15°/2]) (cm)
-![Trigonometria - výpočet maximálnej hĺbky studne - hladinomer - Arduino / ESP8266 / ESP32 + HC-SR04](https://i.imgur.com/nMQZQm7.jpg)
