@@ -1,11 +1,11 @@
-/*|-------------------------------------------------|*/
-/*|Projekt: Hladinomer - ESP8266 - HTTP             |*/
-/*|Autor: Martin Chlebovec                          |*/
-/*|E-mail: martinius96@gmail.com                    |*/
-/*|Web: https://arduino.php5.sk                     |*/
-/*|Licencia pouzitia: MIT                           |*/
-/*|Revízia: 26. Marec 2020                          |*/
-/*|-------------------------------------------------|*/
+/*|--------------------------------------------------|*/
+/*|Projekt: Hladinomer - ESP8266 - HTTPS             |*/
+/*|Autor: Martin Chlebovec                           |*/
+/*|E-mail: martinius96@gmail.com                     |*/
+/*|Web: https://arduino.php5.sk                      |*/
+/*|Licencia pouzitia: MIT                            |*/
+/*|Revízia: 26. Marec 2020                           |*/
+/*|--------------------------------------------------|*/
 
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
@@ -19,7 +19,7 @@ NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 const char * ssid = "wifi_meno"; //meno wifi siete
 const char * password = "wifi_heslo"; //heslo na wifi siet
 const char * host = "arduino.php5.sk"; //bez https a bez www
-const char fingerprint[] PROGMEM = "b0 6d 7f 8c 98 78 8e 6e 0a 57 a8 2f 7e d1 40 2a 1e 3f 48 f7";
+const char fingerprint[] PROGMEM = "00 2c c1 3a 3c fd a2 0a a3 f1 19 1a ee ee 54 72 93 56 7d 1b";
 
 void setup() {
   Serial.begin(115200);
