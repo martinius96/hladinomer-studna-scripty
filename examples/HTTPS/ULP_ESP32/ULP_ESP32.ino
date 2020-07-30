@@ -1,11 +1,11 @@
-/*|-------------------------------------------------|*/
-/*|Projekt: Hladinomer - ESP32 - HTTPS              |*/
-/*|Autor: Martin Chlebovec                          |*/
-/*|E-mail: martinius96@gmail.com                    |*/
-/*|Web: https://arduino.php5.sk                     |*/
-/*|Licencia pouzitia: MIT                           |*/
-/*|Revízia: 26. Marec 2020                          |*/
-/*|-------------------------------------------------|*/
+/*|------------------------------------------------------|*/
+/*|Projekt: Hladinomer - ESP32 - HTTPS - Ultra Low Power |*/
+/*|Autor: Martin Chlebovec                               |*/
+/*|E-mail: martinius96@gmail.com                         |*/
+/*|Web: https://arduino.php5.sk                          |*/
+/*|Licencia pouzitia: MIT                                |*/
+/*|Revízia: 26. Marec 2020                               |*/
+/*|------------------------------------------------------|*/
 
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  300        /* Time ESP32 will go to sleep (in seconds) */
