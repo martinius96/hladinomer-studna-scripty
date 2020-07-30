@@ -63,8 +63,8 @@ void setup() {
   else {
     Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
   }
-  Serial.println("I'm awake, but I'm going into deep sleep mode for 30 seconds");
-  ESP.deepSleep(30e6);
+  Serial.println("I'm awake, but I'm going into deep sleep mode for 300 seconds");
+  ESP.deepSleep(300e6);
 }
 
 void loop() {
