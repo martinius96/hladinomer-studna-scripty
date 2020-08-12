@@ -20,11 +20,14 @@
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
 * Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
 
-**Scripty sú dostupné pre:**
-* Arduino + Ethernet W5100/W5500 - HTTP protokol
-* ESP8266 (NodeMCU) - HTTP/HTTPS protokol
-* ESP32 (DevKit) - HTTP/HTTPS protokol
+**Programové implementácie pre protokoly:**
+Mikrokontróler | HTTP | HTTPS
+------------ | ------------- | -------------
+Arduino + Ethernet | ✓ | ×
+ESP8266 | ✓ | ✓
+ESP32 | ✓ | ✓
 
+**Podporované operačné módy v zdrojových kódoch**
 Operačný mód | StandBy | Deep Sleep | StandBy + Over The Air (OTA)
 ------------ | ------------- | ------------- | -------------
 Mikrokontróler | - | - | -
