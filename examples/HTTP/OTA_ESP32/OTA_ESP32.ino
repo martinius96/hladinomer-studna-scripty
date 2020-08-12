@@ -8,6 +8,9 @@
 /*|-------------------------------------------------|*/
 
 #include <WiFi.h>
+#include <ESPmDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 #include <NewPingESP8266.h>
 #define pinTrigger    22
 #define pinEcho       23
