@@ -21,7 +21,7 @@
 * Arduino + Ethernet W5100/W5500 - HTTP protokol
 * ESP8266 (NodeMCU) - HTTP/HTTPS protokol
 * ESP32 (DevKit) - HTTP/HTTPS protokol
-
+#
 Operačný mód | StandBy | Deep Sleep | Over The Air (OTA)
 ------------ | -------------
 Mikrokontróler | - | - | -
