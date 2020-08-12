@@ -29,7 +29,7 @@ ESP32 | ✓ | ✓
 
 **Podporované operačné módy v zdrojových kódoch**
 Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA)
------------- | ------------- | ------------- | -------------
+------------ | ------------- | ------------- | ------------- | -------------
 Mikrokontróler | - | - | - | -
 Arduino + Ethernet | ✓ | ✓ | × | ×
 ESP8266 | ✓ | ✓ | ✓ | ✓
