@@ -28,12 +28,12 @@ ESP8266 | ✓ | ✓
 ESP32 | ✓ | ✓
 
 **Podporované operačné módy v zdrojových kódoch**
-Operačný mód | StandBy | Deep Sleep | StandBy + Over The Air (OTA)
+Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA)
 ------------ | ------------- | ------------- | -------------
-Mikrokontróler | - | - | -
-Arduino + Ethernet | ✓ | × | ×
-ESP8266 | ✓ | ✓ | ✓
-ESP32 | ✓ | ✓ | ✓
+Mikrokontróler | - | - | - | -
+Arduino + Ethernet | ✓ | ✓ | × | ×
+ESP8266 | ✓ | ✓ | ✓ | ✓
+ESP32 | ✓ | ✓ | ✓ | ✓
 
 # Podporovaný hardvér
 ![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
