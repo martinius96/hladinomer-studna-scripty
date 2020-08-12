@@ -1,8 +1,11 @@
 # Hladinomer - odosielacie scripty
-* Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry
-* Mikrokontroléry odosielajú dáta na webové rozhranie, kde sa archivujú a používateľovi webové rozhranie vypisuje dynamicky dáta
-* Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
-* Viac o projekte: https://arduino.php5.sk/studna-voda.php
+**Podporte projekt - pre uvoľnenie projektu**
+* Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
+
+* Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer
+* Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
+* Testovacie webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
+* Viac informácii o projekte: https://arduino.php5.sk/studna-voda.php
 * Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
 * **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
 * Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
@@ -22,15 +25,12 @@
 * ESP8266 (NodeMCU) - HTTP/HTTPS protokol
 * ESP32 (DevKit) - HTTP/HTTPS protokol
 
-Operačný mód | StandBy | Deep Sleep | Over The Air (OTA)
+Operačný mód | StandBy | Deep Sleep | StandBy + Over The Air (OTA)
 ------------ | ------------- | ------------- | -------------
 Mikrokontróler | - | - | -
 Arduino + Ethernet | ✓ | × | ×
 ESP8266 | ✓ | ✓ | ✓
 ESP32 | ✓ | ✓ | ✓
-
-**Podporte projekt - pre uvoľnenie projektu**
-* Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
 
 # Podporovaný hardvér
 ![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
