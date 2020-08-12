@@ -10,17 +10,24 @@
 * Vzdialenosť nereprezentuje skutočnú výšku hladiny vody, iba vzdialenosť medzi senzorom a hladninou!
 
 # Ako získať webové rozhranie?
-**Webové rozhranie je možné zakúpiť si: martinius96@gmail.com**
+**Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
 
 # Spustenie systému
 * Obsah priečinka src rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
 * Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
-#
+
 **Scripty sú dostupné pre:**
 * Arduino + Ethernet W5100/W5500 - HTTP protokol
 * ESP8266 (NodeMCU) - HTTP/HTTPS protokol
 * ESP32 (DevKit) - HTTP/HTTPS protokol
+
+Operačný mód | StandBy | Deep Sleep | Over The Air (OTA)
+------------ | -------------
+Mikrokontróler | - | - | -
+Arduino + Ethernet | ✓ | × | ×
+ESP8266 | ✓ | ✓ | ✓
+ESP32 | ✓ | ✓ | ✓
 
 **Podporte projekt - pre uvoľnenie projektu**
 * Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
