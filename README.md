@@ -21,7 +21,7 @@
 * Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
 
 **Programové implementácie pre protokoly:**
-**Mikrokontróler** | HTTP | HTTPS
+Mikrokontróler | HTTP | HTTPS
 ------------ | ------------- | -------------
 Arduino + Ethernet | ✓ | ×
 ESP8266 | ✓ | ✓
@@ -30,7 +30,7 @@ ESP32 | ✓ | ✓
 **Podporované operačné módy v zdrojových kódoch**
 Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA)
 ------------ | ------------- | ------------- | ------------- | -------------
-Mikrokontróler | - | - | - | -
+**Mikrokontróler** | - | - | - | -
 Arduino + Ethernet | ✓ | ✓ | × | ×
 ESP8266 | ✓ | ✓ | ✓ | ✓
 ESP32 | ✓ | ✓ | ✓ | ✓
