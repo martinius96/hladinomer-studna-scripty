@@ -21,7 +21,7 @@
 * Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
 
 **Programové implementácie pre protokoly:**
-Mikrokontróler | HTTP | HTTPS
+**Mikrokontróler** | HTTP | HTTPS
 ------------ | ------------- | -------------
 Arduino + Ethernet | ✓ | ×
 ESP8266 | ✓ | ✓
