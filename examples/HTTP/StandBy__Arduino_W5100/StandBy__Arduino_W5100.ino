@@ -39,6 +39,8 @@ void setup() {
     //Ethernet.begin(mac, ip, dns, gateway);
     //Ethernet.begin(mac, ip, dns, gateway, subnet);
   }
+  Serial.print("  DHCP assigned IP ");
+  Serial.println(Ethernet.localIP());
   wdt_enable(WDTO_8S);
 }
 
