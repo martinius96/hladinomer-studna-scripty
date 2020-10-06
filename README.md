@@ -49,3 +49,6 @@ ESP32 | ✓ | ✓ | ✓ | ✓
 ![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/2FfyDiw.png)
 ![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/Oxar3HS.png)
 ![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/V1fQsq5.jpg)
+![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/XL7ohx3.png)
+![Hladinomer - HC-SR04 - Detekčná charakteristika](https://i.imgur.com/iNdrwh1.png)
+![Hladinomer - JSN-SR04T - Detekčná charakteristika](https://i.imgur.com/LKIuhJd.png)
