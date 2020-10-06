@@ -4,8 +4,8 @@
 
 * Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer
 * Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
-* Testovacie webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
-* Viac informácii o projekte: https://arduino.php5.sk/studna-voda.php
+* Testovacie webové rozhranie je dostupné na adrese: **http://arduino.clanweb.eu/studna/**
+* Viac informácii o projekte: http://arduino.clanweb.eu/studna-voda.php
 * Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
 * **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
 * Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
@@ -18,7 +18,7 @@
 # Spustenie systému
 * Obsah priečinka src rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
-* Webové rozhranie je dostupné na adrese: **https://arduino.php5.sk/studna/**
+* Webové rozhranie je dostupné na adrese: **http://arduino.clanweb.eu/studna/**
 
 **Programové implementácie pre protokoly:**
 Mikrokontróler | HTTP | HTTPS
