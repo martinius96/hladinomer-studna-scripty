@@ -16,7 +16,7 @@ NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 
 const char * ssid = "wifi_meno"; //meno wifi siete
 const char * password = "wifi_heslo"; //heslo na wifi siet
-const char * host = "www.arduino.php5.sk"; //bez https a bez www
+const char * host = "arduino.clanweb.eu"; //bez https a bez www
 
 WiFiClient client;
 void setup() {
