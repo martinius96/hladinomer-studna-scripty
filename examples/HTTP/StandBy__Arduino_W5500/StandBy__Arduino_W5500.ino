@@ -15,7 +15,7 @@
 #define pinEcho       6
 #define maxVzdialenost 450
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
-char* host = "www.arduino.php5.sk";
+char* host = "arduino.clanweb.eu";
 byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
 //IPAddress ip(192, 168, 0, 2);
 //IPAddress dnServer(192, 168, 0, 1);
