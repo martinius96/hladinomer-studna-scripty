@@ -3,7 +3,7 @@
 /*|Autor: Martin Chlebovec                                              |*/
 /*|E-mail: martinius96@gmail.com                                        |*/
 /*|Licencia pouzitia: MIT                                               |*/
-/*|Revízia: 06. Október 2020                                            |*/
+/*|Revízia: 13. Október 2020                                            |*/
 /*|---------------------------------------------------------------------|*/
 
 //HLAVICKOVE SUBORY PRE ARDUINO A ETHERNET SHIELD + watchdog
