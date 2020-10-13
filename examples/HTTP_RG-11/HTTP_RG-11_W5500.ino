@@ -101,7 +101,7 @@ void loop() {
       Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
       Serial.print(vzdialenost);
       Serial.println(" cm.");
-      String data = "hodnota=" + String(vzdialenost);
+      String data = "hodnota=" + String(vzdialenost)+"&dazd="+String(totalRainfall);
       String url = "/studna/data.php";
       client.stop(); //ukoncenie vsetkych existujucich spojeni
       if (client.connect(host, 80)) {
