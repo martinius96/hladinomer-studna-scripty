@@ -19,7 +19,7 @@
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
 
 //DEFINICIE, PREMENNE PRE RG-11 - DAŽĎOVÝ SENZOR
-#define RG11_Pin 2
+#define RG11_Pin 3
 #define Bucket_Size 0.01
 volatile unsigned long tipCount;     // bucket tip counter used in interrupt routine
 volatile unsigned long ContactTime;  // Timer to manage any contact bounce in interrupt routine
