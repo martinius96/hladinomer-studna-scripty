@@ -107,7 +107,7 @@ void loop() {
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
-        client.println(F("User-Agent: EthernetW5100"));
+        client.println(F("User-Agent: EthernetW5500"));
         client.println(F("Connection: close"));
         client.println(F("Content-Type: application/x-www-form-urlencoded;"));
         client.print(F("Content-Length: "));
