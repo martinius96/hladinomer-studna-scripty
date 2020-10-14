@@ -26,7 +26,7 @@ volatile unsigned long ContactTime;  // Timer to manage any contact bounce in in
 long lastCount;
 float totalRainfall;
 
-char* host = "arduino.clanweb.eu";
+const char* host = "arduino.clanweb.eu";
 byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
 //IPAddress ip(192, 168, 0, 2);
 //IPAddress dnServer(192, 168, 0, 1);
