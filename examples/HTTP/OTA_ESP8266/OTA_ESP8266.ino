@@ -84,7 +84,7 @@ void loop() {
     Serial.print(vzdialenost);
     Serial.println(" cm.");
     String data = "hodnota=" + String(vzdialenost);
-    String url = "/studna/data.php";
+    String url = "/studna_s_prekladom/data.php";
     if (client.connect(host, 80)) {
       client.println("POST " + url + " HTTP/1.0");
       client.println("Host: " + (String)host);
