@@ -4,7 +4,7 @@
 
 * Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer
 * Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
-* Testovacie webové rozhranie je dostupné na adrese: **http://arduino.clanweb.eu/studna/**
+* Testovacie webové rozhranie je dostupné na adrese: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Viac informácii o projekte: http://arduino.clanweb.eu/studna-voda.php
 * Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
 * **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
