@@ -75,6 +75,10 @@ Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, iný
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne, kde je isté riziko odrazu lúča od stien studne. 
 Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60 až 75°. 
 Z toho dôvodu nie je vhodný pre úzke studne. Vo vzdialenosti hladiny od senzora 450 cm má lúč priemer takmer 600 cm.
+Webové rozhranie využíva trigonometriu pre odhad maximálnej hĺbky studne pri známom priemere studne (ďalší parameter pre výpočet objemu studne). Používateľovi vie tak dopočítať, do akej maximálnej hĺbky studne je každý zo senzorov vhodný.
+Dôležitú úlohu v systéme zohráva aj použitý mikrokontróler. Pre projekt sa využila platforma Arduino (Uno) spojená s Ethernet modulom / shieldom z rady Wiznet model W5100, respektíve W5500, ktorý zabezpečoval HTTP konektivitu a umožnil mikrokontroléru prenos dát do vzdialeného webového rozhrania na internete.
+
+Nakoľko je hladinomer exteriérovým projektom, mnoho používateľov by si obľúbilo aj možnosť využitia WiFi platformy bez nutnosti ťahania Ethernet konektivity až k studni. Keďže je platforma Arduino náchylnejšia na "zaseknutie" programu, bol do zdrojových kódov doplnený watchdog, ktorý je schopný platformu reštartovať.
 </p>
 
  </div>
