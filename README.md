@@ -52,3 +52,13 @@ ESP32 | ✓ | ✓ | ✓ | ✓
 ![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/XL7ohx3.png)
 ![Hladinomer - HC-SR04 - Detekčná charakteristika](https://i.imgur.com/iNdrwh1.png)
 ![Hladinomer - JSN-SR04T - Detekčná charakteristika](https://i.imgur.com/LKIuhJd.png)
+
+# Rozšírená verzia - Zrážkomer
+* Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom
+* Vizualizácia vo web rozhraní
+* Web OTA Updater
+* Vizualizácia rozšírená o 30 dní, 365 dní
+* Grafický vývoj zrážok
+* Merateľný úhrn (súčet) zrážok za 2 hodin, 24 hodín, 7 dní, 30 dní, 365 dní
+* Krajšie GUI webaplikácie
+* Preklad do Slovenského, Anglického, Nemeckého a Ruskéhoj jazyka
