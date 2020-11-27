@@ -4,6 +4,7 @@
 
 * Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer
 * Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
+** Testovacie webové rozhrania podporujú iba HTTP protokol!**
 * Testovacie webové rozhranie je Hladinomer: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Testovacie webové rozhranie je Hladinomer + zrážkomer: **http://arduino.clanweb.eu/studna/**
 * Viac informácii o projekte: http://arduino.clanweb.eu/studna-voda.php
