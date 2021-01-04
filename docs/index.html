@@ -67,25 +67,30 @@
 <span class="label label-primary">JSN-SR04T</span>
 <span class="label label-success">RG-11</span>
 <hr><center><h2>Hladinomer - Arduino / ESP8266 / ESP32</h2></center><hr>
-<p>
+<p style="text-align: justify;">
 Responzívny projekt vo webovom rozhraní v Bootstrap Bare šablóne, ktorý umožňoval zber dát o výške hladiny vody v studni a ich následnú vizualizáciu. 
-Využíva backend napísaný v jazyku PHP procedurálnym štýlom a umožňuje centralizovaný zber dát prichádzajúcich z mikrokontroléru.
+Využíva backend napísaný v jazyku PHP procedurálnym štýlom a umožňuje centralizovaný zber dát prichádzajúcich z mikrokontroléru. Dáta sa na webserver odosiela mikrokontróler každých 300 sekúnd - t.j. 5 minút.
 Meranie výšky hladiny vody sa realizovalo s využitím ultrazvukových senzorov - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T. Princíp merania oboch senzorov je vyslanie signálu Trigger s dĺžkou 10μs a na základe času, kedy sa signál vráti do prijímača - Echo je možné dopočítať vzdialenosť medzi senzorom a hladinou.
 Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne, kde je isté riziko odrazu lúča od stien studne. 
 Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60 až 75°. 
+<hr>
 Z toho dôvodu nie je vhodný pre úzke studne. Vo vzdialenosti hladiny od senzora 450 cm má lúč priemer takmer 600 cm.
 Webové rozhranie využíva trigonometriu pre odhad maximálnej hĺbky studne pri známom priemere studne (ďalší parameter pre výpočet objemu studne). Používateľovi vie tak dopočítať, do akej maximálnej hĺbky studne je každý zo senzorov vhodný.
 Dôležitú úlohu v systéme zohráva aj použitý mikrokontróler. Pre projekt sa využila platforma Arduino (Uno) spojená s Ethernet modulom / shieldom z rady Wiznet model W5100, respektíve W5500, ktorý zabezpečoval HTTP konektivitu a umožnil mikrokontroléru prenos dát do vzdialeného webového rozhrania na internete.
-Nakoľko je hladinomer exteriérovým projektom, mnoho používateľov by si obľúbilo aj možnosť využitia WiFi platformy bez nutnosti ťahania Ethernet konektivity až k studni. Keďže je platforma Arduino náchylnejšia na "zaseknutie" programu, bol do zdrojových kódov doplnený watchdog, ktorý je schopný platformu reštartovať.
+Nakoľko je hladinomer exteriérovým projektom, mnoho používateľov by si obľúbilo aj možnosť využitia WiFi platformy bez nutnosti ťahania Ethernet konektivity až k studni. 
+WiFi platformy od Espressifu - ESP8266 a ESP32, ktoré sú v projekte použité umožňujú prevádzku v rôznych režimoch - StandBy, Deep Sleep (hlboký spánok s vypnutou WiFi anténou), StandBy + OTA - umožňuje vzdialene prostredníctvom LAN siete nahrať do dosky nový firmvér priamo z prostredia Arduino IDE. 
+Keďže je platforma Arduino náchylnejšia na "zaseknutie" programu, bol do zdrojových kódov doplnený watchdog, ktorý je schopný platformu reštartovať a obnoviť tak jej prevádzku.
+Programová implementácia bola doplnená aj o možnosť rozšírenia firmvéru o záznam dát zo zrážkomera Hydreon RG-11, ktorý dokáže emulovať metódu preklápacieho vedra. Umožuje tak mikrokontroléru v prerušení načítavať počet pulzov prichádzajúcich zo zrážkomera, kedy jeden pulz predstavuje hodnotu zrážok na úrovni 0.01mm.
+Dáta zo zrážkomera tak tvoria súčet zrážok za obdobie po odoslanie dát. Webové rozhranie je taktiež rozšírené pre túto možnosť aj s grafickou a textovou vizualizáciou vývoja zrážok. Textový výstup umožňuje súčet zrážok za hodiny, dni až rok.
 </p>
 				<hr>
 <center> 
-     <h4>Detekčná charakteristika senzora HC-SR04</h4>
+     <h3>Detekčná charakteristika senzora HC-SR04</h3>
      <hr>
     <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
     <hr>
-     <h4>Detekčná charakteristika senzora JSN-SR04T - vodotesný</h4>
+     <h3>Detekčná charakteristika senzora JSN-SR04T - vodotesný</h3>
      <hr>
     <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
  </center>				
