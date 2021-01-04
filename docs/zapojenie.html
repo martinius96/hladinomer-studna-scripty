@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="sk-SK">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Hladinomer - Arduino / ESP8266 / ESP32</title>
+	<meta name="description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T.">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/">
+	<meta property="og:title" content="Hladinomer - Arduino / ESP8266 / ESP32">
+	<meta property="og:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/">
+	<meta property="twitter:title" content="Hladinomer - Arduino / ESP8266 / ESP32">
+	<meta property="twitter:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+  <style>
+.flat-table {
+		margin-bottom: 20px;
+		border-collapse:collapse;
+		font-family: 'Lato', Calibri, Arial, sans-serif;
+  border: none;
+                border-radius: 50px;
+               -webkit-border-radius: 50px;
+               -moz-border-radius: 50px;
+	}
+	.flat-table th, .flat-table td {
+		box-shadow: inset 0 -1px rgba(0,0,0,0.25), 
+			inset 0 1px rgba(0,0,0,0.25);
+	}
+	.flat-table th {
+		font-weight: normal;
+		-webkit-font-smoothing: antialiased;
+		padding: 1em;
+		color: #fff;
+    font-weight: bold;
+		text-shadow: 0 0 1px rgba(0,0,0,0.1);
+		font-size: 1.5em;
+	}
+	.flat-table td {
+		color: #f7f7f7;
+		padding: 0.7em 1em 0.7em 1.15em;
+		text-shadow: 0 0 1px rgba(255,255,255,0.1);
+		font-size: 1.4em;
+	}
+	.flat-table tr {
+		-webkit-transition: background 0.3s, box-shadow 0.3s;
+		-moz-transition: background 0.3s, box-shadow 0.3s;
+		transition: background 0.3s, box-shadow 0.3s;
+	}
+	.flat-table-1 {
+		background: #2874A6;
+	}
+	.flat-table-1 tr:hover {
+		background: rgba(0,0,0,0.19);
+	}
+	.flat-table-2 tr:hover {
+		background: rgba(0,0,0,0.1);
+	}
+	.flat-table-2 {
+		background: #C0392B;
+	}
+	.flat-table-3 {
+		background: #229954;
+	}
+	.flat-table-3 tr:hover {
+		background: rgba(0,0,0,0.1);
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Hladinomer</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Prehľad</a></li>
+	<li class="active"><a href="zapojenie.html">Zapojenie</a></li>      
+      	<li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Hladinomer - Arduino / ESP8266 / ESP32</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+ <center><h2>Schéma zapojenia pre hladinomer (Arduino, ESP8266, ESP32)</h2></center>
+  <div class="alert alert-success">
+  <strong>Schéma zapojenia pre podporované mikrokontroléry a ultrazvukové senzory vzdialenosti HC-SR04 / JSN-SR04T (vodotesný)</strong>
+  <hr>
+  <strong>Revízia 1 - 30. Júla 2020</strong>
+  <li>Pridané režimy ULP - Ultra low power - deep sleep pre platformy ESP8266 (External interrupt WAKE vývodom), ESP32 (Timer).</li>
+  <li>Schéma rozšírená o napäťový delič pre dané platformy a ich prepojením s 5V senzorom.</li>
+  <li>Pridaná možnosť využitia OTA aktualizácie v StandBy režime pre platformy ESP8266 a ESP32 v LAN sieti prostredníctvom Python uploadera.</li>
+</div><center><img src="https://i.imgur.com/O7QYERr.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
+  <div class="alert alert-danger">
+ <strong>V prípade používania Ethernet modulu Wiznet W5200 až W5500 s hlavičkovým súborom Ethernet2.h je nutné prepojiť vývod D2 Arduina s vývodom INT (INIT) na Ethernet module!</strong></div> 
+<table class="table table-striped flat-table flat-table-1" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>Arduino + Ethernet (W5100 / W5500)</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>Echo</td>
+</tr>
+</table>
+<hr>
+  <div class="alert alert-danger">
+     <strong>Pri napájaní NodeMCU cez USB, pripojiť ultrazvukový senzor vzdialenosti na VUSB (VU) vývod, pri napájaní cez base kit prostredníctvom adaptéru pripojiť senzor na VIN (5V)</strong></div> 
+<table class="table table-striped flat-table flat-table-2" style="color: black; max-width: 100%;">
+<thead>
+<tr>                  
+<th style="width: 50%;"><strong>ESP8266</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D1 (GPIO 5)</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D2 (GPIO 4)</td>
+<td>Echo</td>
+</tr>
+</table>
+<hr>
+<table class="table table-striped flat-table flat-table-3" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>ESP32</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>Echo</td>
+</tr>
+</table>
+
+ </div>
+		</div>
+</div>
+</body>
+</html>
