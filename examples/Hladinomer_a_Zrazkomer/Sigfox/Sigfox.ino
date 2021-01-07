@@ -71,7 +71,7 @@ void loop() {
   if (Serial.available()) {
     Sigfox.write(Serial.read());
   }
-  if ((millis() - timer) >= 900000 || timer == 0) { //rutina raz za 15 minut (limit 140 sprav za den)
+  if ((millis() - timer) >= 660000 || timer == 0) { //rutina raz za 11 minut (limit 140 sprav za den), odosle sa 130 správ za deň
     timer = millis();
     // we only display the tip count when it has been incremented by the sensor
     cli();         //Disable interrupts
