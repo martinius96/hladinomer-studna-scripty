@@ -4,20 +4,20 @@
 <head>
 	<!-- Primary Meta Tags -->
 	<title>Hladinomer - Arduino / ESP8266 / ESP32</title>
-	<meta name="description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T.">
+	<meta name="description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi, Sigfox.">
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/">
 	<meta property="og:title" content="Hladinomer - Arduino / ESP8266 / ESP32">
-	<meta property="og:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T.">
+	<meta property="og:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi, Sigfox.">
 	<meta property="og:image" content="">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/">
 	<meta property="twitter:title" content="Hladinomer - Arduino / ESP8266 / ESP32">
-	<meta property="twitter:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T.">
+	<meta property="twitter:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi, Sigfox.">
 	<meta property="twitter:image" content="">
 	
 	<link rel="icon" type="image/png" href="favicon.png">
@@ -78,13 +78,19 @@
 </center>	
      <hr>				
 <div class="row">
-<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"></center></div>
-<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"></center></div>
-<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"></center></div>
-<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"></center></div>
-<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"></center></div>
-<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"></center></div>
 </div>	
+<center> 
+	<h3>Moduly prenosových technológii Ethernet a Sigfox pre projekt Hladinom (Zrážkomer)</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"></center></div>
+</div>
 <hr>
 <center> 
 	<h3>Podporované a testované ultravukové senzory pre záznam výšky hladiny vody</h3>
