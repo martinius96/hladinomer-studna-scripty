@@ -95,7 +95,6 @@ void loop() {
       Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
       Serial.print(vzdialenost);
       Serial.println(" cm.");
-      String data = "hodnota=" + String(vzdialenost) + "&dazd=" + String(totalRainfall);
       char sprava[8]; //8B sprava, max mozna 12B
       float cislo1 = totalRainfall;
       unsigned int cislo2 = vzdialenost;
