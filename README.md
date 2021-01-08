@@ -6,11 +6,12 @@
 * Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
 ** Testovacie webové rozhrania podporujú iba HTTP protokol!**
 * Viac informácii o projekte: http://arduino.clanweb.eu/studna-voda.php
-* Je možné využiť Ethernet, WiFi technológiu pre prenos údajov do webového rozhrania
-* **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
+* Je možné využiť Ethernet, WiFi technológiu, sieť Sigfox (IoT) pre prenos údajov do webového rozhrania
+* **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04 / JSN-SR04T, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
 * Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
 * **Ultrazvukový senzor vyšle signál Trigger a meria čas, pokým sa signál vráti do prijímača - Echo. Na základe času sa určuje vzdialenosť**
-* Vzdialenosť nereprezentuje skutočnú výšku hladiny vody, iba vzdialenosť medzi senzorom a hladninou, webaplikácia využíva prepočet na skutočnú výšku hladiny vody!
+* Vzdialenosť nereprezentuje skutočnú výšku hladiny vody, iba vzdialenosť medzi senzorom a hladninou, webaplikácia využíva prepočet na skutočnú výšku hladiny vody na základe známej maximálnej hĺbky studne.
+* Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského jazyka
 
 # Ako získať webové rozhranie?
 **Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
@@ -18,8 +19,8 @@
 # Spustenie systému
 * Obsah priečinka src rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
-* Testovacie webové rozhranie je Hladinomer: **http://arduino.clanweb.eu/studna_s_prekladom/**
-* Testovacie webové rozhranie je Hladinomer + Zrážkomer RG-11: **http://arduino.clanweb.eu/studna/**
+* Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
+* Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
 
 **Programové implementácie pre protokoly:**
 Mikrokontróler | HTTP | HTTPS
@@ -54,15 +55,12 @@ ESP32 | ✓ | ✓ | ✓ | ✓
 ![Hladinomer - HC-SR04 - Detekčná charakteristika](https://i.imgur.com/iNdrwh1.png)
 ![Hladinomer - JSN-SR04T - Detekčná charakteristika](https://i.imgur.com/LKIuhJd.png)
 
-# Rozšírená verzia - Zrážkomer
-* Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom
+# Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka:
+* Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom 15ms
 * Vizualizácia vo web rozhraní
-* Web OTA Updater
 * Vizualizácia rozšírená o 30 dní, 365 dní
 * Grafický vývoj zrážok
 * Merateľný úhrn (súčet) zrážok za 2 hodin, 24 hodín, 7 dní, 30 dní, 365 dní
-* Krajšie GUI webaplikácie
-* Preklad do Slovenského, Anglického, Nemeckého a Ruskéhoj jazyka
 
 # Ukážka rozšírenej webaplikácie - Hladinomer + Zrážkomer
 ![Hladinomer + Zrážkomer - Prehľad hĺbky studne a zrážok v reálnom čase](https://i.imgur.com/AQI6Zz2.png)
