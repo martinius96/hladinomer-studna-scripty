@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="sk-SK">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Hladinomer + Zrážkomer - Arduino / ESP8266 / ESP32 - výška hladiny vody v studni, úhrn zrážok</title>
+	<meta name="description" content="Hladinomer a zrážkomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Meranie zrážok IR senzorom Hydreon RG-11. Odosielanie dát cez Ethernet, WiFi, Sigfox. Meranie výšky hladiny vody v studni, žumpe.">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/zrazkomer.html">
+	<meta property="og:title" content="Hladinomer + Zrážkomer - Arduino / ESP8266 / ESP32 - výška hladiny vody v studni, úhrn zrážok">
+	<meta property="og:description" content="Hladinomer a zrážkomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Meranie zrážok IR senzorom Hydreon RG-11. Odosielanie dát cez Ethernet, WiFi, Sigfox. Meranie výšky hladiny vody v studni, žumpe.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/zrazkomer.html">
+	<meta property="twitter:title" content="Hladinomer + Zrážkomer - Arduino / ESP8266 / ESP32 - výška hladiny vody v studni, úhrn zrážok">
+	<meta property="twitter:description" content="Hladinomer a zrážkomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Meranie zrážok IR senzorom Hydreon RG-11. Odosielanie dát cez Ethernet, WiFi, Sigfox. Meranie výšky hladiny vody v studni, žumpe.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Hladinomer</a></li>
+	<li class="active"><a href="zrazkomer.html">Zrážkomer</a></li>
+	<li><a href="zapojenie.html">Zapojenie</a></li>      
+      	<li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Zdrojové kódy pre Arduino, ESP8266, ESP32, knižnica NewPing: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github repozitár projektu</a>
+				</div>	
+				<div class="alert alert-info">
+					<strong><font color="red">Vyskúšajte projekt Hladinomer + Zrážkomer zdarma s vašim hardvérom: </strong><a href="http://arduino.clanweb.eu/studna/">TU</font></a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+<span class="label label-info">Sigfox</span>				
+<hr>
+<center> 
+	<h3>Riadiace mikrokontroléry pre projekt Hladinomer + Zrážkomer</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"><br><b>Arduino Uno / Nano</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b>NodeMCU v3 Lolin</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b>Wemos D1 Mini</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit V1</b></center></div>
+</div>	
+<center> 
+	<h3>Moduly prenosových technológii Ethernet a Sigfox pre projekt Hladinomer + Zrážkomer</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b>Ethernet shield Wiznet W5100</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b>Ethernet modul Wiznet W5500</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b>Sigfox Node Modem</b></center></div>
+</div>
+<hr>
+<center> 
+	<h3>Podporované a testované ultravukové senzory pre záznam výšky hladiny vody</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b>HC-SR04</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b>JSN-SR04T</b></center></div>		
+<div class="col-sm-4"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>	
+							</div>					
+<hr><center><h2>Hladinomer - Arduino / ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+Projekt Hladinomer využíva webové rozhranie pre vizualizáciu nameraných údajov o výške hladiny vody v studni, nádrži. 
+Responzívne webové rozhranie v Bootstrap Bare šablóne sa prispôsobí akejkoľvek obrazovke, na ktorú sú dáta vizualizované. 
+Dáta sú čitateľné na hodinkách, smartfónoch, počítačoch, Smart TV a iných zariadeniach.
+Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý spracuje prichádzajúce dáta dáta podporovanou POST metódou požiadavky, vykonáva prepočet nameranej teploty na skutočnú výšku hladiny, vypočíta aj objem studne na základe známych údajov o hĺbke a priemere studne, ktoré do systému zadal používateľ.
+Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút.
+Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T, prípadne UART senzorom URM07 (SKU SEN0153) - dostupný iba v špeciálnej verzii projektu Hladinomer. 
+Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10μs (mikrosekúnd) a na základe času, kedy sa signál vráti do prijímača - Echo je možné dopočítať vzdialenosť medzi senzorom a hladinou.
+Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
+Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie (oxidácie). 
+Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60 až 75°, čo ho nedovoľuje použiť v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko jednotiek metrov (6 metrov pri 4,5 hĺbke studne). 
+</p>
+<hr>
+<p style="text-align: justify;">
+Webové rozhranie využíva trigonometriu pre odhad merateľnej maximálnej hĺbky studne pri známom priemere studne (ďalší parameter pre výpočet objemu studne). 
+Používateľovi vie tak webové rozhranie dopočítať, do akej maximálnej hĺbky studne je každý zo senzorov vhodný na základe jeho charakteristiky. 
+Projekt je tak jednoduchý na použitie aj pre laikov, ktorí nevedia, ktorý senzor je pre aplikáciu v ich studni vhodnejší.
+Dôležitú úlohu v systéme zohráva aj použitý mikrokontróler. Pre projekt sa využila platforma Arduino (Uno) spojená s Ethernet modulom / shieldom z rady Wiznet model W5100, respektíve W5500, ktorý zabezpečoval HTTP konektivitu a umožnil mikrokontroléru prenos dát do vzdialeného webového rozhrania na internete.
+Nakoľko je hladinomer exteriérovým projektom, mnoho používateľov by si obľúbilo aj možnosť využitia WiFi platformy bez nutnosti pritiahnutia Ethernet konektivity až k studni. 
+WiFi platformy od Espressif Systems - ESP8266 a ESP32, ktoré sú v projekte použité umožňujú prevádzku v rôznych režimoch - StandBy, Deep Sleep (hlboký spánok s vypnutou WiFi anténou), StandBy + OTA - umožňuje vzdialene prostredníctvom LAN siete nahrať do dosky nový firmvér priamo z prostredia Arduino IDE.
+Pre Deep Sleep prevádzkový režim existuje pri platformy ESP8266 upravená schéma zapojenia, ktorá využíva pre prebudenie mikrokontroléru WAKE signál.
+Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS protokole. Platforma ESP8266 využíva odtlačok (fingeprint) verejného kľúča webservera v SHA1 formáte, vyžaduje však častejší renew. 
+Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority, ktorá pre webserver vydala certifikát - ROOT CA certifikát v .pem formáte. 
+<hr>
+Keďže je platforma Arduino náchylnejšia na "zaseknutie" programu z dôvodu výrazne obmedzených pamäťových a výkonových prostriedkov (v porovnaní s ESP platformami), bol do zdrojových kódov doplnený watchdog, ktorý je schopný platformu reštartovať a obnoviť tak jej prevádzku.
+Programová implementácia bola doplnená aj o možnosť rozšírenia firmvéru o záznam dát zo zrážkomera Hydreon RG-11, ktorý dokáže emulovať metódu preklápacieho vedra. Umožuje tak mikrokontroléru v prerušení načítavať počet pulzov prichádzajúcich zo zrážkomera, kedy jeden pulz predstavuje hodnotu zrážok na úrovni 0.01mm.
+Dáta zo zrážkomera tak tvoria súčet zrážok za obdobie po odoslanie dát. Webové rozhranie je taktiež rozšírené pre túto možnosť aj s grafickou a textovou vizualizáciou vývoja zrážok. Textový výstup umožňuje súčet zrážok za hodiny, dni až rok.
+<b>Projekt zrážkomera je dostupný iba pre platformu Arduino!</b> Obe verzie projektov sú plne preložené do anglického, slovenského, ruského a nemeckého jazyka.
+</p>
+<hr>
+<p style="text-align: justify;">
+Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj IoT sieť Sigfox, ktorá pokrýva takmer 90% Slovenska, vysielacie BTS stanice má umiestnené na TowerCom vysielačoch.
+Táto technológia umožňuje prenášať malé objemy správ s veľkosťou do 12B. V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody. Pre projekt rozšírený o hladinomer sa odosiela hodnota 8B hodnota, ktorá je tvorená výškou hladiny vody a prírastkom zrážok.
+Nakoľko Sigfox dovoľuje preniesť denne maximálne 140 správ, je interval odosielania dát rozšírený na 11 minút. V oboch prípadoch tak správa neobsahuje plnú dĺžku, ktorú môže, t.j. 12B. 
+Payload správy je možné doplniť aj o rôzne systémové informácie, napríklad: GEO údaje (zemepisná dĺžka / šírka), RSSI (Sila prijatého signálu), číslo správy a iné.
+Komunikačný modul, ktorý bol využitý pre projekt je Sigfox WISOL 868MHz UART modem. Tento modem komunikuje cez AT príkazy prostredníctvom UART rozhrania, ktoré je softvérovo emulované na mikrokontroléry.
+Komunikácia preberia rýchlosťou 9600 baud/s. WISOL modem je vybavený integrovaným u.FL konektorom na PCB modulu pre pripojenie antény, ktorá výrazne zdostupní pokrytie aj v interiéri / zatienenom exteriéri.
+Pre úspešný prenos dát sa vyžaduje pokrytie dvomi, najlepšie tromi a viac BTS stanicami pre úspešný prenos údajov. BTS-ky prenesenú informáciu odošlú do Sigfox backendu, kde je nutné urobiť Callback, ktorý sa spustí po prijatí dát.
+Callback musí vykonať HTTP, respektíve HTTPS request na doménu, kde webaplikácia beží s POST metódou a vhodne enkódovaným payloadom, ktorý backend webaplikácie očakáva.
+</p>
+<div class="alert alert-info">
+<b>Hladiomer + Zrážkomer:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Do Custom payload config napíšeme:</b> cislo1::float:16 cislo2::uint:16</li>
+<li><b>Do URL pattern:</b> http://arduino.clanweb.eu/studna/data.php (alebo iná URL adresa vašho webservera, kde bude projekt bežať), možnosť využiť i HTTPS</li>
+<li><b>V HTTP metóde zvolíme:</b> POST</li>
+<li><b>Do Body (tela správy) doplníme:</b></li>
+<li>dazd={customData#cislo1}&hodnota={customData#cislo2}</li>
+<li><b>Do Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>			
+	<hr>
+<center>     
+ <h3>Vizualizácie webového rozhrania - Hladinomer + Zrážkomer</h3>
+     <hr>
+    <img src="https://i.imgur.com/d1aAchA.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje">
+    <img src="https://i.imgur.com/KGnvg5U.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer"> 
+    <img src="https://i.imgur.com/b1h0Itj.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok" title="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok"> 
+    <img src="https://i.imgur.com/J8mCbR7.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon" title="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon"> 
+     <h3>Detekčná charakteristika senzora HC-SR04 - 15°</h3>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
+    <hr>
+     <h3>Detekčná charakteristika senzora JSN-SR04T - vodotesný - 45°</h3>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
+ </center>	
+</center>			
+			
+ </div>
+		</div>
+</div>
+</body>
+</html>
