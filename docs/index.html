@@ -116,10 +116,14 @@ Používateľovi vie tak webové rozhranie dopočítať, do akej maximálnej hĺ
 Projekt je tak jednoduchý na použitie aj pre laikov, ktorí nevedia, ktorý senzor je pre aplikáciu v ich studni vhodnejší.
 Dôležitú úlohu v systéme zohráva aj použitý mikrokontróler. Pre projekt sa využila platforma Arduino (Uno) spojená s Ethernet modulom / shieldom z rady Wiznet model W5100, respektíve W5500, ktorý zabezpečoval HTTP konektivitu a umožnil mikrokontroléru prenos dát do vzdialeného webového rozhrania na internete.
 Nakoľko je hladinomer exteriérovým projektom, mnoho používateľov by si obľúbilo aj možnosť využitia WiFi platformy bez nutnosti pritiahnutia Ethernet konektivity až k studni. 
-WiFi platformy od Espressif Systems - ESP8266 a ESP32, ktoré sú v projekte použité umožňujú prevádzku v rôznych režimoch - StandBy, Deep Sleep (hlboký spánok s vypnutou WiFi anténou), StandBy + OTA - umožňuje vzdialene prostredníctvom LAN siete nahrať do dosky nový firmvér priamo z prostredia Arduino IDE.
-Pre Deep Sleep prevádzkový režim existuje pri platformy ESP8266 upravená schéma zapojenia, ktorá využíva pre prebudenie mikrokontroléru WAKE signál.
-Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS protokole. Platforma ESP8266 využíva odtlačok (fingeprint) verejného kľúča webservera v SHA1 formáte, vyžaduje však častejší renew. 
+WiFi platformy od Espressif Systems - ESP8266 a ESP32, ktoré sú v projekte použité umožňujú prevádzku v rôznych režimoch - StandBy, Deep Sleep (hlboký spánok s vypnutým WiFi modemom), StandBy + OTA - umožňuje vzdialene prostredníctvom LAN siete nahrať do dosky nový firmvér priamo z prostredia Arduino IDE.
+Na vyžiadanie možno vytvoriť aj Remote OTA aktualizáciu, ktorá je distribuovaná vzdialene cez internet z webservera, možno využiť Github repozitár, ktorý dokáže v RAW formáte .bin aktualizáciu distribuovať klientovi.
+Pre Deep Sleep prevádzkový režim existuje pri platformy ESP8266 upravená schéma zapojenia, ktorá využíva pre prebudenie mikrokontroléru WAKE signál, ktorý je privedený na RST.
+Zároveň toto zapojenie neumožňuje aktualizáciu programu bez odpojenia tejto prepojky.
+Pre ESP32 sa využíva Deep Sleep režim s využitím RTC timera, ktorý ESP prebudí po určitom čase.
+Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS protokole. Platforma ESP8266 využíva odtlačok (fingeprint) verejného kľúča webservera v SHA1 formáte, vyžaduje však častejší renew, nakoľko platí maximálne rok, respektíve 2 roky. 
 Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority, ktorá pre webserver vydala certifikát - ROOT CA certifikát v .pem formáte. 
+Z hľadiska prevádzky je táto možnosť lepšia, nakoľko certifikát certifikačnej autority platí aj 20 rokov a nie je nutný renew certifikátu.
 </p>
 <hr>
 <p style="text-align: justify;">
