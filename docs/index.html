@@ -128,7 +128,7 @@ Z hľadiska prevádzky je táto možnosť lepšia, nakoľko certifikát certifik
 <hr>
 <p style="text-align: justify;">
 Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj IoT sieť Sigfox, ktorá pokrýva takmer 90% Slovenska, vysielacie BTS stanice má umiestnené na TowerCom vysielačoch.
-Táto technológia umožňuje prenášať malé objemy správ s veľkosťou do 12B. V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody. Pre projekt rozšírený o hladinomer sa odosiela hodnota 8B hodnota, ktorá je tvorená výškou hladiny vody a prírastkom zrážok.
+Táto technológia umožňuje prenášať malé objemy správ s veľkosťou do 12B. V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody. Pre projekt rozšírený o zrážkomer sa odosiela hodnota 8B hodnota, ktorá je tvorená výškou hladiny vody a prírastkom zrážok.
 Nakoľko Sigfox dovoľuje preniesť denne maximálne 140 správ, je interval odosielania dát rozšírený na 11 minút. V oboch prípadoch tak správa neobsahuje plnú dĺžku, ktorú môže, t.j. 12B. 
 Payload správy je možné doplniť aj o rôzne systémové informácie, napríklad: GEO údaje (zemepisná dĺžka / šírka), RSSI (Sila prijatého signálu), číslo správy a iné.
 Komunikačný modul, ktorý bol využitý pre projekt je Sigfox WISOL 868MHz UART modem. Tento modem komunikuje cez AT príkazy prostredníctvom UART rozhrania, ktoré je softvérovo emulované na mikrokontroléry.
