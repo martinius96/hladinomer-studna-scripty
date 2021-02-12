@@ -123,10 +123,20 @@ Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS prot
 Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority, ktorá pre webserver vydala certifikát - ROOT CA certifikát v .pem formáte. 
 <hr>
 Keďže je platforma Arduino náchylnejšia na "zaseknutie" programu z dôvodu výrazne obmedzených pamäťových a výkonových prostriedkov (v porovnaní s ESP platformami), bol do zdrojových kódov doplnený watchdog, ktorý je schopný platformu reštartovať a obnoviť tak jej prevádzku.
-Programová implementácia bola doplnená aj o možnosť rozšírenia firmvéru o záznam dát zo zrážkomera Hydreon RG-11, ktorý dokáže emulovať metódu preklápacieho vedra. Umožuje tak mikrokontroléru v prerušení načítavať počet pulzov prichádzajúcich zo zrážkomera, kedy jeden pulz predstavuje hodnotu zrážok na úrovni 0.01mm.
+Programová implementácia bola doplnená aj o možnosť rozšírenia firmvéru o záznam dát z IR zrážkomera Hydreon RG-11, ktorý dokáže emulovať metódu preklápacieho vedra na základe prepnutých DIP prepínačov (podporuje aj iné módy, ktoré majú využitie v automobilovom priemysle, záhradníctve). 
+Umožuje tak mikrokontroléru v prerušení načítavať počet pulzov prichádzajúcich zo zrážkomera, kedy jeden pulz predstavuje hodnotu zrážok na úrovni 0.01 mm. 
+Pulz prichádza v podobe signálu LOW, ktorý je privedený prostredníctvom integrovaného relé, ktoré sa prepne do stavu NO (z NC). 
+K digitálnemu vstupu je pripojený pullup rezistor, ktorý drží úroveň HIGH, pokým dôjde k pulzu z preklápacieho vedra s prírastkom 0.01 mm.
+Nakoľko je na vstupe stále HIGH a do stavu LOW prechádza iba pri prípočte prírastku zrážok, prírastok sa deteguje metódou prerušenia FALLING, ktorá reaguje na zastupnú hranu.
+Medzi pulzami sa vykonáva debouncing s dĺžkou 15ms, ktorá zamedzuje pripočítaniu jedného pulzu viackrát z dôvodu zákmitu signálu. 
+Za sekundu je tak možné zaznamenať až 66 pulzov, čo zodpovedá prírastku zrážok 0.66 mm.
+Zrážkomer má ochranu proti UV žiareniu, nedegraduje v čase, jeho vypuklé sklo, na ktoré sa zachytávajú zrážky má samočistiaci efekt. 
+Prevádzka je tak plne bezúdržbová a spoľahlivá, nakoľko preklápacie vedro je emulované IR zrážkomerom a neobsahuje mechanickú časť ako klasické preklápacie vedro, kde hrozí aj jeho upchatie nečistotami.
+Pre zrážkomer sa využíva vývod Arduina / ESP s podporou prerušenia. Pulz sa pripočíta do volatile premennej, ktorá môže byť obslúžená v prerušení.
 Dáta zo zrážkomera tak tvoria súčet zrážok za obdobie po odoslanie dát. Webové rozhranie je taktiež rozšírené pre túto možnosť aj s grafickou a textovou vizualizáciou vývoja zrážok. Textový výstup umožňuje súčet zrážok za hodiny, dni až rok.
-<b>Projekt zrážkomera je dostupný iba pre platformu Arduino!</b> Obe verzie projektov sú plne preložené do anglického, slovenského, ruského a nemeckého jazyka.
+<b>Projekt zrážkomera je dostupný zatiaľ iba pre platformu Arduino, avšak s niekoľkými zmenami je možné prevádzkovať aj pod ESP32, ESP8266</b> Obe verzie projektov sú plne preložené do anglického, slovenského, ruského a nemeckého jazyka.
 </p>
+<center><img src="https://i.imgur.com/f4BfPRe.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje"></center>
 <hr>
 <p style="text-align: justify;">
 Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj IoT sieť Sigfox, ktorá pokrýva takmer 90% Slovenska, vysielacie BTS stanice má umiestnené na TowerCom vysielačoch.
@@ -139,7 +149,7 @@ Pre úspešný prenos dát sa vyžaduje pokrytie dvomi, najlepšie tromi a viac 
 Callback musí vykonať HTTP, respektíve HTTPS request na doménu, kde webaplikácia beží s POST metódou a vhodne enkódovaným payloadom, ktorý backend webaplikácie očakáva.
 </p>
 <div class="alert alert-info">
-<b>Hladiomer + Zrážkomer:</b>
+<b>Hladiomer + Zrážkomer - nastavenia Callbacku v Sigfox Backende:</b>
 <li>Callbacks --> Custom --> New</li>
 <li><b>Do Custom payload config napíšeme:</b> cislo1::float:16 cislo2::uint:16</li>
 <li><b>Do URL pattern:</b> http://arduino.clanweb.eu/studna/data.php (alebo iná URL adresa vašho webservera, kde bude projekt bežať), možnosť využiť i HTTPS</li>
