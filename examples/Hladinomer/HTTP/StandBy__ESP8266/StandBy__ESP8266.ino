@@ -1,11 +1,11 @@
-/*|-------------------------------------------------|*/
-/*|Projekt: Hladinomer - ESP8266 - HTTP             |*/
-/*|Autor: Martin Chlebovec                          |*/
-/*|E-mail: martinius96@gmail.com                    |*/
-/*|Web: https://arduino.php5.sk                     |*/
-/*|Licencia pouzitia: MIT                           |*/
-/*|Revízia: 26. Marec 2020                          |*/
-/*|-------------------------------------------------|*/
+/*|-----------------------------------------------  --|*/
+/*|Projekt: Hladinomer - ESP8266 - HTTP               |*/
+/*|Autor: Martin Chlebovec                            |*/
+/*|E-mail: martinius96@gmail.com                      |*/
+/*|Web: http://arduino.clanweb.eu/studna_s_prekladom/ |*/
+/*|Licencia pouzitia: MIT                             |*/
+/*|Revízia: 13. Februar 2021                          |*/
+/*|---------------------------------------------------|*/
 
 #include <ESP8266WiFi.h>
 #include <NewPingESP8266.h>
@@ -18,18 +18,19 @@ NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 const char * ssid = "wifi_meno"; //meno wifi siete
 const char * password = "wifi_heslo"; //heslo na wifi siet
 const char * host = "arduino.clanweb.eu"; //bez https a bez www
-
 WiFiClient client;
+unsigned long timer2 = 0;
 void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    Serial.print(".");
+    Serial.print(F("."));
   }
-  Serial.println("");
-  Serial.println("Wifi pripojene s IP:");
+  Serial.println(F(""));
+  Serial.println(F("Wifi pripojene s IP:"));
   Serial.println(WiFi.localIP());
+  ESP.wdtEnable(30000);
 }
 
 void loop() {
@@ -38,43 +39,47 @@ void loop() {
   }
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    Serial.print(F("."));
   }
-  int vzdialenost = sonar.ping_cm();
-  delay(50);
-  if (vzdialenost > 0) {
-    vzdialenost = 0;
-    for (int i = 0; i < 5; i++) {
-      vzdialenost += sonar.ping_cm();
-      delay(50);
+  ESP.wdtFeed();
+  yield();
+  if ((millis() - timer2) >= 300000 || timer2 == 0) {
+    timer2 = millis();
+    int vzdialenost = sonar.ping_cm();
+    delay(50);
+    if (vzdialenost > 0) {
+      vzdialenost = 0;
+      for (int i = 0; i < 5; i++) {
+        vzdialenost += sonar.ping_cm();
+        delay(50);
+      }
+      vzdialenost = vzdialenost / 5;
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+      Serial.print(vzdialenost);
+      Serial.println(F(" cm."));
+      client.stop();
+      String data = "hodnota=" + String(vzdialenost);
+      String url = F("/studna_s_prekladom/data.php");
+      if (client.connect(host, 80)) {
+        client.println("POST " + url + " HTTP/1.0");
+        client.println("Host: " + (String)host);
+        client.println(F("User-Agent: ESP8266"));
+        client.println(F("Connection: close"));
+        client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+        client.print(F("Content-Length: "));
+        client.println(data.length());
+        client.println();
+        client.println(data);
+        Serial.println(F("Data uspesne odoslane na web"));
+      } else {
+        Serial.println(F("Pripojenie zlyhalo..."));
+      }
+      client.stop();
     }
-    vzdialenost = vzdialenost / 5;
-    Serial.print("Vzdialenost medzi senzorom a predmetom je: ");
-    Serial.print(vzdialenost);
-    Serial.println(" cm.");
-    String data = "hodnota=" + String(vzdialenost);
-    String url = "/studna_s_prekladom/data.php";
-    if (client.connect(host, 80)) {
-      client.println("POST " + url + " HTTP/1.0");
-      client.println("Host: " + (String)host);
-      client.println("User-Agent: ESP8266");
-      client.println("Connection: close");
-      client.println("Content-Type: application/x-www-form-urlencoded;");
-      client.print("Content-Length: ");
-      client.println(data.length());
-      client.println();
-      client.println(data);
-      Serial.println("Data uspesne odoslane na web");
-    } else {
-      Serial.println("Pripojenie zlyhalo...");
+    else {
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      delay(500);
+      client.stop();
     }
-    client.stop();
-    for (int i = 0; i <= 300; i++) {
-      delay(1000);
-    }
-  }
-  else {
-    Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
-    delay(500);
   }
 }
