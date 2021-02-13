@@ -1,11 +1,10 @@
 # Hladinomer - odosielacie scripty
-**Podporte projekt - pre uvoľnenie projektu**
+**Podporte projekt pre pridanie nových funkcionalít a spôsobov merania**
 * Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
 
-* Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer
+* Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer a Hladinomer + Zrážkomer
 * Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
-** Testovacie webové rozhrania podporujú iba HTTP protokol!**
-* Viac informácii o projekte: http://arduino.clanweb.eu/studna-voda.php
+** Testovacie webové rozhrania podporuje iba HTTP protokol, príklady pre HTTPS spojenei fungovať nebudú!**
 * Je možné využiť Ethernet, WiFi technológiu, sieť Sigfox (IoT) pre prenos údajov do webového rozhrania
 * **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04 / JSN-SR04T, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
 * Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
