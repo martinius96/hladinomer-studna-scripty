@@ -13,6 +13,7 @@
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <NewPingESP8266.h>
+#include "esp_system.h"
 #define pinTrigger    22
 #define pinEcho       23
 #define maxVzdialenost 450
