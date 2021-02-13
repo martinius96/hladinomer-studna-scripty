@@ -1,4 +1,4 @@
-/*|-----------------------------------------------  --|*/
+/*|---------------------------------------------------|*/
 /*|Projekt: Hladinomer - ESP32 - HTTPS - OTA          |*/
 /*|Autor: Martin Chlebovec                            |*/
 /*|E-mail: martinius96@gmail.com                      |*/
