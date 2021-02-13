@@ -36,7 +36,7 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("Wifi pripojene s IP:");
+  Serial.println(F("Wifi pripojene s IP:"));
   Serial.println(WiFi.localIP());
   timer = timerBegin(0, 80, true);                  //timer 0, div 80
   timerAttachInterrupt(timer, &resetModule, true);  //attach callback
@@ -66,30 +66,30 @@ void loop() {
         delay(50);
       }
       vzdialenost = vzdialenost / 5;
-      Serial.print("Vzdialenost medzi senzorom a predmetom je: ");
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
       Serial.print(vzdialenost);
       Serial.println(" cm.");
       client.stop();
       String data = "hodnota=" + String(vzdialenost);
-      String url = "/studna_s_prekladom/data.php";
+      String url = F("/studna_s_prekladom/data.php");
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
-        client.println("User-Agent: ESP32");
-        client.println("Connection: close");
-        client.println("Content-Type: application/x-www-form-urlencoded;");
-        client.print("Content-Length: ");
+        client.println(F("User-Agent: ESP32"));
+        client.println(F("Connection: close"));
+        client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+        client.print(F("Content-Length: "));
         client.println(data.length());
         client.println();
         client.println(data);
-        Serial.println("Data uspesne odoslane na web");
+        Serial.println(F("Data uspesne odoslane na web"));
       } else {
-        Serial.println("Pripojenie zlyhalo...");
+        Serial.println(F("Pripojenie zlyhalo..."));
       }
       client.stop();
     }
     else {
-      Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
       delay(500);
       client.stop();
     }
