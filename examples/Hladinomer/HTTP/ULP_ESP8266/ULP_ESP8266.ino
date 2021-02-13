@@ -1,11 +1,11 @@
-/*|-------------------------------------------------------|*/
-/*|Projekt: Hladinomer - ESP8266 - HTTP - Ultra Low Power |*/
-/*|Autor: Martin Chlebovec                                |*/
-/*|E-mail: martinius96@gmail.com                          |*/
-/*|Web: https://arduino.php5.sk                           |*/
-/*|Licencia pouzitia: MIT                                 |*/
-/*|Revízia: 30. Jul 2020                                  |*/
-/*|-------------------------------------------------------|*/
+/*|---------------------------------------------------|*/
+/*|Projekt: Hladinomer - ESP8266 - HTTP - ULP - DEEP  |*/
+/*|Autor: Martin Chlebovec                            |*/
+/*|E-mail: martinius96@gmail.com                      |*/
+/*|Web: http://arduino.clanweb.eu/studna_s_prekladom/ |*/
+/*|Licencia pouzitia: MIT                             |*/
+/*|Revízia: 13. Februar 2021                          |*/
+/*|---------------------------------------------------|*/
 
 #include <ESP8266WiFi.h>
 #include <NewPingESP8266.h>
@@ -25,10 +25,10 @@ void setup() {
   WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    Serial.print(".");
+    Serial.print(F("."));
   }
-  Serial.println("");
-  Serial.println("Wifi pripojene s IP:");
+  Serial.println(F(""));
+  Serial.println(F("Wifi pripojene s IP:"));
   Serial.println(WiFi.localIP());
   int vzdialenost = sonar.ping_cm();
   delay(50);
@@ -39,31 +39,31 @@ void setup() {
       delay(50);
     }
     vzdialenost = vzdialenost / 5;
-    Serial.print("Vzdialenost medzi senzorom a predmetom je: ");
+    Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
     Serial.print(vzdialenost);
     Serial.println(" cm.");
     String data = "hodnota=" + String(vzdialenost);
-    String url = "/studna_s_prekladom/data.php";
+    String url = F("/studna_s_prekladom/data.php");
     if (client.connect(host, 80)) {
       client.println("POST " + url + " HTTP/1.0");
       client.println("Host: " + (String)host);
-      client.println("User-Agent: ESP8266");
-      client.println("Connection: close");
-      client.println("Content-Type: application/x-www-form-urlencoded;");
-      client.print("Content-Length: ");
+      client.println(F("User-Agent: ESP8266"));
+      client.println(F("Connection: close"));
+      client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+      client.print(F("Content-Length: "));
       client.println(data.length());
       client.println();
       client.println(data);
-      Serial.println("Data uspesne odoslane na web");
+      Serial.println(F("Data uspesne odoslane na web"));
     } else {
-      Serial.println("Pripojenie zlyhalo...");
+      Serial.println(F("Pripojenie zlyhalo..."));
     }
     client.stop();
   }
   else {
-    Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
+    Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
   }
-  Serial.println("I'm awake, but I'm going into deep sleep mode for 300 seconds");
+  Serial.println(F("Entering deep sleep mode for 300 seconds"));
   ESP.deepSleep(300e6);
 }
 
