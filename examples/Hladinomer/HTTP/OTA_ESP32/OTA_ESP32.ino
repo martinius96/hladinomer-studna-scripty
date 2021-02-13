@@ -92,6 +92,7 @@ void loop() {
     WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
   }
   while (WiFi.status() != WL_CONNECTED) {
+    timerWrite(timer, 0); //reset timer (feed watchdog)
     delay(500);
     Serial.print(".");
   }
