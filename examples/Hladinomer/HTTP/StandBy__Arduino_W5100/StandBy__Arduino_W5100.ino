@@ -1,10 +1,11 @@
-/*|---------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - Arduino + Ethernet W5100                       |*/
-/*|Autor: Martin Chlebovec                                              |*/
-/*|E-mail: martinius96@gmail.com                                        |*/
-/*|Licencia pouzitia: MIT                                               |*/
-/*|Revízia: 06. Október 2020                                            |*/
-/*|---------------------------------------------------------------------|*/
+/*|------------------------------------------------------|*/
+/*|Projekt: Hladinomer - Arduino + Ethernet W5100 - HTTP |*/
+/*|Autor: Martin Chlebovec                               |*/
+/*|E-mail: martinius96@gmail.com                         |*/
+/*|Web: http://arduino.clanweb.eu/studna_s_prekladom/    |*/
+/*|Licencia pouzitia: MIT                                |*/
+/*|Revízia: 13. Februar 2021                             |*/
+/*|------------------------------------------------------|*/
 
 //HLAVICKOVE SUBORY PRE ARDUINO A ETHERNET SHIELD + watchdog
 #include <avr\wdt.h>
@@ -19,7 +20,7 @@
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
 
 char* host = "arduino.clanweb.eu";
-byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
+byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDC, 0xEE, 0xDD };
 //IPAddress ip(192, 168, 0, 2);
 //IPAddress dnServer(192, 168, 0, 1);
 //IPAddress gateway(192, 168, 0, 1);
@@ -32,32 +33,30 @@ unsigned long timer = 0;
 void setup() {
   Serial.begin(115200);
   if (Ethernet.begin(mac) == 0) {
-    Serial.println(F("Failed to configure Ethernet using DHCP"));
-    Ethernet.begin(mac);
+    Serial.println(F("Konfigurujem Ethernet adapter"));
+    Ethernet.begin(mac); // pre DHCP
     //Ethernet.begin(mac, ip);
     //Ethernet.begin(mac, ip, dns);
     //Ethernet.begin(mac, ip, dns, gateway);
     //Ethernet.begin(mac, ip, dns, gateway, subnet);
   }
-  Serial.print("  DHCP assigned IP ");
+  Serial.print(F("Priradena IP: "));
   Serial.println(Ethernet.localIP());
   wdt_enable(WDTO_8S);
 }
 
 void loop() {
   wdt_reset();
-
+  if (Ethernet.begin(mac) == 0) {
+    Ethernet.begin(mac);
+    //Ethernet.begin(mac, ip);
+    //Ethernet.begin(mac, ip, dns);
+    //Ethernet.begin(mac, ip, dns, gateway);
+    //Ethernet.begin(mac, ip, dns, gateway, subnet);
+  }
   if ((millis() - timer) >= 300000 || timer == 0) { //rutina raz za 5 minut
     timer = millis();
-    if (Ethernet.begin(mac) == 0) {
-      Serial.println(F("Failed to configure Ethernet using DHCP"));
-      Ethernet.begin(mac);
-      //Ethernet.begin(mac, ip);
-      //Ethernet.begin(mac, ip, dns);
-      //Ethernet.begin(mac, ip, dns, gateway);
-      //Ethernet.begin(mac, ip, dns, gateway, subnet);
-      wdt_reset();
-    }
+    Ethernet.maintain(); //pre DHCP, pri statickej IP zakomentovat!
     int vzdialenost = sonar.ping_cm();
     delay(50);
     if (vzdialenost > 0) {
@@ -72,7 +71,7 @@ void loop() {
       Serial.print(vzdialenost);
       Serial.println(" cm.");
       String data = "hodnota=" + String(vzdialenost);
-      String url = "/studna_s_prekladom/data.php";
+      String url = F("/studna_s_prekladom/data.php");
       client.stop(); //ukoncenie vsetkych existujucich spojeni
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
