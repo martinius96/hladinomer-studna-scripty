@@ -1,12 +1,13 @@
-/*|-----------------------------------------------------|*/
-/*|Projekt: Hladinomer - ESP32 - HTTP - Ultra Low Power |*/
-/*|Autor: Martin Chlebovec                              |*/
-/*|E-mail: martinius96@gmail.com                        |*/
-/*|Web: https://arduino.php5.sk                         |*/
-/*|Licencia pouzitia: MIT                               |*/
-/*|Revízia: 30. Jul 2020                                |*/
-/*|-----------------------------------------------------|*/
+/*|-----------------------------------------------  --|*/
+/*|Projekt: Hladinomer - ESP32 - HTTP - ULP - DEEP    |*/
+/*|Autor: Martin Chlebovec                            |*/
+/*|E-mail: martinius96@gmail.com                      |*/
+/*|Web: http://arduino.clanweb.eu/studna_s_prekladom/ |*/
+/*|Licencia pouzitia: MIT                             |*/
+/*|Revízia: 13. Februar 2021                          |*/
+/*|---------------------------------------------------|*/
 
+//SCHEMA ZAPOJENIA: https://martinius96.github.io/hladinomer-studna-scripty/zapojenie.html
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  300        /* Time ESP32 will go to sleep (in seconds) */
 #include <WiFi.h>
@@ -29,7 +30,7 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("Wifi pripojene s IP:");
+  Serial.println(F("Wifi pripojene s IP:"));
   Serial.println(WiFi.localIP());
   int vzdialenost = sonar.ping_cm();
   delay(50);
@@ -40,29 +41,30 @@ void setup() {
       delay(50);
     }
     vzdialenost = vzdialenost / 5;
-    Serial.print("Vzdialenost medzi senzorom a predmetom je: ");
+    Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
     Serial.print(vzdialenost);
     Serial.println(" cm.");
     String data = "hodnota=" + String(vzdialenost);
-    String url = "/studna_s_prekladom/data.php";
+    String url = F("/studna_s_prekladom/data.php");
+    client.stop();
     if (client.connect(host, 80)) {
       client.println("POST " + url + " HTTP/1.0");
       client.println("Host: " + (String)host);
-      client.println("User-Agent: ESP32");
-      client.println("Connection: close");
-      client.println("Content-Type: application/x-www-form-urlencoded;");
-      client.print("Content-Length: ");
+      client.println(F("User-Agent: ESP32"));
+      client.println(F("Connection: close"));
+      client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+      client.print(F("Content-Length: "));
       client.println(data.length());
       client.println();
       client.println(data);
-      Serial.println("Data uspesne odoslane na web");
+      Serial.println(F("Data uspesne odoslane na web"));
     } else {
-      Serial.println("Pripojenie zlyhalo...");
+      Serial.println(F("Pripojenie zlyhalo..."));
     }
     client.stop();
   }
   else {
-    Serial.println("Vzdialenost medzi predmetom a senzorom je mimo rozsah.");
+    Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
   }
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) +
