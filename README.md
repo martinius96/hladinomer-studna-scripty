@@ -1,22 +1,21 @@
 # Hladinomer - odosielacie scripty
-**Podporte projekt pre pridanie nových funkcionalít a spôsobov merania**
+**Podporte projekt pre pridanie nových funkcionalít a podpory iných senzorov**
 * Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
 
-* Tento repozitár obsahuje voľne dostupné zdrojové kódy pre mikrokontroléry k projektu Hladinomer a Hladinomer + Zrážkomer
-* Mikrokontroléry v klientskom režime komunikujú so vzdialeným serverom, ktorému odosielajú dáta
-** Testovacie webové rozhrania podporuje iba HTTP protokol, príklady pre HTTPS spojenei fungovať nebudú!**
-* Je možné využiť Ethernet, WiFi technológiu, sieť Sigfox (IoT) pre prenos údajov do webového rozhrania
-* **Hladinomer funguje na princípe ultrazvukového senzora HC-SR04 / JSN-SR04T, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý vie zaznamenať vzdialenosť od veka nádrže, studne**
-* Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
-* **Ultrazvukový senzor vyšle signál Trigger a meria čas, pokým sa signál vráti do prijímača - Echo. Na základe času sa určuje vzdialenosť**
-* Vzdialenosť nereprezentuje skutočnú výšku hladiny vody, iba vzdialenosť medzi senzorom a hladninou, webaplikácia využíva prepočet na skutočnú výšku hladiny vody na základe známej maximálnej hĺbky studne.
-* Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského jazyka
+Tento repozitár obsahuje programovú implementáciu - zdrojové kódy pre mikrokontroléry Arduino, ESP8266, ESP32, ktoré sú využité v projekte Hladinomer / Hladinomer + Zrážkomer. Mikrokontroléry realizujú HTTP / HTTPS POST request na webserver v LAN sieti, alebo na vzdialený server na internete, pričom do tela správy obsiahnú namerané údaje.
+**Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!**
+Pre prenos údajov je možné využiť tieto technológie: Ethernet, GSM/GPRS, WiFi (2.4GHz), sieť Sigfox (IoT) pre prenos údajov do webového rozhrania
+**Projekt Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý je schopný zaznamenať vzdialenosť od veka nádrže, studne**
+Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
+**Ultrazvukový senzor vyšle signál Trigger a meria čas, pokým sa signál vráti do prijímača - Echo. Na základe rýchlosti šírenia zvuku sa vypočíta vzdialenosť**
+Vzdialenosť nereprezentuje skutočnú výšku hladiny vody, iba vzdialenosť medzi senzorom a hladinou, webaplikácia využíva prepočet na skutočnú výšku hladiny vody na základe známej maximálnej hĺbky studne vo webaplikácii (prepočet realizuje webserver, mikrokontróler oznamuje vzdialenosť po hladinu).
+Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského jazyka.
 
 # Ako získať webové rozhranie?
 **Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
 
 # Spustenie systému
-* Obsah priečinka src rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries
+* **Obsah priečinka /src/ rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries**
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
