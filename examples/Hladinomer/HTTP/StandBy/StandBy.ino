@@ -12,15 +12,25 @@
 /*|-----------------------------------------------------------------------------------|*/
 
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
+String url = F("/studna_s_prekladom/data.php"); //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+//Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
 
 //Kompatibilne mikrokontrolery z rady Arduino: Uno, Nano, Mega (R3)
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 //HLAVICKOVE SUBORY PRE ARDUINO A ETHERNET SHIELD + watchdog
 #include <avr\wdt.h>
 #include <SPI.h>
+
+
+
+//VOLBA ETHERNET MODULU / SHIELDU K ARDUINU Z RADY WIZNET / ENC (Microchip)
+///////////////////////////////////////////////////////////////////////////////////////
 #include <Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva
 //#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva
 //#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva
+///////////////////////////////////////////////////////////////////////////////////////
+
+
 
 //PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
 #include <NewPing.h>
@@ -29,7 +39,7 @@ const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú
 #define maxVzdialenost 450
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
 
-byte mac[] = { 0xAA, 0xBB, 0xCC, 0xDC, 0xEE, 0xDD };
+byte mac[] = { 0xAA, 0xBB, 0xCA, 0xDC, 0xEE, 0xDD };
 //IPAddress ip(192, 168, 0, 2);
 //IPAddress dnServer(192, 168, 0, 1);
 //IPAddress gateway(192, 168, 0, 1);
@@ -49,8 +59,8 @@ NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 #include <WiFi.h>
 #include <NewPingESP8266.h>
 #include "esp_system.h"
-#define pinTrigger    22
-#define pinEcho       23
+#define pinTrigger    22 //D22
+#define pinEcho       23 //D23
 #define maxVzdialenost 450
 NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 const int wdtTimeout = 30000;  //time in ms to trigger the watchdog
@@ -63,8 +73,8 @@ void IRAM_ATTR resetModule() {
 #endif
 
 #if defined(ESP32) || defined(ESP8266)
-const char * ssid = "wifi_meno"; //meno wifi siete
-const char * password = "wifi_heslo"; //heslo na wifi siet
+const char * ssid = "WIFI_MENO"; //meno wifi siete
+const char * password = "WIFI_HESLO"; //heslo na wifi siet
 WiFiClient client;
 unsigned long timer2 = 0;
 #endif
@@ -116,7 +126,7 @@ void loop() {
 
   if ((millis() - timer) >= 300000 || timer == 0) { //rutina raz za 5 minut
     timer = millis();
-    Ethernet.maintain(); //pre DHCP renew, pri statickej IP vhodne zakomentovat
+    Ethernet.maintain(); //pre DHCP, pri statickej IP zakomentovat!
     int vzdialenost = sonar.ping_cm();
     delay(50);
     if (vzdialenost > 0) {
@@ -132,7 +142,6 @@ void loop() {
       Serial.println(F(" cm."));
       client.stop(); //ukoncenie vsetkych existujucich spojeni
       String data = "hodnota=" + String(vzdialenost);
-      String url = F("/studna_s_prekladom/data.php");
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
@@ -183,7 +192,6 @@ void loop() {
       Serial.println(F(" cm."));
       client.stop();
       String data = "hodnota=" + String(vzdialenost);
-      String url = F("/studna_s_prekladom/data.php");
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
@@ -232,7 +240,6 @@ void loop() {
       Serial.println(F(" cm."));
       client.stop();
       String data = "hodnota=" + String(vzdialenost);
-      String url = F("/studna_s_prekladom/data.php");
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
