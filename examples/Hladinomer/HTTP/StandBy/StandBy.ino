@@ -19,8 +19,8 @@ const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú
 #include <avr\wdt.h>
 #include <SPI.h>
 #include <Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva
-#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva
-#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva
+//#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva
+//#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva
 
 //PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
 #include <NewPing.h>
@@ -154,7 +154,7 @@ void loop() {
       timer = 0; //vynulujeme timer, znovu nameriame a vykoname request
     }
   }
-
+#endif
 #if defined(ESP32) || defined(ESP8266)
   if (WiFi.status() != WL_CONNECTED) {
     WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
