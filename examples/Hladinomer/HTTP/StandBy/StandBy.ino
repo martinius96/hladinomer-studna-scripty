@@ -15,7 +15,7 @@
 /*|-----------------------------------------------------------------------------------|*/
 
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = F("/studna_s_prekladom/data.php"); //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
 //Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
 
 //Kompatibilne mikrokontrolery z rady Arduino: Uno, Nano, Mega (R3)
