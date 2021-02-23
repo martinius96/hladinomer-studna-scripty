@@ -1,2 +1,12 @@
-´const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta´
-´String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis´
+# Nutné úpravy programu StandBy
+```
+const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
+String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+
+#include <Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva
+//#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva
+//#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva
+
+const char * ssid = "WIFI_MENO"; //meno wifi siete
+const char * password = "WIFI_HESLO"; //heslo na wifi siet
+```
