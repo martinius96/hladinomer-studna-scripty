@@ -1,4 +1,5 @@
 # Nutné úpravy programu StandBy
+* Program je pre implementáciu Ethernet (ENC28J60 / W5100 / W5500) / ESP8266 / ESP32
 
 ```
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
