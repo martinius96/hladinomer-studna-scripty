@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Razina vode + mjerač kiše - Arduino / ESP8266 / ESP32 - razina vode u zdencu, ukupne oborine</title>
+	<meta name="description" content="Mjerač razine i mjerač kiše izgrađen na platformi Arduino, ESP8266, ESP32. Mjerenje ultrazvučnim senzorom HC-SR04 / JSN-SR04T. Mjerenje oborina IR senzorom Hydreon RG-11. Slanje podataka putem Etherneta, Wi-Fi-ja, Sigfoxa. Mjerenje razine vode u bunaru, koritu.">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/hr/zrazkomer.html">
+	<meta property="og:title" content="Razina vode + mjerač kiše - Arduino / ESP8266 / ESP32 - razina vode u zdencu, ukupne oborine">
+	<meta property="og:description" content="Mjerač razine i mjerač kiše izgrađen na platformi Arduino, ESP8266, ESP32. Mjerenje ultrazvučnim senzorom HC-SR04 / JSN-SR04T. Mjerenje oborina IR senzorom Hydreon RG-11. Slanje podataka putem Etherneta, Wi-Fi-ja, Sigfoxa. Mjerenje razine vode u bunaru, koritu.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/hr/zrazkomer.html">
+	<meta property="twitter:title" content="Razina vode + mjerač kiše - Arduino / ESP8266 / ESP32 - razina vode u zdencu, ukupne oborine">
+	<meta property="twitter:description" content="Mjerač razine i mjerač kiše izgrađen na platformi Arduino, ESP8266, ESP32. Mjerenje ultrazvučnim senzorom HC-SR04 / JSN-SR04T. Mjerenje oborina IR senzorom Hydreon RG-11. Slanje podataka putem Etherneta, Wi-Fi-ja, Sigfoxa. Mjerenje razine vode u bunaru, koritu.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Mjerač razine</a></li>
+	<li class="active"><a href="zrazkomer.html">Mjerač kiše</a></li>
+	<li><a href="zapojenie.html">Uključenost</a></li>      
+      	<li><a href="kontakt.html">Kontakt</a></li>
+<a href="zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299857.svg" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="en/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Izvorni kodovi za Arduino, ESP8266, ESP32, NewPing Library: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Spremište projekata Github</a>
+				</div>	
+				<div class="alert alert-info">
+					<strong><font color="red">Isprobajte projekt Level Level + Rain Gauge besplatno sa svojim hardverom: </strong><a href="http://arduino.clanweb.eu/studna/?lang=en">Ovdje</font></a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+<span class="label label-info">Sigfox</span>				
+<hr>
+<center> 
+	<h3>Kontrolni mikrokontroleri za projekt Mjerač razine + mjerač kiše</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"><br><b>Arduino Uno / Nano</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b>NodeMCU v3 Lolin</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b>Wemos D1 Mini</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit V1</b></center></div>
+</div>	
+<center> 
+	<h3>Moduli Ethernet i Sigfox prijenosnih tehnologija za projekt Mjerač razine + Mjerač kiše</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b>Ethernet shield Wiznet W5100</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b>Ethernet modul Wiznet W5500</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b>Sigfox Node Modem</b></center></div>
+</div>
+<hr>
+<center> 
+	<h3>Podržani i testirani ultrazvučni senzori za bilježenje razine vode</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b>HC-SR04</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b>JSN-SR04T</b></center></div>		
+<div class="col-sm-3"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>		
+</div>	
+     <hr>
+<center> 
+	<h3>Podržani infracrveni mjerač kiše</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-12"><center><img src="https://i.imgur.com/g2ky3b4.png" width="256px" height="128px" style="border-radius: 50%;" alt="Infračervený IR zrážkomer Hydreon RG-11" title="Infračervený IR zrážkomer Hydreon RG-11"><br><b>Hydreon RG-11</b></center></div>
+</div>					
+<hr><center><h2>Mjerač razine - Arduino / ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+Projekt mjerača razine koristi web sučelje za vizualizaciju izmjerenih podataka o razini vode u bunaru, spremniku.
+Odzivno web sučelje u predlošku Bootstrap Bar prilagođava se bilo kojem zaslonu na kojem se vizualiziraju podaci.
+Podaci se mogu čitati na satovima, pametnim telefonima, računalima, pametnim televizorima i drugim uređajima.
+Web sučelje projekta koristi pozadinu napisanu na PHP-u, koja obrađuje dolazne podatke podržane metodom zahtjeva POST, pretvara izmjerenu temperaturu u stvarnu razinu i izračunava volumen bušotine na temelju poznatih podataka o dubini i promjeru bušotine koje je u sustav unio korisnik.
+Podaci se web-poslužitelju šalje mikrokontrolerom, koji vrši mjerenja svakih 300 sekundi - tj. 5 minuta, ili u slučaju prijenosa putem Sigfox IoT mreže, podaci se šalju svakih 11 minuta.
+Mjerenje razine vode vrši se pomoću ultrazvučnih senzora - HC-SR04 ili njegove vodootporne varijante JSN-SR04T ili UART senzora URM07 (SKU SEN0153) - dostupno samo u posebnoj verziji projekta Mjerač razine. Može izmjeriti udaljenost do 750 cm, zbog velikog kuta detekcije ne stane u velik broj bušotina ...
+Princip mjerenja ultrazvučnih senzora je slanje okidačkog signala duljine 10μs (mikrosekunde), a na temelju vremena kada se signal vraća u prijemnik - Echo moguće je izračunati udaljenost između senzora i razine.
+Važan parametar oba ultrazvučna senzora je širina snopa, drugim riječima karakteristika detekcije.
+Senzor HC-SR04 ima karakteristiku otkrivanja od 15 °. Snop je relativno uzak, a senzor je također pogodan za uže bušotine i spremnike, ali nije vodootporan i ima veliki rizik od korozije (oksidacije).
+Vodootporni senzor JSN-SR04T ima karakteristiku detekcije od 60 do 75 °, što ne dopušta upotrebu u uskim bunarima, jer se snop jako širi s udaljenošću i bunar promjera nekoliko jedinica (6 metara na 4,5 bušotine dubina) je potrebna. 
+</p>
+<hr>
+<p style="text-align: justify;">
+Web sučelje koristi trigonometriju za procjenu mjerljive maksimalne dubine bušotine pri poznatom promjeru bušotine (još jedan parametar za izračunavanje volumena bušotine).
+Web sučelje omogućuje korisniku da izračuna na koju je maksimalnu dubinu bušotine prikladan svaki od senzora na temelju njegovih karakteristika.
+Projekt je tako jednostavan za korištenje čak i za laike koji ne znaju koji je senzor prikladniji za primjenu u njihovoj bušotini.
+Korišteni mikrokontroler također igra važnu ulogu u sustavu. Projekt je koristio Arduino platformu (Uno) povezanu na Ethernet modul / štit iz Wiznetovih modela W5100, odnosno W5500 serije, koja je osigurala HTTP povezanost i omogućila mikrokontroleru prijenos podataka na udaljeno web sučelje na Internetu.
+Kako je mjerač razine projekt na otvorenom, mnogi bi korisnici također željeli mogućnost upotrebe WiFi platforme bez potrebe za povlačenjem Ethernet veze u bunar.
+WiFi platforme tvrtke Espressif Systems - ESP8266 i ESP32, koje se koriste u projektu, omogućuju rad u različitim načinima rada - StandBy, Deep Sleep (duboko spavanje s isključenom WiFi antenom), StandBy + OTA - omogućuje daljinski prijenos na ploču putem LAN mrežni novi firmware izravno iz Arduino IDE okruženja.
+Za način rada Deep Sleep postoji modificirani dijagram ožičenja za platformu ESP8266, koji koristi signal koji se dovodi na RST za buđenje mikrokontrolera WAKE.
+Istodobno, ova veza ne dopušta ažuriranje programa bez odspajanja ovog kratkospojnika.
+Za ESP32 koristi se način dubokog mirovanja pomoću RTC timera, koji nakon određenog vremena budi ESP.
+Platforme mogu komunicirati s web sučeljem putem HTTP-a, ali i HTTPS protokola. Platforma ESP8266 koristi otisak javnog ključa web poslužitelja u formatu SHA1, ali zahtijeva češća obnavljanja, jer vrijede najviše godinu dana, odnosno dvije godine.
+Mikrokontroler iz serije ESP32 koristi certifikat korijenskog tijela za ovjeru koje je izdalo certifikat za web poslužitelj - certifikat ROOT CA u .pem formatu za HTTPS vezu.
+Sa stajališta rada, ova je opcija bolja jer potvrda tijela za ovjeru također vrijedi 20 godina i nije potrebno obnavljanje potvrde.
+<hr>
+Budući da je Arduino platforma sklonija "padovima" programa zbog jako ograničenih resursa memorije i performansi (u usporedbi s ESP platformama), izvornom je kodu dodan nadzornik koji može ponovno pokrenuti platformu i obnoviti rad.
+Softverska implementacija firmware-a mikrokontrolera proširuje se snimanjem podataka s IR mjerača kiše Hydreon RG-11, koji može oponašati metodu okretanja žlice na temelju preklopljenih DIP prekidača (podržava i druge načine koji se koriste u automobilskoj industriji, hortikulturi) .
+To omogućuje mikrokontroleru da u prekidu očita broj impulsa koji dolaze iz mjerača kiše, pri čemu jedan impuls predstavlja vrijednost kiše od 0,01 mm.
+Puls dolazi u obliku NISKOG signala, koji se napaja preko integriranog releja koji prelazi u stanje NO (iz NC).
+Na digitalni ulaz priključen je pullup otpor koji drži VISOKU razinu dok se impuls iz pregradne žlice ne dogodi u koracima od 0,01 mm.
+Budući da je ulaz još uvijek VISOK i ulazi u stanje NISKO tek kada se doda prirast oborine, prirast se otkriva metodom prekida FALLING, koji reagira na prednji rub.
+Između impulsa vrši se uklanjanje debljine duljine od 15 ms, što sprječava dodavanje jednog impulsa nekoliko puta zbog oscilacije signala.
+U sekundi se može snimiti do 66 impulsa, što odgovara koraku od 0,66 mm.
+Mjerač kiše ima zaštitu od UV zračenja, s vremenom se ne razgrađuje, njegovo konveksno staklo na kojem se hvata oborina djeluje samočišćujuće.
+Stoga je rad u potpunosti bez održavanja i pouzdan, jer se prevrtava žlica oponaša IR mjeračem kiše i ne sadrži mehanički dio poput klasične prevrtačke žlice, gdje također postoji rizik da se začepi nečistoćom.
+Mjerač kiše koristi Arduino / ESP utičnicu s podrškom za prekide. Puls se dodaje hlapljivoj varijabli koja se može servisirati u prekidu.
+Podaci iz mjerača kiše tako čine zbroj oborina za razdoblje nakon slanja podataka. Web sučelje je također prošireno za ovu mogućnost grafičkom i tekstualnom vizualizacijom razvoja oborina. Izlaz teksta omogućuje zbroj oborina po satu, iz dana u godinu.
+<b> Projekt mjerača kiše trenutno je dostupan samo za platformu Arduino, ali uz nekoliko izmjena moguće je pokrenuti i pod ESP32, ESP8266 </b> Obje verzije projekata u potpunosti su prevedene na engleski, slovački, ruski i Njemački.
+</p>
+<center><img src="https://i.imgur.com/chYnF1M.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje"></center>
+<hr>
+<p style="text-align: justify;">
+Za lokacije na kojima ne postoji fiksni Internet, također je moguće koristiti IoT mrežu Sigfox, koja pokriva gotovo 90% Slovačke, BTS postaje za emitiranje smještene su na TowerCom odašiljačima.
+Ova tehnologija omogućuje vam prijenos malih količina poruka do 12B. U slučaju projekta Mjerač razine, šalje se vrijednost razine vode 4B. Za projekt proširen kišomjerom šalje se vrijednost 8B koja se formira visinom vodostaja i prirastom oborina.
+Kako Sigfox omogućuje prijenos najviše 140 poruka dnevno, interval prijenosa podataka produljuje se na 11 minuta. U oba slučaja poruka ne sadrži cijelu dužinu koju može, t.j. 12B.
+Poruke korisnog tereta također se mogu nadopuniti raznim informacijama o sustavu, na primjer: GEO podaci (zemljopisna dužina / širina), RSSI (jačina signala), broj poruke i drugi.
+Komunikacijski modul koji je korišten za projekt je UART modem Sigfox WISOL 868MHz. Ovaj modem komunicira putem AT naredbi putem UART sučelja, koji je softver oponašan na mikrokontrolerima.
+Komunikacija će se odvijati brzinom od 9600 baud / s. WISOL modem opremljen je integriranim u.FL konektorom na PCB modulu za povezivanje antene, što značajno smanjuje pokrivenost čak i u zatvorenom / zasjenjenom na otvorenom.
+Za uspješan prijenos podataka potrebno je pokrivanje od dvije, po mogućnosti tri ili više BTS stanica za uspješan prijenos podataka. BTS šalje poslane informacije na pozadinu Sigfoxa, gdje je potrebno izvršiti povratni poziv, koji će započeti nakon primanja podataka.
+Povratni poziv mora uputiti HTTP ili HTTPS zahtjev na domenu u kojoj se izvodi web aplikacija metodom POST i odgovarajuće kodiranim korisnim opterećenjem koje očekuje pozadina web aplikacije.
+</p>
+<div class="alert alert-info">
+<b>Mjerač razine + mjerač kiše - postavke povratnog poziva u Sigfox backend:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Na Custom payload config napisat ćemo:</b> cislo1::float:16 cislo2::uint:16</li>
+<li><b>Na URL pattern napisat ćemo:</b> http://arduino.clanweb.eu/studna/data.php (ili drugi URL vašeg web poslužitelja na kojem će se projekt izvoditi), mogućnost korištenja HTTPS-a</li>
+<li><b>U HTTP biramo metodu:</b> POST</li>
+<li><b>Na Body napisat ćemo:</b></li>
+<li>dazd={customData#cislo1}&hodnota={customData#cislo2}</li>
+<li><b>Do Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>			
+	<hr>
+<center>     
+ <h3>Vizualizacije web sučelja - Mjerač razine + mjerač kiše</h3>
+     <hr>
+    <img src="https://i.imgur.com/d1aAchA.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje">
+    <img src="https://i.imgur.com/KGnvg5U.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer"> 
+    <img src="https://i.imgur.com/b1h0Itj.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok" title="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok"> 
+    <img src="https://i.imgur.com/J8mCbR7.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon" title="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon"> 
+     <h3>Karakteristike detekcije senzora HC-SR04 - 15°</h3>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
+    <hr>
+     <h3>Karakteristike detekcije senzora JSN-SR04T - vodootporan - 45°</h3>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
+ </center>	
+</center>			
+			
+ </div>
+		</div>
+</div>
+</body>
+</html>
