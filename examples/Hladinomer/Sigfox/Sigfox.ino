@@ -1,13 +1,21 @@
-/*|---------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - Arduino + Sigfox Modem (868MHz)                |*/
-/*|Autor: Martin Chlebovec                                              |*/
-/*|E-mail: martinius96@gmail.com                                        |*/
-/*|Licencia pouzitia: MIT                                               |*/
-/*|Revízia: 7. Január 2021                                              |*/
-/*|---------------------------------------------------------------------|*/
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - Sigfox 868 MHz UART - HC-SR04 / JSN-SR04T / HY-SRF05  |*/
+/*|Arduino, ESP8266 (NodeMCU), ESP32 (DevKit)                                         |*/
+/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Knižnice NewPing, ESP8266NewPing sú dostupné v Github repozitári:                  |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
+/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
+/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
+/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
+/*|Licencia pouzitia: MIT                                                             |*/
+/*|Revízia: 26. Februar 2021                                                          |*/
+/*|-----------------------------------------------------------------------------------|*/
 
 /*|---------------------------------------------------------------------|*/
-/*|Inštrukcie pre nastavenie Sigfox Modemu na stránkach LPWAN:          |*/
+/*|Inštrukcie pre nastavenie Sigfox Modemu na stránkach Sigfox backend: |*/
 /*|Callbacks --> NEW --> Custom callback                                |*/
 /*|UPLINK, TYPE: DATA, CHANNEL: URL                                     |*/
 /*|Do Custom payload config napíšeme: cislo1::uint:16                   |*/
@@ -31,15 +39,17 @@ SoftwareSerial Sigfox(RX, TX);
 
 //PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
 #include <NewPing.h>
+//#include <NewPingESP8266.h> // pre ESP8266, ESP32
 #define pinTrigger    5
 #define pinEcho       6
 #define maxVzdialenost 450
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
+//NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost); // pre ESP8266, ESP32
 unsigned long timer = 0;
 
 
 void setup() {
-  Sigfox.begin(9600);
+  Sigfox.begin(9600); //SoftwareSerial
   Serial.begin(115200);
   wdt_enable(WDTO_8S);
 }
@@ -52,35 +62,40 @@ void loop() {
   if (Serial.available()) {
     Sigfox.write(Serial.read());
   }
-  if ((millis() - timer) >= 660000 || timer == 0) { //rutina raz za 11 minut (limit 140 sprav za den), odosle sa 130 správ za deň
+  if ((millis() - timer) >= 660000 || timer == 0) { //rutina raz za 11 minut (limit 140 sprav za den), odosle sa 130 správ za deň (24h)
     timer = millis();
-    int vzdialenost = sonar.ping_cm();
+    Sigfox.println(); //Wakeup from Light sleep via ‘\n’ (ASCII 10)
+    //Sigfox.print('\n'); //Wakeup from Light sleep via ‘\n’ (ASCII 10) - ekvivalent
+    unsigned int vzdialenost = sonar.ping_cm();
     delay(50);
     if (vzdialenost > 0) {
       vzdialenost = 0;
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 10; i++) {
         vzdialenost += sonar.ping_cm();
         delay(50);
       }
       wdt_reset();
-      vzdialenost = vzdialenost / 5;
+      vzdialenost = vzdialenost / 10;
       Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
       Serial.print(vzdialenost);
-      Serial.println(" cm.");
+      Serial.println(F(" cm."));
       char sprava[4]; //4B sprava, max mozna 12B
       unsigned int cislo1 = vzdialenost;
       sprintf(sprava, "%04X", cislo1);
-      Serial.print("Do Sigfox siete odosielam tento payload: ");
+      Serial.print(F("Do Sigfox siete odosielam tento payload: "));
       Serial.print(cislo1);
-      Serial.print(", hexa tvar: ");
+      Serial.print(F(", hexa tvar: "));
       Serial.println(sprava);
       wdt_reset();
-      Sigfox.print("AT$SF=");
+      Sigfox.print(F("AT$SF="));
       Sigfox.println(sprava);
       wdt_reset();
       delay(1000);
+      Sigfox.print(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
+      //Sigfox.print(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
     } else {
       Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      timer = 0; //vynulujeme timer, vykoname nove meranie
     }
   }
 }
