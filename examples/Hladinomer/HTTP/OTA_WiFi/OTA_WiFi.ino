@@ -37,7 +37,7 @@ const int wdtTimeout = 30000;  //time in ms to trigger the watchdog
 hw_timer_t *timer = NULL;
 
 void IRAM_ATTR resetModule() {
-  ets_printf(F("reboot\n"));
+  ets_printf("reboot\n");
   esp_restart();
 }
 
