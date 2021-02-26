@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>जल स्तर + वर्षा गेज - अरुडिनो / ESP8266 / ESP32 - कुएं में जल स्तर, कुल वर्षा</title>
+	<meta name="description" content="Arduino प्लेटफॉर्म, ESP8266, ESP32 पर निर्मित स्तर मीटर और रेन गेज। अल्ट्रासोनिक सेंसर HC-SR04 / JSN-SR04T के साथ मापन। आईआर सेंसर हाइड्रेन आरजी -11 के साथ वर्षा माप। ईथरनेट, वाईफाई, सिगफॉक्स के जरिए डाटा भेजना। एक कुएं में जल स्तर की माप">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/hi/zrazkomer.html">
+	<meta property="og:title" content="जल स्तर + वर्षा गेज - अरुडिनो / ESP8266 / ESP32 - कुएं में जल स्तर, कुल वर्षा">
+	<meta property="og:description" content="Arduino प्लेटफॉर्म, ESP8266, ESP32 पर निर्मित स्तर मीटर और रेन गेज। अल्ट्रासोनिक सेंसर HC-SR04 / JSN-SR04T के साथ मापन। आईआर सेंसर हाइड्रेन आरजी -11 के साथ वर्षा माप। ईथरनेट, वाईफाई, सिगफॉक्स के जरिए डाटा भेजना। एक कुएं में जल स्तर की माप">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/hi/zrazkomer.html">
+	<meta property="twitter:title" content="जल स्तर + वर्षा गेज - अरुडिनो / ESP8266 / ESP32 - कुएं में जल स्तर, कुल वर्षा">
+	<meta property="twitter:description" content="Arduino प्लेटफॉर्म, ESP8266, ESP32 पर निर्मित स्तर मीटर और रेन गेज। अल्ट्रासोनिक सेंसर HC-SR04 / JSN-SR04T के साथ मापन। आईआर सेंसर हाइड्रेन आरजी -11 के साथ वर्षा माप। ईथरनेट, वाईफाई, सिगफॉक्स के जरिए डाटा भेजना। एक कुएं में जल स्तर की माप">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">स्तर मापक</a></li>
+	<li class="active"><a href="zrazkomer.html">वर्षा नापने का यंत्र</a></li>
+	<li><a href="zapojenie.html">भागीदारी</a></li>      
+      	<li><a href="kontakt.html">संपर्क करें</a></li>
+<a href="zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299857.svg" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="en/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Arduino, ESP8266, ESP32, न्यूपिंग लाइब्रेरी के लिए स्रोत कोड: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">गिथब परियोजना भंडार</a>
+				</div>	
+				<div class="alert alert-info">
+					<strong><font color="red">अपने हार्डवेयर के साथ फ्री में लेवल लेवल + रेन गेज प्रोजेक्ट आज़माएं: </strong><a href="http://arduino.clanweb.eu/studna/">यहाँ</font></a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+<span class="label label-info">Sigfox</span>				
+<hr>
+<center> 
+	<h3>प्रोजेक्ट स्तर मीटर + वर्षा गेज के लिए नियंत्रण माइक्रोकंट्रोलर</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"><br><b>Arduino Uno / Nano</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b>NodeMCU v3 Lolin</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b>Wemos D1 Mini</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit V1</b></center></div>
+</div>	
+<center> 
+	<h3>परियोजना स्तर मीटर + वर्षा गेज के लिए ईथरनेट और सिगफॉक्स ट्रांसमिशन प्रौद्योगिकियों के मॉड्यूल</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b>Ethernet shield Wiznet W5100</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b>Ethernet modul Wiznet W5500</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b>Sigfox Node Modem</b></center></div>
+</div>
+<hr>
+<center> 
+	<h3>जल स्तर की रिकॉर्डिंग के लिए अल्ट्रासोनिक सेंसर का समर्थन और परीक्षण किया गया</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b>HC-SR04</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b>JSN-SR04T</b></center></div>		
+<div class="col-sm-3"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>		
+</div>	
+     <hr>
+<center> 
+	<h3>समर्थित इन्फ्रारेड रेन गेज</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-12"><center><img src="https://i.imgur.com/g2ky3b4.png" width="256px" height="128px" style="border-radius: 50%;" alt="Infračervený IR zrážkomer Hydreon RG-11" title="Infračervený IR zrážkomer Hydreon RG-11"><br><b>Hydreon RG-11</b></center></div>
+</div>					
+<hr><center><h2>स्तर मापक - Arduino / ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+स्तर मीटर कुएं, टैंक में जल स्तर पर मापा डेटा की कल्पना करने के लिए एक वेब इंटरफेस का उपयोग करता है।
+बूटस्ट्रैप बार टेम्प्लेट में उत्तरदायी वेब इंटरफ़ेस किसी भी स्क्रीन पर निर्भर करता है जिस पर डेटा की कल्पना की जाती है।
+डेटा को घड़ियों, स्मार्टफोन, कंप्यूटर, स्मार्ट टीवी और अन्य उपकरणों पर पढ़ा जा सकता है।
+परियोजना का वेब इंटरफ़ेस PHP में लिखे बैकएंड का उपयोग करता है, जो POST अनुरोध विधि द्वारा समर्थित आने वाले डेटा को संसाधित करता है, मापा तापमान को वास्तविक स्तर पर धर्मान्तरित करता है, और गहराई से ज्ञात डेटा के आधार पर अच्छी तरह से मात्रा की गणना करता है और सिस्टम द्वारा दर्ज व्यास प्रयोगकर्ता।
+डेटा वेबसर्वर को एक माइक्रोकंट्रोलर द्वारा भेजा जाता है, जो हर 300 सेकंड में माप करता है - i। 5 मिनट, या सिगफॉक्स IoT नेटवर्क के माध्यम से संचरण के मामले में, डेटा हर 11 मिनट में भेजा जाता है।
+जल स्तर माप को अल्ट्रासोनिक सेंसर - HC-SR04 या इसके वाटरप्रूफ वैरिएंट JSN-SR04T, या UART सेंसर URM07 (SKU SEN0153) का उपयोग करके किया जाता है - जो परियोजना स्तर मीटर के विशेष संस्करण में उपलब्ध है। यह 750 सेमी तक की दूरी को माप सकता है, बड़े डिटेक्शन कोण के कारण, यह बड़ी संख्या में कुओं में फिट नहीं होता है ...
+अल्ट्रासोनिक सेंसर को मापने का सिद्धांत 10μs (माइक्रोसेकंड) की लंबाई के साथ एक ट्रिगर सिग्नल भेजना है और उस समय के आधार पर जब सिग्नल रिसीवर को वापस आ जाता है - इको सेंसर और स्तर के बीच की दूरी की गणना करना संभव है।
+दोनों अल्ट्रासोनिक सेंसर में एक महत्वपूर्ण पैरामीटर बीम की चौड़ाई है, दूसरे शब्दों में पता लगाने की विशेषता।
+HC-SR04 सेंसर में 15 ° का पता लगाने की विशेषता है। बीम अपेक्षाकृत संकीर्ण है और सेंसर संकरे कुओं और टैंकों के लिए भी उपयुक्त है, लेकिन यह जलरोधक नहीं है और इसमें जंग (ऑक्सीकरण) का उच्च जोखिम है।
+JSN-SR04T वाटरप्रूफ सेंसर में 60 से 75 ° का पता लगाने की विशेषता होती है, जो इसे संकीर्ण कुओं में उपयोग करने की अनुमति नहीं देता है, क्योंकि बीम दूरी के साथ बहुत फैलता है और कई इकाइयों के व्यास के साथ एक कुआं (4.5 मीटर में 6 मीटर) गहराई) की आवश्यकता है।
+</p>
+<hr>
+<p style="text-align: justify;">
+वेब इंटरफ़ेस ट्रिग्नोमेट्री का उपयोग एक ज्ञात वेल व्यास में कुएं की औसत दर्जे की अधिकतम गहराई का अनुमान लगाने के लिए करता है (कुएं की गणना के लिए एक और पैरामीटर)।
+वेब इंटरफ़ेस उपयोगकर्ता को गणना करने की अनुमति देता है कि प्रत्येक सेंसर की अच्छी तरह से अधिकतम गहराई इसकी विशेषताओं के आधार पर क्या उपयुक्त है।
+यह परियोजना आम लोगों के लिए भी उपयोग में आसान है, जो यह नहीं जानते कि उनके कुएं में कौन सा सेंसर अनुप्रयोग के लिए अधिक उपयुक्त है।
+एक प्रयुक्त माइक्रोकंट्रोलर भी सिस्टम में एक महत्वपूर्ण भूमिका निभाता है। प्रोजेक्ट ने क्रमशः Wiznet मॉडल W5100 और W5500 श्रृंखला से ईथरनेट मॉड्यूल / शील्ड से जुड़े Arduino प्लेटफ़ॉर्म (Uno) का उपयोग किया, जिसने HTTP कनेक्टिविटी प्रदान की और इंटरनेट पर रिमोट वेब इंटरफ़ेस में डेटा स्थानांतरित करने के लिए माइक्रोकंट्रोलर को सक्षम किया।
+जैसा कि स्तर मीटर एक बाहरी परियोजना है, बहुत से उपयोगकर्ता अच्छी तरह से ईथरनेट कनेक्टिविटी को खींचने के बिना वाईफाई प्लेटफॉर्म का उपयोग करने की संभावना भी पसंद करेंगे।
+एस्प्रेसिफ़ सिस्टम्स - ईएसपी 8266 और ईएसपी 32 से वाईफाई प्लेटफॉर्म, जो परियोजना में उपयोग किए जाते हैं, विभिन्न मोड्स में ऑपरेशन की अनुमति देते हैं - स्टैंडबाय, डीप स्लीप (वाईफाई एंटीना के साथ गहरी नींद), स्टैंडबाय + ओटीए - आपको सीधे बोर्ड नए फर्मवेयर पर अपलोड करने की अनुमति देता है। LAN Arduino IDE वातावरण से।
+डीप स्लीप ऑपरेटिंग मोड के लिए, ESP8266 प्लेटफॉर्म के लिए एक संशोधित वायरिंग आरेख है, जो एक संकेत का उपयोग करता है जो RST को WAKE माइक्रोकंट्रोलर को जगाने के लिए खिलाया जाता है।
+इसी समय, यह कनेक्शन इस जम्पर को डिस्कनेक्ट किए बिना प्रोग्राम को अपडेट करने की अनुमति नहीं देता है।
+ESP32 के लिए, आरटीसी टाइमर का उपयोग करके डीप स्लीप मोड का उपयोग किया जाता है, जो एक निश्चित समय के बाद ईएसपी को जगाता है।
+प्लेटफ़ॉर्म HTTP के माध्यम से वेब इंटरफेस के साथ संवाद कर सकते हैं, लेकिन एचटीटीपीएस प्रोटोकॉल भी। ESP8266 प्लेटफ़ॉर्म SHA1 प्रारूप में वेब सर्वर की सार्वजनिक कुंजी के एक फ़िंगरप्रिंट का उपयोग करता है, लेकिन उन्हें लगातार अधिक नवीनीकरण की आवश्यकता होती है, क्योंकि वे क्रमशः एक वर्ष या 2 वर्ष के लिए अधिकतम मान्य हैं।
+ESP32 श्रृंखला से माइक्रोकंट्रोलर रूट प्रमाणीकरण प्राधिकरण के प्रमाण पत्र का उपयोग करता है, जिसने वेब सर्वर के लिए एक प्रमाण पत्र जारी किया है - HTTPS कनेक्शन के लिए।
+संचालन के दृष्टिकोण से, यह विकल्प बेहतर है, क्योंकि प्रमाणन प्राधिकरण का प्रमाण पत्र भी 20 साल के लिए वैध है और प्रमाण पत्र का कोई नवीकरण आवश्यक नहीं है।
+<hr>
+क्योंकि Arduino प्लेटफ़ॉर्म गंभीर रूप से सीमित मेमोरी और प्रदर्शन संसाधनों (ESP प्लेटफार्मों की तुलना में) के कारण प्रोग्राम "क्रैश" के लिए अधिक प्रवण है, एक वॉचडॉग को स्रोत कोड में जोड़ा गया है जो प्लेटफ़ॉर्म को पुनरारंभ करने और ऑपरेशन को पुनर्स्थापित करने में सक्षम है।
+माइक्रोकंट्रोलर फ़र्मवेयर का सॉफ्टवेयर कार्यान्वयन IR रेन गेज हाइड्रोन आरजी -11 के डेटा को रिकॉर्ड करके बढ़ाया जाता है, जो स्विच किए गए डीआईपी स्विच के आधार पर फ़्लिपिंग बकेट विधि का अनुकरण कर सकता है (यह ऑटोमोटिव उद्योग, बागवानी में उपयोग किए जाने वाले अन्य साधनों का भी समर्थन करता है) ।
+यह माइक्रोकंट्रोलर को बारिश गेज से आने वाली दालों की संख्या को एक रुकावट में पढ़ने की अनुमति देता है, जहां एक पल्स 0.01 मिमी के वर्षा मूल्य का प्रतिनिधित्व करता है।
+नाड़ी एक LOW सिग्नल के रूप में आती है, जिसे एक एकीकृत रिले के माध्यम से खिलाया जाता है जो NO राज्य (NC) से स्विच करता है।
+पुलअप अवरोधक डिजिटल इनपुट से जुड़ा होता है, जो कि टिपिंग बाल्टी से एक पल्स तक 0.01 मिमी वृद्धि में उच्च स्तर रखता है।
+चूँकि इनपुट अभी भी उच्च है और केवल LOW स्थिति में प्रवेश करता है जब वर्षा वृद्धि को जोड़ा जाता है, वृद्धि को FALLING इंटरप्ट विधि द्वारा पता लगाया जाता है, जो अग्रणी किनारे पर प्रतिक्रिया करता है।
+दालों के बीच, डिबगिंग 15ms की लंबाई के साथ किया जाता है, जो सिग्नल दोलन के कारण कई बार एक नाड़ी को जोड़ने से रोकता है।
+प्रति सेकंड 66 दालों को रिकॉर्ड किया जा सकता है, जो 0.66 मिमी की वृद्धि से मेल खाती है।
+बारिश के गेज में यूवी विकिरण से सुरक्षा होती है, यह समय के साथ ख़राब नहीं होता है, इसके उत्तल ग्लास, जिस पर वर्षा का कब्जा होता है, में स्वयं-सफाई प्रभाव पड़ता है।
+इस प्रकार ऑपरेशन पूरी तरह से रखरखाव-मुक्त और विश्वसनीय है, क्योंकि टिपिंग बाल्टी आईआर वर्षा गेज द्वारा उत्सर्जित होती है और इसमें क्लासिक टिपिंग बाल्टी की तरह एक यांत्रिक हिस्सा नहीं होता है, जहां गंदगी से भरा होने का एक जोखिम भी होता है।
+बारिश गेज एक Arduino / ESP आउटलेट का उपयोग करता है जिसमें रुकावट का समर्थन होता है। नाड़ी को एक अस्थिर चर में जोड़ा जाता है जिसे बीच में रोका जा सकता है।
+बारिश गेज से डेटा इस प्रकार डेटा भेजे जाने के बाद की अवधि के लिए वर्षा का योग बनाता है। इस संभावना के लिए वेब इंटरफेस भी विस्तारित किया जाता है जिसमें वर्षा के विकास के चित्रमय और पाठ दृश्य के साथ होता है। पाठ आउटपुट प्रति घंटे, दिन से वर्ष तक वर्षा के योग की अनुमति देता है।
+<b>बारिश गेज परियोजना वर्तमान में अरडूइनो प्लेटफॉर्म के लिए उपलब्ध है, लेकिन कुछ बदलावों के साथ इसे ESP32, ESP8266 </b> के तहत चलाना संभव है। परियोजनाओं के दोनों संस्करण पूरी तरह से अंग्रेजी, स्लोवाक, रूसी और जर्मन में अनुवादित हैं।
+</p>
+<center><img src="https://i.imgur.com/chYnF1M.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje"></center>
+<hr>
+<p style="text-align: justify;">
+उन स्थानों के लिए जहां निश्चित इंटरनेट का कोई कवरेज नहीं है, IoT नेटवर्क सिगफॉक्स का उपयोग करना भी संभव है, जो स्लोवाकिया के लगभग 90% को कवर करता है, बीटीएस प्रसारण स्टेशन टॉवरकॉम ट्रांसमीटरों पर स्थित हैं।
+यह तकनीक आपको 12B तक के छोटे-छोटे संदेश प्रसारित करने की अनुमति देती है। स्तर मीटर परियोजना के मामले में, 4 बी जल स्तर मूल्य भेजा जाता है। वर्षा गेज द्वारा विस्तारित परियोजना के लिए, 8B का मान भेजा जाता है, जो जल स्तर की ऊंचाई और वर्षा के बढ़ने से बनता है।
+जैसा कि सिगफॉक्स प्रति दिन अधिकतम 140 संदेशों को प्रसारित करने की अनुमति देता है, डेटा ट्रांसमिशन अंतराल को 11 मिनट तक बढ़ाया जाता है। दोनों मामलों में, संदेश में पूरी लंबाई नहीं है जो यह कर सकता है, i। १२ ब।
+पेलोड संदेशों को विभिन्न सिस्टम सूचनाओं के साथ भी पूरक किया जा सकता है, उदाहरण के लिए: GEO डेटा (देशांतर / अक्षांश), RSSI (सिग्नल स्ट्रेंथ), संदेश संख्या और अन्य।
+संचार मॉड्यूल जो परियोजना के लिए इस्तेमाल किया गया था वह एक सिगफॉक्स WISOL 868MHz UART मॉडेम है। यह मॉडेम UART इंटरफ़ेस के माध्यम से एटी कमांड के माध्यम से संचार करता है, जो कि माइक्रोकंट्रोलर पर सॉफ्टवेयर का अनुकरण है।
+संचार 9600 बॉड / एस की गति पर ले जाएगा। WISOL मॉडेम एंटीना कनेक्शन के लिए PCB मॉड्यूल पर एकीकृत u.FL कनेक्टर से लैस है, जो घर के अंदर / बाहर छायांकित कवरेज को भी काफी कम कर देता है।
+सफल डेटा ट्रांसमिशन के लिए, सफल डेटा ट्रांसमिशन के लिए दो, अधिमानतः तीन या अधिक बीटीएस स्टेशनों की कवरेज आवश्यक है। बीटीएस प्रेषित जानकारी को सिगफॉक्स बैकएंड पर भेजता है, जहां कॉलबैक करना आवश्यक है, जो डेटा प्राप्त करने के बाद शुरू होगा।
+कॉलबैक को उस डोमेन के लिए एक HTTP या HTTPS अनुरोध करना चाहिए जहां वेब एप्लिकेशन POST विधि के साथ चल रहा है और एक उपयुक्त रूप से एन्कोडेड पेलोड है जो वेब एप्लिकेशन बैकएंड की अपेक्षा करता है।
+</p>
+<div class="alert alert-info">
+<b>लेवल मीटर + रेन गेज - सिगफॉक्स बैकएंड में कॉलबैक सेटिंग्स:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>सेवा Custom payload config हम लिखेंगे:</b> cislo1::float:16 cislo2::uint:16</li>
+<li><b>सेवा URL pattern हम लिखेंगे:</b> http://arduino.clanweb.eu/studna/data.php (या आपके वेब सर्वर का दूसरा URL जहां प्रोजेक्ट चलेगा), HTTPS का उपयोग करने की संभावना</li>
+<li><b>V HTTP metóde zvolíme:</b> POST</li>
+<li><b>सेवा Body (tela správy) हम लिखेंगे:</b></li>
+<li>dazd={customData#cislo1}&hodnota={customData#cislo2}</li>
+<li><b>सेवा Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>			
+	<hr>
+<center>     
+ <h3>वेब इंटरफ़ेस विज़ुअलाइज़ेशन - स्तर मीटर + वर्षा गेज</h3>
+     <hr>
+    <img src="https://i.imgur.com/d1aAchA.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje">
+    <img src="https://i.imgur.com/KGnvg5U.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer"> 
+    <img src="https://i.imgur.com/b1h0Itj.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok" title="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok"> 
+    <img src="https://i.imgur.com/J8mCbR7.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon" title="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon">     <h3>HC-SR04 सेंसर की पहचान विशेषताएँ - 15°</h3>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
+    <hr>
+     <h3>JSN-SR04T सेंसर की पहचान विशेषताएँ - जलरोधी - 45°</h3>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
+ </center>	
+</center>			
+			
+ </div>
+		</div>
+</div>
+</body>
+</html>
