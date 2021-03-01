@@ -14,8 +14,12 @@
 /*|Revízia: 26. Februar 2021                                                          |*/
 /*|-----------------------------------------------------------------------------------|*/
 
+//Pri ESP8266 (NodeMCU, Wemos D1 Mini, Generic) je nutné prepojiť RST S GPIO16 (D0) po nahratí programu a vykonať reštart cez EN (RST) tlačidlo. 
+//inak prebudenie a Deep Sleep nebude fungovať!
+
 const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE
 const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE
+
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
 String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
 //Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
