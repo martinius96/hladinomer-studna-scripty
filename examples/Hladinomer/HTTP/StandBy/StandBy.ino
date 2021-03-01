@@ -28,12 +28,13 @@ String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k 
 
 //VOLBA ETHERNET MODULU / SHIELDU K ARDUINU Z RADY WIZNET / ENC (Microchip)
 ///////////////////////////////////////////////////////////////////////////////////////
-#include <Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva
-//#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva
-//#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva
+#include <Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva    
+//#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva   
+//#include <Ethernet3.h> //Ethernet modul WIZ850io / USR-ES1 (Wiznet W5500 V2) - zakomentovat ak sa nepouziva   
+//#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva   
 ///////////////////////////////////////////////////////////////////////////////////////
 
-
+    
 
 //PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
 #include <NewPing.h>
@@ -42,7 +43,7 @@ String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k 
 #define maxVzdialenost 450
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
 
-byte mac[] = { 0xAA, 0xBB, 0xCA, 0xDC, 0xEE, 0xDD };
+byte mac[] = { 0xAA, 0xBB, 0xCA, 0xDC, 0xEE, 0xDE };
 //IPAddress ip(192, 168, 0, 2);
 //IPAddress dnServer(192, 168, 0, 1);
 //IPAddress gateway(192, 168, 0, 1);
@@ -76,8 +77,9 @@ void IRAM_ATTR resetModule() {
 #endif
 
 #if defined(ESP32) || defined(ESP8266)
-const char * ssid = "WIFI_MENO"; //meno wifi siete
-const char * password = "WIFI_HESLO"; //heslo na wifi siet
+const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE
+const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE
+
 WiFiClient client;
 unsigned long timer2 = 0;
 #endif
@@ -91,7 +93,8 @@ void setup() {
     //Ethernet.begin(mac, ip); //pre staticku IPv4
     //Ethernet.begin(mac, ip, dns); //pre staticku IPv4
     //Ethernet.begin(mac, ip, dns, gateway); //pre staticku IPv4
-    //Ethernet.begin(mac, ip, dns, gateway, subnet); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns, gateway, subnet); //pre staticku IPv4 
+    //IBA PRE Ethernet3.h !!! POZOR --> INY BEGIN ORDER PARAMETROV.... : //Ethernet.begin(mac, ip, subnet, gateway, dns);
   }
   Serial.print(F("Priradena IP: "));
   Serial.println(Ethernet.localIP());
@@ -119,17 +122,18 @@ void setup() {
 void loop() {
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
   wdt_reset(); //Feed watchdog
-  if (Ethernet.begin(mac) == 0) {
+  /* if (Ethernet.begin(mac) == 0) {
     Ethernet.begin(mac); // pre DHCP
     //Ethernet.begin(mac, ip); //pre staticku IPv4
     //Ethernet.begin(mac, ip, dns); //pre staticku IPv4
     //Ethernet.begin(mac, ip, dns, gateway); //pre staticku IPv4
     //Ethernet.begin(mac, ip, dns, gateway, subnet);
-  }
+  } */
 
   if ((millis() - timer) >= 300000 || timer == 0) { //rutina raz za 5 minut
     timer = millis();
-    Ethernet.maintain(); //pre DHCP, pri statickej IP zakomentovat!
+    //NEPOUZIVAT MOMENTALNE, SPOSOBUJE PROBLEMY A ZACYKLENIE SIETE
+   // Ethernet.maintain(); //pre DHCP, pri statickej IP zakomentovat
     int vzdialenost = sonar.ping_cm();
     delay(50);
     if (vzdialenost > 0) {
@@ -158,6 +162,8 @@ void loop() {
         Serial.println(F("Data uspesne odoslane na webove rozhranie"));
       } else {
         Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer = 0;  //vynulujeme timer, znovu nameriame a vykoname request
       }
       client.stop();
     } else {
@@ -208,6 +214,8 @@ void loop() {
         Serial.println(F("Data uspesne odoslane na web"));
       } else {
         Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer2 = 0;  //vynulujeme timer, znovu nameriame a vykoname request
       }
       client.stop();
     }
@@ -256,6 +264,8 @@ void loop() {
         Serial.println(F("Data uspesne odoslane na web"));
       } else {
         Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer2 = 0;  //vynulujeme timer, znovu nameriame a vykoname request
       }
       client.stop();
     }
