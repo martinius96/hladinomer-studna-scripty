@@ -13,13 +13,14 @@
 /*|Licencia pouzitia: MIT                                                             |*/
 /*|Revízia: 26. Februar 2021                                                          |*/
 /*|-----------------------------------------------------------------------------------|*/
-
+      
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 #include <NewPingESP8266.h>
 
 const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE
 const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE
+
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
 String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
 //Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
