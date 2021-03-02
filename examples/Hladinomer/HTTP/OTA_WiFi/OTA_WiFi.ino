@@ -120,7 +120,7 @@ void loop() {
       Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
       Serial.print(vzdialenost);
       Serial.println(F(" cm."));
-      String data = "hodnota=" + String(vzdialenost);
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
