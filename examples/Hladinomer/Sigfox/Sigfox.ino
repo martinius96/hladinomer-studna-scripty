@@ -23,7 +23,7 @@
 /*|PRIPADNE: (pripadne vas URL webservera s možnostou TLS - SSL)        |*/
 /*|V HTTP metóde zvolíme: POST (jediná podporovaná metóda Hladinomeru)  |*/
 /*|Do Body (tela správy) doplníme:                                      |*/
-/*|hodnota={customData#cislo1}                                          |*/
+/*|hodnota={customData#cislo1}&token=123456789 (VAS API KEY)            |*/
 /*|Mozno odosielat aj systemove udaje - cislo spravy, RSSI, GEO UDAJE   |*/
 /*|Do Content-Type: application/x-www-form-urlencoded                   |*/
 /*|---------------------------------------------------------------------|*/
