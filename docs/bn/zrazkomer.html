@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>জলের স্তর + বৃষ্টিপাত - আর্দুইনো / ESP8266 / ESP32 - কূপের জল স্তর, মোট বৃষ্টিপাত</title>
+	<meta name="description" content="আরডুইনো প্ল্যাটফর্ম, ESP8266, ESP32 এ নির্মিত লেভেল মিটার এবং রেইনগেজ। অতিস্বনক সংবেদক HC-SR04 / JSN-SR04T দিয়ে পরিমাপ। আইআর সেন্সর হাইড্রিয়ন আরজি -11 এর সাথে বৃষ্টিপাত পরিমাপ। ইথারনেট, ওয়াইফাই, সিগফক্সের মাধ্যমে ডেটা প্রেরণ। একটি ভাল, স্যাম্পে জল স্তর পরিমাপ।">
+		<meta name="keywords" content="স্তরের মিটার, ওয়েল, স্যাম্প, সেপটিক ট্যাঙ্ক, উচ্চতা, বৃষ্টিপাত">
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/bn/zrazkomer.html">
+	<meta property="og:title" content="জলের স্তর + বৃষ্টিপাত - আর্দুইনো / ESP8266 / ESP32 - কূপের জল স্তর, মোট বৃষ্টিপাত">
+	<meta property="og:description" content="আরডুইনো প্ল্যাটফর্ম, ESP8266, ESP32 এ নির্মিত লেভেল মিটার এবং রেইনগেজ। অতিস্বনক সংবেদক HC-SR04 / JSN-SR04T দিয়ে পরিমাপ। আইআর সেন্সর হাইড্রিয়ন আরজি -11 এর সাথে বৃষ্টিপাত পরিমাপ। ইথারনেট, ওয়াইফাই, সিগফক্সের মাধ্যমে ডেটা প্রেরণ। একটি ভাল, স্যাম্পে জল স্তর পরিমাপ।">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/bn/zrazkomer.html">
+	<meta property="twitter:title" content="জলের স্তর + বৃষ্টিপাত - আর্দুইনো / ESP8266 / ESP32 - কূপের জল স্তর, মোট বৃষ্টিপাত">
+	<meta property="twitter:description" content="আরডুইনো প্ল্যাটফর্ম, ESP8266, ESP32 এ নির্মিত লেভেল মিটার এবং রেইনগেজ। অতিস্বনক সংবেদক HC-SR04 / JSN-SR04T দিয়ে পরিমাপ। আইআর সেন্সর হাইড্রিয়ন আরজি -11 এর সাথে বৃষ্টিপাত পরিমাপ। ইথারনেট, ওয়াইফাই, সিগফক্সের মাধ্যমে ডেটা প্রেরণ। একটি ভাল, স্যাম্পে জল স্তর পরিমাপ।">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">লেভেল মিটার</a></li>
+	<li class="active"><a href="zrazkomer.html">বৃষ্টিপাত</a></li>
+	<li><a href="zapojenie.html">জড়িত</a></li>      
+      	<li><a href="kontakt.html">যোগাযোগ</a></li>
+<a href="../zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299857.svg" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../hi/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321238.svg" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../hr/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321222.svg" alt="Croatia.png, 2,2kB" title="Croatia" height="32" width="32"></a>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>আরডুইনো, ESP8266, ESP32, নিউপিং লাইব্রেরির জন্য উত্স কোডগুলি: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">গিথুব প্রকল্পের সংগ্রহস্থল</a>
+				</div>	
+				<div class="alert alert-info">
+					<strong><font color="red">আপনার হার্ডওয়ারের সাথে বিনামূল্যে স্তর স্তর + রেইনগেজ প্রকল্পটি ব্যবহার করে দেখুন: </strong><a href="http://arduino.clanweb.eu/studna/?lang=en">এখানে</font></a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+<span class="label label-info">Sigfox</span>				
+<hr>
+<center> 
+	<h3>প্রকল্পের স্তরের মিটার + রেইনগেজের জন্য মাইক্রোকন্ট্রোলারগুলি নিয়ন্ত্রণ করুন</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"><br><b>Arduino Uno / Nano</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b>NodeMCU v3 Lolin</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b>Wemos D1 Mini</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit V1</b></center></div>
+</div>	
+<center> 
+	<h3>লেভেল মিটার + রেইনগেজের জন্য ইথারনেট এবং সিগফক্স সংক্রমণ প্রযুক্তি মডিউল</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b>Ethernet shield Wiznet W5100</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b>Ethernet modul Wiznet W5500</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b>Sigfox Node Modem</b></center></div>
+</div>
+<hr>
+<center> 
+	<h3>জলের স্তর রেকর্ডিংয়ের জন্য সমর্থিত এবং পরীক্ষিত অতিস্বনক সেন্সর</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b>HC-SR04</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b>JSN-SR04T</b></center></div>		
+<div class="col-sm-3"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>		
+</div>	
+     <hr>
+<center> 
+	<h3>সমর্থিত আইআর রেইনগেজ</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-12"><center><img src="https://i.imgur.com/g2ky3b4.png" width="256px" height="128px" style="border-radius: 50%;" alt="Infračervený IR zrážkomer Hydreon RG-11" title="Infračervený IR zrážkomer Hydreon RG-11"><br><b>Hydreon RG-11</b></center></div>
+</div>					
+<hr><center><h2>লেভেল মিটার - Arduino / ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+ভাল, জলাশয়ে জলের স্তরের পরিমাপ করা ডেটা ভিজ্যুয়ালাইজ করতে হ্যালাদিনোমার প্রকল্পটি একটি ওয়েব ইন্টারফেস ব্যবহার করে।
+বুটস্ট্র্যাপ বার টেমপ্লেটের প্রতিক্রিয়াশীল ওয়েব ইন্টারফেসটি এমন কোনও স্ক্রিনের সাথে মানিয়ে যায় যার উপর ডেটা ভিজ্যুয়ালাইজ করা হয়।
+ডেটা ঘড়ি, স্মার্টফোন, কম্পিউটার, স্মার্ট টিভি এবং অন্যান্য ডিভাইসে পাঠযোগ্য।
+প্রকল্পের ওয়েব ইন্টারফেস পিএইচপি-তে লিখিত একটি ব্যাকএন্ড ব্যবহার করে, যা পোষ্ট অনুরোধ পদ্ধতির দ্বারা সমর্থিত ইনকামিং ডেটা প্রক্রিয়া করে, পরিমাপ করা তাপমাত্রাকে প্রকৃত স্তরে রূপান্তরিত করে এবং সিস্টেমে প্রবেশ করা গভীরতা এবং ভাল ব্যাসের উপর নির্ভরযোগ্য ডেটার ভিত্তিতে ভাল ভলিউম গণনা করে ব্যবহারকারী.
+একটি মাইক্রোকন্ট্রোলার দ্বারা ডেটা একটি ওয়েব সার্ভারে প্রেরণ করা হয়, যা প্রতি 300 সেকেন্ডে পরিমাপ করে - i। 5 মিনিটের জন্য, বা সিগফক্স আইওটি নেটওয়ার্কের মাধ্যমে সংক্রমণের ক্ষেত্রে, প্রতি 11 মিনিটে ডেটা প্রেরণ করা হয়।
+জলের স্তরের পরিমাপটি অতিস্বনক সেন্সর - এইচসি-এসআর04, বা এর জলরোধী বৈকল্পিক জেএসএন-এসআর04 টি, বা ইউআরটি সেন্সর ইউআরএম07 (এসকিউ SEN0153) ব্যবহার করে করা হয় - কেবলমাত্র প্রকল্পের স্তর মিটারের একটি বিশেষ সংস্করণে উপলভ্য। এটি 750 সেন্টিমিটার পর্যন্ত দূরত্ব পরিমাপ করতে পারে, বড় সনাক্তকরণ কোণের কারণে এটি বিশাল সংখ্যক কূপের সাথে খাপ খায় না ...
+অতিস্বনক সেন্সর পরিমাপের নীতিটি হ'ল 10μ (দৈর্ঘ্যের (মাইক্রোসেকেন্ডস) দৈর্ঘ্য সহ একটি ট্রিগার সিগন্যাল প্রেরণ করা এবং যখন সংকেতটি রিসিভারে ফিরে আসে তখন তার উপর ভিত্তি করে - ইকো সেন্সর এবং স্তরের মধ্যবর্তী দূরত্ব গণনা করা সম্ভব।
+উভয় আলট্রাসোনিক সেন্সরের একটি গুরুত্বপূর্ণ পরামিতি হ'ল বিম প্রস্থ, অন্য কথায় সনাক্তকরণের বৈশিষ্ট্য।
+এইচসি-এসআর04 সেন্সরে একটি 15 ° সনাক্তকরণ বৈশিষ্ট্য রয়েছে। মরীচি তুলনামূলকভাবে সংকীর্ণ এবং সেন্সর সংকীর্ণ কূপ এবং ট্যাঙ্কগুলির জন্যও উপযুক্ত তবে এটি জলরোধী নয় এবং ক্ষয় (জারণ) এর উচ্চ ঝুঁকি রয়েছে।
+জেএসএন-এসআর ০৪ টি ওয়াটারপ্রুফ সেন্সরটি to০ থেকে 75ction ° সনাক্তকরণের বৈশিষ্ট্যযুক্ত, যা এটি সরু কূপগুলিতে ব্যবহার করতে দেয় না, কারণ মরীচিটি ব্যাপকভাবে প্রশস্ত করা হয়েছে এবং বেশ কয়েকটি ইউনিটের ব্যাস সহ একটি ভাল (4.5 মিটার 4.5 গভীরতার গভীরতায়) ) দরকার.
+</p>
+<hr>
+<p style="text-align: justify;">
+ওয়েব ইন্টারফেস একটি ভাল ভাল ব্যাস (ভাল ভলিউম গণনা করার জন্য অন্য প্যারামিটার) এ কূপের পরিমাপযোগ্য সর্বোচ্চ গভীরতা অনুমান করতে ত্রিকোণমিতি ব্যবহার করে।
+ওয়েব ইন্টারফেসটি ব্যবহারকারীকে তার বৈশিষ্ট্যের উপর ভিত্তি করে প্রতিটি সেন্সরগুলির সর্বোচ্চ কত গভীরতার জন্য উপযুক্ত তা গণনা করতে দেয়।
+প্রকল্পটি এমনকি সাধারণ লোকদের জন্যও এত সহজে ব্যবহার করা যেতে পারে যারা জানেন না কোন সেন্সর তাদের ওয়েবে প্রয়োগের জন্য আরও উপযুক্ত।
+একটি ব্যবহৃত মাইক্রোকন্ট্রোলার সিস্টেমটিতেও গুরুত্বপূর্ণ ভূমিকা পালন করে। প্রকল্পটি যথাক্রমে উইজনেট মডেল ডাব্লু ৫০০ এবং ডাব্লু ৫০০ সিরিজের একটি ইথারনেট মডিউল / শিল্ডের সাথে সংযুক্ত আরডুইনো (ইউনো) প্ল্যাটফর্ম ব্যবহার করেছে, যা এইচটিটিপি সংযোগ সরবরাহ করেছিল এবং মাইক্রোকন্ট্রোলারকে ইন্টারনেটের একটি দূরবর্তী ওয়েব ইন্টারফেসে ডেটা স্থানান্তর করতে সক্ষম করে।
+লেভেল মিটার একটি বহিরঙ্গন প্রকল্প হিসাবে, বেশিরভাগ ব্যবহারকারী ভালে ইথারনেট সংযোগটি টান না করে কোনও ওয়াইফাই প্ল্যাটফর্ম ব্যবহারের সম্ভাবনাটিও পছন্দ করতে পারেন।
+এসপ্রেসিফ সিস্টেমগুলি থেকে ওয়াইফাই প্ল্যাটফর্মগুলি - ESP8266 এবং ESP32, যা প্রকল্পে ব্যবহৃত হয়, বিভিন্ন মোডে অপারেশন করতে অনুমতি দেয় - স্ট্যান্ডবাই, ডিপ স্লিপ (ওয়াইফাই অ্যান্টেনা সহ গভীর ঘুম), স্ট্যান্ডবাই + ওটিএ - আপনাকে বোর্ডের মাধ্যমে দূরবর্তী অবস্থান থেকে আপলোড করার অনুমতি দেয় ল্যান নেটওয়ার্ক নতুন ফার্মওয়্যার সরাসরি আরডুইনো আইডিই পরিবেশ থেকে।
+ডিপ স্লিপ অপারেটিং মোডের জন্য, ইএসপি 8266 প্ল্যাটফর্মের জন্য একটি সংশোধিত ওয়্যারিং ডায়াগ্রাম রয়েছে, যা WAKE মাইক্রোকন্ট্রোলারকে জাগাতে আরএসটিকে খাওয়ানো একটি সিগন্যাল ব্যবহার করে।
+একই সময়ে, এই সংযোগটি এই জাম্পটিকে সংযোগ বিচ্ছিন্ন না করে প্রোগ্রামটিকে আপডেট করার অনুমতি দেয় না।
+ইএসপি 32 এর জন্য ডিপ স্লিপ মোডটি আরটিসি টাইমার ব্যবহার করে ব্যবহৃত হয় যা নির্দিষ্ট সময়ের পরে ইএসপি জেগে।
+প্ল্যাটফর্মগুলি HTTP- র মাধ্যমে ওয়েব ইন্টারফেসের সাথে, তবে এইচটিটিপিএস প্রোটোকলের মাধ্যমে যোগাযোগ করতে পারে। ESP8266 প্ল্যাটফর্মটি SHA1 ফর্ম্যাটে ওয়েব সার্ভারের পাবলিক কীটির একটি ফিঙ্গারপ্রিন্ট ব্যবহার করে তবে আরও নিয়মিত পুনর্নবীকরণগুলির প্রয়োজন হয়, কারণ এগুলি যথাক্রমে সর্বোচ্চ এক বছর বা 2 বছরের জন্য বৈধ।
+ESP32 সিরিজের মাইক্রোকন্ট্রোলার রুট শংসাপত্র কর্তৃপক্ষের শংসাপত্র ব্যবহার করে যা ওয়েব সার্ভারের জন্য শংসাপত্র জারি করে - এইচটিটিপিএস সংযোগের জন্য।
+পরিচালনার দৃষ্টিকোণ থেকে, এই বিকল্পটি আরও ভাল, কারণ শংসাপত্র কর্তৃপক্ষের শংসাপত্রটিও 20 বছরের জন্য বৈধ এবং শংসাপত্রের কোনও পুনর্নবীকরণ প্রয়োজন হয় না।
+<hr>
+গুরুতর সীমাবদ্ধ মেমরি এবং কর্মক্ষমতা সংস্থানগুলির কারণে (আরএসপি প্ল্যাটফর্মগুলির তুলনায়) আরডুইনো প্ল্যাটফর্মটি "ক্র্যাশ" প্রোগ্রামের ঝুঁকিপূর্ণ হওয়ায়, একটি ওয়াচডগ সোর্স কোডে যুক্ত করা হয়েছে যা প্ল্যাটফর্মটি পুনরায় চালু করতে এবং অপারেশন পুনরুদ্ধার করতে সক্ষম।
+মাইক্রোকন্ট্রোলার ফার্মওয়্যারের সফ্টওয়্যার বাস্তবায়ন আইআর রেইনগেজ হাইড্রিয়ন আরজি -11 থেকে তথ্য রেকর্ড করে প্রসারিত হয়, যা সুইচড ডিআইপি সুইচের উপর ভিত্তি করে ফ্লিপিং বালতি পদ্ধতি অনুকরণ করতে পারে (এটি স্বয়ংচালিত শিল্পে ব্যবহৃত অন্যান্য পদ্ধতিগুলিকেও সমর্থন করে, উদ্যানতত্ত্ব) ।
+এটি মাইক্রোকন্ট্রোলারকে একটি বাধাগুলিতে বৃষ্টিপাত থেকে আগত ডালের সংখ্যা পড়তে দেয়, যেখানে একটি ডালটি বৃষ্টিপাতের মান 0.01 মিমি প্রতিনিধিত্ব করে।
+ডালটি নিম্ন সিগন্যালের আকারে আসে, যা কোনও সংহত রিলে মাধ্যমে খাওয়ানো হয় যা কোনও রাজ্যে (এনসি থেকে) স্যুইচ করে।
+একটি পুলআপ রেজিস্টার ডিজিটাল ইনপুটটির সাথে সংযুক্ত থাকে, যা টিপিং বালতি থেকে একটি ডাল 0.01 মিমি ইনক্রিমেন্টে না আসা পর্যন্ত এইচআইএইচ স্তরটি ধরে রাখে।
+যেহেতু ইনপুটটি এখনও উচ্চমাত্রায় রয়েছে এবং বৃষ্টিপাত বৃদ্ধি যুক্ত হয় কেবল তখনই নিম্ন রাজ্যে প্রবেশ করে, বর্ধিততা ফলালিং বিঘ্নিত পদ্ধতি দ্বারা সনাক্ত করা হয়, যা অগ্রণী প্রান্তে সাড়া দেয়।
+ডালের মধ্যে, 15 মিলিমিটার দৈর্ঘ্যের সাহায্যে ডিবাউনিং করা হয়, যা সংকেত দোলনের কারণে এক পালস যোগ করা বেশ কয়েকবার বাধা দেয়।
+প্রতি সেকেন্ডে 66 টি ডাল রেকর্ড করা যায়, যা 0.66 মিমি বর্ধনের সাথে মিলে যায়।
+রেইনগেজটি ইউভি রেডিয়েশনের বিরুদ্ধে সুরক্ষা রাখে, এটি সময়ের সাথে সাথে হ্রাস পায় না, এর উত্তল কাচ, যার বৃষ্টিপাত ক্যাপচার হয়, এটি একটি স্ব-পরিচ্ছন্নতার প্রভাব ফেলে।
+এই অপারেশনটি পুরোপুরি রক্ষণাবেক্ষণ-মুক্ত এবং নির্ভরযোগ্য, কারণ টিপিং বালতিটি আইআর রেইনগেজ দ্বারা অনুকরণ করা হয় এবং এতে ক্লাসিক টিপিং বালতির মতো কোনও যান্ত্রিক অংশ থাকে না, যেখানে ময়লা আবদ্ধ হওয়ার ঝুঁকিও থাকে।
+রেইনগেজ বিরতিযুক্ত সমর্থন সহ একটি আরডুইনো / ইএসপি আউটলেট ব্যবহার করে। ডালটি একটি উদ্বায়ী ভেরিয়েবলের সাথে যুক্ত করা হয় যা বিঘ্নিত হয়ে পরিবেশন করা যায়।
+বৃষ্টিপাতের তথ্য থেকে ডেটা প্রেরণের পরে সময়ের জন্য বৃষ্টিপাতের যোগফল তৈরি করে। বৃষ্টিপাত বিকাশের গ্রাফিকাল এবং পাঠ্য ভিজ্যুয়ালাইজেশন সহ এই সম্ভাবনার জন্য ওয়েব ইন্টারফেসটিও বাড়ানো হয়েছে। পাঠ্য আউটপুট প্রতি ঘন্টা, বছর প্রতি ঘন্টা বৃষ্টিপাতের যোগফলকে মঞ্জুরি দেয়।
+<b>রেইনগেজ প্রকল্পটি বর্তমানে কেবল আরডুইনো প্ল্যাটফর্মের জন্য উপলব্ধ, তবে কয়েকটি পরিবর্তন সহ ইএসপি 32, ইএসপি 8266 এর অধীনে কাজ করাও সম্ভব</b> প্রকল্পগুলির উভয় সংস্করণ সম্পূর্ণরূপে ইংরেজি, স্লোভাক, রাশিয়ান এবং জার্মান ভাষায় অনুবাদ করা হয়েছে।
+</p>
+<center><img src="https://i.imgur.com/chYnF1M.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje"></center>
+<hr>
+<p style="text-align: justify;">
+স্থির ইন্টারনেটের কোনও কভারেজ নেই এমন জায়গাগুলির জন্য, আইওটি নেটওয়ার্ক সিগফক্স ব্যবহার করাও সম্ভব, যা স্লোভাকিয়ার প্রায় 90% জুড়ে, বিটিএস সম্প্রচার স্টেশন টাওয়ারকমের ট্রান্সমিটারগুলিতে অবস্থিত।
+এই প্রযুক্তি আপনাকে 12 বি আকারের ছোট ছোট বার্তাগুলি প্রেরণ করতে দেয়। লেভেল মিটার প্রকল্পের ক্ষেত্রে, 4 বি জলের স্তরের মান প্রেরণ করা হয়। একটি বৃষ্টিপাতের সাহায্যে প্রসারিত প্রকল্পের জন্য, মান 8 বি মান প্রেরণ করা হয়, যা জলের স্তরের উচ্চতা এবং বৃষ্টিপাতের বৃদ্ধি দ্বারা গঠিত হয়।
+যেহেতু সিগফক্স প্রতিদিন সর্বোচ্চ 140 টি বার্তা প্রেরণ করতে দেয় তাই ডেটা ট্রান্সমিশন ব্যবধানটি 11 মিনিটের মধ্যে বাড়ানো হয়। উভয় ক্ষেত্রেই, বার্তাটিতে এটির পূর্ণ দৈর্ঘ্য থাকে না, i। 12 বি।
+পে-লোড বার্তাগুলি বিভিন্ন সিস্টেমের তথ্যের সাথে পরিপূরক হতে পারে, উদাহরণস্বরূপ: জিও ডেটা (দ্রাঘিমাংশ / অক্ষাংশ), আরএসআইআই (সিগন্যাল শক্তি), বার্তা নম্বর এবং অন্যান্য।
+প্রকল্পটির জন্য যে যোগাযোগ মডিউলটি ব্যবহৃত হয়েছিল তা হ'ল সিগফক্স উইসোল 868 মেগাহার্টজ ইউআরটি মডেম। এই মডেমটি ইউটি ইন্টারফেসের মাধ্যমে এটি কমান্ডের মাধ্যমে যোগাযোগ করে, যা মাইক্রোকন্ট্রোলারগুলিতে সফ্টওয়্যার এমুলেটেড।
+যোগাযোগটি 00৯০০ বাউড / সেকেন্ডের গতিতে গ্রহণ করবে। অ্যান্টেনা সংযোগের জন্য ডাব্লুআইএসএল মডেমটি পিসিবি মডিউলে একটি সংহত ইউ.এফএল সংযোগকারী দিয়ে সজ্জিত, যা বাড়ির অভ্যন্তরে / ছায়াযুক্ত বাইরেও কভারেজটি উল্লেখযোগ্যভাবে হ্রাস করে।
+সফল ডেটা ট্রান্সমিশনের জন্য, দুটি দ্বারা কভারেজের পক্ষে, সফলভাবে তিনটি বা ততোধিক বিটিএস স্টেশন সফল ডেটা ট্রান্সমিশনের জন্য প্রয়োজন। বিটিএস সিগফক্স ব্যাকএন্ডে প্রেরিত তথ্য প্রেরণ করে, যেখানে কলব্যাক করা প্রয়োজন, যা ডেটা পাওয়ার পরে শুরু হবে।
+কলব্যাকটি অবশ্যই সেই ডোমেনে HTTP বা HTTPS অনুরোধ করতে হবে যেখানে ওয়েব অ্যাপ্লিকেশনটি POST পদ্ধতি এবং ওয়েব অ্যাপ্লিকেশন ব্যাকএন্ডের প্রত্যাশা মতো উপযুক্ত এনকোডযুক্ত পেওলড সহ ওয়েব অ্যাপ্লিকেশন চলছে to
+</p>
+<div class="alert alert-info">
+<b>স্তর মিটার + রেইনগেজ - সিগফক্স ব্যাকএন্ডে কলব্যাক সেটিংস:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Do Custom payload config আমরা লিখি:</b> cislo1::float:16 cislo2::uint:16</li>
+<li><b>Do URL pattern:</b> http://arduino.clanweb.eu/studna/data.php (alebo iná URL adresa vašho webservera, kde bude projekt bežať), možnosť využiť i HTTPS</li>
+<li><b>V HTTP metóde zvolíme:</b> POST</li>
+<li><b>Do Body (tela správy) আমরা লিখি:</b></li>
+<li>dazd={customData#cislo1}&hodnota={customData#cislo2}</li>
+<li><b>Do Content-Type আমরা লিখি:</b> application/x-www-form-urlencoded</li>
+</div>			
+	<hr>
+<center>     
+ <h3>ওয়েব ইন্টারফেস ভিজ্যুয়ালাইজেশন - স্তরের মিটার + রেইনগেজ</h3>
+     <hr>
+    <img src="https://i.imgur.com/d1aAchA.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje">
+    <img src="https://i.imgur.com/KGnvg5U.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer"> 
+    <img src="https://i.imgur.com/b1h0Itj.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok" title="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok"> 
+    <img src="https://i.imgur.com/J8mCbR7.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon" title="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon"> 
+     <h3>HC-SR04 সেন্সর সনাক্তকরণ বৈশিষ্ট্য - 15°</h3>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
+    <hr>
+     <h3>JSN-SR04T সেন্সর সনাক্তকরণ বৈশিষ্ট্য - জলরোধী - 45°</h3>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
+ </center>	
+</center>			
+			
+ </div>
+		</div>
+</div>
+</body>
+</html>
