@@ -148,7 +148,7 @@ void loop() {
       Serial.print(vzdialenost);
       Serial.println(F(" cm."));
       client.stop(); //ukoncenie vsetkych existujucich spojeni
-      String data = "hodnota=" + String(vzdialenost);
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
@@ -200,7 +200,7 @@ void loop() {
       Serial.print(vzdialenost);
       Serial.println(F(" cm."));
       client.stop();
-      String data = "hodnota=" + String(vzdialenost);
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
@@ -250,7 +250,7 @@ void loop() {
       Serial.print(vzdialenost);
       Serial.println(F(" cm."));
       client.stop();
-      String data = "hodnota=" + String(vzdialenost);
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
       if (client.connect(host, 80)) {
         client.println("POST " + url + " HTTP/1.0");
         client.println("Host: " + (String)host);
