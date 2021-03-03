@@ -17,6 +17,8 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 # Spustenie systému
 * **Obsah priečinka /src/ rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries**
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
+* Importovať .sql taľku do databázy
+* Vo webaplikácii nastaviť prístupové údaje k MySQL databáze
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
 
