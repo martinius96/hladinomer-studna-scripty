@@ -103,16 +103,22 @@
 </div>					
 <hr><center><h2>Hladinomer - Arduino / ESP8266 / ESP32</h2></center><hr>
 <p style="text-align: justify;">
-Projekt Hladinomer využíva webové rozhranie pre vizualizáciu nameraných údajov o výške hladiny vody v studni, nádrži. 
-Responzívne webové rozhranie v Bootstrap Bare šablóne sa prispôsobí akejkoľvek obrazovke, na ktorú sú dáta vizualizované. 
-Dáta sú čitateľné na hodinkách, smartfónoch, počítačoch, Smart TV a iných zariadeniach.
-Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý spracuje prichádzajúce dáta dáta podporovanou POST metódou požiadavky, vykonáva prepočet nameranej teploty na skutočnú výšku hladiny, vypočíta aj objem studne na základe známych údajov o hĺbke a priemere studne, ktoré do systému zadal používateľ.
+Projekt hladinomer je tvorený centrálnym webovým rozhraním, ktoré slúži na vizualizáciu nameraných údajov o výške hladiny vody v reálnom čase, ale aj historicky v čase cez tabuľkovú / grafickú reprezentáciu čiarovými grafmi.
+Webové rozhranie je responzíve, dokáže sa prispôsobiť každej obrazovke a rozlíšeniu zariadenia. 
+Dáta sú tak čitateľné na hodinkách, smartfónoch, počítačoch, Smart TV a iných zariadeniach.
+Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z požiadavky metódy HTTP POST.
+Následne vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbke studne.
+Vypočíta aj objem studne pre dané meranie na základe známeho priemeru studne studne.
+Hĺbku a priemer studne do systému vkladá používateľ na základe jeho studne.
 Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút.
-Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T, prípadne UART senzorom URM07 (SKU SEN0153) - dostupný iba v špeciálnej verzii projektu Hladinomer. Dokáže merať vzdialenosť až 750 cm, z dôvodu veľkého detekčného uhla sa nehodí do veľkého množstva studní... 
+<b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T, prípadne UART senzorom URM07 (SKU SEN0153) - dostupný iba v špeciálnej verzii projektu Hladinomer. Dokáže merať vzdialenosť až 750 cm, z dôvodu veľkého detekčného uhla sa nehodí do veľkého množstva studní... 
 Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10μs (mikrosekúnd) a na základe času, kedy sa signál vráti do prijímača - Echo je možné dopočítať vzdialenosť medzi senzorom a hladinou.
 Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie (oxidácie). 
-Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60 až 75°, čo ho nedovoľuje použiť v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko jednotiek metrov (6 metrov pri 4,5 hĺbke studne). 
+Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60 až 75°, čo ho nedovoľuje použiť v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko jednotiek metrov (6 metrov pri 4,5 hĺbke studne).
+Meranie ultrazvukovou metódou je vhodné pre meranie výšky hladiny vody v studni, dažďovej nádrži, či žumpe.
+Využiť je možné meranie aj pre výšku materiálu v nádrži, zásobníku (uhlie, piesok). 
+<b>Systém nie je vhodný do vŕtaných studní.</b>
 </p>
 <hr><center><h3>Princíp fungovania hladinomera - Bloková schéma</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
