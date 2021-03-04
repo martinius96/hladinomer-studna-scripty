@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Medidor de nível - Arduino / ESP8266 / ESP32 - nível de água no poço</title>
+	<meta name="description" content="Medidor de nível construído na plataforma Arduino, ESP8266, ESP32. Medição com sensor ultrassônico HC-SR04 / JSN-SR04T. Envio de dados via Ethernet, WiFi, Sigfox. Medição do nível de água em um poço, reservatório.">
+	<meta name="keywords" content="medidor de nível, poço, reservatório, fossa séptica, altura, nível, monitor, medição, ultrassom, flutuador, óptico, hidrostático, pressão, imersão, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/br/">
+	<meta property="og:title" content="Medidor de nível - Arduino / ESP8266 / ESP32 - nível de água no poço">
+	<meta property="og:description" content="Medidor de nível construído na plataforma Arduino, ESP8266, ESP32. Medição com sensor ultrassônico HC-SR04 / JSN-SR04T. Envio de dados via Ethernet, WiFi, Sigfox. Medição do nível de água em um poço, reservatório.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/br/">
+	<meta property="twitter:title" content="Medidor de nível - Arduino / ESP8266 / ESP32 - nível de água no poço">
+	<meta property="twitter:description" content="Medidor de nível construído na plataforma Arduino, ESP8266, ESP32. Medição com sensor ultrassônico HC-SR04 / JSN-SR04T. Envio de dados via Ethernet, WiFi, Sigfox. Medição do nível de água em um poço, reservatório.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Medidor de nível</a></li>
+	<li><a href="zrazkomer.html">Pluviômetro</a></li>
+	<li><a href="zapojenie.html">Envolvimento</a></li>      
+      	<li><a href="kontakt.html">Contato</a></li>
+<a href="../index.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299857.svg" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/index.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../hi/index.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321238.svg" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../hr/index.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321222.svg" alt="Croatia.png, 2,2kB" title="Croatia" height="32" width="32"></a>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Códigos-fonte para Arduino, ESP8266, ESP32, biblioteca NewPing: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Repositório de projeto Github</a>
+				</div>	
+				<div class="alert alert-success">
+					<strong><font color="red">Experimente o projeto do medidor de nível gratuitamente com o seu hardware: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/">Aqui</font></a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>				
+<hr>
+<center> 
+	<h3>Microcontroladores de controle para o projeto de medidor de nível</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"><br><b>Arduino Uno / Nano</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b>NodeMCU v3 Lolin</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b>Wemos D1 Mini</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit V1</b></center></div>
+</div>		
+<center> 
+	<h3>Módulos de tecnologia de transmissão Ethernet e Sigfox para o projeto de medidor de nível</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b>Ethernet shield Wiznet W5100</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b>Ethernet modul Wiznet W5500</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b>Sigfox Node Modem</b></center></div>
+</div>
+<hr>
+<center> 
+	<h3>Sensores ultrassônicos com suporte e testados para registrar o nível de água</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b>HC-SR04</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b>JSN-SR04T</b></center></div>		
+<div class="col-sm-3"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>		
+</div>					
+<hr><center><h2>Medidor de nível - Arduino / ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+O projeto do medidor de nível usa uma interface web para visualizar os dados medidos no nível da água no poço, tanque.
+A interface da web responsiva no modelo Bootstrap Bar se adapta a qualquer tela na qual os dados são visualizados.
+Os dados podem ser lidos em relógios, smartphones, computadores, smart TVs e outros dispositivos.
+A interface da web do projeto usa um back-end escrito em PHP, que processa dados de entrada suportados pelo método de solicitação POST, converte a temperatura medida para o nível real e calcula o volume do poço com base em dados conhecidos de profundidade e diâmetro do poço inseridos no sistema por o usuário.
+Os dados são enviados ao servidor web por um microcontrolador, que realiza medições a cada 300 segundos - i. Durante 5 minutos, ou no caso de transmissão pela rede Sigfox IoT, os dados são enviados a cada 11 minutos.
+A medição do nível de água é realizada usando sensores ultrassônicos - HC-SR04, ou sua variante à prova d'água JSN-SR04T, ou UART URM07 (SKU SEN0153) - disponível apenas em uma versão especial do medidor de nível de projeto. Pode medir uma distância de até 750 cm, devido ao grande ângulo de detecção, não cabe em um grande número de poços ...
+O princípio da medição de sensores ultrassônicos é enviar um sinal Trigger com duração de 10μs (microssegundos) e com base no tempo em que o sinal retorna ao receptor - Echo é possível calcular a distância entre o sensor e o nível.
+Um parâmetro importante em ambos os sensores ultrassônicos é a largura do feixe, ou seja, a característica de detecção.
+O sensor HC-SR04 possui uma característica de detecção de 15 °. O feixe é relativamente estreito e o sensor também é adequado para poços e tanques mais estreitos, mas não é à prova d'água e apresenta alto risco de corrosão (oxidação).
+O sensor JSN-SR04T à prova d'água tem uma característica de detecção de 60 a 75 °, o que não permite sua utilização em poços estreitos, pois o feixe se expande muito com a distância e um poço com diâmetro de várias unidades (6 metros em 4,5 poço profundidade) é necessária.
+</p>
+<hr><center><h3>Princípio de operação do medidor de nível - Diagrama de blocos</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<p style="text-align: justify;">
+A interface da web usa trigonometria para estimar a profundidade máxima mensurável do poço em um diâmetro de poço conhecido (outro parâmetro para calcular o volume do poço).
+A interface da web permite ao usuário calcular a que profundidade máxima do poço cada um dos sensores é adequado com base em suas características.
+O projeto é tão fácil de usar mesmo para leigos que não sabem qual sensor é mais adequado para aplicação em seu poço.
+O microcontrolador usado também desempenha um papel importante no sistema. O projeto utilizou a plataforma Arduino (Uno) conectada a um módulo / blindagem Ethernet da série Wiznet modelo W5100 e W5500, respectivamente, que fornecia conectividade HTTP e permitia ao microcontrolador transferir dados para uma interface web remota na Internet.
+Como o medidor de nível é um projeto externo, muitos usuários também gostariam da possibilidade de usar uma plataforma WiFi sem ter que puxar a conectividade Ethernet para o poço.
+As plataformas WiFi da Espressif Systems - ESP8266 e ESP32, utilizadas no projeto, permitem a operação em vários modos - StandBy, Deep Sleep (deep sleep com modem WiFi desligado), StandBy + OTA - permite fazer upload remotamente para a placa novo firmware diretamente da placa do ambiente Arduino IDE.
+A pedido, também é possível criar uma atualização remota OTA, que é distribuída remotamente via Internet a partir de um servidor web, você pode usar o repositório Github, que pode distribuir a atualização para o cliente em formato RAW .bin.
+Para o modo de operação Deep Sleep, há um diagrama de fiação modificado para a plataforma ESP8266, que usa um sinal que é alimentado para o RST para despertar o microcontrolador WAKE.
+Ao mesmo tempo, esta conexão não permite que o programa seja atualizado sem desconectar este jumper.
+Para ESP32, o modo Deep Sleep é usado usando um temporizador RTC, que desperta o ESP após um certo tempo.
+As plataformas podem se comunicar com a interface da web por meio de HTTP, mas também do protocolo HTTPS. A plataforma ESP8266 usa a impressão digital da chave pública do servidor web em formato SHA1, mas requer renovações mais frequentes, pois são válidas por no máximo um ano ou 2 anos, respectivamente.
+O microcontrolador da série ESP32 usa o certificado da autoridade de certificação raiz, que emitiu o certificado para o servidor web - o certificado CA ROOT no formato .pem para a conexão HTTPS.
+Do ponto de vista operacional, essa opção é melhor, pois o certificado da autoridade de certificação também é válido por 20 anos e não é necessária a renovação do certificado.
+</p>
+<hr>
+<p style="text-align: justify;">
+Para locais onde não há cobertura de Internet fixa, também é possível usar a rede IoT Sigfox, que cobre os países da Europa, América com suas emissoras. Esta tecnologia permite transmitir pequenos volumes de mensagens de até 12B de tamanho. No caso do projeto de medidor de nível, o valor do nível de água 4B é enviado. Para um projeto estendido por pluviômetro, é enviado o valor 8B, que é formado pela altura do nível da água e o incremento da precipitação.
+Como o Sigfox permite a transmissão de no máximo 140 mensagens por dia, o intervalo de transmissão de dados é estendido para 11 minutos. Em ambos os casos, a mensagem não contém todo o comprimento que pode, i. 12B.
+As mensagens de carga útil também podem ser complementadas com várias informações do sistema, por exemplo: dados GEO (longitude / latitude), RSSI (Força do sinal), número da mensagem e outros.
+O módulo de comunicação que foi usado para o projeto é um modem Sigfox WISOL 868MHz UART. Este modem se comunica por meio de comandos AT por meio da interface UART, que é emulada por software em microcontroladores.
+A comunicação assumirá a velocidade de 9600 baud / s. O modem WISOL é equipado com um conector u.FL integrado no módulo PCB para conexão da antena, o que reduz significativamente a cobertura, mesmo em ambientes internos / externos com sombra.
+Para uma transmissão de dados bem-sucedida, a cobertura de duas, de preferência três ou mais estações BTS é necessária para uma transmissão de dados bem-sucedida. O BTS envia as informações transmitidas para o backend do Sigfox, onde é necessário fazer um callback, que será iniciado após o recebimento dos dados.
+O retorno de chamada deve fazer uma solicitação HTTP ou HTTPS para o domínio onde o aplicativo da web está sendo executado com o método POST e uma carga útil codificada adequadamente que o back-end do aplicativo da web espera.
+</p>
+<div class="alert alert-info">
+<h4>Configurando um retorno de chamada de back-end Sigfox para testar um aplicativo da web</h4>
+<b>Medidor de nível:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Para Custom payload config nós vamos escrever:</b> cislo1::uint:16</li>
+<li><b>Para URL pattern:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (ou outro URL do seu servidor web onde o projeto será executado), a possibilidade de usar HTTPS</li>
+<li><b>Para HTTP metóde nós escolhemos:</b> POST</li>
+<li><b>Para Body vamos adicionar:</b></li>
+<li>hodnota={customData#cislo1}</li>
+<li><b>Do Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>				
+<hr>
+<center> 
+     <h3>Visualizações da interface da web - medidor de nível</h3>
+     <hr>
+    <img src="https://i.imgur.com/abOtAjz.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer - výška hladiny vody v studni" title="Hlavný prehľad - Hladinomer - výška hladiny vody v studni">
+    <img src="https://i.imgur.com/WwSQX4R.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer"> 
+    <img src="https://i.imgur.com/LocF6zH.jpg" style="display: block; max-width: 100%; height: auto;" alt="Rekordy nameraných údajov o výške hladiny vody - MAX, MIN - Hladiomer" title="Rekordy nameraných údajov o výške hladiny vody - MAX, MIN - Hladiomer"> 
+ <img src="https://i.imgur.com/KFZANfa.jpg" style="display: block; max-width: 100%; height: auto;" alt="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32" title="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32"> 
+			</center>			
+	<center> 
+     <h3>Características de detecção do sensor HC-SR04 - 15°</h3>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
+    <hr>
+     <h3>Características de detecção do sensor JSN-SR04T - à prova d'água - 45°</h3>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
+ </center>		
+ </div>
+		</div>
+</div>
+</body>
+</html>
