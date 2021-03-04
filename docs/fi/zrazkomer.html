@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Taso + sademittari - Arduino / ESP8266 / ESP32 - kaivon vedenpinta, kokonaissademäärä</title>
+	<meta name="description" content="Arduino-alustalle rakennettu pintamittari ja sademittari, ESP8266, ESP32. Mittaus ultraäänianturilla HC-SR04 / JSN-SR04T. Sademittaus IR-anturilla Hydreon RG-11. Tietojen lähettäminen Ethernetin, WiFi: n, Sigfoxin kautta. Veden tason mittaus kaivossa, öljypohja.">
+		<meta name="keywords" content="tasomittari, kaivo, kaatopaikka, saostussäiliö, korkeus, sademittari, vesi, taso, näyttö, mittaus, ultraääni, kelluva, optinen, hydrostaattinen, paine, upotus, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/fi/zrazkomer.html">
+	<meta property="og:title" content="Taso + sademittari - Arduino / ESP8266 / ESP32 - kaivon vedenpinta, kokonaissademäärä">
+	<meta property="og:description" content="Arduino-alustalle rakennettu pintamittari ja sademittari, ESP8266, ESP32. Mittaus ultraäänianturilla HC-SR04 / JSN-SR04T. Sademittaus IR-anturilla Hydreon RG-11. Tietojen lähettäminen Ethernetin, WiFi: n, Sigfoxin kautta. Veden tason mittaus kaivossa, öljypohja.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/fi/zrazkomer.html">
+	<meta property="twitter:title" content="Taso + sademittari - Arduino / ESP8266 / ESP32 - kaivon vedenpinta, kokonaissademäärä">
+	<meta property="twitter:description" content="Arduino-alustalle rakennettu pintamittari ja sademittari, ESP8266, ESP32. Mittaus ultraäänianturilla HC-SR04 / JSN-SR04T. Sademittaus IR-anturilla Hydreon RG-11. Tietojen lähettäminen Ethernetin, WiFi: n, Sigfoxin kautta. Veden tason mittaus kaivossa, öljypohja.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Tasomittari</a></li>
+	<li class="active"><a href="zrazkomer.html">Sademittari</a></li>
+	<li><a href="zapojenie.html">Osallistuminen</a></li>      
+      	<li><a href="kontakt.html">Ottaa yhteyttä</a></li>
+<a href="../zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299857.svg" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../hi/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321238.svg" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../hr/zrazkomer.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321222.svg" alt="Croatia.png, 2,2kB" title="Croatia" height="32" width="32"></a>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Lähdekoodit Arduinolle, ESP8266, ESP32, NewPing-kirjasto, Ethernet: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-projektivarasto</a>
+				</div>	
+				<div class="alert alert-info">
+					<strong><font color="red">Kokeile tasomittaria + sademittari -projektia ilmaiseksi laitteellasi: </strong><a href="http://arduino.clanweb.eu/studna/?lang=en">Tässä</font></a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+<span class="label label-info">Sigfox</span>				
+<hr>
+<center> 
+	<h3>Ohjauksen mikrokontrollerit projektille Tasomittari + sademittari</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Uno pre termostat" title="Riadiaci mikrokontróler Arduino Uno pre termostat"><br><b>Arduino Uno / Nano</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b>NodeMCU v3 Lolin</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b>Wemos D1 Mini</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit V1</b></center></div>
+</div>	
+<center> 
+	<h3>Ethernet- ja Sigfox-siirtotekniikan moduulit projektille Tasomittari + Sademittari</h3>
+</center>
+<div class="row">
+<div class="col-sm-4"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b>Ethernet shield Wiznet W5100</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b>Ethernet modul Wiznet W5500</b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b>Sigfox Node Modem</b></center></div>
+</div>
+<hr>
+<center> 
+	<h3>Tuetut ja testatut ultraäänianturit vedenpinnan mittaamiseen</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b>HC-SR04</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b>JSN-SR04T</b></center></div>		
+<div class="col-sm-3"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>		
+</div>	
+     <hr>
+<center> 
+	<h3>Tuettu IR-sademittari</h3>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-12"><center><img src="https://i.imgur.com/g2ky3b4.png" width="256px" height="128px" style="border-radius: 50%;" alt="Infračervený IR zrážkomer Hydreon RG-11" title="Infračervený IR zrážkomer Hydreon RG-11"><br><b>Hydreon RG-11</b></center></div>
+</div>					
+<hr><center><h2>Tasomittari - Arduino / ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+Pintamittariprojekti käyttää verkkoliitäntää visualisoimaan mitatut tiedot veden tasosta kaivossa, säiliössä.
+Bootstrap-palkin mallin reagoiva verkkokäyttöliittymä mukautuu mihin tahansa näyttöön, jossa tietoja visualisoidaan.
+Tiedot voidaan lukea kelloista, älypuhelimista, tietokoneista, älytelevisioista ja muista laitteista.
+Projektin web-käyttöliittymä käyttää PHP: ssä kirjoitettua taustaa, joka käsittelee saapuvat tiedot, joita tukee POST-pyyntötapa, muuntaa mitatun lämpötilan todelliselle tasolle ja laskee kaivon tilavuuden tunnettujen tietojen perusteella syvyydestä ja kaivon halkaisijasta, jotka järjestelmä on syöttänyt käyttäjä.
+Mikrokontrolleri lähettää tiedot verkkopalvelimelle, joka suorittaa mittauksia 300 sekunnin välein - ts. Tiedot lähetetään 5 minuutin välein tai Sigfox IoT -verkon välityksellä 11 minuutin välein.
+Vedenpinnan mittaus suoritetaan ultraääniantureilla - HC-SR04 tai sen vedenpitävällä muunnoksella JSN-SR04T tai UART-anturilla URM07 (SKU SEN0153) - saatavana vain tason mittarin projektin erityisversiossa. Se voi mitata jopa 750 cm: n etäisyyden, suuren havaintokulman vuoksi se ei sovi suureen määrään kaivoja ...
+Ultraääniantureiden mittaamisen periaate on lähettää liipaisusignaali, jonka pituus on 10μs (mikrosekuntia) ja joka perustuu signaalin palaamisajan vastaanottimeen - Kaiku on mahdollista laskea anturin ja tason välinen etäisyys.
+Tärkeä parametri molemmissa ultraääniantureissa on säteen leveys, toisin sanoen ilmaisuominaisuudet.
+HC-SR04-anturilla on 15 °: n tunnistusominaisuus. Palkki on suhteellisen kapea ja anturi soveltuu myös kapeisiin kaivoihin ja säiliöihin, mutta se ei ole vedenpitävä ja sillä on suuri korroosion (hapettumisen) vaara.
+Vedenpitävän JSN-SR04T-anturin tunnistusominaisuudet ovat 60-75 °, mikä ei salli sen käyttöä kapeissa kaivoissa, koska säde laajenee huomattavasti etäisyyden ja kaivon kanssa, jonka halkaisija on useita yksiköitä (6 metriä 4,5 kuopassa) syvyys) vaaditaan.
+</p>
+<hr>
+<p style="text-align: justify;">
+Verkkoliitäntä käyttää trigonometriaa arvioidakseen kaivon mitattavan maksimisyvyyden tunnetulla kaivon halkaisijalla (toinen parametri kaivon tilavuuden laskemiseksi).
+Verkkoliitännän avulla käyttäjä voi laskea, kuinka kaivon enimmäissyvyyteen kukin anturi sopii ominaisuuksiensa perusteella.
+Projekti on niin helppokäyttöinen myös maallikoille, jotka eivät tiedä, mikä anturi sopii paremmin heidän kaivoonsa.
+Käytetyllä mikrokontrollerilla on myös tärkeä rooli järjestelmässä. Projektissa käytettiin Arduino-alustaa (Uno), joka oli kytketty Ethernet-moduuliin / -suojaan Wiznet-mallista W5100 ja W5500, vastaavasti, joka tarjosi HTTP-yhteyden ja mahdollisti mikro-ohjaimen siirtämään tietoja verkon etärajapintaan Internetissä.
+Koska tasomittari on ulkoprojekti, monet käyttäjät haluaisivat myös mahdollisuuden käyttää WiFi-alustaa tarvitsematta vetää Ethernet-yhteyttä kaivoon.
+Projektissa käytetyt Espressif Systemsin - ESP8266 ja ESP32 - WiFi-alustat mahdollistavat toiminnan eri tiloissa - StandBy, Deep Sleep (syvä lepotila WiFi-antennin ollessa pois päältä), StandBy + OTA - mahdollistavat uuden laiteohjelmiston etälataamisen kortille LAN Arduino IDE -ympäristöstä.
+Deep Sleep -käyttötilaa varten on muokattu kytkentäkaavio ESP8266-alustalle, joka käyttää signaalia, joka syötetään RST: lle WAKE-mikrokontrollerin herättämiseksi.
+Samanaikaisesti tämä yhteys ei salli ohjelman päivittämistä irrottamatta tätä hyppääjää.
+ESP32: n syvä lepotilaa käytetään RTC-ajastimella, joka herättää ESP: n tietyn ajan kuluttua.
+Alustat voivat kommunikoida web-käyttöliittymän kanssa HTTP: n, mutta myös HTTPS-protokollan kautta. ESP8266-alusta käyttää verkkopalvelimen julkisen avaimen sormenjälkeä SHA1-muodossa, mutta vaatii useamman uusimisen, koska ne ovat voimassa enintään yhden vuoden tai 2 vuotta.
+ESP32-sarjan mikrokontrolleri käyttää juurivarmenneviranomaisen sertifikaattia, joka myönsi varmenteen verkkopalvelimelle - ROOT CA -varmenteen .pem-muodossa HTTPS-yhteydelle.
+Toiminnan kannalta tämä vaihtoehto on parempi, koska sertifiointiviranomaisen sertifikaatti on voimassa myös 20 vuotta eikä sertifikaatin uusimista tarvita.
+<hr>
+Koska Arduino-ympäristö on alttiimpi ohjelmien kaatumisille, koska muisti ja suorituskyky ovat voimakkaasti rajalliset (verrattuna ESP-alustoihin), lähdekoodiin on lisätty vahtikoira, joka pystyy käynnistämään alustan uudelleen ja palauttamaan toiminnan.
+Mikrokontrollerin laiteohjelmiston ohjelmistosovellusta laajennetaan tallentamalla tietoja IR-sademittarista Hydreon RG-11, joka voi jäljitellä kytkettyihin DIP-kytkimiin perustuvaa kääntökauhamenetelmää (se tukee myös muita tiloja, joita käytetään autoteollisuudessa, puutarhataloudessa) .
+Tämän avulla mikro-ohjain voi lukea sademittarista tulevien pulssien lukumäärän keskeytyksessä, jolloin yksi pulssi edustaa sateen arvoa 0,01 mm.
+Pulssi on LOW-signaalin muodossa, joka syötetään integroidun releen kautta, joka vaihtaa NO-tilaan (NC: stä).
+Digitaalituloon on kytketty vetovastus, joka pitää HIGH-tasoa, kunnes kaatokauhan pulssi tapahtuu 0,01 mm: n välein.
+Koska tulo on edelleen KORKEA ja siirtyy LOW-tilaan vasta, kun sademäärän lisäys lisätään, kasvu havaitaan FALLING-keskeytysmenetelmällä, joka reagoi etureunaan.
+Pulssien välillä poistaminen tapahtuu 15 ms: n pituudella, mikä estää yhden pulssin lisäämisen useita kertoja signaalin värähtelyn takia.
+Jopa 66 pulssia voidaan tallentaa sekunnissa, mikä vastaa 0,66 mm: n lisäystä.
+Sademittarilla on suoja UV-säteilyä vastaan, se ei hajoa ajan myötä, sen kuperalla lasilla, jolle saostumat otetaan, on itsepuhdistuva vaikutus.
+Toiminta on siten täysin huoltovapaa ja luotettava, koska kaatopaikka on jäljitelty infrapunasademittarilla, eikä se sisällä mekaanista osaa, kuten klassinen kauha, jossa on myös riski, että se tukkeutuu liasta.
+Sademittari käyttää Arduino / ESP-pistorasiaa keskeytystuella. Pulssi lisätään haihtuvaan muuttujaan, jota voidaan palvella keskeytyksessä.
+Sademittarin tiedot muodostavat siten sateiden summan ajanjaksolta tietojen lähettämisen jälkeen. Verkkoliitäntää laajennetaan myös tätä mahdollisuutta varten sadekehityksen graafisella ja tekstillisellä visualisoinnilla. Tekstinsyöttö sallii sademäärän summan tunnissa päivittäin.
+<b> Sademittariprojekti on tällä hetkellä saatavana vain Arduino-alustalle, mutta muutamalla muutoksella on mahdollista ajaa myös ESP32: n, ESP8266: n alla </b>. Projektin molemmat versiot on käännetty kokonaan englanniksi, slovakiksi, venäjäksi ja Saksan kieli.
+</p>
+<center><img src="https://i.imgur.com/chYnF1M.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje"></center>
+<hr>
+<p style="text-align: justify;">
+Paikoissa, joissa kiinteää Internetiä ei ole, on mahdollista käyttää myös IoT-verkkoa Sigfox, joka kattaa Euroopan maat ja tarjoaa lähetyksiä - BTS-asemia, jotka huolehtivat tiedonsiirrosta Sigfoxin pääkonttoriin.
+Tämän tekniikan avulla voit lähettää pieniä määriä viestejä, joiden koko on enintään 12 B. Tasomittariprojektin tapauksessa lähetetään 4B-vesitason arvo. Sademittarilla laajennetulle projektille lähetetään arvo 8B, joka muodostuu vedenpinnan korkeudesta ja sademäärän kasvusta.
+Koska Sigfox sallii enintään 140 viestin lähettämisen päivässä, tiedonsiirtoväli pidennetään 11 ​​minuuttiin. Molemmissa tapauksissa viesti ei sisällä täyspitkää pituuttaan, ts. 12B.
+Hyötykuormaviestejä voidaan myös täydentää erilaisilla järjestelmätiedoilla, esimerkiksi: GEO-tiedot (pituus / leveysaste), RSSI (signaalin voimakkuus), viestin numero ja muut.
+Projektissa käytetty tiedonsiirtomoduuli on Sigfox WISOL 868MHz UART-modeemi. Tämä modeemi kommunikoi AT-komentojen kautta UART-liitännän kautta, joka on mikro-ohjaimille emuloitu ohjelmisto.
+Tiedonsiirto alkaa nopeudella 9600 baud / s. WISOL-modeemi on varustettu integroidulla u.FL-liittimellä piirilevymoduulissa antenniliitäntää varten, mikä vähentää merkittävästi kattavuutta myös sisätiloissa / varjossa ulkona.
+Onnistuneen tiedonsiirron onnistumiseksi tarvitaan peitto kahdella, mieluiten kolmella tai useammalla BTS-asemalla. BTS lähettää lähetetyt tiedot Sigfox-taustajärjestelmälle, jossa on tarpeen soittaa takaisin, mikä alkaa tietojen vastaanottamisen jälkeen.
+Soittopyynnön on tehtävä HTTP- tai HTTPS-pyyntö toimialueelle, jossa verkkosovellus on käynnissä, POST-menetelmällä ja sopivasti koodatulla hyötykuormalla, jonka verkkosovelluksen taustayksikkö odottaa.
+</p>
+<div class="alert alert-info">
+<b>Pintamittari + sademittari - Soittoasetukset Sigfox Backendissä:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Vastaanottaja Custom payload config me kirjoitamme:</b> cislo1::float:16 cislo2::uint:16</li>
+<li><b>Vastaanottaja URL pattern:</b> http://arduino.clanweb.eu/studna/data.php (tai muu Web-palvelimesi URL-osoite, jossa projekti suoritetaan), mahdollisuus käyttää HTTPS</li>
+<li><b>Vastaanottaja HTTP metóde me valitsemme:</b> POST</li>
+<li><b>Vastaanottaja Body lisäämme:</b></li>
+<li>dazd={customData#cislo1}&hodnota={customData#cislo2}</li>
+<li><b>Do Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>			
+	<hr>
+<center>     
+ <h3>Web-käyttöliittymän visualisointi - Tasomittari + Sademittari</h3>
+     <hr>
+    <img src="https://i.imgur.com/d1aAchA.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje" title="Hlavný prehľad - Hladinomer + Zrážkomer - aktuálne namerané údaje">
+    <img src="https://i.imgur.com/KGnvg5U.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer + Zrážkomer"> 
+    <img src="https://i.imgur.com/b1h0Itj.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok" title="Grafická vizualizácia výšky hladiny vody v studni za 24 hodín, 7 dní, 1 rok"> 
+    <img src="https://i.imgur.com/J8mCbR7.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon" title="Grafická vizualizácia zrážok zaznamenaných cez zrážkomer RG-11 Hydreon"> 
+     <h3>HC-SR04-anturin tunnistusominaisuudet - 15°</h3>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - HC-SR04 detekčná charakteristika - ultrazvukový senzor vzdialenosti">
+    <hr>
+     <h3>JSN-SR04T-anturin tunnistusominaisuudet - vedenpitävä - 45°</h3>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti" title="Hladinomer - JSN-SR04T detekčná charakteristika - ultrazvukový senzor vzdialenosti"> 
+ </center>	
+</center>			
+			
+ </div>
+		</div>
+</div>
+</body>
+</html>
