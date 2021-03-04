@@ -115,10 +115,13 @@ Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každý
 Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10μs (mikrosekúnd) a na základe času, kedy sa signál vráti do prijímača - Echo je možné dopočítať vzdialenosť medzi senzorom a hladinou.
 Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie (oxidácie). 
+Z toho dôvodu je ho vhodné umiestniť nad studňu. 
 Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60 až 75°, čo ho nedovoľuje použiť v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko jednotiek metrov (6 metrov pri 4,5 hĺbke studne).
 Meranie ultrazvukovou metódou je vhodné pre meranie výšky hladiny vody v studni, dažďovej nádrži, či žumpe.
-Využiť je možné meranie aj pre výšku materiálu v nádrži, zásobníku (uhlie, piesok). 
+Systém a senzory sú bezúdržbové.
+Ultrazvukové senzory je možné využiť aj pre meranie výšku materiálu v nádrži, zásobníku (uhlie, piesok, drevo, štiepka...) - závisí od konkrétnej aplikácie. 
 <b>Systém nie je vhodný do vŕtaných studní.</b>
+V prípade štvrcovej studne sa do priemeru dosádza priemer vpísanej kružnice, ktorá bude tvoriť referenčnú hodnotu vodného valca a objem studne.
 </p>
 <hr><center><h3>Princíp fungovania hladinomera - Bloková schéma</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
