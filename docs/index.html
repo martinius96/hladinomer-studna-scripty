@@ -185,7 +185,651 @@ Callback musí vykonať HTTP, respektíve HTTPS request na doménu, kde webaplik
     <img src="https://i.imgur.com/WwSQX4R.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer"> 
     <img src="https://i.imgur.com/LocF6zH.jpg" style="display: block; max-width: 100%; height: auto;" alt="Rekordy nameraných údajov o výške hladiny vody - MAX, MIN - Hladiomer" title="Rekordy nameraných údajov o výške hladiny vody - MAX, MIN - Hladiomer"> 
  <img src="https://i.imgur.com/KFZANfa.jpg" style="display: block; max-width: 100%; height: auto;" alt="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32" title="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32"> 
-			</center>			
+<hr><h2><font color="#27AE60">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a></font></h2><hr></center>
+<div class="alert alert-success">
+  <strong>Programové implementácie pre odosielanie údajov na toto webové rozhranie.</strong>
+    <li>Implementácie pre všetky tri druhy kompatibilných mikrokontrólerov sú obsiahnuté v jednom zdrojovom kóde, na základe vybratej dosky v Arduino IDE sa kompiluje tá časť programu, ktorá prislúcha danej doske.</li>
+  <li><font color="red"><b>Pre Arduino je natívne zvolené DHCP (s možnosťou odkomentovania častí so statickou IPv4 adresou), defaultne zvolený Ethernet shield Wiznet W5100 (pre W5500 / ENC28J60) nutné v zdrojovom kóde odkomentovať knižnicu a zakomentovať pôvodnú Ethernet</b></font></li>
+  <li><font color="#2980B9"><b>Pre ESP8266 a ESP32 je nutné v zdrojovom kóde doplniť SSID a heslo WiFi siete. Využívajú IPv4 priradenú z DHCP.</b></font></li>
+   <li>V zdrojovom kóde sú použité vývody mikrokontrolérov na základe schémy zapojenia tu na stránke pre pripojenie ultrazvukového senzora vzdialenosti HC-SR04 / JSN-SR04T.</li>
+   <hr>
+   <h4><font color="red">Dôležité údaje vyžadujúce zmenu / pozornosť pre kompatibilitu s vašou sieťou a hardvérom sú v zdrojovom kóde vyznačené ČERVENOU FARBOU!</font></h4></div>
+<pre style="background-color:#27AE60;"> 
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - Compact - HC-SR04 / JSN-SR04T / HY-SRF05              |*/
+/*|Arduino + Ethernet (W5100 / W5500, ENC28J60), ESP8266 (NodeMCU), ESP32 (DevKit)    |*/
+/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Knižnice NewPing, ESP8266NewPing a Ethernet2 je dostupná v Github repozitári:      |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
+/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
+/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
+/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
+/*|Licencia pouzitia: MIT                                                             |*/
+/*|Revízia: 19. Februar 2021                                                          |*/
+/*|-----------------------------------------------------------------------------------|*/
+
+const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
+String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+//Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
+
+//Kompatibilne mikrokontrolery z rady Arduino: Uno, Nano, Mega (R3)
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+//HLAVICKOVE SUBORY PRE ARDUINO A ETHERNET SHIELD + watchdog
+#include &lt;avr\wdt.h>
+#include &lt;SPI.h>
+
+
+
+//VOLBA ETHERNET MODULU / SHIELDU K ARDUINU Z RADY WIZNET / ENC (Microchip)
+///////////////////////////////////////////////////////////////////////////////////////
+<font color="red"><h5>#include &lt;Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva    </h5></font>
+<font color="red"><h5>//#include &lt;Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva   </h5></font>
+<font color="red"><h5>//#include &lt;Ethernet3.h> //Ethernet modul WIZ850io / USR-ES1 (Wiznet W5500 V2) - zakomentovat ak sa nepouziva   </h5></font>
+<font color="red"><h5>//#include &lt;UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva   </h5></font>
+///////////////////////////////////////////////////////////////////////////////////////
+
+    
+
+//PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
+#include &lt;NewPing.h>
+#define pinTrigger    5
+#define pinEcho       6
+#define maxVzdialenost 450
+NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
+
+byte mac[] = { 0xAA, 0xBB, 0xCA, 0xDC, 0xEE, 0xDE };
+//IPAddress ip(192, 168, 0, 2);
+//IPAddress dnServer(192, 168, 0, 1);
+//IPAddress gateway(192, 168, 0, 1);
+//IPAddress subnet(255, 255, 255, 0);
+unsigned long timer = 0;
+EthernetClient client;
+
+#elif defined(ESP8266)
+#include &lt;ESP8266WiFi.h>
+#include &lt;NewPingESP8266.h>
+#define pinTrigger    5 //D1
+#define pinEcho       4 //D2
+#define maxVzdialenost 450
+NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+
+#elif defined(ESP32)
+#include &lt;WiFi.h>
+#include &lt;NewPingESP8266.h>
+#include "esp_system.h"
+#define pinTrigger    22 //D22
+#define pinEcho       23 //D23
+#define maxVzdialenost 450
+NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+const int wdtTimeout = 30000;  //time in ms to trigger the watchdog
+hw_timer_t *timer = NULL;
+
+void IRAM_ATTR resetModule() {
+  ets_printf("reboot\n");
+  esp_restart();
+}
+#endif
+
+#if defined(ESP32) || defined(ESP8266)
+<font color="red"><h5>const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE</h5></font>
+<font color="red"><h5>const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE</h5></font>
+WiFiClient client;
+unsigned long timer2 = 0;
+#endif
+
+void setup() {
+  Serial.begin(115200);
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println(F("Konfigurujem Ethernet adapter"));
+    Ethernet.begin(mac); // pre DHCP
+    //Ethernet.begin(mac, ip); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns, gateway); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns, gateway, subnet); //pre staticku IPv4 
+    //IBA PRE Ethernet3.h !!! POZOR --> INY BEGIN ORDER PARAMETROV.... : //Ethernet.begin(mac, ip, subnet, gateway, dns);
+  }
+  Serial.print(F("Priradena IP: "));
+  Serial.println(Ethernet.localIP());
+  wdt_enable(WDTO_8S); //watchdog on 8 sec trigger
+#elif defined(ESP32) || defined(ESP8266)
+  WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(F("."));
+  }
+  Serial.println("");
+  Serial.println(F("Wifi pripojene s IP:"));
+  Serial.println(WiFi.localIP());
+#endif
+#if defined(ESP8266)
+  ESP.wdtEnable(30000); //30s SW watchdog
+#elif defined(ESP32)
+  timer = timerBegin(0, 80, true);                  //timer 0, div 80
+  timerAttachInterrupt(timer, &resetModule, true);  //attach callback
+  timerAlarmWrite(timer, wdtTimeout * 1000, false); //set time in us
+  timerAlarmEnable(timer);                          //enable interrupt
+#endif
+}
+
+void loop() {
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+  wdt_reset(); //Feed watchdog
+  /* if (Ethernet.begin(mac) == 0) {
+    Ethernet.begin(mac); // pre DHCP
+    //Ethernet.begin(mac, ip); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns, gateway); //pre staticku IPv4
+    //Ethernet.begin(mac, ip, dns, gateway, subnet);
+  } */
+
+  if ((millis() - timer) >= 300000 || timer == 0) { //rutina raz za 5 minut
+    timer = millis();
+    //NEPOUZIVAT MOMENTALNE, SPOSOBUJE PROBLEMY A ZACYKLENIE SIETE
+   // Ethernet.maintain(); //pre DHCP, pri statickej IP zakomentovat
+    int vzdialenost = sonar.ping_cm();
+    delay(50);
+    if (vzdialenost > 0) {
+      vzdialenost = 0;
+      for (int i = 0; i &lt; 10; i++) {
+        vzdialenost += sonar.ping_cm();
+        delay(50);
+      }
+      wdt_reset();
+      vzdialenost = vzdialenost / 10;
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+      Serial.print(vzdialenost);
+      Serial.println(F(" cm."));
+      client.stop(); //ukoncenie vsetkych existujucich spojeni
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
+      if (client.connect(host, 80)) {
+        client.println("POST " + url + " HTTP/1.0");
+        client.println("Host: " + (String)host);
+        client.println(F("User-Agent: EthernetW5100")); //Moznost pouzit iny USER agent
+        client.println(F("Connection: close"));
+        client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+        client.print(F("Content-Length: "));
+        client.println(data.length());
+        client.println();
+        client.println(data);
+        Serial.println(F("Data uspesne odoslane na webove rozhranie"));
+      } else {
+        Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer = 0;  //vynulujeme timer, znovu nameriame a vykoname request
+      }
+      client.stop();
+    } else {
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      delay(500);
+      timer = 0; //vynulujeme timer, znovu nameriame a vykoname request
+    }
+  }
+#endif
+#if defined(ESP32) || defined(ESP8266)
+  if (WiFi.status() != WL_CONNECTED) {
+    WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  }
+#endif
+#if defined(ESP8266)
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(F("."));
+  }
+  ESP.wdtFeed(); //feed watchdog
+  yield(); //nechaj ESP dokoncit WiFi stack
+  if ((millis() - timer2) >= 300000 || timer2 == 0) {
+    timer2 = millis();
+    int vzdialenost = sonar.ping_cm();
+    delay(50);
+    if (vzdialenost > 0) {
+      vzdialenost = 0;
+      for (int i = 0; i &lt; 10; i++) {
+        vzdialenost += sonar.ping_cm();
+        delay(50);
+      }
+      vzdialenost = vzdialenost / 10;
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+      Serial.print(vzdialenost);
+      Serial.println(F(" cm."));
+      client.stop();
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
+      if (client.connect(host, 80)) {
+        client.println("POST " + url + " HTTP/1.0");
+        client.println("Host: " + (String)host);
+        client.println(F("User-Agent: ESP8266"));
+        client.println(F("Connection: close"));
+        client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+        client.print(F("Content-Length: "));
+        client.println(data.length());
+        client.println();
+        client.println(data);
+        Serial.println(F("Data uspesne odoslane na web"));
+      } else {
+        Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer2 = 0;  //vynulujeme timer, znovu nameriame a vykoname request
+      }
+      client.stop();
+    }
+    else {
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      delay(500);
+      client.stop();
+      timer2 = 0; //vynulujeme timer, znovu nameriame a vykoname request
+    }
+  }
+
+#elif defined(ESP32)
+  while (WiFi.status() != WL_CONNECTED) {
+    timerWrite(timer, 0); //reset timer (feed watchdog)
+    delay(500);
+    Serial.print(F("."));
+  }
+  timerWrite(timer, 0); //reset timer (feed watchdog)
+  yield(); //nechaj ESP dokoncit WiFi stack
+  if ((millis() - timer2) >= 300000 || timer2 == 0) {
+    timer2 = millis();
+    int vzdialenost = sonar.ping_cm();
+    delay(50);
+    if (vzdialenost > 0) {
+      vzdialenost = 0;
+      for (int i = 0; i &lt; 10; i++) {
+        vzdialenost += sonar.ping_cm();
+        delay(50);
+      }
+      vzdialenost = vzdialenost / 10;
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+      Serial.print(vzdialenost);
+      Serial.println(F(" cm."));
+      client.stop();
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
+      if (client.connect(host, 80)) {
+        client.println("POST " + url + " HTTP/1.0");
+        client.println("Host: " + (String)host);
+        client.println(F("User-Agent: ESP32"));
+        client.println(F("Connection: close"));
+        client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+        client.print(F("Content-Length: "));
+        client.println(data.length());
+        client.println();
+        client.println(data);
+        Serial.println(F("Data uspesne odoslane na web"));
+      } else {
+        Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer2 = 0;  //vynulujeme timer, znovu nameriame a vykoname request
+      }
+      client.stop();
+    }
+    else {
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      delay(500);
+      client.stop();
+      timer2 = 0; //vynulujeme timer, znovu nameriame a vykoname request
+    }
+  }
+#endif
+}
+</pre>
+<hr><h2><font color="#3498DB">HTTP - ESP8266 / ESP32 + OTA</a></font></h2><hr> 
+<pre style="background-color:#3498DB;">
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - OTA - HC-SR04 / JSN-SR04T / HY-SRF05                  |*/
+/*|ESP8266 (NodeMCU, Wemos D1 Mini, Generic), ESP32 (DevKit, Generic)                 |*/
+/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Knižnica ESP8266NewPing je dostupná v Github repozitári:                           |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
+/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
+/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
+/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
+/*|Licencia pouzitia: MIT                                                             |*/
+/*|Revízia: 26. Februar 2021                                                          |*/
+/*|-----------------------------------------------------------------------------------|*/
+      
+#include &lt;WiFiUdp.h>
+#include &lt;ArduinoOTA.h>
+#include &lt;NewPingESP8266.h>
+
+<font color="red"><h5>const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE</h5></font>
+<font color="red"><h5>const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE</h5></font>
+const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
+String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+//Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
+unsigned long timer2 = 0;
+#if defined(ESP32)
+#include &lt;WiFi.h>
+#include &lt;ESPmDNS.h>
+#include "esp_system.h"
+#define pinTrigger    22
+#define pinEcho       23
+#define maxVzdialenost 450
+NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+
+const int wdtTimeout = 30000;  //time in ms to trigger the watchdog
+hw_timer_t *timer = NULL;
+
+void IRAM_ATTR resetModule() {
+  ets_printf("reboot\n");
+  esp_restart();
+}
+
+#elif defined(ESP8266)
+#include &lt;ESP8266WiFi.h>
+#include &lt;ESP8266mDNS.h>
+#include &lt;ArduinoOTA.h>
+#include &lt;NewPingESP8266.h>
+#define pinTrigger    5 //D1
+#define pinEcho       4 //D2
+#define maxVzdialenost 450
+NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+#endif
+WiFiClient client;
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  ArduinoOTA.onStart([]() {
+    Serial.println(F("Start"));
+  });
+  ArduinoOTA.onEnd([]() {
+    Serial.println(F("\nEnd"));
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+  });
+  ArduinoOTA.begin();
+  Serial.println(F(""));
+  Serial.println(F("Wifi pripojene s IP:"));
+  Serial.println(WiFi.localIP());
+#if defined(ESP32)
+  timer = timerBegin(0, 80, true);                  //timer 0, div 80
+  timerAttachInterrupt(timer, &resetModule, true);  //attach callback
+  timerAlarmWrite(timer, wdtTimeout * 1000, false); //set time in us
+  timerAlarmEnable(timer);                          //enable interrupt
+#elif defined(ESP8266)
+  ESP.wdtEnable(30000);
+#endif
+}
+
+void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  }
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+#if defined(ESP32)
+  timerWrite(timer, 0); //reset timer (feed watchdog)
+#elif defined(ESP8266)
+  ESP.wdtFeed();
+#endif
+  ArduinoOTA.handle();
+  yield();
+  if ((millis() - timer2) >= 300000 || timer2 == 0) {
+    timer2 = millis();
+    int vzdialenost = sonar.ping_cm();
+    delay(50);
+    if (vzdialenost > 0) {
+      vzdialenost = 0;
+      for (int i = 0; i &lt; 10; i++) {
+        vzdialenost += sonar.ping_cm();
+        delay(50);
+      }
+      vzdialenost = vzdialenost / 10;
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+      Serial.print(vzdialenost);
+      Serial.println(F(" cm."));
+      String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
+      if (client.connect(host, 80)) {
+        client.println("POST " + url + " HTTP/1.0");
+        client.println("Host: " + (String)host);
+        client.println(F("User-Agent: ESP"));
+        client.println(F("Connection: close"));
+        client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+        client.print(F("Content-Length: "));
+        client.println(data.length());
+        client.println();
+        client.println(data);
+        Serial.println(F("Data uspesne odoslane na web"));
+      } else {
+        Serial.println(F("Pripojenie zlyhalo..."));
+        delay(500);
+        timer2 = 0; //reset pocitadla, vykoname opakovany request
+      }
+    }
+    else {
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      delay(500);
+      timer2 = 0; //reset pocitadla, vykoname opakovany request
+    }
+    client.stop();
+  }
+}
+</pre> 
+<hr><h2><font color="#95A5A6">HTTP - ESP8266 / ESP32 + ULP - Deep Sleep</a></font></h2><hr>
+<div class="alert alert-danger">
+<font color="red"><b>Pri ESP8266 (NodeMCU, Wemos D1 Mini, Generic) je nutné prepojiť RST S GPIO16 (D0) po nahratí programu a vykonať reštart cez EN (RST) tlačidlo, inak prebudenie a Deep Sleep nebude fungovať!</b></font> 
+</div>
+<pre style="background-color:#95A5A6;">
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - ULP - DEEP SLEEP - HC-SR04 / JSN-SR04T / HY-SRF05     |*/
+/*|ESP8266 (NodeMCU, Wemos D1 Mini, Generic), ESP32 (DevKit, Generic)                 |*/
+/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Knižnica ESP8266NewPing je dostupná v Github repozitári:                           |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
+/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
+/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
+/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
+/*|Licencia pouzitia: MIT                                                             |*/
+/*|Revízia: 26. Februar 2021                                                          |*/
+/*|-----------------------------------------------------------------------------------|*/
+<font color="red"><h5>const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE</h5></font>
+<font color="red"><h5>const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE</h5></font>
+const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
+String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+//Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
+
+#include &lt;NewPingESP8266.h>
+#if defined(ESP32)
+#define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
+#define TIME_TO_SLEEP  300        /* Time ESP32 will go to sleep (in seconds) */
+#include &lt;WiFi.h>
+#define pinTrigger    22
+#define pinEcho       23
+#define maxVzdialenost 450
+#elif defined(ESP8266)
+#include &lt;ESP8266WiFi.h>
+#define pinTrigger    5 //D1
+#define pinEcho       4 //D2
+#define maxVzdialenost 450
+#endif
+
+NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+
+WiFiClient client;
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(F("."));
+  }
+  Serial.println(F(""));
+  Serial.println(F("Wifi pripojene s IP:"));
+  Serial.println(WiFi.localIP());
+  int vzdialenost = sonar.ping_cm();
+  delay(50);
+  if (vzdialenost > 0) {
+    vzdialenost = 0;
+    for (int i = 0; i &lt; 10; i++) {
+      vzdialenost += sonar.ping_cm();
+      delay(50);
+    }
+    vzdialenost = vzdialenost / 10;
+    Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+    Serial.print(vzdialenost);
+    Serial.println(F(" cm."));
+    String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
+    client.stop();
+    if (client.connect(host, 80)) {
+      client.println("POST " + url + " HTTP/1.0");
+      client.println("Host: " + (String)host);
+      client.println(F("User-Agent: ESP"));
+      client.println(F("Connection: close"));
+      client.println(F("Content-Type: application/x-www-form-urlencoded;"));
+      client.print(F("Content-Length: "));
+      client.println(data.length());
+      client.println();
+      client.println(data);
+      Serial.println(F("Data uspesne odoslane na web"));
+    } else {
+      Serial.println(F("Pripojenie zlyhalo..."));
+    }
+  }
+  else {
+    Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+  }
+  client.stop();
+#if defined(ESP32)
+  esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+  Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) + " Seconds");
+  esp_deep_sleep_start();
+#elif defined(ESP8266)
+  Serial.println(F("Entering deep sleep mode for 300 seconds"));
+  ESP.deepSleep(300e6);
+#endif
+}
+
+void loop() {
+
+}
+</pre>
+<hr><h2><font color="#E67E22">Sigfox UART MODEM 868MHz - Arduino - Sigfox Backend</a></font></h2><hr>
+<pre style="background-color:#E67E22;">
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - Sigfox 868 MHz UART - HC-SR04 / JSN-SR04T / HY-SRF05  |*/
+/*|Arduino, ESP8266 (NodeMCU), ESP32 (DevKit)                                         |*/
+/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Knižnice NewPing, ESP8266NewPing sú dostupné v Github repozitári:                  |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
+/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
+/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
+/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
+/*|Licencia pouzitia: MIT                                                             |*/
+/*|Revízia: 26. Februar 2021                                                          |*/
+/*|-----------------------------------------------------------------------------------|*/
+
+/*|---------------------------------------------------------------------|*/
+/*|Inštrukcie pre nastavenie Sigfox Modemu na stránkach Sigfox backend: |*/
+/*|Callbacks --> NEW --> Custom callback                                |*/
+/*|UPLINK, TYPE: DATA, CHANNEL: URL                                     |*/
+/*|Do Custom payload config napíšeme: cislo1::uint:16                   |*/
+/*|Do URL pattern: http://arduino.clanweb.eu/studna_s_prekladom/data.php|*/
+/*|PRIPADNE: (pripadne vas URL webservera s možnostou TLS - SSL)        |*/
+/*|V HTTP metóde zvolíme: POST (jediná podporovaná metóda Hladinomeru)  |*/
+/*|Do Body (tela správy) doplníme:                                      |*/
+/*|hodnota={customData#cislo1}&token=123456789                          |*/
+/*|Mozno odosielat aj systemove udaje - cislo spravy, RSSI, GEO UDAJE   |*/
+/*|Do Content-Type: application/x-www-form-urlencoded                   |*/
+/*|---------------------------------------------------------------------|*/
+
+//HLAVICKOVE SUBORY watchdog a software serial
+#include &lt;avr\wdt.h>
+#include &lt;SoftwareSerial.h>
+
+// nastavenie softverovej zbernice pre Sigfox Modem
+#define TX 7
+#define RX 8
+SoftwareSerial Sigfox(RX, TX);
+
+//PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
+#include &lt;NewPing.h>
+//#include &lt;NewPingESP8266.h> // pre ESP8266, ESP32
+#define pinTrigger    5
+#define pinEcho       6
+#define maxVzdialenost 450
+NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
+//NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost); // pre ESP8266, ESP32
+unsigned long timer = 0;
+
+
+void setup() {
+  Sigfox.begin(9600); //SoftwareSerial
+  Serial.begin(115200);
+  wdt_enable(WDTO_8S);
+}
+
+void loop() {
+  wdt_reset();
+  if (Sigfox.available()) {
+    Serial.write(Sigfox.read()); //MOZNO VYSKUSAT AT prikaz, odpoved OK
+  }
+  if (Serial.available()) {
+    Sigfox.write(Serial.read());
+  }
+  if ((millis() - timer) >= 660000 || timer == 0) { //rutina raz za 11 minut (limit 140 sprav za den), odosle sa 130 správ za deň (24h)
+    timer = millis();
+    Sigfox.println(); //Wakeup from Light sleep via ‘\n’ (ASCII 10)
+    //Sigfox.print('\n'); //Wakeup from Light sleep via ‘\n’ (ASCII 10) - ekvivalent
+    unsigned int vzdialenost = sonar.ping_cm();
+    delay(50);
+    if (vzdialenost > 0) {
+      vzdialenost = 0;
+      for (int i = 0; i &lt; 10; i++) {
+        vzdialenost += sonar.ping_cm();
+        delay(50);
+      }
+      wdt_reset();
+      vzdialenost = vzdialenost / 10;
+      Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+      Serial.print(vzdialenost);
+      Serial.println(F(" cm."));
+      char sprava[4]; //4B sprava, max mozna 12B
+      unsigned int cislo1 = vzdialenost;
+      sprintf(sprava, "%04X", cislo1);
+      Serial.print(F("Do Sigfox siete odosielam tento payload: "));
+      Serial.print(cislo1);
+      Serial.print(F(", hexa tvar: "));
+      Serial.println(sprava);
+      wdt_reset();
+      Sigfox.print(F("AT$SF="));
+      Sigfox.println(sprava);
+      wdt_reset();
+      delay(1000);
+      Sigfox.print(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
+      //Sigfox.print(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
+    } else {
+      Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+      timer = 0; //vynulujeme timer, vykoname nove meranie
+    }
+  }
+}
+  </pre> 			
 	<center> 
      <h3>Detekčná charakteristika senzora HC-SR04 - 15°</h3>
      <hr>
