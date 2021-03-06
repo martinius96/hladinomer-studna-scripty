@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Conexão - Medidor de nível / pluviômetro - Arduino / ESP8266 / ESP32</title>
+	<meta name="description" content="Conexão esquemática das plataformas Arduino, ESP8266, ESP32 para o projeto de medidor de nível e pluviômetro. Conexão com sensores ultrassônicos de distância HC-SR04 / JSN-SR04T, pluviômetro Hydreon RG-11.">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/br/zapojenie.html">
+	<meta property="og:title" content="Conexão - Medidor de nível / pluviômetro - Arduino / ESP8266 / ESP32">
+	<meta property="og:description" content="Conexão esquemática das plataformas Arduino, ESP8266, ESP32 para o projeto de medidor de nível e pluviômetro. Conexão com sensores ultrassônicos de distância HC-SR04 / JSN-SR04T, pluviômetro Hydreon RG-11.">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/br/zapojenie.html">
+	<meta property="twitter:title" content="Conexão - Medidor de nível / pluviômetro - Arduino / ESP8266 / ESP32">
+	<meta property="twitter:description" content="Conexão esquemática das plataformas Arduino, ESP8266, ESP32 para o projeto de medidor de nível e pluviômetro. Conexão com sensores ultrassônicos de distância HC-SR04 / JSN-SR04T, pluviômetro Hydreon RG-11.">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+  <style>
+.flat-table {
+		margin-bottom: 20px;
+		border-collapse:collapse;
+		font-family: 'Lato', Calibri, Arial, sans-serif;
+  border: none;
+                border-radius: 50px;
+               -webkit-border-radius: 50px;
+               -moz-border-radius: 50px;
+	}
+	.flat-table th, .flat-table td {
+		box-shadow: inset 0 -1px rgba(0,0,0,0.25), 
+			inset 0 1px rgba(0,0,0,0.25);
+	}
+	.flat-table th {
+		font-weight: normal;
+		-webkit-font-smoothing: antialiased;
+		padding: 1em;
+		color: #fff;
+    font-weight: bold;
+		text-shadow: 0 0 1px rgba(0,0,0,0.1);
+		font-size: 1.5em;
+	}
+	.flat-table td {
+		color: #f7f7f7;
+		padding: 0.7em 1em 0.7em 1.15em;
+		text-shadow: 0 0 1px rgba(255,255,255,0.1);
+		font-size: 1.4em;
+	}
+	.flat-table tr {
+		-webkit-transition: background 0.3s, box-shadow 0.3s;
+		-moz-transition: background 0.3s, box-shadow 0.3s;
+		transition: background 0.3s, box-shadow 0.3s;
+	}
+	.flat-table-1 {
+		background: #2874A6;
+	}
+	.flat-table-1 tr:hover {
+		background: rgba(0,0,0,0.19);
+	}
+	.flat-table-2 tr:hover {
+		background: rgba(0,0,0,0.1);
+	}
+	.flat-table-2 {
+		background: #C0392B;
+	}
+	.flat-table-3 {
+		background: #229954;
+	}
+	.flat-table-3 tr:hover {
+		background: rgba(0,0,0,0.1);
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Medidor de nível</a></li>
+	<li><a href="zrazkomer.html">Pluviômetro</a></li>
+	<li class="active"><a href="zapojenie.html">Envolvimento</a></li>      
+      	<li><a href="kontakt.html">Contato</a></li>
+<a href="../zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299857.svg" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../hi/zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321238.svg" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../hr/zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/321/321222.svg" alt="Croatia.png, 2,2kB" title="Croatia" height="32" width="32"></a>
+<a href="../bn/zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/551/551978.svg" alt="Bengali.png, 2,2kB" title="Bengali" height="32" width="32"></a>
+<a href="zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/551/551856.svg" alt="Brasil/Portugal.png, 2,2kB" title="Brasil/Portugal" height="32" width="32"></a>
+<a href="../fi/zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/2151/2151315.svg" alt="Finnish.png, 2,2kB" title="Finnish" height="32" width="32"></a>
+    </ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+	<strong>Projeto de medidor de nível, medidor de chuva - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Medidor de nível - Arduino / ESP8266 / ESP32</a>
+</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">RG-11</span>
+<span class="label label-info">Sigfox</span>				
+ <center><h2>Diagrama de fiação para medidor de nível (Arduino, ESP8266, ESP32)</h2></center>
+  <div class="alert alert-success">
+  <strong>Diagrama de fiação para microcontroladores suportados e sensores de distância ultrassônicos HC-SR04 / JSN-SR04T (à prova d'água)</strong>
+  <hr>
+  <strong>Revisão de 1º a 30 de julho de 2020</strong>
+  <li>Adicionados modos ULP - Ultra low power - deep sleep para plataformas ESP8266 (Timer), ESP32 (RTC Timer).</li>
+  <li>O esquema foi estendido por um divisor de tensão para plataformas 3V3 ESP8266, ESP32 para sua conexão com um sensor de distância ultrassônico de 5V.</li>
+  <li>Adicionada a possibilidade de usar a atualização OTA em modo StandBy para plataformas ESP8266 e ESP32 em rede LAN via uploader Python.</li>
+</div><center><img src="https://i.imgur.com/O7QYERr.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
+  <div class="alert alert-danger">
+ <strong>Ao usar o módulo Ethernet Wiznet W5200 a W5500 com o arquivo de cabeçalho Ethernet2.h, é necessário conectar o terminal D2 Arduino ao terminal INT (INIT) no módulo Ethernet!</strong></div> 
+<table class="table table-striped flat-table flat-table-1" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>Arduino + Ethernet (W5100 / W5500)</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>Echo</td>
+</tr>
+</table>
+<hr>
+  <div class="alert alert-danger">
+     <strong>Ao alimentar o NodeMCU via USB, conecte o sensor de distância ultrassônico ao terminal VUSB (VU), ao energizar por meio do kit básico por meio do adaptador, conecte o sensor ao VIN (5V)</strong></div> 
+<table class="table table-striped flat-table flat-table-2" style="color: black; max-width: 100%;">
+<thead>
+<tr>                  
+<th style="width: 50%;"><strong>ESP8266</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D1 (GPIO 5)</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D2 (GPIO 4)</td>
+<td>Echo</td>
+</tr>
+</table>
+<hr>
+<table class="table table-striped flat-table flat-table-3" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>ESP32</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>Echo</td>
+</tr>
+</table>
+
+ </div>
+		</div>
+</div>
+</body>
+</html>
