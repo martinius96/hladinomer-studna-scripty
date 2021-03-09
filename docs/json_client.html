@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="sk-SK">
+<head>
+  	<meta property="og:title" content="JSON klient - Hladinomer - MQTT Publish, ArduinoJson, deserializácia, parsovanie dát" />
+  	<meta property="og:locale" content="sk_SK" />    	
+	<meta name="robots" content="index, follow">
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+    	<meta name='revisit-after' content='2 days'>
+    	<title>JSON klient - Hladinomer - MQTT Publish, ArduinoJson, deserializácia, parsovanie dát</title>
+    	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="description" content="JSON klient na platforme Arduino, ESP866, ESP32 pre projekt Hladinomer. Umožňujú parsovanie dát, Publish na MQTT službu IoT Industries Slovakia">
+    	<meta name="keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, parsing, arduinojson, deserialization, mqtt, publish, subscribe, dáta, prenos, http, mqtts, šifrovane, socket, iot, industries, slovakia, Hladinomer, water, waterwell, hladina, monitor, litre">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+			<style>
+	#right {
+  position: absolute;
+  right: 0px;
+}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Termostat - Ethernet</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Hladinomer</a></li>
+	<li><a href="zrazkomer.html">Zrážkomer</a></li>
+	<li><a href="zapojenie.html">Zapojenie</a></li>      
+  <li class="active"><a href="json_client.html">JSON client</a></li>
+      	<li><a href="kontakt.html">Kontakt</a></li>
+</ul>
+  </div>
+</nav>   			
+<div class="col-sm-12">
+				<div class="alert alert-success">
+					<strong>Repozitár projektu Hladinomer so zdrojovými kódmi pre JSON klientov - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Hladinomert</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">JSON</span>
+<span class="label label-danger">MQTT</span>
+<div class="row">
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/X946pmi.png" width="128px" height="128px" style="border-radius: 50%;" alt="JSON DATA" title="JSON DATA"><br><b>JSON DATA</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/B2xdel0.png" width="128px" height="128px" alt="ArduinoJSON" title="ArduinoJSON"><br><b>ArduinoJSON</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/oXhOEZi.png" width="128px" height="128px" style="border-radius: 50%;" alt="MQTT" title="MQTT"><br><b>MQTT</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/WWpufkP.png" width="128px" height="128px" style="border-radius: 50%;" alt="HTTP" title="HTTP"><br><b>HTTP</b></center></div>
+</div>	
+<hr><center><h2>JSON klienti - Hladinomer</h2></center><hr>
+<p style="text-align: justify;">
+JSON klient postavený na platforme Arduino, ESP8266, ESP32 umožňuje pripojenie cez websocket k webserveru (webovému rozhraniu Hladinomera).
+<b>Klient vykonáva cyklický HTTP GET request každých 60 sekúnd pre získanie obsahu podstránky /json_output.php, kde webserver distribuuje dáta v JSON formáte o výške hladiny vody (v centimetroch), objeme studne (v litroch) na základe aktuálne nastavenej hĺbky a priemere studne.</b>
+Načítaný JSON payload dokáže JSON klient vyparsovať z HTTP response a následne tento reťazec deserializovať.
+Po deserializácii je možné pristupovať k jednotlivým kľúčom, ku ktorým sú priradené hodnoty a tie získať --> vyparsovať.
+Vyparsované dáta sa vypíšu na UART - Sériovú linku - 115200 baud/s.
+V používateľskej aplikácii, ktorá môže byť do existujúcich zdrojových kódov JSON klientov doplnená je možné ovládať entity na základe týchto hodnôt, napríklad: automatizovaná závlaha po dosiahnutie určitej výšky hladiny vody, prečerpávanie vody, spustenie čerpadla, dárlingu.
+<b>Súčasťou firmvéru označeného ako MQTT, respektíve MQTTS (šifrované MQTT) je rozšírený JSON klient o možnosť odosielať - Publishovať dáta na MQTT Broker IoT Industries Slovakia - slovenský free MQTT Broker určený pre vývojárov.</b>
+MQTT i MQTTS variant využíva socket, ktorý sa používa i pre HTTP request pre získanie JSON payloadu.
+Existujúci MQTT server môže byť v zdrojových kódoch nahradený za váš a tak môžete dáta z hladinomera sprístupniť aj do systémov domácej automatizácie (Hassio, Mosquitto MQTT, Domoticz, Loxone a iné...).
+V aktuálnej programovej implementácii mikrokontróler (JSON klient) odosiela získané dáta na MQTT Broker do topicu hladinomer, pričom jednotlivé teploty sú odlíšené v subtopicoch.
+</p> 
+<div class="alert alert-info">
+  <strong>Implementácia pre MQTTS je dostupná iba pre platformy ESP8266, ESP32.</strong> ESP8266 využíva pre šifrované spojenie fingerprint - odtlačok certifikátu MQTT servera (verejného kľúča). 
+ESP32 využíva Root CA certifikát pre šifrované spojenie s MQTT serverom. <b>Šifrovaný port MQTT servera je štandardne 8883, nešifrovaný 1883.</b> 
+Pre získanie fingerprintu, potažmo Root CA certifikátu pre konkrétny MQTT server (doménu) je možné využiť nástroj OpenSSL, ktorý umožňuje jednoduché načítanie a zobrazenie predmetných informácii.
+<br><b>Príkaz pre získanie fingerprintu MQTT servera:</b><br>
+<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
+<br><b>Príkaz pre získanie Root CA certifikátu, ktorý vydal certifikát pre MQTT server (Issuer):</b><br>
+<code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
+</div>
+<h4>Používané topicy pre Publish na MQTT Broker sú:</h4> 
+<li><b>hladinomer/objem</b> - pre objem studne v litroch</li>
+<li><b>hladinomer/vyska</b> - pre aktuálnu výšku hladiny vody v centimetroch</li>
+<h4>Topic pre Subscribe:</h4>
+<li><b>hladinomer/#</b> - odoberá všetky subtopicy pod hladinomer/, teda objem, výšku</li>
+<p style="text-align: justify;">
+<b>MQTT klient má prihlásený Subscribe na hlavný topic hladinomer a všetky jeho subtopicy. 
+Dokáže tak zároveň aj overiť, či bola informácia na MQTT Broker úspešná publikovaná - spätne ju vypíše na UART.</b>
+<b><font color="red">UPOZORNENIE: MQTT Broker IoT Industries Slovakia, ktorý sa vo vzorovej implementácii používa je verejný a tak môžu byť dáta zmenené, prepísané, čítané akýmkoľvek používateľom!</font></b>
+Ak do svojho mikrokontroléru nahrá firmvér JSON klienta bez zmeny akýkoľvek iný používateľ, bude vám dané dáta v preddefinovanom topicu prepisovať a rovnako aj vy jemu. 
+Je tak vhodné pri vlastnej implementácii zvoliť iný topic, kam budú dáta odosielané.
+</p>    
+<h4>JSON data na PHP podstránka webservera, ktoré načítava JSON klient:</h4>
+<center>
+<img src="https://i.imgur.com/Uwzd72B.png" style="display: block; max-width: 100%; height: auto;" title="JSON klient - Arduino, ESP8266, ESP32, MQTT integrácia - Ethernet termostat" alt="JSON klient - Arduino, ESP8266, ESP32, MQTT integrácia - Ethernet termostat">
+</center>
+<h4>JSON klient - UART výstup (Sériová linka):</h4>
+<center><img src="https://i.imgur.com/Az5xE0C.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client pre WiFi termostat - UART výstup" title="JSON client pre WiFi termostat - UART výstup"></center>       		
+<h4>HiveMQ client - Subscribe topicu termostat/#</h4>
+<center><img src="https://i.imgur.com/lHoBFgj.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat" title="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat"></center> 
+	
+	</div>
+					</div>
+</body>
+</html>
