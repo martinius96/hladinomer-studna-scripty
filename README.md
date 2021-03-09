@@ -20,6 +20,7 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 * Importovať .sql taľku do databázy
 * Vo webaplikácii nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler
 * Nahrať program, ktorý sa po tomto kroku vygeneruje (s API kľúčom) do mikrokontroléru
+* Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/**
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
 
