@@ -15,7 +15,7 @@
 #include <PubSubClient.h>
 const char* ssid = "SSID_NAME"; //SSID vasej WiFi siete
 const char* password = "SSID_PASSWORD"; //HESLO vasej WiFi siete
-const char* host = "arduino.clanweb.eu"; //IP adresa WiFi termostatu
+const char* host = "arduino.clanweb.eu"; //IP adresa / domena webservera
 const char* mqtt_server = "mqtt.iotindustries.sk";
 const int httpPort = 80;
 WiFiClient klient; //pre HTTP
