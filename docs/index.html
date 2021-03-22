@@ -191,7 +191,22 @@ Callback musí vykonať HTTP, respektíve HTTPS request na doménu, kde webaplik
     <img src="https://i.imgur.com/WwSQX4R.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer"> 
     <img src="https://i.imgur.com/LocF6zH.jpg" style="display: block; max-width: 100%; height: auto;" alt="Rekordy nameraných údajov o výške hladiny vody - MAX, MIN - Hladiomer" title="Rekordy nameraných údajov o výške hladiny vody - MAX, MIN - Hladiomer"> 
  <img src="https://i.imgur.com/KFZANfa.jpg" style="display: block; max-width: 100%; height: auto;" alt="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32" title="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32"> 
-<hr><h2><font color="#27AE60">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a></font></h2><hr></center>
+ <div class="alert alert-danger">
+  <strong>PRI ZÁUJME O KÚPU WEBOVÉHO ROZHRANIA K PROJEKTU - KONTAKT: martinius96@gmail.com</strong>
+</div> 
+ <div class="alert alert-info">
+  <strong>Knižnice pre projekt - dostupné na Githube:</strong> <a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src">Knižnice pre hladinomer</a>
+  <li>Obsah priečinka /src/ nakopírovať do: C:/Users/[User]/Dokumenty/Arduino/libraries - Windows 10</li>
+</div>  
+<hr><center><h4></h4></center><hr> 
+ <div class="alert alert-success">
+  <strong>Zdrojové kódy pre projekt s pripojením na túto webovú lokalitu - dostupné na Githube - <font color="red">Od 30. Júla dostupné sketche pre ULTRA LOW POWER mód pre ESP8266, ESP32, deep sleep. - Pozri schému zapojenia pre danú revíziu:</font></strong> <a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples">Programy pre mikrokontroléry (Tester, HTTP, HTTPS spojenie)</a>
+</div>
+<div class="alert alert-info">
+<strong>Pri ULP móde pre ESP8266 je nutné pri nahrávaní programu odpojiť prepojku medzi GPIO16 (D0) a RST! Po nahratí programu je nutné dať prepojku späť a vykonať manuálny reset! Inak nebude spánok a prebudenie fungovať!</strong>
+<hr>
+<strong><font color="red">Zdrojové kódy pre ESP8266 - HTTPS sú navrhnuté pre posledné Arduino Core 2.7.4!</font></strong>
+</div> <hr><h2><font color="#27AE60">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a></font></h2><hr>
 <div class="alert alert-success">
   <strong>Programové implementácie pre odosielanie údajov na toto webové rozhranie.</strong>
     <li>Implementácie pre všetky tri druhy kompatibilných mikrokontrólerov sú obsiahnuté v jednom zdrojovom kóde, na základe vybratej dosky v Arduino IDE sa kompiluje tá časť programu, ktorá prislúcha danej doske.</li>
@@ -835,7 +850,7 @@ void loop() {
     }
   }
 }
-  </pre> 			
+  </pre> 	
 	<center> 
      <h3>Detekčná charakteristika senzora HC-SR04 - 15°</h3>
      <hr>
