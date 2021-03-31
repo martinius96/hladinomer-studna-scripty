@@ -1,18 +1,19 @@
-/*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTP - Sigfox 868 MHz UART - HC-SR04 / JSN-SR04T / HY-SRF05  |*/
-/*|Arduino, ESP8266 (NodeMCU), ESP32 (DevKit)                                         |*/
-/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
-/*|E-mail: martinius96@gmail.com                                                      |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
-/*|Knižnice NewPing, ESP8266NewPing sú dostupné v Github repozitári:                  |*/
-/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
-/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
-/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
-/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
-/*|Licencia pouzitia: MIT                                                             |*/
-/*|Revízia: 26. Februar 2021                                                          |*/
-/*|-----------------------------------------------------------------------------------|*/
+/*|------------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - Sigfox 868 MHz UART - HC-SR04 / JSN-SR04T / HY-SRF05   |*/
+/*|Arduino, ESP8266 (NodeMCU), ESP32 (DevKit)                                          |*/
+/*|Autor: Bc. Martin Chlebovec (martinius96)                                           |*/
+/*|E-mail: martinius96@gmail.com                                                       |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/  |*/
+/*|Testovacie webove rozhranie pre HTTP: http://arduino.clanweb.eu/studna_s_prekladom/ |*/
+/*|Testovacie webove rozhranie pre HTTPS: https://esp32.sk/studna_s_prekladom/         |*/
+/*|Knižnice NewPing, ESP8266NewPing sú dostupné v Github repozitári:                   |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť      |*/
+/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/     |*/
+/*|Na toto webove rozhranie posiela mikrokontroler data                                |*/
+/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv     |*/
+/*|Licencia pouzitia: MIT                                                              |*/
+/*|Revízia: 1. April 2021                                                              |*/
+/*|------------------------------------------------------------------------------------|*/
 
 /*|---------------------------------------------------------------------|*/
 /*|Inštrukcie pre nastavenie Sigfox Modemu na stránkach Sigfox backend: |*/
@@ -20,10 +21,11 @@
 /*|UPLINK, TYPE: DATA, CHANNEL: URL                                     |*/
 /*|Do Custom payload config napíšeme: cislo1::uint:16                   |*/
 /*|Do URL pattern: http://arduino.clanweb.eu/studna_s_prekladom/data.php|*/
-/*|PRIPADNE: (pripadne vas URL webservera s možnostou TLS - SSL)        |*/
+/*|PRIPADNE AK SA POUZIVA HTTPS PROTOKOL - SSL, nastavenie nizsie       |*/
+/*|Do URL pattern: https://esp32.sk/studna_s_prekladom/data.php (+ SSL) |*/
 /*|V HTTP metóde zvolíme: POST (jediná podporovaná metóda Hladinomeru)  |*/
 /*|Do Body (tela správy) doplníme:                                      |*/
-/*|hodnota={customData#cislo1}&token=123456789 (VAS API KEY)            |*/
+/*|hodnota={customData#cislo1}&token=123456789                          |*/
 /*|Mozno odosielat aj systemove udaje - cislo spravy, RSSI, GEO UDAJE   |*/
 /*|Do Content-Type: application/x-www-form-urlencoded                   |*/
 /*|---------------------------------------------------------------------|*/
