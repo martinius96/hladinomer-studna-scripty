@@ -110,7 +110,8 @@ void loop() {
     timer2 = millis();
     int vzdialenost = sonar.ping_cm();
     WiFiClientSecure client;
-    client.setFingerprint(fingerprint);
+    //client.setFingerprint(fingerprint);
+    client.setInsecure();
     delay(50);
     if (vzdialenost > 0) {
       vzdialenost = 0;
