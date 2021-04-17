@@ -144,5 +144,8 @@ void loop() {
       timer2 = 0; //reset pocitadla, vykoname opakovany request
     }
     client.stop();
+    Serial.print(F("Free HEAP: "));
+    Serial.print(ESP.getFreeHeap());
+    Serial.println(F(" B"));
   }
 }
