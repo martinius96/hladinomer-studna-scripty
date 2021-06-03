@@ -18,8 +18,6 @@
 #define GPIO_TRIGGER	22
 #define GPIO_ECHO	23
 
-static const char *TAG = "ULTRASONIC";
-
 void ultrasonic(void *pvParamters)
 {
 	ultrasonic_sensor_t sensor = {
