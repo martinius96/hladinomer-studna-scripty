@@ -1,3 +1,14 @@
+
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - HC-SR04 / JSN-SR04T / HY-SRF05                        |*/
+/*|ESP32 (DevKit, Generic) - ESP-IDF v4.2 (4.0 compatible)                            |*/
+/*|Autor: Martin Chlebovec (martinius96)                                              |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Revízia: 4. Jun 2021                                                               |*/
+/*|-----------------------------------------------------------------------------------|*/
+
 /* HTTP GET Example using plain POSIX sockets
 
    This example code is in the Public Domain (or CC0 licensed, at your option.)
@@ -73,7 +84,10 @@ uint32_t distance = 0;
 			printf("Distance: %d cm, %.02f m\n", distance, distance / 100.0);
 		}
     xQueueSend(q,(void *)&distance,(TickType_t )0); // add the counter value to the queue
-		vTaskDelay(300000 / portTICK_PERIOD_MS);
+            for(int countdown = 300; countdown >= 0; countdown--) {
+            ESP_LOGI(TAG, "%d... ", countdown);
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+        }
 	}
 }
 
