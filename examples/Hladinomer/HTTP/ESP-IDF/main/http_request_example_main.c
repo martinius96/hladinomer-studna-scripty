@@ -9,6 +9,7 @@
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
 #include "esp_system.h"
 #include "esp_wifi.h"
 #include "esp_event.h"
@@ -33,11 +34,11 @@
 // Webserver
 #define WEB_SERVER "arduino.clanweb.eu"
 #define WEB_PORT "80"
-uint32_t distance;
+
 
 static const char *TAG = "example";
 
-
+QueueHandle_t  q=NULL;
 static void ultrasonic(void *pvParamters)
 {
 	ultrasonic_sensor_t sensor = {
@@ -46,7 +47,11 @@ static void ultrasonic(void *pvParamters)
 	};
 
 	ultrasonic_init(&sensor);
-
+uint32_t distance = 0;
+    if(q == NULL){
+        printf("Queue is not ready \n");
+        return;
+    }
 	while (true) {
 		esp_err_t res = ultrasonic_measure_cm(&sensor, MAX_DISTANCE_CM, &distance);
 		if (res != ESP_OK) {
@@ -67,7 +72,8 @@ static void ultrasonic(void *pvParamters)
 		} else {
 			printf("Distance: %d cm, %.02f m\n", distance, distance / 100.0);
 		}
-		vTaskDelay(5000 / portTICK_PERIOD_MS);
+    xQueueSend(q,(void *)&distance,(TickType_t )0); // add the counter value to the queue
+		vTaskDelay(300000 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -81,8 +87,13 @@ static void http_get_task(void *pvParameters)
     struct in_addr *addr;
     int s, r;
     char recv_buf[64];
-
+    uint32_t distance;
+     if(q == NULL){
+        printf("Queue is not ready \n");
+        return;
+    }
     while(1) {
+    xQueueReceive(q,&distance,(TickType_t )(350000/portTICK_PERIOD_MS)); 
     char REQUEST [1000];
 	char values [250];
 	sprintf(values, "hodnota=%d&token=123456789", distance);
@@ -152,10 +163,6 @@ static void http_get_task(void *pvParameters)
 
         ESP_LOGI(TAG, "... done reading from socket. Last read return=%d errno=%d.", r, errno);
         close(s);
-        for(int countdown = 300; countdown >= 0; countdown--) {
-            ESP_LOGI(TAG, "%d... ", countdown);
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
-        }
         ESP_LOGI(TAG, "Starting again!");
     }
 }
@@ -171,7 +178,16 @@ void app_main(void)
      * examples/protocols/README.md for more information about this function.
      */
     ESP_ERROR_CHECK(example_connect());
-    xTaskCreate(&ultrasonic, "ultrasonic", 2048, NULL, 5, NULL);
-    vTaskDelay(2000 / portTICK_PERIOD_MS);
-    xTaskCreate(&http_get_task, "http_get_task", 4096, NULL, 5, NULL);
+     q=xQueueCreate(20,sizeof(unsigned long));
+    if(q != NULL){
+        printf("Queue is created\n");
+        vTaskDelay(1000/portTICK_PERIOD_MS); //wait for a second
+        xTaskCreate(&ultrasonic, "ultrasonic", 2048, NULL, 5, NULL);
+        printf("producer task  started\n");
+        xTaskCreate(&http_get_task, "http_get_task", 4096, NULL, 5, NULL);
+        printf("consumer task  started\n");
+    }else{
+        printf("Queue creation failed");
+    }    
+
 }
