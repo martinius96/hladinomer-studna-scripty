@@ -1,11 +1,13 @@
-/* HTTP GET Example using plain POSIX sockets
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTP - HC-SR04 / JSN-SR04T / HY-SRF05                        |*/
+/*|ESP32 (DevKit, Generic) - ESP-IDF v4.2 (4.0 compatible)                            |*/
+/*|Autor: Martin Chlebovec (martinius96)                                              |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Revízia: 4. Jun 2021                                                               |*/
+/*|-----------------------------------------------------------------------------------|*/
 
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
