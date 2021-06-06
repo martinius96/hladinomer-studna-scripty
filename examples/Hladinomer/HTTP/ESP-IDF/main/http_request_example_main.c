@@ -6,7 +6,7 @@
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
-/*|Revízia: 4. Jun 2021                                                               |*/
+/*|Revízia: 6. Jun 2021                                                               |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 /* HTTP GET Example using plain POSIX sockets
@@ -47,7 +47,8 @@
 #define WEB_PORT "80"
 
 
-static const char *TAG = "example";
+static const char *TAG = "http_request";
+static const char *TAG2 = "ultrasonic_measurement";
 
 QueueHandle_t  q=NULL;
 static void ultrasonic(void *pvParamters)
@@ -58,12 +59,15 @@ static void ultrasonic(void *pvParamters)
 	};
 
 	ultrasonic_init(&sensor);
-uint32_t distance = 0;
+  uint32_t distance = 0;
     if(q == NULL){
         printf("Queue is not ready \n");
         return;
     }
 	while (true) {
+  uint32_t avg_distance = 0;
+  int index_loop = 1;
+  while(index_loop<=10){
 		esp_err_t res = ultrasonic_measure_cm(&sensor, MAX_DISTANCE_CM, &distance);
 		if (res != ESP_OK) {
 			printf("Error: ");
@@ -81,11 +85,16 @@ uint32_t distance = 0;
 					printf("%d\n", res);
 			}
 		} else {
-			printf("Distance: %d cm, %.02f m\n", distance, distance / 100.0);
+			printf("Measurement %d: %d cm\n", index_loop, distance);
+       avg_distance +=  distance;
+      index_loop++;
 		}
+    }
+      avg_distance = avg_distance / 10;
+      distance  = avg_distance;
     xQueueSend(q,(void *)&distance,(TickType_t )0); // add the counter value to the queue
             for(int countdown = 300; countdown >= 0; countdown--) {
-            ESP_LOGI(TAG, "%d... ", countdown);
+            ESP_LOGI(TAG2, "%d... ", countdown);
             vTaskDelay(1000 / portTICK_PERIOD_MS);
         }
 	}
