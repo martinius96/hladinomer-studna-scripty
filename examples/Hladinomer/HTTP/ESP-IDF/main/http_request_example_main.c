@@ -90,9 +90,12 @@ static void ultrasonic(void *pvParamters)
       index_loop++;
 		}
     }
+    esp_err_t res = ultrasonic_measure_cm(&sensor, MAX_DISTANCE_CM, &distance);
+    if (res == ESP_OK) {
       avg_distance = avg_distance / 10;
       distance  = avg_distance;
-    xQueueSend(q,(void *)&distance,(TickType_t )0); // add the counter value to the queue
+      xQueueSend(q,(void *)&distance,(TickType_t )0); // add the value to the queue
+    }
             for(int countdown = 300; countdown >= 0; countdown--) {
             ESP_LOGI(TAG2, "%d... ", countdown);
             vTaskDelay(1000 / portTICK_PERIOD_MS);
@@ -115,14 +118,13 @@ static void http_get_task(void *pvParameters)
         printf("Queue is not ready \n");
         return;
     }
-    while(1) {
-    xQueueReceive(q,&distance,(TickType_t )(350000/portTICK_PERIOD_MS)); 
+  while(1) {
+    xQueueReceive(q,&distance,portMAX_DELAY); 
     char REQUEST [1000];
-	char values [250];
-	sprintf(values, "hodnota=%d&token=123456789", distance);
-  sprintf (REQUEST, "POST /studna_s_prekladom/data.php HTTP/1.0\r\nHost: "WEB_SERVER":"WEB_PORT"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values);
+	 char values [250];
+	 sprintf(values, "hodnota=%d&token=123456789", distance);
+    sprintf (REQUEST, "POST /studna_s_prekladom/data.php HTTP/1.0\r\nHost: "WEB_SERVER":"WEB_PORT"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values);
         int err = getaddrinfo(WEB_SERVER, WEB_PORT, &hints, &res);
-
         if(err != 0 || res == NULL) {
             ESP_LOGE(TAG, "DNS lookup failed err=%d res=%p", err, res);
             vTaskDelay(1000 / portTICK_PERIOD_MS);
@@ -206,9 +208,9 @@ void app_main(void)
         printf("Queue is created\n");
         vTaskDelay(1000/portTICK_PERIOD_MS); //wait for a second
         xTaskCreate(&ultrasonic, "ultrasonic", 2048, NULL, 5, NULL);
-        printf("producer task  started\n");
+        printf("Measurement task  started\n");
         xTaskCreate(&http_get_task, "http_get_task", 4096, NULL, 5, NULL);
-        printf("consumer task  started\n");
+        printf("HTTP socket task  started\n");
     }else{
         printf("Queue creation failed");
     }    
