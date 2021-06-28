@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://arduino.clanweb.eu/studna_s_prekladom/?lang=en -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Well water level monitor, liquid volume. Measurement using ultrasonic sensor HC-SR04. Ethernet, WiFi transmission">
+    <meta name="keywords" content="well, height, water, liquid, level, meters, centimeters, liters, ultrasound, arduino, ethernet, hc-sr04, jsn-sr04t, IoT, ESP8266, ESP32">
+    <meta name="author" content="Martin Chlebovec">
+    <meta name="robots" content="index, follow">
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="http://arduino.clanweb.eu/sitemap.xml">
+    <title>Level meter - overview of the latest measured data</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/pQ3CIur.png">
+    <!-- Bootstrap core CSS -->
+    <link href="./index_files/bootstrap.min.css" rel="stylesheet">
+	<script>
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('txt').innerHTML =
+    h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+</script>
+  <style>
+
+.aa_h2{
+  font:100 5rem/1 Roboto;
+  text-transform: uppercase;
+}
+table{
+   background: #fff;
+}
+table,thead,tbody,tfoot,tr, td,th{
+  text-align: center;
+  margin: auto;
+  border:1px solid #dedede;
+  padding: 1rem;
+  width: 50%;
+}
+.table    { display: table; width: 50%; }
+.tr       { display: table-row;  }
+.thead    { display: table-header-group }
+.tbody    { display: table-row-group }
+.tfoot    { display: table-footer-group }
+.col      { display: table-column }
+.colgroup { display: table-column-group }
+.td, .th   { display: table-cell; width: 50%; }
+.caption  { display: table-caption }
+
+.table,
+.thead,
+.tbody,
+.tfoot,
+.tr,
+.td,
+.th{
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+}
+.table{
+  background: #fff;
+  margin: auto;
+  border:none;
+  padding: 0;
+}
+
+.th{
+  font-weight: 700;
+  border:1px solid #dedede;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+.td{
+  font-weight: 300;
+  border:1px solid #dedede;
+  border-top:none;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+
+.aa_htmlTable{
+  background: tomato;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+.aa_css{
+  background: skyblue;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+
+.aa_ahmadawais{
+  display: table;
+  width: 100%;
+  font: 100 1.2rem/2 Roboto;
+  margin: 5rem auto;
+}
+    
+  </style>
+  <script async="" type="text/javascript" charset="utf-8" src="./index_files/recorder.js.stiahnuť"></script></head>
+
+  <body onload="startTime()">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+      <a class="navbar-brand" href="http://arduino.clanweb.eu/studna_s_prekladom/index.php">Waterwell monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+               <script type="text/javascript">
+    window.smartlook||(function(d) {
+    var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    })(document);
+    smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+</script>
+ <ul class="navbar-nav ml-auto">
+            <li class="nav-item active ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/index.php">Overview                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/historia.php">History</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/budiky.php">Records</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/grafy.php">Graphs</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/statistika.php">Stats</a>
+            </li>
+			      <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">Program</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/zapojenie.php">Wiring</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/informacie.php">Informations</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://arduino.clanweb.eu/studna_s_prekladom/nastavenie.php">Options</a>
+            </li>
+            <img src="./index_files/YAi45JJ.png" alt="Arduino Core" title="Arduino Core" height="32" width="32">
+            <img src="./index_files/2pOgsYZ.png" alt="Espressif IoT Development framework (ESP-IDF)" title="Espressif IoT Development framework (ESP-IDF)" height="32" width="32">
+            <img src="./index_files/Lsk36Zb.png" alt="Sigfox IoT network supported" title="Sigfox IoT network supported" height="32" width="32">
+          </ul>
+                  </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+
+       <h4>Studňa - Šuňava (okr. Poprad)</h4>
+       <div id="full"><table style="width: 100%;" border="1" class="table table-striped flat-table flat-table-3">
+    <thead>
+      <tr>
+        <th><h4>Entity</h4></th>
+        <th><h4>Value</h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="./index_files/1718672.svg" width="32px" height="32px"><h4>Water level</h4></td>
+        <td>382 cm <img src="./index_files/329342.svg" alt="Down" title="Declining trend of: 6 cm" height="32" width="32"></td>
+      </tr>
+      <tr>
+                  <td><img src="./index_files/505439.svg" width="32px" height="32px"><h4>Volume of well</h4></td>        
+       <td><i>1920.14  liters <img src="./index_files/329342.svg" alt="Down" title="Declining trend of: -30.16  liters" height="32" width="32"></i></td>      </tr>
+      <tr>
+        <td><img src="./index_files/1648092.svg" width="32px" height="32px"><h4>Last value at</h4></td>
+        <td>28. Jun 15:51</td>
+      </tr>
+      <tr>
+        <td><img src="./index_files/908547.svg" width="32px" height="32px"><h4>Connectivity</h4></td>
+        <td>
+      <h3><font color="#27AE60">Connected</font></h3></td>
+      </tr>
+            <tr>
+      <td><img src="./index_files/1340014.svg" width="32px" height="32px"><h4>Next value at</h4></td>
+      <td>28. Jun 15:56</td>
+      </tr>
+    </tbody>
+  </table></div>
+       <center><b><h2 id="txt">15:53:45</h2></b></center>
+        </div>
+      </div>
+            <hr>
+            
+<footer>
+<div class="row">
+      <div class="col-sm-3">
+<center><font color="#566573">Author: <a href="https://www.facebook.com/martin.s.chlebovec" id="a">Martin Chlebovec</a></font></center>
+</div>
+      <div class="col-sm-3">
+<center><font color="#566573">Frontend + Grid system: <a href="https://startbootstrap.com/template/bare">Bootstrap Bare</a></font></center>		
+</div>
+      <div class="col-sm-3">
+<center><font color="#566573">System icons (MIT): <a href="https://www.flaticon.com/">Flaticon</a></font></center>			
+</div>
+      <div class="col-sm-3">	
+<a href="https://martinius96.github.io/hladinomer-studna-scripty/"><img src="./index_files/2111432.svg" style="height: 24px; width: 24px;" alt="Github repozitár projektu Hladinomer" title="Github repozitár projektu Hladinomer"></a>	 
+</div>
+</div>
+</footer>    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="./index_files/jquery.min.js.stiahnuť"></script>
+    <script src="./index_files/bootstrap.bundle.min.js.stiahnuť"></script>
+
+  <div style="clear: both; left: 0; margin: 0;  width: 100%; "><div style="margin: 5px; border-radius: 4px; background: #fff; color: #000; font-family: sans-serif; font-size: 14px; font-weight: normal; border: 1px solid #999; text-align: center;"><span style="margin: 5px 0 5px 0; display: inline-block; padding-left: 125px; background: url(https://www.endora.cz/images/icon.png) no-repeat left center; text-align: left;"><b style="font-weight: bold;">Získejte registraci domén s tld .online, .space, .store, .tech zdarma!</b><br>Stačí si k jedné z těchto domén vybrat hosting Plus nebo Mega a registraci domény od nás dostanete za 0 Kč!</span><a style="margin: 9px 0 5px 30px; vertical-align: top; text-decoration: none; font-weight: bold; display: inline-block; color: white; background-color: #1ca2e1; border-radius: 3px; padding: 5px 10px;" href="https://www.endora.cz/objednavka/objednat?utm=kafo&amp;program=plus&amp;order-tld=online" target="_blank">Objednat</a></div></div>
+  <script>
+  $(function() {
+    $.get('full_vypis.php', function(data){
+      $('#full').html(data)
+    });
+  });
+  </script>
+  <script>
+       setInterval(function(){
+  $.get('full_vypis.php', function(data){
+        $('#full').html(data)
+    });
+},15000);   
+</script>
+
+</body></html>
