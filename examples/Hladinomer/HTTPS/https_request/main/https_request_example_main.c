@@ -17,6 +17,8 @@
    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied.
 */
+#define COMBINED_INIT_CODE
+
 #include <stdio.h>
 #include <math.h> //pre funkciu pow()
 #include <string.h>
@@ -37,6 +39,7 @@
 #include "driver/gpio.h"
 #include "protocol_examples_common.h"
 #include "errno.h"
+#include "sdkconfig.h"
 
 #if CONFIG_EXAMPLE_CONNECT_WIFI
   #include "esp_wifi.h"
