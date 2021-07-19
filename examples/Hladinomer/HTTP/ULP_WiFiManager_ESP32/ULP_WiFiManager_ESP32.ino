@@ -33,7 +33,7 @@ WiFiClient client;
 void setup() {
   Serial.begin(115200);
   WiFiManager wifiManager;
-  wifiManager.autoConnect("Hladinomer_AP"); //ssid
+  wifiManager.autoConnect("Hladinomer_AP"); //SSID --> no password
   Serial.println(F(""));
   Serial.println(F("Wifi pripojene s IP:"));
   Serial.println(WiFi.localIP());
