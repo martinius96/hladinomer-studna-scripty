@@ -18,12 +18,11 @@ String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k 
 //Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
 
 #include <NewPingESP8266.h>
-#include <Esp32WifiManager.h> //v0.16 last release from tzapu
+#include <WiFi.h>
 #include <WebServer.h>
-#include <DNSServer.h>
+#include <WiFiManager.h>
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  300        /* Time ESP32 will go to sleep (in seconds) */
-#include <WiFi.h>
 #define pinTrigger    22
 #define pinEcho       23
 #define maxVzdialenost 450
