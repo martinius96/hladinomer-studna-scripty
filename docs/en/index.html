@@ -65,6 +65,10 @@
 				<div class="alert alert-info">
 					<strong>From 4th June 2021 available implementation for ESP32 in framework ESP-IDF v4.2 (4.0 compatible)</strong>
 				</div>
+				<div class="alert alert-danger">
+					<strong>For source codes of web interface or questions, contact author in ENGLISH language at: </strong>martinius96@gmail.com
+				</div>
+
 <span class="label label-default">Arduino</span>
 <span class="label label-primary">Ethernet</span>
 <span class="label label-success">Wiznet W5100 / W5500</span>
@@ -104,27 +108,71 @@
 <div class="col-sm-3"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b>HY-SRF05</b></center></div>
 <div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>		
 </div>					
-<hr><center><h2>Water Level monitor - Arduino / ESP8266 / ESP32</h2></center><hr>
+<hr><center> <h2> Level meter - Arduino / ESP8266 / ESP32 </h2> </center> <hr>
+<p style ="text-align: justify;">
+The level meter project (water level monitor) consists of a central web interface, which is used to visualize the measured data on the water level in real time, but also historically in time through a tabular / graphical representation of line graphs.
+The web interface is responsive, it can adapt to any screen and device resolution.
+The data can be read on watches, smartphones, computers, smart TVs and other devices.
+The web interface of the project uses a backend written in PHP, which can process incoming data from the HTTP POST method request.
+It then corrects the measured level to the actual one based on the known depth of the well.
+It also calculates the well volume for a given measurement based on the known well diameter.
+The depth and diameter of the well are entered into the system by the user based on his well.
+The data is sent to a web server by a microcontroller, which performs measurements every 300 seconds - i. For 5 minutes, or in the case of transmission via the Sigfox IoT network, the data is sent every 11 minutes.
+<b> Water level measurement is performed using ultrasonic sensors </b> - HC-SR04, or its waterproof variant JSN-SR04T, or UART sensor URM07 (SKU SEN0153) - available only in a special version of the project Level meter. It can measure a distance of up to 750 cm, due to the large detection angle, it does not fit into a large number of wells ...
+The principle of measuring ultrasonic sensors is to send a Trigger signal with a length of 10μs (microseconds) and based on the time when the signal returns to the receiver - Echo it is possible to calculate the distance between the sensor and the level.
+An important parameter in both ultrasonic sensors is the beam width, in other words the detection characteristic.
+The HC-SR04 sensor has a 15 ° detection characteristic. The beam is relatively narrow and the sensor is also suitable for narrower wells and tanks, but it is not waterproof and has a high risk of corrosion (oxidation).
+For this reason, it is advisable to place it above the well.
+The JSN-SR04T waterproof sensor has a detection characteristic of 60 to 75 °, which does not allow it to be used in narrow wells, as the beam expands greatly with distance and a well with a diameter of several units (6 meters at 4.5 well depth) is required.
+Ultrasonic measurement is suitable for measuring the level of drinking, utility and waste water.
+The system and ultrasonic sensors are maintenance-free.
+Just plug in, upload the software implementation and run.
+Ultrasonic sensors can also be used to measure the height of the material in various applications.
+In the case of a square well, the diameter is the diameter of the inscribed circle, which will form the reference value of the water cylinder and the volume of the well.
+The maximum measurable level height (level) by the sensors is approx. 400 to 450 cm (known from the datasheet).
+</p>
+<hr><center><h4>Video demonstration of the web interface - Water Level monitor:</h4></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>Ultrasonic sensors are suitable for:</h4></center><hr>
+<li> Digged wells </li>
+<li> Septics and cesspools </li>
+<li> Plastic rainwater tanks </li>
+<li> Trays </li>
+<hr><center><h4>Ultrasonic sensors are <font color="red">NOT</font> suitable for:</h4></center><hr>
+<li> Drilled wells </li>
+<li> Pipes and tubes </li>
+<li> To unstable wells </li>
 <p style="text-align: justify;">
-Project Water Level monitor uses web interface to visualize the measured data on the water level in the well, tank. The responsive web interface in the Bootstrap Bare template adapts to any screen on which the data is visualized. The data is readable on watches, smartphones, computers, Smart TVs and other devices.
-Web interface of the project uses a backend written in PHP, which processes incoming data supported by the POST request method, converts the measured water level to the actual water level (from bottom of waterwell), calculates the well volume based on known data on depth and well diameter entered into the system by the user. Datas are sent to a web server by a microcontroller, which performs measurements every 300 seconds - each 5 minutes, or in the case of transmission via the Sigfox IoT network, the data is sent every 11 minutes - because of limited messages that can be sent during 24 hours.
-Water level measurement is performed using ultrasonic sensors - HC-SR04, or its waterproof variant JSN-SR04T. Principle of measuring ultrasonic sensors is to send a Trigger signal with a length of 10μs (microseconds) and based on the time when the signal returns to the receiver - Echo it is possible to calculate the distance between the sensor and the level. An important parameter in both ultrasonic sensors is the beam width, in other words the detection characteristic.
-The HC-SR04 sensor has a 15 ° detection characteristic. The beam is relatively narrow and the sensor is also suitable for narrower wells and tanks, but it is not waterproof and has a high risk of corrosion (oxidation). The JSN-SR04T waterproof sensor has a detection characteristic of 60 to 75 °, which does not allow it to be used in narrow wells, as the beam expands greatly with distance and requires a well with a diameter of several units (6 meters at 4.5 well depth).
+The web interface uses trigonometry to estimate the measurable maximum depth of the well at a known well diameter (another parameter for calculating the well volume).
+The web interface allows the user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
+The project is so easy to use even for laymen who do not know which sensor is more suitable for application in their well.
+The microcontroller used also plays an important role in the system. The project used the Arduino platform (Uno) connected to an Ethernet module / shield from the Wiznet model W5100 and W5500 series, respectively, which provided HTTP connectivity and enabled the microcontroller to transfer data to a remote web interface on the Internet.
+As the level meter is an outdoor project, many users would also like the possibility of using a WiFi platform without having to pull Ethernet connectivity to the well.
+WiFi platforms from Espressif Systems - ESP8266 and ESP32, which are used in the project, allow operation in various modes - StandBy, Deep Sleep (deep sleep with WiFi modem turned off), StandBy + OTA - allows you to remotely upload to the board new firmware directly from the board Arduino IDE environment.
+On request, it is also possible to create a Remote OTA update, which is distributed remotely via the Internet from a web server, you can use the Github repository, which can distribute the update to the client in RAW format .bin.
+For the Deep Sleep operating mode, there is a modified wiring diagram for the ESP8266 platform, which uses a signal that is fed to the RST to wake up the WAKE microcontroller.
+At the same time, this connection does not allow the program to be updated without disconnecting this jumper.
+For ESP32, Deep Sleep mode is used using an RTC timer, which wakes up ESP after a certain time.
+Platforms can communicate with the web interface via HTTP, but also HTTPS protocol. The ESP8266 platform uses a fingeprint of the web server's public key in SHA1 format, but requires more frequent renewals, as they are valid for a maximum of one year or 2 years, respectively.
+The microcontroller from the ESP32 series uses the certificate of the root certification authority, which issued the certificate for the web server - the ROOT CA certificate in .pem format for the HTTPS connection.
+From the point of view of operation, this option is better, as the certificate of the certification authority is also valid for 20 years and no renewal of the certificate is necessary.
+The project can be integrated via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard.
+Possibility of offline measurements (completely without connectivity) with a report on the UART interface, character LCD displays 16x2 / 20x4 communicating via I2C bus.
 </p>
 <hr>
-<p style="text-align: justify;">
-The web interface uses trigonometry to estimate the measurable maximum depth of the well at a known well diameter (another parameter for calculating the well volume). The web interface allows the user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics. The project is so easy to use even for laymen who do not know which sensor is more suitable for application in their well.
-Microcontroller used also plays an important role in the system. The project used the Arduino (Uno) platform connected to an Ethernet module / shield from the Wiznet model W5100 and W5500 series, respectively, which provided HTTP connectivity and enabled the microcontroller to transfer data to a remote web interface on the Internet. As the level meter is an outdoor project, many users would also like the possibility of using a WiFi platform without having to pull Ethernet connectivity to the well. WiFi platforms from Espressif Systems - ESP8266 and ESP32, which are used in the project, allow operation in various modes - StandBy, Deep Sleep (deep sleep with WiFi modem turned off), StandBy + OTA - allows you to remotely upload to the board new firmware directly from the board Arduino IDE environment.
-For the Deep Sleep operating mode, there is a modified wiring diagram for the ESP8266 platform, which uses a signal from GPIO 16 (D0) that is fed to the RST to wake up the WAKE microcontroller. At the same time, this connection does not allow the program to be updated without disconnecting this jumper. For ESP32, the Deep Sleep mode is used using an RTC timer, which wakes up ESP after a certain time.
-Platforms can communicate with the web interface via HTTP, but also HTTPS protocol. The ESP8266 platform uses a fingeprint of the web server's public key in SHA1 format, but requires more frequent renewals, as they are valid for a maximum of one year or 2 years, respectively. The microcontroller from the ESP32 series uses the certificate of the root certification authority (in .pem format is that Root CA required), which issued a certificate for the web server. From the point of view of operation, this option is better, as the certificate of the certification authority is valid for 5 up to 20 years and no renewal of the certificate is necessary during that time.
-</p>
+<div class = "alert alert-info">
+<strong> Program implementations for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> HERE </a>
+</div>
 <hr>
-<p style="text-align: justify;">
-For locations where is no coverage of the fixed Internet, it is also possible to use the IoT network Sigfox that is so popular in Europe (available also in USA). This technology allows you to transmit small volume of messages up to 12B in size. In the case of the Level meter project, the 4B water level value is sent. As Sigfox allows a maximum of 140 messages to be transmitted per day, the data transmission interval is extended to 11 minutes.
-Message that is sent via Sigfox network does not contain the full length that it can -->12B. Payload messages can also be supplemented with various system information, for example: GEO data (longitude / latitude), RSSI (Signal Strength), message number and others. The communication module that was used for the project is a Sigfox WISOL 868MHz UART modem.
-This modem communicates via AT commands via the UART interface, which is software emulated on microcontrollers. The communication will take over at a speed of 9600 baud / s. The WISOL modem is equipped with an integrated u.FL connector on the PCB module for antenna connection, which significantly reduces coverage even indoors / shaded outdoors. For successful data transmission, coverage by two, preferably three or more base stations is required for successful data transmission.
-Base station will transmit information from you to the Sigfox backend, where it is necessary to make a callback, which will trigger after receiving the data. The callback must make an HTTP or HTTPS request to the domain where the web application is running with the POST method and a suitably encoded payload that the web application backend expects.
-Webapp is fully translated to english, slovak, russian and german language. 
+<p style = "text-align: justify;">
+For locations where there is no coverage of the fixed Internet, it is also possible to use the IoT network Sigfox, which covers almost 90% of Slovakia, has broadcasting stations mainly on Towercome transmitters.
+This technology allows you to transmit small volumes of messages up to 12B in size. In the case of the Level meter project, the 4B water level value is sent. For a project extended by a rain gauge, the value 8B value is sent, which is formed by the height of the water level and the increase in precipitation.
+As Sigfox allows a maximum of 140 messages to be transmitted per day, the data transmission interval is extended to 11 minutes. In both cases, the message does not contain the full length that it can, i. 12B.
+Payload messages can also be supplemented with various system information, for example: GEO data (longitude / latitude), RSSI (Signal Strength), message number and others.
+The communication module that was used for the project is a Sigfox WISOL 868MHz UART modem. This modem communicates via AT commands via the UART interface, which is software emulated on microcontrollers.
+The communication will take over at a speed of 9600 baud / s. The WISOL modem is equipped with an integrated u.FL connector on the PCB module for antenna connection, which significantly reduces coverage even indoors / shaded outdoors.
+For successful data transmission, coverage by two, preferably three or more BTS stations is required for successful data transmission. The BTS sends the transmitted information to the Sigfox backend, where it is necessary to make a callback, which will start after receiving the data.
+The callback must make an HTTP or HTTPS request to the domain where the web application is running with the POST method and a suitably encoded payload that the web application backend expects.
 </p>
 <div class="alert alert-success">
 <b>Level meter - Callback settings in Sigfox Backend:</b>
@@ -138,7 +186,7 @@ Webapp is fully translated to english, slovak, russian and german language.
 </div>			
 <hr>
 <center> 
-     <h3>Web interface visualizations - Water Level monitor</h3>
+     <h3>Screenshots of Water Level monitor webapp</h3>
      <hr>
 	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
 <img src="https://i.imgur.com/JnxXFzC.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
