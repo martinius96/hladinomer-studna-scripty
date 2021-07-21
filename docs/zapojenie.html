@@ -35,59 +35,92 @@
     		})(document);
     		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
 	</script>    
-  <style>
-.flat-table {
-		margin-bottom: 20px;
-		border-collapse:collapse;
-		font-family: 'Lato', Calibri, Arial, sans-serif;
-  border: none;
-                border-radius: 50px;
-               -webkit-border-radius: 50px;
-               -moz-border-radius: 50px;
-	}
-	.flat-table th, .flat-table td {
-		box-shadow: inset 0 -1px rgba(0,0,0,0.25), 
-			inset 0 1px rgba(0,0,0,0.25);
-	}
-	.flat-table th {
-		font-weight: normal;
-		-webkit-font-smoothing: antialiased;
-		padding: 1em;
-		color: #fff;
-    font-weight: bold;
-		text-shadow: 0 0 1px rgba(0,0,0,0.1);
-		font-size: 1.5em;
-	}
-	.flat-table td {
-		color: #f7f7f7;
-		padding: 0.7em 1em 0.7em 1.15em;
-		text-shadow: 0 0 1px rgba(255,255,255,0.1);
-		font-size: 1.4em;
-	}
-	.flat-table tr {
-		-webkit-transition: background 0.3s, box-shadow 0.3s;
-		-moz-transition: background 0.3s, box-shadow 0.3s;
-		transition: background 0.3s, box-shadow 0.3s;
-	}
-	.flat-table-1 {
-		background: #2874A6;
-	}
-	.flat-table-1 tr:hover {
-		background: rgba(0,0,0,0.19);
-	}
-	.flat-table-2 tr:hover {
-		background: rgba(0,0,0,0.1);
-	}
-	.flat-table-2 {
-		background: #C0392B;
-	}
-	.flat-table-3 {
-		background: #229954;
-	}
-	.flat-table-3 tr:hover {
-		background: rgba(0,0,0,0.1);
-	}
-</style>
+<style>
+
+.aa_h2{
+  font:100 5rem/1 Roboto;
+  text-transform: uppercase;
+}
+table{
+   background: #fff;
+}
+table,thead,tbody,tfoot,tr, td,th{
+  text-align: center;
+  margin: auto;
+  border:1px solid #dedede;
+  padding: 1rem;
+  width: 50%;
+}
+.table    { display: table; width: 100%; }
+.tr       { display: table-row;  }
+.thead    { display: table-header-group }
+.tbody    { display: table-row-group }
+.tfoot    { display: table-footer-group }
+.col      { display: table-column }
+.colgroup { display: table-column-group }
+.td, .th   { display: table-cell; width: 50%; }
+.caption  { display: table-caption }
+
+.table,
+.thead,
+.tbody,
+.tfoot,
+.tr,
+.td,
+.th{
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+}
+.table{
+  background: #fff;
+  margin: auto;
+  border:none;
+  padding: 0;
+  margin-bottom: 5rem;
+}
+
+.th{
+  font-weight: 700;
+  border:1px solid #dedede;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+.td{
+  font-weight: 300;
+  border:1px solid #dedede;
+  border-top:none;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+
+.aa_htmlTable{
+  background: tomato;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+.aa_css{
+  background: skyblue;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+
+.aa_ahmadawais{
+  display: table;
+  width: 100%;
+  font: 100 1.2rem/2 Roboto;
+  margin: 5rem auto;
+}
+    
+  </style>
 </head>
 <body>
 	<div class="container">
@@ -125,18 +158,21 @@
   <div class="alert alert-success">
   <strong>Schéma zapojenia pre podporované mikrokontroléry a ultrazvukové senzory vzdialenosti HC-SR04 / JSN-SR04T (vodotesný)</strong>
   <hr>
-  <strong>Revízia 1 - 30. Júla 2020</strong>
-  <li>Pridané režimy ULP - Ultra low power - deep sleep pre platformy ESP8266 (External interrupt WAKE vývodom), ESP32 (RTC Timer).</li>
-  <li>Schéma rozšírená o napäťový delič pre 3V3 platformy ESP8266, ESP32 pre ich prepojenie s 5V ultrazvukovým senzorom vzdialenosti.</li>
-  <li>Pridaná možnosť využitia OTA aktualizácie v StandBy režime pre platformy ESP8266 a ESP32 v LAN sieti prostredníctvom Python uploadera.</li>
+   <strong>Revízie hladinomera od Júna 2020 priniesli:</strong>
+  <li>Grafická reprezentácia nameraných údajov v časovom vývoji rozšírená aj pre reprezentácie na 30 dní, 365 dní</li>
+  <li>Pridané režimy ULP - Ultra low power - Deep sleep pre platformy ESP8266 (využíva zdroj prebudenia External interrupt WAKE), ESP32 (využíva zdroj prebudenia RTC Timer)</li>
+  <li>Schéma zapojenia rozšírená o napäťový delič pre platformy ESP8266 a ESP32 s 3V3 operačnou logikou pre pripojenie k ultrazvukovému senzoru s 5V operačnou logikou.</li>
+  <li>Pridaná možnosť využitia OTA aktualizácie v StandBy režime pre platformy ESP8266 a ESP32 v LAN sieti prostredníctvom Python uploadera z prostredia Arduino IDE - Basic OTA</li>
+  <li>Pre oblasti bez pevného internetu možnosť využitia IoT siete Sigfox pre prenos údajov zo studne. Využitie kompatibilného Sigfox WISOL SFM10R1 UART modemu ovládaného cez AT príkazy softvérovo emulovaným UART rozhraním, možnosť jeho uspávania v Light / Deep Sleep režime.</li>
+  <li>Informácie o projekte s popisom kompatibilného hardvéru, popisom funkčnosti ultrazvukových senzorov, implementácia HTTPS spojenia pre ESP32, ESP8266. Nastavenie Sigfox backendu pre callback zápisu dát do webového rozhrania.</li>
 </div><center><img src="https://i.imgur.com/O7QYERr.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
-  <div class="alert alert-danger">
+ <div class="alert alert-info">
  <strong>V prípade používania Ethernet modulu Wiznet W5200 až W5500 s hlavičkovým súborom Ethernet2.h je nutné prepojiť vývod D2 Arduina s vývodom INT (INIT) na Ethernet module!</strong></div> 
 <table class="table table-striped flat-table flat-table-1" style="color: black; max-width: 100%;">
 <thead>
 <tr>
 <th style="width: 50%;"><strong>Arduino + Ethernet (W5100 / W5500)</strong></th>
-<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
 </tr>
 <tr>
 <td>5V</td>
@@ -156,13 +192,13 @@
 </tr>
 </table>
 <hr>
-  <div class="alert alert-danger">
-     <strong>Pri napájaní NodeMCU cez USB, pripojiť ultrazvukový senzor vzdialenosti na VUSB (VU) vývod, pri napájaní cez base kit prostredníctvom adaptéru pripojiť senzor na VIN (5V)</strong></div> 
+  <div class="alert alert-info">
+     <strong>Pri napájaní NodeMCU cez USB, pripojiť ultrazvukový senzor vzdialenosti na VUSB (VU) vývod - dostupný iba na NodeMCU v3 Lolin, pri napájaní cez Base kit (s integrovaným 5V regulátorom) prostredníctvom adaptéru 6 - 24V pripojiť senzor na VIN (5V)</strong></div> 
 <table class="table table-striped flat-table flat-table-2" style="color: black; max-width: 100%;">
 <thead>
 <tr>                  
 <th style="width: 50%;"><strong>ESP8266</strong></th>
-<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
 </tr>
 <tr>
 <td>5V</td>
@@ -186,7 +222,7 @@
 <thead>
 <tr>
 <th style="width: 50%;"><strong>ESP32</strong></th>
-<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
 </tr>
 <tr>
 <td>5V</td>
