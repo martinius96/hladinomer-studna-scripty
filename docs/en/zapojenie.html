@@ -34,59 +34,92 @@
     		})(document);
     		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
 	</script>    
-  <style>
-.flat-table {
-		margin-bottom: 20px;
-		border-collapse:collapse;
-		font-family: 'Lato', Calibri, Arial, sans-serif;
-  border: none;
-                border-radius: 50px;
-               -webkit-border-radius: 50px;
-               -moz-border-radius: 50px;
-	}
-	.flat-table th, .flat-table td {
-		box-shadow: inset 0 -1px rgba(0,0,0,0.25), 
-			inset 0 1px rgba(0,0,0,0.25);
-	}
-	.flat-table th {
-		font-weight: normal;
-		-webkit-font-smoothing: antialiased;
-		padding: 1em;
-		color: #fff;
-    font-weight: bold;
-		text-shadow: 0 0 1px rgba(0,0,0,0.1);
-		font-size: 1.5em;
-	}
-	.flat-table td {
-		color: #f7f7f7;
-		padding: 0.7em 1em 0.7em 1.15em;
-		text-shadow: 0 0 1px rgba(255,255,255,0.1);
-		font-size: 1.4em;
-	}
-	.flat-table tr {
-		-webkit-transition: background 0.3s, box-shadow 0.3s;
-		-moz-transition: background 0.3s, box-shadow 0.3s;
-		transition: background 0.3s, box-shadow 0.3s;
-	}
-	.flat-table-1 {
-		background: #2874A6;
-	}
-	.flat-table-1 tr:hover {
-		background: rgba(0,0,0,0.19);
-	}
-	.flat-table-2 tr:hover {
-		background: rgba(0,0,0,0.1);
-	}
-	.flat-table-2 {
-		background: #C0392B;
-	}
-	.flat-table-3 {
-		background: #229954;
-	}
-	.flat-table-3 tr:hover {
-		background: rgba(0,0,0,0.1);
-	}
-</style>
+<style>
+
+.aa_h2{
+  font:100 5rem/1 Roboto;
+  text-transform: uppercase;
+}
+table{
+   background: #fff;
+}
+table,thead,tbody,tfoot,tr, td,th{
+  text-align: center;
+  margin: auto;
+  border:1px solid #dedede;
+  padding: 1rem;
+  width: 50%;
+}
+.table    { display: table; width: 100%; }
+.tr       { display: table-row;  }
+.thead    { display: table-header-group }
+.tbody    { display: table-row-group }
+.tfoot    { display: table-footer-group }
+.col      { display: table-column }
+.colgroup { display: table-column-group }
+.td, .th   { display: table-cell; width: 50%; }
+.caption  { display: table-caption }
+
+.table,
+.thead,
+.tbody,
+.tfoot,
+.tr,
+.td,
+.th{
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+}
+.table{
+  background: #fff;
+  margin: auto;
+  border:none;
+  padding: 0;
+  margin-bottom: 5rem;
+}
+
+.th{
+  font-weight: 700;
+  border:1px solid #dedede;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+.td{
+  font-weight: 300;
+  border:1px solid #dedede;
+  border-top:none;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+
+.aa_htmlTable{
+  background: tomato;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+.aa_css{
+  background: skyblue;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+
+.aa_ahmadawais{
+  display: table;
+  width: 100%;
+  font: 100 1.2rem/2 Roboto;
+  margin: 5rem auto;
+}
+    
+  </style>
 </head>
 <body>
 	<div class="container">
@@ -124,18 +157,21 @@
   <div class="alert alert-success">
   <strong>Wiring diagram for supported microcontrollers and ultrasonic distance sensors HC-SR04 / JSN-SR04T (waterproof)</strong>
   <hr>
- <strong> Revision July 1 - 30, 2020 </strong>
-   <li> Added ULP modes - Ultra low power - deep sleep for platforms ESP8266 (External interrupt WAKE pin), ESP32 (RTC Timer). </li>
-   <li> Scheme extended by voltage divider for 3V3 platforms ESP8266, ESP32 for their connection with 5V ultrasonic distance sensor. </li>
-   <li> Added the ability to use OTA update in StandBy mode for ESP8266 and ESP32 platforms in a LAN network via a Python uploader. </li>
+<strong>Revisions of the level meter since June 2020 have brought:</strong>
+  <li>Graphic representation of measured data in time development extended to representations for 30 days, 365 days</li>
+  <li>Added ULP modes - Ultra low power - Deep sleep for ESP8266 platforms (uses External interrupt WAKE wake-up source), ESP32 (uses RTC Timer wake-up source)</li>
+  <li>Wiring diagram extended by voltage divider for ESP8266 and ESP32 platforms with 3V3 operating logic for connection to an ultrasonic sensor with 5V operating logic</li>
+  <li>Added possibility to use OTA update in StandBy mode for ESP8266 and ESP32 platforms in LAN network via Python uploader from Arduino IDE - Basic OTA</li>
+  <li>For areas without fixed internet, the possibility of using the IoT network Sigfox for data transmission from the well. Utilization of compatible Sigfox WISOL SFM10R1 UART modem controlled via AT commands by software emulated UART interface, possibility of its sleeping in Light / Deep Sleep mode</li>
+  <li>Project information with description of compatible hardware, description of ultrasonic sensors functionality, implementation of HTTPS connection for ESP32, ESP8266. Setting up a Sigfox backend for callback data entry into the web interface</li>
 </div><center><img src="https://i.imgur.com/O7QYERr.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
-  <div class="alert alert-danger">
-<strong> If you are using the Wiznet W5200 to W5500 Ethernet module with the Ethernet2.h header file, you must connect the D2 Arduino terminal to the INT (INIT) terminal on the Ethernet module! </strong> </div>
+ <div class="alert alert-info">
+ <strong>When using the Wiznet W5200 to W5500 Ethernet module with the Ethernet2.h header file, it is necessary to connect the D2 Arduino terminal with the INT (INIT) terminal on the Ethernet module!</strong></div> 
 <table class="table table-striped flat-table flat-table-1" style="color: black; max-width: 100%;">
 <thead>
 <tr>
 <th style="width: 50%;"><strong>Arduino + Ethernet (W5100 / W5500)</strong></th>
-<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
 </tr>
 <tr>
 <td>5V</td>
@@ -155,13 +191,13 @@
 </tr>
 </table>
 <hr>
-  <div class="alert alert-danger">
-    <strong> When powering the NodeMCU via USB, connect the ultrasonic distance sensor to the VUSB (VU) terminal, when powering via the base kit via the adapter, connect the sensor to the VIN (5V) </strong> </div>
+  <div class="alert alert-info">
+     <strong>When powering the NodeMCU via USB, connect the ultrasonic distance sensor to the VUSB (VU) terminal, when powering via the base kit via the adapter, connect the sensor to the VIN (5V)</strong></div> 
 <table class="table table-striped flat-table flat-table-2" style="color: black; max-width: 100%;">
 <thead>
 <tr>                  
 <th style="width: 50%;"><strong>ESP8266</strong></th>
-<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
 </tr>
 <tr>
 <td>5V</td>
@@ -177,7 +213,7 @@
 </tr>
 <tr>
 <td>D2 (GPIO 4)</td>
-<td>Echo</td>
+<td>Echo <font color="red"><b>(3V3)</b></font></td>
 </tr>
 </table>
 <hr>
@@ -185,7 +221,7 @@
 <thead>
 <tr>
 <th style="width: 50%;"><strong>ESP32</strong></th>
-<th style="width: 50%;"><strong>HC-SR04 / JSN-SR04T</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
 </tr>
 <tr>
 <td>5V</td>
@@ -201,7 +237,7 @@
 </tr>
 <tr>
 <td>D23</td>
-<td>Echo</td>
+<td>Echo <font color="red"><b>(3V3)</b></font></td>
 </tr>
 </table>
 <hr>
