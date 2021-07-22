@@ -94,10 +94,14 @@ To obtain a fingerprint, ie a Root CA certificate for a specific MQTT server (do
 <br> <b> Command to obtain the Root CA certificate that issued the certificate for the MQTT server (Issuer): </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
+<hr>
 <h4> The topics used for Publish to MQTT Broker are: </h4>
+<hr>
 <li><b>hladinomer/objem</b> - for well volume in liters</li>
 <li><b>hladinomer/vyska</b> - pfor the current water level in centimeters</li>
+<hr>
 <h4>Topic for Subscribe:</h4>
+<hr>
 <li><b>hladinomer/#</b> - takes all subtopics below the main hladinomer/ topic, ie volume, height</li>
 <p style="text-align: justify;">
 <b>The MQTT client has a subscribed subscription to the main topic level meter and all its subtopics.
@@ -105,8 +109,10 @@ It can also verify whether the information has been successfully published on MQ
 <b><font color="red">WARNING: MQTT Broker IoT Industries Slovakia, which is used in the sample implementation, is public and so the data can be changed, overwritten, read by any user!</font></b>
 If any other user uploads the JSON client firmware to their microcontroller without change, the data in the predefined topic will be overwritten by you, as well as by him.
 It is therefore advisable to choose another topic where the data will be sent during the implementation.
-</p>    
+</p>
+<hr>    
 <h4>JSON data on a PHP web server subpage that is loaded by a JSON client:</h4>
+<hr>
 <center>
 <img src="https://i.imgur.com/Uwzd72B.png" style="display: block; max-width: 100%; height: auto;" title="JSON klient - Arduino, ESP8266, ESP32, MQTT integrácia - Ethernet termostat" alt="JSON klient - Arduino, ESP8266, ESP32, MQTT integrácia - Ethernet termostat">
 </center>
