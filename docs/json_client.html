@@ -95,10 +95,14 @@ Pre získanie fingerprintu, potažmo Root CA certifikátu pre konkrétny MQTT se
 <br><b>Príkaz pre získanie Root CA certifikátu, ktorý vydal certifikát pre MQTT server (Issuer):</b><br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
+<hr>
 <h4>Používané topicy pre Publish na MQTT Broker sú:</h4> 
+<hr>
 <li><b>hladinomer/objem</b> - pre objem studne v litroch</li>
 <li><b>hladinomer/vyska</b> - pre aktuálnu výšku hladiny vody v centimetroch</li>
+<hr>
 <h4>Topic pre Subscribe:</h4>
+<hr>
 <li><b>hladinomer/#</b> - odoberá všetky subtopicy pod hladinomer/, teda objem, výšku</li>
 <p style="text-align: justify;">
 <b>MQTT klient má prihlásený Subscribe na hlavný topic hladinomer a všetky jeho subtopicy. 
@@ -106,12 +110,16 @@ Dokáže tak zároveň aj overiť, či bola informácia na MQTT Broker úspešn�
 <b><font color="red">UPOZORNENIE: MQTT Broker IoT Industries Slovakia, ktorý sa vo vzorovej implementácii používa je verejný a tak môžu byť dáta zmenené, prepísané, čítané akýmkoľvek používateľom!</font></b>
 Ak do svojho mikrokontroléru nahrá firmvér JSON klienta bez zmeny akýkoľvek iný používateľ, bude vám dané dáta v preddefinovanom topicu prepisovať a rovnako aj vy jemu. 
 Je tak vhodné pri vlastnej implementácii zvoliť iný topic, kam budú dáta odosielané.
-</p>    
+</p>
+<hr>    
 <h4>JSON data na PHP podstránka webservera, ktoré načítava JSON klient:</h4>
+<hr>
 <center>
 <img src="https://i.imgur.com/Uwzd72B.png" style="display: block; max-width: 100%; height: auto;" title="JSON klient - Arduino, ESP8266, ESP32, MQTT integrácia - Ethernet termostat" alt="JSON klient - Arduino, ESP8266, ESP32, MQTT integrácia - Ethernet termostat">
 </center>
+<hr>
 <h4>JSON klient - UART výstup (Sériová linka):</h4>
+<hr>
 <center><img src="https://i.imgur.com/Az5xE0C.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client pre WiFi termostat - UART výstup" title="JSON client pre WiFi termostat - UART výstup"></center>       		
 <h4>HiveMQ client - Subscribe topicu hladinomer/#</h4>
 <center><img src="https://i.imgur.com/lHoBFgj.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat" title="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat"></center> 
