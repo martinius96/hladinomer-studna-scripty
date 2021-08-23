@@ -49,13 +49,11 @@ ESP32 | ✓ | ✓ | ✓ | ✓
 # Schéma zapojenia mikrokontrolérov + HC-SR04 / JSN-SR04T
 ![Schéma zapojenia - hladinomer - senzor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
 # Ukážka webaplikácie - Hladinomer
-![Hladinomer - Prehľad hĺbky studne v reálnom čase](https://i.imgur.com/bUifgSE.png)
-![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/2FfyDiw.png)
-![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/Oxar3HS.png)
-![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/V1fQsq5.jpg)
-![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/XL7ohx3.png)
-![Hladinomer - HC-SR04 - Detekčná charakteristika](https://i.imgur.com/iNdrwh1.png)
-![Hladinomer - JSN-SR04T - Detekčná charakteristika](https://i.imgur.com/LKIuhJd.png)
+![Hladinomer - Prehľad hĺbky studne v reálnom čase](https://i.imgur.com/7J295Ae.png)
+![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/SdDbSvn.png)
+![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/Rido0yn.png)
+![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/k1DgXgY.png)
+![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/vtg6NpT.png)
 
 # Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka:
 * Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom 15ms
