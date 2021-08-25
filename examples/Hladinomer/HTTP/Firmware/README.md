@@ -16,9 +16,9 @@
 * WiFi sieť Hladinomer_AP je otvorená bez zadania hesla
 * Po pripojení smartfónom / počítačom do tejto WiFi siete je na adrese 192.168.4.1 dostupné webové rozhranie WiFi Manager
 * Rozhranie poskytuje možnosť konfigurácie WiFi údajov pre vašu domácu WiFi sieť. 
-* V rozhraní je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa WiFi termostat pripojí, prípadne je možné vybrať WiFi sieť v dosahu a opísať k nej heslo.
+* V rozhraní je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa ESP pripojí, prípadne je možné vybrať WiFi sieť v dosahu a dopísať k nej heslo.
 
-# Aktivita WiFi termostatu
+# Aktivita Hladinomer clienta
 * Funkcie klienta, meranie výšky hladiny vody a prenos dát sú spustené až po pripojení ESP mikrokontroléru do vašej LAN siete! 
 * Po pridelení IP adresy pre konektivitu vo vašej sieti.
 * Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už v režime klienta a prenáša áta 
