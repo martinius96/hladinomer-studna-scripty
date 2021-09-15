@@ -21,21 +21,21 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 * Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/**
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
-#
-**Programové implementácie pre protokoly:**
-Mikrokontróler | HTTP | HTTPS
------------- | ------------- | -------------
-Arduino + Ethernet | ✓ | ×
-ESP8266 | ✓ | ✓
-ESP32 | ✓ | ✓
 
-**Podporované operačné módy v zdrojových kódoch**
-Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA)
------------- | ------------- | ------------- | ------------- | -------------
-**Mikrokontróler** | - | - | - | -
-Arduino + Ethernet | ✓ | ✓ | × | ×
-ESP8266 | ✓ | ✓ | ✓ | ✓
-ESP32 | ✓ | ✓ | ✓ | ✓
+**Programové implementácie pre protokoly:**
+| Mikrokontróler | HTTP | HTTPS |
+| ------------ | ------------- | ------------- |
+| Arduino + Ethernet | ✓ | × |
+| ESP8266 | ✓ | ✓ |
+| ESP32 | ✓ | ✓ |
+
+**Podporované operačné módy v zdrojových kódoch** |
+| Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) |
+| ------------ | ------------- | ------------- | ------------- | ------------- |
+| **Mikrokontróler** | - | - | - | - |
+| Arduino + Ethernet | ✓ | ✓ | × | × |
+| ESP8266 | ✓ | ✓ | ✓ | ✓ |
+| ESP32 | ✓ | ✓ | ✓ | ✓ |
 
 # Získanie Root CA certifikátu (Pre ESP32 - HTTPS)
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
