@@ -22,14 +22,14 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
 
-**Programové implementácie pre protokoly:**
+**Programové implementácie pre prenosové protokoly podľa mikrokontrolérov:**
 | Mikrokontróler | HTTP | HTTPS |
 | ------------ | ------------- | ------------- |
 | Arduino + Ethernet | ✓ | × |
 | ESP8266 | ✓ | ✓ |
 | ESP32 | ✓ | ✓ |
 
-**Podporované operačné módy v zdrojových kódoch** |
+**Podporované operačné módy prevádzky mikrokontrolérov v zdrojových kódoch:**
 | Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) |
 | ------------ | ------------- | ------------- | ------------- | ------------- |
 | **Mikrokontróler** | - | - | - | - |
