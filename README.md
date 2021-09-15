@@ -21,7 +21,7 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 * Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/**
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
 * Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
-
+#
 **Programové implementácie pre protokoly:**
 Mikrokontróler | HTTP | HTTPS
 ------------ | ------------- | -------------
