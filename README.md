@@ -1,6 +1,4 @@
 # Hladinomer - odosielacie scripty
-**Podporte projekt pre pridanie nových funkcionalít a podpory iných senzorov**
-* Podpora možná prostredníctovom PayPalu: https://www.paypal.me/chlebovec
 
 Tento repozitár obsahuje programovú implementáciu - zdrojové kódy pre mikrokontroléry Arduino, ESP8266, ESP32, ktoré sú využité v projekte Hladinomer / Hladinomer + Zrážkomer. Mikrokontroléry realizujú HTTP / HTTPS POST request na webserver v LAN sieti, alebo na vzdialený server na internete, pričom do tela správy obsiahnú namerané údaje.
 **Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!**
