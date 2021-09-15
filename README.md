@@ -12,11 +12,11 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 # Ako získať webové rozhranie?
 **Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
 
-# Spustenie systému
+# Spustenie systému Hladinomer
 * **Obsah priečinka /src/ rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries**
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania
-* Importovať .sql taľku do databázy
-* Vo webaplikácii nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler
+* V prípade zakúpenia projektu s webovým rozhraním --> importovať .sql tabuľku do MySQL databázy
+* Vo webaplikácii nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler, ktorým bude autentizovaný
 * Nahrať program, ktorý sa po tomto kroku vygeneruje (s API kľúčom) do mikrokontroléru
 * Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/**
 * Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
