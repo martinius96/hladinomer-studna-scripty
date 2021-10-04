@@ -10,7 +10,7 @@ Pre ESP8266 a ESP32 sú dostupné implementácie s podporou vzdialenej aktualiz�
 K dispozícii je aj Ultra-Low-Power (ULP) firmvér pre tieto mikrokontroléry, ktorý minimalizuje spotrebu elektrickej energie v dôsledku prepnutia mikrokontroléru do režimu hlbokého spánku (Deep Sleep). 
 Prebudenie mikrokontroléru sa realizuje podporovanou metódou (RTC Timer pre ESP32, External Wake pre ESP8266).
 Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde je možné zaznamenávať a vizualizovať dáta o výške hladiny vody v studni.
-**Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!**
+<b>Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!</b>
 Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
 Projekt Hladinomer v staršej verzii existuje aj s rozšírením o hladinomer, ktorý umožňuje zaznamenávať početnosť zrážok.
 Rozšírený opis projektu: https://martinius96.github.io/hladinomer-studna-scripty/
