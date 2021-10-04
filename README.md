@@ -1,8 +1,8 @@
-# Hladinomer - odosielacie scripty
+# Hladinomer - Arduino / ESP
 
 Tento repozitár obsahuje programovú implementáciu - zdrojové kódy pre mikrokontroléry Arduino, ESP8266, ESP32, ktoré sú využité v projekte Hladinomer / Hladinomer + Zrážkomer. Mikrokontroléry realizujú HTTP / HTTPS POST request na webserver v LAN sieti, alebo na vzdialený server na internete, pričom do tela správy obsiahnú namerané údaje.
 **Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!**
-Pre prenos údajov je možné využiť tieto technológie: Ethernet, GSM/GPRS, WiFi (2.4GHz), sieť Sigfox (IoT) pre prenos údajov do webového rozhrania
+Pre prenos údajov je možné využiť tieto technológie: Ethernet, WiFi (2.4GHz), sieť Sigfox (IoT).
 **Projekt Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý je schopný zaznamenať vzdialenosť od veka nádrže, studne**
 Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
 **Ultrazvukový senzor vyšle signál Trigger a meria čas, pokým sa signál vráti do prijímača - Echo. Na základe rýchlosti šírenia zvuku sa vypočíta vzdialenosť**
