@@ -1,13 +1,22 @@
 # Hladinomer - Arduino / ESP
-
-Tento repozitár obsahuje programovú implementáciu - zdrojové kódy pre mikrokontroléry Arduino, ESP8266, ESP32, ktoré sú využité v projekte Hladinomer / Hladinomer + Zrážkomer. Mikrokontroléry realizujú HTTP / HTTPS POST request na webserver v LAN sieti, alebo na vzdialený server na internete, pričom do tela správy obsiahnú namerané údaje.
+<p style="text-align: justify;">
+Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR (Arduino), ESP8266 a ESP32.
+Implementácie dokážu merať výšku hladiny vody v studni s kompatibilným ultrazvukovým senzorom vzdialenosti (HC-SR0X / JSN-SR04T). 
+Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT sieť Sigfox.
+Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím FreeRTOS.
+Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
+Štandardný režim StandBy umožňuje prenos dát na webové rozhranie a stará sa o udržanie stálej konektivity v LAN sieti.
+Pre ESP8266 a ESP32 sú dostupné implementácie s podporou vzdialenej aktualizácie firmvéru Over-The-Air (OTA) cez LAN sieť so sieťovým OTA portom.
+K dispozícii je aj Ultra-Low-Power (ULP) firmvér pre tieto mikrokontroléry, ktorý minimalizuje spotrebu elektrickej energie v dôsledku prepnutia mikrokontroléru do režimu hlbokého spánku (Deep Sleep). 
+Prebudenie mikrokontroléru sa realizuje podporovanou metódou (RTC Timer pre ESP32, External Wake pre ESP8266).
+Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde je možné zaznamenávať a vizualizovať dáta o výške hladiny vody v studni.
 **Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!**
-Pre prenos údajov je možné využiť tieto technológie: Ethernet, WiFi (2.4GHz), sieť Sigfox (IoT).
-**Projekt Hladinomer funguje na princípe ultrazvukového senzora HC-SR04, prípadne jeho vodotesnej verzie JSN-SR04T, ktorý je schopný zaznamenať vzdialenosť od veka nádrže, studne**
-Vďaka tomu je možné určiť výšku hladiny vody, vrátane objemu v litroch, či inej kubickej veličine (v závislosti od známej maximálnej hĺbky studne a priemeru studne)
-**Ultrazvukový senzor vyšle signál Trigger a meria čas, pokým sa signál vráti do prijímača - Echo. Na základe rýchlosti šírenia zvuku sa vypočíta vzdialenosť**
-Vzdialenosť nereprezentuje skutočnú výšku hladiny vody, iba vzdialenosť medzi senzorom a hladinou, webaplikácia využíva prepočet na skutočnú výšku hladiny vody na základe známej maximálnej hĺbky studne vo webaplikácii (prepočet realizuje webserver, mikrokontróler oznamuje vzdialenosť po hladinu).
-Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského jazyka.
+Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
+Projekt Hladinomer v staršej verzii existuje aj s rozšírením o hladinomer, ktorý umožňuje zaznamenávať početnosť zrážok.
+Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/**
+Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
+Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
+</p>
 
 # Ako získať webové rozhranie?
 **Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
@@ -18,9 +27,6 @@ Webaplikácia je preložená do anglického, nemeckého, ruského a slovenského
 * V prípade zakúpenia projektu s webovým rozhraním --> importovať .sql tabuľku do MySQL databázy
 * Vo webaplikácii nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler, ktorým bude autentizovaný
 * Nahrať program, ktorý sa po tomto kroku vygeneruje (s API kľúčom) do mikrokontroléru
-* Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/**
-* Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/**
-* Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/**
 
 **Programové implementácie pre prenosové protokoly podľa mikrokontrolérov:**
 | Mikrokontróler | HTTP | HTTPS |
