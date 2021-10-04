@@ -1,5 +1,5 @@
 # Hladinomer - Arduino / ESP
-<p style="align: justify;">
+<p align="justify">
 Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR (Arduino), ESP8266 a ESP32.
 Implementácie dokážu merať výšku hladiny vody v studni s kompatibilným ultrazvukovým senzorom vzdialenosti (HC-SR0X / JSN-SR04T). 
 Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT sieť Sigfox.
@@ -13,9 +13,9 @@ Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde j
 **Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!**
 Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
 Projekt Hladinomer v staršej verzii existuje aj s rozšírením o hladinomer, ktorý umožňuje zaznamenávať početnosť zrážok.
-Rozšírený opis projektu: **https://martinius96.github.io/hladinomer-studna-scripty/
-Webové rozhranie je Hladinomer s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna_s_prekladom/
-Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: **http://arduino.clanweb.eu/studna/
+Rozšírený opis projektu: https://martinius96.github.io/hladinomer-studna-scripty/
+Webové rozhranie je Hladinomer s možnosťou vyskúšania: http://arduino.clanweb.eu/studna_s_prekladom/
+Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: http://arduino.clanweb.eu/studna/
 </p>
 
 # Ako získať webové rozhranie?
