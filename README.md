@@ -53,7 +53,7 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 # Schéma zapojenia mikrokontrolérov + HC-SR04 / JSN-SR04T
 ![Schéma zapojenia - hladinomer - senzor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
 # Ukážka webaplikácie - Hladinomer
-![Hladinomer - Prehľad hĺbky studne v reálnom čase](https://i.imgur.com/7J295Ae.png)
+![Hladinomer - Prehľad hladiny vody v studni a objemu studne v reálnom čase](https://i.imgur.com/gHbErg5.gif)
 ![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/SdDbSvn.png)
 ![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/Rido0yn.png)
 ![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/k1DgXgY.png)
