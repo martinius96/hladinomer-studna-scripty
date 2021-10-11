@@ -77,7 +77,7 @@
 <hr><center><h2>JSON Clients - Water Level Monitor project</h2></center><hr>
 <p style="text-align: justify;">
 JSON client built on the Arduino platform, ESP8266, ESP32 allows connection via a websocket to a web server (web interface of the Level Meter).
-<b> The client performs a cyclic HTTP GET request every 60 seconds to retrieve the content of the /json_output.php subpage, where the webserver distributes JSON data on water level (in centimeters), well volume (in liters) based on the currently set depth and diameter well. </b>
+<b> The client performs a cyclic HTTP GET request every 60 seconds to retrieve the content of the <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php">/json_output.php</a> subpage, where the webserver distributes JSON data on water level (in centimeters), well volume (in liters) based on the currently set depth and diameter well. </b>
 The loaded JSON payload can parse the JSON client from the HTTP response and then deserialize this string.
 After deserialization, it is possible to access the individual keys to which the values are assigned and obtain them -> parse.
 The matched data is written to the UART - Serial line - 115200 baud / s.
