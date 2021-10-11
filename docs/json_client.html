@@ -82,7 +82,7 @@
 <hr><center><h2>JSON klienti - Hladinomer</h2></center><hr>
 <p style="text-align: justify;">
 JSON klient postavený na platforme Arduino, ESP8266, ESP32 umožňuje pripojenie cez websocket k webserveru (webovému rozhraniu Hladinomera).
-<b>Klient vykonáva cyklický HTTP GET request každých 60 sekúnd pre získanie obsahu podstránky /json_output.php, kde webserver distribuuje dáta v JSON formáte o výške hladiny vody (v centimetroch), objeme studne (v litroch) na základe aktuálne nastavenej hĺbky a priemere studne.</b>
+<b>Klient vykonáva cyklický HTTP GET request každých 60 sekúnd pre získanie obsahu podstránky <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php">/json_output.php</a>, kde webserver distribuuje dáta v JSON formáte o výške hladiny vody (v centimetroch), objeme studne (v litroch) na základe aktuálne nastavenej hĺbky a priemere studne.</b>
 Načítaný JSON payload dokáže JSON klient vyparsovať z HTTP response a následne tento reťazec deserializovať.
 Po deserializácii je možné pristupovať k jednotlivým kľúčom, ku ktorým sú priradené hodnoty a tie získať --> vyparsovať.
 Vyparsované dáta sa vypíšu na UART - Sériovú linku - 115200 baud/s.
