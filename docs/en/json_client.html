@@ -87,6 +87,9 @@ Both the MQTT and MQTTS variants use a socket, which is also used for HTTP reque
 The existing MQTT server can be replaced in your source code by yours, so you can also make the data from the level meter available in home automation systems (Hassio, Mosquitto MQTT, Domoticz, Loxone and others ...).
 In the current software implementation, the microcontroller (JSON client) sends the obtained data to the MQTT Broker in the topic level meter, while the individual temperatures are differentiated in subtopics.
 </p> 
+<div class="alert alert-success">
+	<strong>Example source codes for JSON Clients are available: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">HERE</a>
+</div>
 <div class="alert alert-info">
   <strong> The implementation for MQTTS is only available for the ESP8266, ESP32 platforms. </strong> ESP8266 uses a fingerprint for the encrypted connection - the fingerprint of the MQTT server certificate (public key).
 ESP32 uses a Root CA certificate for encrypted connection to the MQTT server. <b> The encrypted port of the MQTT server is 8883 by default, unencrypted 1883. </b>
