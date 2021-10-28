@@ -92,6 +92,9 @@ MQTT i MQTTS variant využíva socket, ktorý sa používa i pre HTTP request pr
 Existujúci MQTT server môže byť v zdrojových kódoch nahradený za váš a tak môžete dáta z hladinomera sprístupniť aj do systémov domácej automatizácie (Hassio, Mosquitto MQTT, Domoticz, Loxone a iné...).
 V aktuálnej programovej implementácii mikrokontróler (JSON klient) odosiela získané dáta na MQTT Broker do topicu hladinomer, pričom jednotlivé teploty sú odlíšené v subtopicoch.
 </p> 
+<div class="alert alert-success">
+	<strong>Ukážkové programové implementácie pre JSON klientov: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">TU</a>
+</div>
 <div class="alert alert-info">
   <strong>Implementácia pre MQTTS je dostupná iba pre platformy ESP8266, ESP32.</strong> ESP8266 využíva pre šifrované spojenie fingerprint - odtlačok certifikátu MQTT servera (verejného kľúča). 
 ESP32 využíva Root CA certifikát pre šifrované spojenie s MQTT serverom. <b>Šifrovaný port MQTT servera je štandardne 8883, nešifrovaný 1883.</b> 
