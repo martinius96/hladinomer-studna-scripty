@@ -99,7 +99,7 @@ void loop() {
       float cislo1 = totalRainfall;
       unsigned int cislo2 = vzdialenost;
       sprintf(sprava, "%04X%04X", cislo1, cislo2);
-      Serial.print("Do Sigfox siete odosielam tento payload: ");
+      Serial.print(F("Do Sigfox siete odoslany payload: "));
       Serial.print(cislo1);
       Serial.print(", ");
       Serial.print(cislo2);
