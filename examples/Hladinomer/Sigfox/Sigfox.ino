@@ -84,7 +84,7 @@ void loop() {
       char sprava[4]; //4B sprava, max mozna 12B
       unsigned int cislo1 = vzdialenost;
       sprintf(sprava, "%04X", cislo1);
-      Serial.print(F("Do Sigfox siete odosielam tento payload: "));
+      Serial.print(F("Payload do Sigfox siete: "));
       Serial.print(cislo1);
       Serial.print(F(", hexa tvar: "));
       Serial.println(sprava);
