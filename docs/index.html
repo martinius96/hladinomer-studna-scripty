@@ -134,8 +134,8 @@ Webové rozhranie je responzíve, dokáže sa prispôsobiť každej obrazovke a 
 Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z požiadavky metódy HTTP POST.
 Vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbke studne, počíta objem vody v studni.
 Hĺbku a priemer studne do systému vkladá používateľ na základe rozmerov jeho studne.
-Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút.
-<b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T, prípadne UART senzorom URM07 (SKU SEN0153) - dostupný iba v špeciálnej verzii projektu Hladinomer. Dokáže merať vzdialenosť až 750 cm, z dôvodu veľkého detekčného uhla sa nehodí do veľkého množstva studní... 
+Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút, nakoľko je limitovaný sieťou na prenos max 140 správ denne.
+<b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T (možno využiť aj iné senzory so signálmi Trigger / Echo z rady HC-SR0X, HY-SRF0X, DYP-ME007). 
 </p>
 <hr>
 <p style="text-align: justify;">
@@ -183,7 +183,6 @@ Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS prot
 Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority, ktorá pre webserver vydala certifikát - ROOT CA certifikát v .pem formáte. 
 Z hľadiska prevádzky je táto možnosť lepšia, nakoľko certifikát certifikačnej autority platí aj 20 rokov a nie je nutný renew certifikátu.
 Projekt je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde.
-Možnosť offline meraní (kompletne bez konektivity) s výpisom na UART rozhranie, znakové LCD displeje 16x2 / 20x4 komunikujúce cez I2C zbernicu.
 </p>
 <div class="alert alert-info">
 	<strong>Programové implementácie pre Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">TU</a>
