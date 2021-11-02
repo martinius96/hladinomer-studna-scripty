@@ -128,13 +128,12 @@
 </div>					
 <hr><center><h2>Hladinomer - monitor výšky hladiny vody v studni</h2></center><hr>
 <p style="text-align: justify;">
-Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži na vizualizáciu nameraných údajov o výške hladiny vody v reálnom čase, ale aj historicky v čase cez tabuľkovú / grafickú reprezentáciu čiarovými grafmi.
+Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži zber dát zo senzorových uzlov a pre vizualizáciu dát používateľovi.
+Aktuálne dáta sú reprezentované v dashboarde, historické v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
 Webové rozhranie je responzíve, dokáže sa prispôsobiť každej obrazovke a rozlíšeniu zariadenia. 
-Dáta sú tak čitateľné na hodinkách, smartfónoch, počítačoch, Smart TV a iných zariadeniach.
 Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z požiadavky metódy HTTP POST.
-Následne vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbke studne.
-Vypočíta aj objem studne pre dané meranie na základe známeho priemeru studne studne.
-Hĺbku a priemer studne do systému vkladá používateľ na základe jeho studne.
+Vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbke studne, počíta objem vody v studni.
+Hĺbku a priemer studne do systému vkladá používateľ na základe rozmerov jeho studne.
 Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút.
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T, prípadne UART senzorom URM07 (SKU SEN0153) - dostupný iba v špeciálnej verzii projektu Hladinomer. Dokáže merať vzdialenosť až 750 cm, z dôvodu veľkého detekčného uhla sa nehodí do veľkého množstva studní... 
 </p>
