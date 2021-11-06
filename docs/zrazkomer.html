@@ -152,7 +152,9 @@ Pre ESP32 sa využíva Deep Sleep režim s využitím RTC timera, ktorý ESP pre
 Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS protokole. Platforma ESP8266 využíva odtlačok (fingeprint) verejného kľúča webservera v SHA1 formáte, vyžaduje však častejší renew, nakoľko platí maximálne rok, respektíve 2 roky. 
 Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority, ktorá pre webserver vydala certifikát - ROOT CA certifikát v .pem formáte. 
 Z hľadiska prevádzky je táto možnosť lepšia, nakoľko certifikát certifikačnej autority platí aj 20 rokov a nie je nutný renew certifikátu.
+</p>
 <hr>
+<p style="text-align: justify;">
 Keďže je platforma Arduino náchylnejšia na "zaseknutie" programu z dôvodu výrazne obmedzených pamäťových a výkonových prostriedkov (v porovnaní s ESP platformami), bol do zdrojových kódov doplnený watchdog, ktorý je schopný platformu reštartovať a obnoviť tak jej prevádzku.
 Programová implementácia firmvéru mikrokontrolérov je rozšírená o záznam dát z IR zrážkomera Hydreon RG-11, ktorý dokáže emulovať metódu preklápacieho vedra na základe prepnutých DIP prepínačov (podporuje aj iné módy, ktoré majú využitie v automobilovom priemysle, záhradníctve). 
 Umožuje tak mikrokontroléru v prerušení načítavať počet pulzov prichádzajúcich zo zrážkomera, kedy jeden pulz predstavuje hodnotu zrážok na úrovni 0.01 mm. 
