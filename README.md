@@ -1,7 +1,7 @@
 # Hladinomer - Arduino / ESP
 <p align="justify">
 Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR (Arduino), ESP8266 a ESP32.
-Implementácie dokážu merať výšku hladiny vody v studni s kompatibilným ultrazvukovým senzorom vzdialenosti (HC-SR0X / JSN-SR04T). 
+Implementácie dokážu merať výšku hladiny vody v studni s kompatibilným ultrazvukovým senzorom vzdialenosti (HC-SR0X / JSN-SR04T / HY-SRF0X / DYP-ME007). 
 Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT sieť Sigfox.
 Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím FreeRTOS.
 Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
