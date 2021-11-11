@@ -9,75 +9,148 @@
 
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/index.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/zrazkomer.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/zapojenie.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/json_client.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/kontakt.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/Instructions/Hladinomer%20-%20in%C5%A1trukcie%20-%20Arduino.pdf</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://martinius96.github.io/hladinomer-studna-scripty/MATLAB/HCSR04.m</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
-</url>
-<url>
-  <loc>https://martinius96.github.io/hladinomer-studna-scripty/MATLAB/JSN04T.m</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
-</url>
-<url>
-  <loc>https://martinius96.github.io/hladinomer-studna-scripty/scheme/studna_V2.sch</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
-</url>
-<url>
-  <loc>https://martinius96.github.io/hladinomer-studna-scripty/scheme/studna_V2.png</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
-</url>
-<url>
-  <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet.html</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/index.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/zrazkomer.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/zapojenie.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/json_client.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/kontakt.html</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/datasheet.html</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/ATmega328P.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/ESP8266-12E.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/NodeMCU.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/ESP32-WROOM-32.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/HC-SR04.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/JSN-SR04T-2.0.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/DYP-ME007-ETC.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/RG-11-Documentation-Rain-Sensor.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/ENC28J60_datasheet.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/Wiznet-W5100.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/Wiznet-W5500.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/USR-ES1-EN-V1.0.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/WISOL-SFM10R1-SigFox.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/datasheet/LPWAN_sigfox_node_datasheet_v1.pdf</loc>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/Instructions/Waterwell%20monitor%20-%20instructions.pdf</loc>
-  <lastmod>2021-10-15T18:10:53+00:00</lastmod>
+  <lastmod>2021-11-11T13:47:15+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 
 
