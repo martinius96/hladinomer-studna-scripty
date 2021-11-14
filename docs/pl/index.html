@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Miernik poziomu studni - Monitor poziomu wody - Arduino / ESP8266 / ESP32 / Sigfox</title>
+	<meta name="description" content="Miernik poziomu - Monitor poziomu wody zbudowany na platformie Arduino, ESP8266, ESP32. Pomiar czujnikiem ultradźwiękowym HC-SR04 / JSN-SR04T. Wysyłanie danych przez Ethernet, WiFi, Sigfox. Pomiar poziomu wody w studni, studzienka.">
+	<meta name="keywords" content="hladinomer, studňa, žumpa, septik, výška, hladina, monitor, meranie, ultrazvuk, plavákový, optický, hydrostatický, tlakový, ponorný, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">
+	<meta name="news_keywords" content="hladinomer, studňa, žumpa, septik, výška, hladina, monitor, meranie, ultrazvuk, plavákový, optický, hydrostatický, tlakový, ponorný, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">	
+<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/pl/">
+	<meta property="og:title" content="Miernik poziomu studni - Monitor poziomu wody - Arduino / ESP8266 / ESP32 / Sigfox">
+	<meta property="og:description" content="Miernik poziomu - Monitor poziomu wody zbudowany na platformie Arduino, ESP8266, ESP32. Pomiar czujnikiem ultradźwiękowym HC-SR04 / JSN-SR04T. Wysyłanie danych przez Ethernet, WiFi, Sigfox. Pomiar poziomu wody w studni, studzienka.">
+	<meta property="og:image" content="">
+
+<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/pl/">
+	<meta property="twitter:title" content="Miernik poziomu studni - Monitor poziomu wody - Arduino / ESP8266 / ESP32 / Sigfox">
+	<meta property="twitter:description" content="Miernik poziomu - Monitor poziomu wody zbudowany na platformie Arduino, ESP8266, ESP32. Pomiar czujnikiem ultradźwiękowym HC-SR04 / JSN-SR04T. Wysyłanie danych przez Ethernet, WiFi, Sigfox. Pomiar poziomu wody w studni, studzienka.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Miernik poziomu</a></li>
+	<li><a href="zrazkomer.html">Wskaźnik opadów</a></li>
+	<li><a href="zapojenie.html">Uwikłanie</a></li>   
+	<li class=""><a href="json_client.html">Klient JSON</a></li>   
+      	<li><a href="kontakt.html">Kontakt</a></li>
+	<li><a href="Instructions/Hladinomer - inštrukcie - Arduino.pdf">Instalacja</a></li>
+<li><a href="datasheet.html">Arkusze katalogowe</a></li>
+	<a href="en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+            <img src="https://i.imgur.com/YAi45JJ.png" alt="Arduino Core" title="Arduino Core" height="32" width="32">
+            <img src="https://i.imgur.com/2pOgsYZ.png" alt="Espressif IoT Development framework (ESP-IDF)" title="Espressif IoT Development framework (ESP-IDF)" height="32" width="32">
+            <img src="https://i.imgur.com/Lsk36Zb.png" alt="Sigfox IoT network supported" title="Sigfox IoT network supported" height="32" width="32">
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+<strong>Kody źródłowe dla Arduino, ESP8266, ESP32, NewPing Library: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Repozytorium projektu Github</a>
+</div>	
+<div class="alert alert-success">
+	<strong><font color="red">Wypróbuj projekt miernika poziomu za darmo ze swoim sprzętem: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">TUTAJ</font></a> - Tylko protokół HTTP (freehosting Endora.cz nie obsługuje połączeń HTTPS).
+</div>	
+<div class="alert alert-info">
+	<strong>Implementacja dla ESP32 dostępna w frameworku ESP-IDF v4.2 (kompatybilna z 4.0) dostępna od 4 czerwca 2021 z wykorzystaniem FreeRTOS i zadań z mechanizmem blokowania kolejki.</strong>
+</div>
+<div class="alert alert-danger">
+	<strong>Jeśli jesteś zainteresowany kodami źródłowymi aplikacji internetowej, skontaktuj się z autorem projektu w języku angielskim pod adresem: </strong>martinius96@gmail.com
+</div>
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultradźwięk</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">IoT</span>	
+<span class="label label-danger">WiFi</span>	
+<span class="label label-default">OTA</span>
+<span class="label label-primary">ULP</span>	
+<hr>
+<center> 
+	<h2>Sprzęt sterujący - kompatybilne mikrokontrolery AVR / ESP</h2>
+</center>	
+<hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino UNO" title="Riadiaci mikrokontróler Arduino UNO"><br><b><a href="https://www.gme.sk/klon-arduino-uno-r3-atmega328p-ch340-mini-usb">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Nano" title="Riadiaci mikrokontróler Arduino Nano"><br><b><a href="https://www.gme.sk/klon-arduino-nano-v3-0-r3-ch340g">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Arduino Mega 1280/25" title="Riadiaci mikrokontróler Arduino Mega 1280/2560"><br><b><a href="https://www.gme.sk/100-kompatibilny-klon-arduino-mega-2560-r3-usb-b-atmega16u2">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.gme.sk/nodemcu-esp8266-lua-wifi-v3-ch340">NodeMCU (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Riadiaci mikrokontróler Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.gme.sk/esp8266-esp-12e-wemos-d1-wifi-arduino-ide-uno-ch340">Wemos D1 / D1 Mini (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.gme.sk/esp32-esp-32s-2-4ghz-dual-mode-wifi-bluetooth">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>Moduły technologii transmisji — Ethernet / Sigfox IoT</h2>
+</center>
+<hr>
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.gme.sk/ethernet-shield-w5100-r3">Ethernet shield Wiznet W5100</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.gme.sk/ethernet-kontroler-8-kanalovy-spi-lqfp-48-w5500">Ethernet modul Wiznet W5500</a></b></center></div>
+	<div class="col-sm-4"><center><img src="https://i.imgur.com/LhpZGxj.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet USR-ES1" title="Ethernet modul Wiznet USR-ES1"><br><b><a href="https://www.ebay.com/itm/143604165374">Ethernet modul Wiznet USR-ES1 (W5500 V2)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.gme.sk/modul-ethernet-lan-hr911105a">Ethernet modul ENC28J60</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b><a href="https://www.gme.sk/lpwan-sigfox-node-uart-modem-868mhz">Sigfox WISOL SFM10R1</a></b></center></div>
+</div>
+<hr>
+<center> 
+	<h2>Kompatybilne ultradźwiękowe czujniki odległości</h2>
+</center>	
+<hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR04" title="Ultrazvukový senzor vzdialenosti HC-SR04"><br><b><a href="https://www.gme.sk/modul-ultrazvukoveho-merice-vzdalenosti">HC-SR04</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/WXWD0wt.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HC-SR05" title="Ultrazvukový senzor vzdialenosti HC-SR05"><br><b><a href="https://www.gme.sk/modul-ultrazvukoveho-meraca-vzdialenosti-hc-sr05">HC-SR05</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T" title="Ultrazvukový vodotesný senzor vzdialenosti JSN-SR04T"><br><b><a href="https://www.gme.sk/modul-ultrazvukoveho-merace-vzdialenosti-jsn-sr04t">JSN-SR04T</a></b></center></div>		
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF05" title="Ultrazvukový senzor vzdialenosti HY-SRF05"><br><b><a href="https://www.gme.sk/ultrazvukovy-merac-vzdialenosti-hy-sr05">HY-SRF05</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/R51S6y5.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti HY-SRF06" title="Ultrazvukový senzor vzdialenosti HY-SRF06"><br><b>HY-SRF06</b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti DYP-ME007" title="Ultrazvukový senzor vzdialenosti DYP-ME007"><br><b>DYP-ME007</b></center></div>
+<!---
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>	
+--->	
+</div>					
+<hr><center><h2>Miernik poziomu - monitor poziomu wody w studni</h2></center><hr>
+<p style="text-align: justify;">
+Projekt miernika poziomu (monitor poziomu wody) składa się z centralnego interfejsu internetowego, który służy do zbierania danych z węzłów czujników i wizualizacji ich użytkownikowi.
+Aktualne dane o stanie wody są reprezentowane na desce rozdzielczej wraz z przeliczeniem na objętość studni, dane historyczne o stanie wody są również dostępne dla użytkownika w formie tabelarycznej lub graficznej wizualizacji z wykresami liniowymi.
+Interfejs sieciowy jest responsywny, może dostosować się do dowolnej rozdzielczości ekranu i urządzenia.
+Interfejs sieciowy projektu wykorzystuje backend napisany w PHP, który może przetwarzać dane przychodzące z żądania za pomocą metody HTTP POST.
+Backend koryguje zmierzony poziom do rzeczywistego na podstawie znanej głębokości odwiertu, oblicza objętość wody w odwiercie z tego parametru i średnicę odwiertu.
+Głębokość i średnicę studni wprowadza do systemu użytkownik na podstawie proporcji swojej studni.
+Dane przesyłane są do serwera WWW przez mikrokontroler, który co 300 sekund wykonuje pomiary - m.in. 5 minut, lub w przypadku transmisji przez sieć IoT Sigfox dane przesyłane są co 11 minut, ponieważ sieć jest ograniczona do transmisji maksymalnie 140 wiadomości dziennie.
+<b> Pomiar poziomu wody odbywa się za pomocą czujników ultradźwiękowych </b> - HC-SR04 lub jego wodoodpornej odmiany JSN-SR04T (można zastosować również inne czujniki z sygnałami Trigger / Echo z serii HC-SR0X, HY-SRF0X, DYP-ME007).
+</p>
+<hr>
+<p style="text-align: justify;">
+Zasada pomiaru czujników ultradźwiękowych polega na przesłaniu sygnału Trigger o długości 10μs (mikrosekund) i na podstawie czasu powrotu sygnału do odbiornika – Echo można obliczyć odległość między czujnikiem a powierzchnią.
+Ważnym parametrem dla obu czujników ultradźwiękowych jest szerokość wiązki, czyli charakterystyka detekcji.
+Czujnik HC-SR04 ma charakterystykę wykrywania 15°. Wiązka jest stosunkowo wąska i czujnik nadaje się również do węższych studni i zbiorników, ale nie jest wodoszczelny i ma duże ryzyko korozji (utleniania).
+Z tego powodu wskazane jest umieszczenie go nad studnią.
+Wodoodporny czujnik JSN-SR04T ma charakterystykę wykrywania od 45 do 60 °, co nie pozwala na stosowanie go w wąskich studniach, ponieważ wiązka rozszerza się wraz z odległością i studnią o średnicy kilku jednostek (6 metrów przy 4,5 głębokości studni ) jest wymagane.
+Pomiar ultradźwiękowy jest odpowiedni do pomiaru poziomu wody pitnej, użytkowej i ścieków.
+System i czujniki ultradźwiękowe są bezobsługowe.
+Wystarczy podłączyć, wgrać implementację oprogramowania i uruchomić.
+Czujniki ultradźwiękowe mogą być również używane do pomiaru wysokości materiału w różnych zastosowaniach.
+W przypadku studni kwadratowej do średniej wprowadza się średnicę koła wpisanego, która będzie stanowiła wartość referencyjną cylindra z wodą i objętość studni.
+Maksymalna mierzalna wysokość poziomu (poziom) przez czujniki wynosi około 400 do 450 cm (znane z karty katalogowej).
+</p>
+<hr><center><h3>Prezentacja wideo interfejsu internetowego - Miernik poziomu:</h3></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/ZihXBGEzcT0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>Czujniki ultradźwiękowe nadają się do:</h4></center><hr>
+<li> Wykopane studnie </li>
+<li> Szambo i szambo </li>
+<li> Plastikowe zbiorniki na wodę deszczową </li>
+<li> Wytrzymałość (pomiar wypełnienia luzem) </li>
+<li> Kontenery (monitorowanie odpadów, napełnianie pojemników zbiorczych) </li>
+<li> Kotły (monitoring drewna, pelet, węgla, zrębków) </li>
+<li> Szyby i piwnice (monitoring powodzi - wody gruntowe) </li>
+<font color="red">
+<hr> <center> <h3> Czujniki ultradźwiękowe nie nadają się do: </h3> </center> <hr>
+<li> Studnie wiercone </li>
+<li> Rury i przewody </li>
+<li> Do studni z dopływem (pofałdowana powierzchnia tłumi ultradźwięki, pomiar jest niemożliwy) </li>
+</font>
+<hr><center><h3>Zasada działania miernika poziomu - Schemat blokowy</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<p style="text-align: justify;">
+Interfejs sieciowy wykorzystuje trygonometrię do oszacowania mierzalnej maksymalnej głębokości odwiertu przy znanej średnicy odwiertu (inny parametr do obliczania objętości odwiertu).
+Interfejs sieciowy pozwala użytkownikowi obliczyć, do jakiej maksymalnej głębokości odwiertu każdy z czujników jest odpowiedni na podstawie jego charakterystyki.
+Projekt jest tak łatwy w obsłudze nawet dla laików, którzy nie wiedzą, który czujnik bardziej nadaje się do zastosowania w ich studni.
+Istotną rolę w systemie odgrywa również zastosowany mikrokontroler. W projekcie wykorzystano platformę Arduino (Uno) połączoną z modułem Ethernet / osłoną odpowiednio z serii Wiznet W5100 i W5500, która zapewniała łączność HTTP i umożliwiała mikrokontrolerowi przesyłanie danych do zdalnego interfejsu sieciowego w Internecie.
+Ponieważ miernik poziomu jest projektem zewnętrznym, wielu użytkowników chciałoby również korzystać z platformy Wi-Fi bez konieczności podłączania połączenia Ethernet do studni.
+Zastosowane w projekcie platformy WiFi firmy Espressif Systems - ESP8266 i ESP32 umożliwiają pracę w różnych trybach - StandBy, Deep Sleep (głęboki sen z wyłączonym modemem WiFi), StandBy + OTA - umożliwia zdalne wgranie na płytkę nowych firmware bezpośrednio ze środowiska Arduino IDE.
+Na życzenie możliwe jest również utworzenie zdalnej aktualizacji OTA, która jest dystrybuowana zdalnie przez Internet z serwera WWW, można skorzystać z repozytorium Github, które może dystrybuować aktualizację do klienta w formacie RAW .bin.
+Dla trybu pracy Deep Sleep istnieje zmodyfikowany schemat połączeń dla platformy ESP8266, która wykorzystuje sygnał podawany do RST do wybudzenia mikrokontrolera WAKE.
+Jednocześnie to połączenie nie pozwala na aktualizację programu bez rozpięcia tej zworki.
+ESP32 korzysta z trybu głębokiego uśpienia przy użyciu zegara RTC, który wybudza ESP po określonym czasie.
+Platformy mogą komunikować się z interfejsem WWW za pomocą protokołu HTTP, ale także HTTPS. Platforma ESP8266 wykorzystuje odcisk palca klucza publicznego serwera WWW w formacie SHA1, ale wymaga częstszego odnawiania, ponieważ są one ważne odpowiednio przez maksymalnie rok lub 2 lata.
+Mikrokontroler z serii ESP32 korzysta z certyfikatu głównego urzędu certyfikacji, który wystawił certyfikat dla serwera WWW - certyfikat ROOT CA w formacie .pem dla połączenia HTTPS.
+Z punktu widzenia eksploatacji ta opcja jest lepsza, ponieważ certyfikat urzędu certyfikacji jest ważny przez 20 lat i nie jest konieczne odnawianie certyfikatu.
+Projekt można zintegrować za pośrednictwem MQTT z automatyką domową (Hassio, Domoticz, Loxone), aby wyświetlić poziom wody na własnym pulpicie nawigacyjnym.
+</p>
+<div class="alert alert-info">
+	<strong>Implementacje programów dla Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">TUTAJ</a>
+</div>	
+<hr>
+<p style="text-align: justify;">
+W przypadku miejsc, w których nie ma zasięgu stacjonarnego Internetu, możliwe jest również wykorzystanie sieci IoT Sigfox, która obejmuje prawie 90% Słowacji, posiada stacje nadawcze głównie na nadajnikach Towercome.
+Technologia ta pozwala na przesyłanie niewielkich ilości wiadomości o rozmiarze do 12B. W przypadku projektu Level wysyłana jest wartość poziomu wody 4B. W przypadku projektu rozszerzonego o deszczomierz wysyłana jest wartość 8B, która jest tworzona przez wysokość lustra wody i przyrost opadów.
+Ponieważ Sigfox pozwala na przesłanie maksymalnie 140 wiadomości dziennie, interwał transmisji danych został wydłużony do 11 minut. W obu przypadkach wiadomość nie zawiera pełnej długości, jaką może, tj. 12B.
+Komunikaty Payload mogą być również uzupełniane różnymi informacjami systemowymi, na przykład: dane GEO (długość/szerokość geograficzna), RSSI (Signal Strength), numer komunikatu i inne.
+Moduł komunikacyjny, który został wykorzystany w projekcie to modem Sigfox WISOL 868MHz UART. Modem ten komunikuje się za pomocą poleceń AT za pośrednictwem interfejsu UART, który jest oprogramowaniem emulowanym na mikrokontrolerach.
+Komunikacja przejmie prędkość 9600 bodów/s. Modem WISOL jest wyposażony w zintegrowane złącze u.FL na module PCB do podłączenia anteny, co znacznie zmniejsza zasięg nawet w pomieszczeniach / na zewnątrz zacienionych.
+Do pomyślnej transmisji danych wymagane jest pokrycie przez dwie, najlepiej trzy lub więcej stacji BTS do pomyślnej transmisji danych. BTS przesyła przesyłane informacje do backendu Sigfox, gdzie konieczne jest wykonanie callbacku, który rozpocznie się po otrzymaniu danych.
+Wywołanie zwrotne musi wysłać żądanie HTTP lub HTTPS do domeny, w której działa aplikacja internetowa, z metodą POST i odpowiednio zakodowanym ładunkiem, którego oczekuje backend aplikacji internetowej.
+</p>
+<div class="alert alert-success">
+	<strong>Charakterystyka detekcji ultradźwiękowych czujników odległości - skrypty MATLAB:</strong>
+	<li><a href="../MATLAB/HCSR04.m">HC-SR04</a></li>
+	<li><a href="../MATLAB/JSN04T.m">JSN-SR04T</a></li>
+</div>
+<div class="alert alert-info">
+<h4>Konfiguracja wywołania zwrotnego Sigfox do testowania aplikacji internetowych</h4>
+<b>Miernik poziomu:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Na Custom payload config będziemy pisać:</b> cislo1::uint:16</li>
+<li><b>Na URL pattern:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (alebo iná URL adresa vašho webservera, kde bude projekt bežať), možnosť využiť i HTTPS</li>
+<li><b>W HTTP wybieramy metodę:</b> POST</li>
+<li><b>Dodamy do Ciała (treść wiadomości):</b></li>
+<li>hodnota={customData#cislo1}&token=123456789</li>
+<li><b>Na Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>				
+<hr>
+<center> 
+     <h3>Zrzuty ekranu interfejsu internetowego dla projektu miernika poziomu</h3>
+     <hr>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/rkFWcWv.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/aTd6o11.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year"> 
+	</a>
+		</center>			
+	<center> 
+     <h4>Detection characteristics of the HC-SR04 sensor - 15° beam width</h4>
+     <hr>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Waterwell monitor - Detection characteristics of the HC-SR04 sensor - 15° beam width" title="Waterwell monitor  - Detection characteristics of the HC-SR04 sensor - 15° beam width">
+</a>   
+ <hr>
+     <h4>Detection characteristics of the JSN-SR04T sensor - waterproof - 45° beam width</h4>
+     <hr>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Waterwell monitor  - Detection characteristics of the JSN-SR04T sensor - waterproof - 45° beam width" title="Waterwell monitor  - Detection characteristics of the JSN-SR04T sensor - waterproof - 45° beam width"> 
+</a>
+</center>  
+            <hr> 
+	
+ </div>
+		</div>
+</div>
+</body>
+</html>
