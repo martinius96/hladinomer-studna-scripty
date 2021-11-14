@@ -128,12 +128,12 @@
 </div>					
 <hr><center><h2>Hladinomer - monitor výšky hladiny vody v studni</h2></center><hr>
 <p style="text-align: justify;">
-Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži zber dát zo senzorových uzlov a pre vizualizáciu dát používateľovi.
-Aktuálne dáta sú reprezentované v dashboarde, historické v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
+Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži zber dát zo senzorových uzlov a ich vizualizáciu používateľovi.
+Aktuálne dáta o výške hladiny vody sú reprezentované v dashboarde spolu s prepočtom na objem studne, historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
 Webové rozhranie je responzíve, dokáže sa prispôsobiť každej obrazovke a rozlíšeniu zariadenia. 
-Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z požiadavky metódy HTTP POST.
-Vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbke studne, počíta objem vody v studni.
-Hĺbku a priemer studne do systému vkladá používateľ na základe rozmerov jeho studne.
+Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z requestu HTTP POST metódou.
+Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, počíta objem vody v studni z tohto parametra a priemeru studne.
+Hĺbku a priemer studne do systému vkladá používateľ na základe proporcií jeho studne.
 Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút, nakoľko je limitovaný sieťou na prenos max 140 správ denne.
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T (možno využiť aj iné senzory so signálmi Trigger / Echo z rady HC-SR0X, HY-SRF0X, DYP-ME007). 
 </p>
@@ -157,14 +157,15 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <li>Kopaných studní</li>
 <li>Septikov a žúmp</li>
 <li>Plastových nádrží na dažďovú vodu</li>
-<li>Zásobníkov</li>
 <li>Silá (meranie naplnenia sypkými materiálmi)</li>
-<li>Kontajnery (monitoring odpadu, naplnenia)</li>
+<li>Kontajnery (monitoring odpadu, naplnenia zbernej nádoby)</li>
+<li>Kotolne (monitoring zásoby dreva, peliet, uhlia, štiepky)</li>
+<li>Šachty a pivnice (monitoring vytopenia - spodnej vody)</li>
 <font color="red">
 <hr><center><h3>Ultrazvukové senzory nie sú vhodné do:</h3></center><hr>
 <li>Vŕtaných studní</li>
 <li>Potrubí a rúr</li>
-<li>Do studní so zvlnenou hladinou (interferencia pohltí ultrazvukové vlny, znemožní meranie)</li>
+<li>Do studní so spádovým prítokom (zvlnená hladina utlmí ultrazvuk, meranie je nemožné)</li>
 </font>
 <hr><center><h3>Princíp fungovania hladinomera - Bloková schéma</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
