@@ -25,7 +25,8 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 * **Obsah priečinka /src/ rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries**
 * Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania POST metódou
 * V prípade zakúpenia projektu s webovým rozhraním --> importovať .sql tabuľku do MySQL databázy
-* Vo webaplikácii nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler, ktorým bude autorizovaný pre zápis dát
+* V connect.php nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler, ktorým bude autorizovaný pre zápis dát
+* Nastaviť hĺbku a priemer studne v časti Nastavení vrátane názvu studne / miesta merania
 * Nahrať program, ktorý sa po tomto kroku vygeneruje (s API kľúčom) do mikrokontroléra
 * Prevádzkovanie projektu s možnosťou klonovania
 
