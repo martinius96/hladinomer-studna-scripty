@@ -12,7 +12,7 @@ Prebudenie mikrokontroléru sa realizuje podporovanou metódou (RTC Timer pre ES
 Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde je možné zaznamenávať a vizualizovať dáta o výške hladiny vody v studni.
 <b>Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!</b>
 Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
-Projekt Hladinomer v staršej verzii existuje aj s rozšírením o hladinomer, ktorý umožňuje zaznamenávať početnosť zrážok.
+Projekt Hladinomer v staršej verzii existuje aj s rozšírením o zrážkomer, ktorý umožňuje zaznamenávať početnosť zrážok.
 Rozšírený opis projektu: https://martinius96.github.io/hladinomer-studna-scripty/
 Webové rozhranie je Hladinomer s možnosťou vyskúšania: http://arduino.clanweb.eu/studna_s_prekladom/
 Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: http://arduino.clanweb.eu/studna/
