@@ -186,10 +186,11 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <td><b>Ultra Low Power</b></td>
 <td>Firmvér pre ULP aplikácie s nízkym prúdovým odberom (viz. schéma zapojenia). Firmvér sa nahráva cez pribalený nástroj ESPTOOL automatizovane, ktorý je spustený s .bat scriptom (v scripte nutné zmeniť COM port vašej ESP dosky). 
 Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
-ESP začne vysielať otvorenú WiFi sieť s SSID --> <b>Hladinomer_AP</b>. Po pripojení klienta (Windows / Android / iOS) sa spustí Captive portál na 192.168.4.1 (klient by mal byť presmerovaný automaticky). 
+ESP začne vysielať v režime AP otvorenú WiFi sieť s SSID --> <b>Hladinomer_AP</b>. Po pripojení klienta (Windows / Android / iOS) sa spustí Captive portál na 192.168.4.1 (klient by mal byť presmerovaný automaticky). 
 WiFiManager umožní vo web rozhraní vybrať WiFi sieť v dosahu, nastaviť heslo. 
-Po úspešnom pripojení ESP na zadanú WiFi sieť a pridelení IPv4 z daného rozsahu sa Captive Portal vypne.
-Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="http://arduino.clanweb.eu/studna_s_prekladom/">Hladinomera</a>.</td>
+Po úspešnom pripojení ESP na zadanú WiFi sieť a pridelení IPv4 z daného rozsahu sa Captive Portal vypne, ESP zostáva v móde STA - Station.
+Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="http://arduino.clanweb.eu/studna_s_prekladom/">Hladinomera</a>.
+Pri následnom spustení senzorového uzla sa už Captive Portal a WiFiManager nespustí, nakoľko je konfigurácia WiFi siete permanetne uchovaná.</td>
 <td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
 <td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
 </tr>
