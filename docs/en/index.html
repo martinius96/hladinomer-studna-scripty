@@ -172,16 +172,16 @@ The maximum measurable level height (level) by the sensors is approx. 400 to 450
 <table class="table" style="border: 1px solid black;">
 <thead>
 <tr>
-<th>Firmware name</th>
-<th>Firmware function</th>
-<th>ESP8266</th>
-<th>ESP32</th>
+<th style="width: 25%">Firmware name</th>
+<th style="width: 50%">Firmware function</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><b>Ultra Low Power</b></td>
-<td>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
 <p style="text-align: justify;">
 Firmware for ULP applications with low current consumption. The firmware is loaded via the bundled ESPTOOL tool automatically, which is run with a .bat script (in the script it is necessary to change the COM port of your ESP board).
 After uploading the firmware and assuming that ESP does not have the SSID and password from the previous project stored, WiFiManager will start, which is used to configure the existing WiFi network.
@@ -194,8 +194,8 @@ After datas are sent to server, ESP microcontroller will switch to Deep Sleep mo
 ESP8266 is awakened via WAKE timer (jumper between GPIO16 and RST required - check Wiring diagram), ESP32 is awakened via RTC Timer.
 </p>
 </td>
-<td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmware</a></td>
-<td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmware</a></td>
 </tr>
 </tbody>
 </table>
