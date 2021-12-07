@@ -175,7 +175,7 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <table class="table" style="border: 1px solid black;">
 <thead>
 <tr>
-<th>Názov zložky firmvéru</th>
+<th>Názov firmvéru</th>
 <th>Funkcia firmvéru</th>
 <th>ESP8266</th>
 <th>ESP32</th>
@@ -193,6 +193,8 @@ WiFiManager umožní vo web rozhraní vybrať WiFi sieť v dosahu, nastaviť hes
 Po úspešnom pripojení ESP na zadanú WiFi sieť a pridelení IPv4 z daného rozsahu sa Captive Portal vypne, ESP zostáva v móde STA - Station.
 Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="http://arduino.clanweb.eu/studna_s_prekladom/">Hladinomera</a>.
 <b>Pri následnom spustení senzorového uzla sa už Captive Portal a WiFiManager nespustí, nakoľko je konfigurácia WiFi siete permanetne uchovaná.</b>
+Mikrokontróler po odoslaní dát prechádza do režimu hlbokého spánku - Deep Sleep. V režime spánku je vypnutý hlavný procesor Xtensa. 
+ESP8266 je prebudené cez WAKE timer (vyžaduje sa prepojka medzi GPIO16 a RST), ESP32 cez RTC Timer.
 </p>
 </td>
 <td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
