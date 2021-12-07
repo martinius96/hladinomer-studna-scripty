@@ -175,16 +175,16 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <table class="table" style="border: 1px solid black;">
 <thead>
 <tr>
-<th>Názov firmvéru</th>
-<th>Funkcia firmvéru</th>
-<th>ESP8266</th>
-<th>ESP32</th>
+<th style="width: 25%">Názov firmvéru</th>
+<th style="width: 50%">Funkcia firmvéru</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><b>Ultra Low Power</b></td>
-<td>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
 <p style="text-align: justify;">
 Firmvér pre ULP aplikácie s nízkym prúdovým odberom (viz. schéma zapojenia). Firmvér sa nahráva cez pribalený nástroj ESPTOOL automatizovane, ktorý je spustený s .bat scriptom (v scripte nutné zmeniť COM port vašej ESP dosky). 
 Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
@@ -197,8 +197,8 @@ Mikrokontróler po odoslaní dát prechádza do režimu hlbokého spánku - Deep
 ESP8266 je prebudené cez WAKE timer (vyžaduje sa prepojka medzi GPIO16 a RST), ESP32 cez RTC Timer.
 </p>
 </td>
-<td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
-<td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
 </tr>
 </tbody>
 </table>
