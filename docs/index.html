@@ -184,7 +184,8 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <tbody>
 <tr>
 <td><b>Ultra Low Power</b></td>
-<td>Firmvér pre ULP aplikácie s nízkym prúdovým odberom (viz. schéma zapojenia). Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
+<td>Firmvér pre ULP aplikácie s nízkym prúdovým odberom (viz. schéma zapojenia). Firmvér sa nahráva cez pribalený nástroj ESPTOOL automatizovane, ktorý je spustený s .bat scriptom (v scripte nutné zmeniť COM port vašej ESP dosky). 
+Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
 ESP začne vysielať otvorenú WiFi sieť s SSID --> <b>Hladinomer_AP</b>. Po pripojení klienta (Windows / Android / iOS) sa spustí Captive portál na 192.168.4.1 (klient by mal byť presmerovaný automaticky). 
 WiFiManager umožní vo web rozhraní vybrať WiFi sieť v dosahu, nastaviť heslo. 
 Po úspešnom pripojení ESP na zadanú WiFi sieť a pridelení IPv4 z daného rozsahu sa Captive Portal vypne.
