@@ -170,6 +170,27 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <li>Do miest s náhlou zmenou teplôt (teplota ovplyvňuje čas šírenia zvuku, teda aj stacionárna hladina sa javí ako kolísavá)</li>
 <li>Vákuových nádrží (meranie je nemožné)</li>
 </font>
+<hr><center><h4>Plug n' play firmware - Ultra Low Power</h4></center><hr>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>Názov zložky firmvéru</th>
+<th>Funkcia firmvéru</th>
+<th>ESP8266</th>
+<th>ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>ULP + WiFi Manager</b></td>
+<td>Firmvér pre ULP aplikácie (viz. schéma zapojenia), WiFiManager pre konfiguráciu WiFi siete v dosahu. ESP vysiela SSID --> Hladinomer_AP bez hesla. Captive portál na 192.168.4.1 umožní vybrať WiFi sieť v dosahu, nastaviť heslo. Po pridelení IPv4 z LAN rozsahu sa Captive Portal vypne, senzorový uzol začne prenášať dáta do web rozhrania.</td>
+<td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
+<td><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
 <hr><center><h3>Princíp fungovania hladinomera - Bloková schéma</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
