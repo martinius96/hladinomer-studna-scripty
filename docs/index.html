@@ -184,6 +184,11 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <li>Do miest s náhlou zmenou teplôt (teplota ovplyvňuje čas šírenia zvuku, teda aj stacionárna hladina sa javí ako kolísavá)</li>
 <li>Vákuových nádrží (meranie je nemožné)</li>
 </div>
+<div class="alert alert-success">
+	<strong>Detekčná charakteristika ultrazvukových senzorov vzdialenosti - MATLAB scripty:</strong>
+	<li><a href="MATLAB/HCSR04.m">HC-SR04</a></li>
+	<li><a href="MATLAB/JSN04T.m">JSN-SR04T</a></li>
+</div>
 <hr><center><h4>Plug n' play firmware - Ultra Low Power</h4></center><hr>
 <div class="alert alert-success">
   <strong>Skompilovaný firmvér dostupný pre okamžité nahratie do mikrokontroléra!</strong>
@@ -227,26 +232,28 @@ Webové rozhranie využíva trigonometriu pre odhad merateľnej maximálnej hĺb
 Používateľovi vie tak webové rozhranie dopočítať, do akej maximálnej hĺbky studne je každý zo senzorov vhodný na základe jeho charakteristiky. 
 Projekt je tak jednoduchý na použitie aj pre laikov, ktorí nevedia, ktorý senzor je pre aplikáciu v ich studni vhodnejší.
 Dôležitú úlohu v systéme zohráva aj použitý mikrokontróler. 
-Pre projekt je možné využiť platformu Arduino (Uno / Mega) v revízii R3 s identickým pinoutom, ktorú je možné spojiť s Ethernet modulom / shieldom z rady Wiznet model W5100, respektíve W5500 V1 / V2 alebo MicroChip ENC28J60 ktorý zabezpečuje HTTP konektivitu pre prenos dát na webserver dosiahnuteľný cez internet.
-Nakoľko je hladinomer exteriérovým projektom, mnoho používateľov by si obľúbilo aj možnosť využitia WiFi platformy bez nutnosti pritiahnutia Ethernet konektivity až k studni. 
-WiFi platformy od Espressif Systems - ESP8266 a ESP32, ktoré sú v projekte použité umožňujú prevádzku v rôznych režimoch - StandBy, Deep Sleep (hlboký spánok s vypnutým WiFi modemom a procesorom Xtensa), StandBy + OTA - umožňuje vzdialene prostredníctvom LAN siete nahrať do dosky nový firmvér priamo z prostredia Arduino IDE.
-Na vyžiadanie možno vytvoriť aj Remote OTA aktualizáciu, ktorá je distribuovaná vzdialene cez internet z webservera, možno využiť Github repozitár, ktorý dokáže v RAW formáte .bin aktualizáciu distribuovať klientovi.
-Pre Deep Sleep prevádzkový režim existuje pri platformy ESP8266 upravená schéma zapojenia, ktorá využíva pre prebudenie mikrokontroléru WAKE signál, ktorý je privedený na RST.
-Zároveň toto zapojenie neumožňuje aktualizáciu firmvéru bez odpojenia tejto prepojky.
-Pre ESP32 sa využíva Deep Sleep režim s využitím RTC timera, ktorý ESP prebudí po určitom čase a je veľmi presný.
-Platformy dokážu s webovým rozhraním komunikovať po HTTP, ale aj HTTPS protokole. 
+Pre projekt je možné využiť platformu Arduino (Uno / Mega) v revízii R3 s identickým pinoutom, ktorú je možné spojiť s Ethernet shieldom, ktorý komunikuje cez ICSP rozhranie. 
+Taktiež je možné využiť aj Ethernet moduly a pripojiť ich priamo na hardvérové SPI piny mikrokontroléra.
+Podporované sú Ethernet moduly od výrobcu Wiznet W5100, W5500, USR-ES1. 
+Od výrobcu MicroChip je podporovaný Ethernet modul ENC28J60.
+Všetky Ethernet moduly zabezpečujú HTTP konektivitu s webserverom.
+Podporované sú aj WiFi mikrokontroléry od Espressif Systems - ESP8266 a ESP32.
+Mikrokontroléry majú viacero prevádzkových režimov: StandBy, StandBy + OTA s možnosťou vzdialeného uploadu firmvéru cez LAN sieť a režim hlbokého spánku pre ULP aplikácie - Deep Sleep.
+V režime spánku pre ESP8266 je nutné pridať fyzickú prepojku medzi GPIO16 (WAKE) a RST - pozri Schému zapojenia.
+Mikrokontroléry ESP umožňujú implementovať aj HTTPS konektivitu s webserverom. 
 Platforma ESP8266 využíva odtlačok (fingeprint) verejného kľúča webservera v SHA1 formáte, vyžaduje však častejší renew, nakoľko platí maximálne rok až dva. 
 Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority (Root CA), ktorá pre webserver vydala certifikát v .pem formáte. 
 Z hľadiska prevádzky je táto možnosť lepšia, nakoľko certifikát certifikačnej autority platí aj 20 rokov a nie je nutný tak častý renew certifikátu.
+Dáta o aktuálnej výške hladiny vody a objeme vody v studni sú z webového rozhrania dostupné v JSON formáte.
 Projekt je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde napr. Grafana.
 </p>
 <div class="alert alert-info">
-	<strong>Programové implementácie pre Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">TU</a>
+	<strong>Programové implementácie pre Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">Dostupné tu</a>
 </div>	
 <hr>
 <p style="text-align: justify;">
 Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj LPWAN sieť Sigfox, ktorá pokrýva takmer 90% Slovenska. 
-Bunkové stanice má operátor SimpleCell, ktorý Sigfox sieť prevádzkuje hlavne na Towercom vysielačoch.
+Bunkové stanice má operátor SimpleCell, ktorý IoT sieť Sigfox prevádzkuje hlavne na Towercom vysielačoch.
 Táto technológia umožňuje prenášať malé objemy správ s veľkosťou do 12B. 
 V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody. 
 Pre projekt rozšírený o zrážkomer sa odosiela hodnota 8B hodnota, ktorá je tvorená výškou hladiny vody a prírastkom zrážok.
@@ -257,13 +264,8 @@ Komunikačný modul, ktorý bol využitý pre projekt je Sigfox WISOL 868MHz UAR
 Tento modem komunikuje cez AT príkazy prostredníctvom UART rozhrania, ktoré je softvérovo emulované na mikrokontroléry.
 Komunikácia preberia rýchlosťou 9600 baud/s. WISOL modem je vybavený integrovaným u.FL konektorom na PCB modulu pre pripojenie antény, ktorá výrazne zdostupní pokrytie aj v interiéri / zatienenom exteriéri.
 Pre úspešný prenos dát sa vyžaduje pokrytie dvomi, najlepšie tromi a viac BTS stanicami pre úspešný prenos údajov. BTS-ky prenesenú informáciu odošlú do Sigfox backendu, kde je nutné urobiť Callback, ktorý sa spustí po prijatí dát.
-Callback musí vykonať HTTP, respektíve HTTPS request na doménu, kde webaplikácia beží s POST metódou a vhodne enkódovaným payloadom, ktorý backend webaplikácie očakáva.
+Callback vykoná HTTP, respektíve HTTPS request na doménu, kde webaplikácia beží s POST metódou a vhodne enkódovaným payloadom, ktorý backend webaplikácie očakáva.
 </p>
-<div class="alert alert-success">
-	<strong>Detekčná charakteristika ultrazvukových senzorov vzdialenosti - MATLAB scripty:</strong>
-	<li><a href="MATLAB/HCSR04.m">HC-SR04</a></li>
-	<li><a href="MATLAB/JSN04T.m">JSN-SR04T</a></li>
-</div>
 <div class="alert alert-info">
 <h4>Nastavenie Sigfox backend callbacku pre vyskúšanie webaplikácie</h4>
 <b>Hladinomer:</b>
