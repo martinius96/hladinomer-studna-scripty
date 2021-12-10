@@ -139,7 +139,8 @@ Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každý
 </p>
 <hr>
 <p style="text-align: justify;">
-Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10μs (mikrosekúnd) a na základe času, kedy sa signál vráti do prijímača - Echo je možné dopočítať vzdialenosť medzi senzorom a hladinou.
+Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
+Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na rozdielovú výšku hladiny vody od senzora.
 Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie (oxidácie). 
 Z toho dôvodu je ho vhodné umiestniť nad studňu. 
@@ -151,6 +152,17 @@ Ultrazvukové senzory je možné využiť aj pre meranie výšku materiálu v r�
 V prípade štvrcovej studne sa do priemeru dosádza priemer vpísanej kružnice, ktorá bude tvoriť referenčnú hodnotu vodného valca a objem studne.
 Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (známe z datasheetu).
 </p>
+<div class="alert alert-info">
+  	<strong>Iné typy senzorov pre záznam výšky hladiny vody, ktoré je možné integrovať (nutné vytvoriť vlastný firmvér):</strong> 
+ 	<li>Laserové (LiDAR)</li>
+	<li>Hydrostatické</li>
+	<li>Elektrostatické (kapacitné / indukčné)</li>
+	<li>Tlakové (diferenčné / s kompenzačným senzorom atmosférického tlaku)</li>
+	<li>Optické</li>
+	<li>Mechanické (plavák)</li>
+	<li>Magnetické (Hall)</li>
+	<li><b>Poznámka:</b> Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontorléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.</li>
+</div>
 <hr><center><h3>Video demonštrácia webového rozhrania - Hladinomer:</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/ZihXBGEzcT0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 <hr><center><h4>Ultrazvukové senzory sú vhodné do:</h4></center><hr>
