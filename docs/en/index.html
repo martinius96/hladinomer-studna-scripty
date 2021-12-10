@@ -183,6 +183,11 @@ The maximum measurable level height (level) by the sensors is about 400 to 450 c
 <li> In places with a sudden change in temperature (temperature affects the time of sound propagation, so even the stationary level appears to fluctuate) </li>
 <li> Vacuum tanks (measurement is not possible) </li>
 </div>
+<div class="alert alert-success">
+	<strong>Detection characteristics of ultrasonic distance sensors - MATLAB scripts:</strong>
+	<li><a href="../MATLAB/HCSR04.m">HC-SR04</a></li>
+	<li><a href="../MATLAB/JSN04T.m">JSN-SR04T</a></li>
+</div>
 <hr><center><h4>Plug n' play firmware - Ultra Low Power</h4></center><hr>
 <div class="alert alert-success">
   <strong>Compiled firmware available for immediate upload to the microcontroller!</strong>
@@ -221,43 +226,45 @@ ESP8266 is awakened via WAKE timer (jumper between GPIO16 and RST required - che
 	</div>
 <hr><center><h3>Principle of level meter operation - Block diagram</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor" title="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor"></center>
-<p style="text-align: justify;">
-The web interface uses trigonometry to estimate the measurable maximum depth of the well at a known well diameter (another parameter for calculating the well volume).
-The web interface allows the user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
+<p style = "text-align: justify;">
+The web interface uses trigonometry to estimate the measurable maximum depth of a well at a known well diameter (another parameter for calculating well volume).
+The web interface thus allows the user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
 The project is so easy to use even for laymen who do not know which sensor is more suitable for application in their well.
-The microcontroller used also plays an important role in the system. The project used the Arduino platform (Uno) connected to an Ethernet module / shield from the Wiznet model W5100 and W5500 series, respectively, which provided HTTP connectivity and enabled the microcontroller to transfer data to a remote web interface on the Internet.
-As the level meter is an outdoor project, many users would also like the possibility of using a WiFi platform without having to pull Ethernet connectivity to the well.
-WiFi platforms from Espressif Systems - ESP8266 and ESP32, which are used in the project, allow operation in various modes - StandBy, Deep Sleep (deep sleep with WiFi modem turned off), StandBy + OTA - allows you to remotely upload to the board new firmware directly from the board Arduino IDE environment.
-On request, it is also possible to create a Remote OTA update, which is distributed remotely via the Internet from a web server, you can use the Github repository, which can distribute the update to the client in RAW format .bin.
-For the Deep Sleep operating mode, there is a modified wiring diagram for the ESP8266 platform, which uses a signal that is fed to the RST to wake up the WAKE microcontroller.
-At the same time, this connection does not allow the program to be updated without disconnecting this jumper.
-For ESP32, Deep Sleep mode is used using an RTC timer, which wakes up ESP after a certain time.
-Platforms can communicate with the web interface via HTTP, but also HTTPS protocol. The ESP8266 platform uses a fingeprint of the web server's public key in SHA1 format, but requires more frequent renewals, as they are valid for a maximum of one year or 2 years, respectively.
-The microcontroller from the ESP32 series uses the certificate of the root certification authority, which issued the certificate for the web server - the ROOT CA certificate in .pem format for the HTTPS connection.
-From the point of view of operation, this option is better, as the certificate of the certification authority is also valid for 20 years and no renewal of the certificate is necessary.
-The project can be integrated via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard.
-Possibility of offline measurements (completely without connectivity) with a report on the UART interface, character LCD displays 16x2 / 20x4 communicating via I2C bus.
+The microcontroller used also plays an important role in the system.
+For the project, it is possible to use the Arduino platform (Uno / Mega) in revision R3 with an identical pinout, which can be connected to an Ethernet shield that communicates via the ICSP interface.
+It is also possible to use Ethernet modules and connect them directly to the hardware SPI pins of the microcontroller.
+Ethernet modules from Wiznet W5100, W5500, USR-ES1 are supported.
+The Ethernet module ENC28J60 is supported by MicroChip.
+All Ethernet modules provide HTTP connectivity with the web server.
+WiFi microcontrollers from Espressif Systems - ESP8266 and ESP32 are also supported.
+Microcontrollers have several operating modes: StandBy, StandBy + OTA with the possibility of remote firmware upload via LAN network and deep sleep mode for ULP applications - Deep Sleep.
+In sleep mode for ESP8266 it is necessary to add a physical jumper between GPIO16 (WAKE) and RST - see Wiring Diagram.
+ESP microcontrollers also allow you to implement HTTPS connectivity with a web server.
+The ESP8266 platform uses a fingeprint of the web server's public key in SHA1 format, but requires a more frequent renewal, as it is valid for a maximum of one to two years.
+The microcontroller from the ESP32 series uses the certificate of the root certification authority (Root CA) for the HTTPS connection, which issued the certificate in .pem format for the web server.
+From the point of view of operation, this option is better, as the certificate of the certification authority is valid for 20 years and such a frequent renewal of the certificate is not necessary.
+Data on the current water level and water volume in the well are available in JSON format from the web interface.
+The project can be integrated via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
 </p>
-<hr>
 <div class = "alert alert-info">
-<strong> Program implementations for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> HERE </a>
+<strong> Program implementations for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> Available here </a>
 </div>
 <hr>
 <p style = "text-align: justify;">
-For locations where there is no coverage of the fixed Internet, it is also possible to use the IoT network Sigfox, which covers almost 90% of Slovakia, has broadcasting stations mainly on Towercome transmitters.
-This technology allows you to transmit small volumes of messages up to 12B in size. In the case of the Level meter project, the 4B water level value is sent. For a project extended by a rain gauge, the value 8B value is sent, which is formed by the height of the water level and the increase in precipitation.
-As Sigfox allows a maximum of 140 messages to be transmitted per day, the data transmission interval is extended to 11 minutes. In both cases, the message does not contain the full length that it can, i. 12B.
-Payload messages can also be supplemented with various system information, for example: GEO data (longitude / latitude), RSSI (Signal Strength), message number and others.
-The communication module that was used for the project is a Sigfox WISOL 868MHz UART modem. This modem communicates via AT commands via the UART interface, which is software emulated on microcontrollers.
+For sites where there is no fixed internet coverage, it is also possible to use the LPWAN network Sigfox, which covers almost 90% of Slovakia.
+The cell station has the operator SimpleCell, which operates the Sigfox IoT network mainly on Towercom transmitters.
+This technology allows you to transmit small volumes of messages up to 12B in size.
+In the case of the Level project, a 4B water level value is sent.
+For a project extended by a rain gauge, the value 8B value is sent, which is formed by the height of the water level and the increment of precipitation.
+As Sigfox allows a maximum of 140 messages to be transmitted per day, the data transmission interval is extended to 11 minutes.
+In both cases, the message does not contain the full usable length of the payload.
+Payload messages can also be supplemented with various system information, for example: GEO data (longitude / latitude) based on data from the GPS service Sigfox Atlas, RSSI (Received Signal Strength), message number and others.
+The communication module that was used for the project is a Sigfox WISOL 868MHz UART LPWAN modem.
+This modem communicates via AT commands via the UART interface, which is software emulated on microcontrollers.
 The communication will take over at a speed of 9600 baud / s. The WISOL modem is equipped with an integrated u.FL connector on the PCB module for antenna connection, which significantly reduces coverage even indoors / shaded outdoors.
 For successful data transmission, coverage by two, preferably three or more BTS stations is required for successful data transmission. The BTS sends the transmitted information to the Sigfox backend, where it is necessary to make a callback, which will start after receiving the data.
-The callback must make an HTTP or HTTPS request to the domain where the web application is running with the POST method and a suitably encoded payload that the web application backend expects.
+The callback makes an HTTP or HTTPS request to the domain where the web application is running with the POST method and a suitably encoded payload that the web application backend expects.
 </p>
-<div class="alert alert-success">
-	<strong>Detection characteristics of ultrasonic distance sensors - MATLAB scripts:</strong>
-	<li><a href="../MATLAB/HCSR04.m">HC-SR04</a></li>
-	<li><a href="../MATLAB/JSN04T.m">JSN-SR04T</a></li>
-</div>
 <div class="alert alert-info">
 <b>Level meter - Callback settings in Sigfox Backend:</b>
 <li>Callbacks --> Custom --> New</li>
