@@ -251,7 +251,7 @@ The project can be integrated via MQTT into home automation (Hassio, Domoticz, L
 </div>
 <hr>
 <p style = "text-align: justify;">
-For sites where there is no fixed internet coverage, it is also possible to use the LPWAN network Sigfox, which covers almost 90% of Slovakia.
+For sites where there is no fixed internet coverage, it is also possible to use the LPWAN network Sigfox, which covers most European countries, certain Asian countries and some American countries..
 The cell station has the operator SimpleCell, which operates the Sigfox IoT network mainly on Towercom transmitters.
 This technology allows you to transmit small volumes of messages up to 12B in size.
 In the case of the Level project, a 4B water level value is sent.
@@ -259,7 +259,7 @@ For a project extended by a rain gauge, the value 8B value is sent, which is for
 As Sigfox allows a maximum of 140 messages to be transmitted per day, the data transmission interval is extended to 11 minutes.
 In both cases, the message does not contain the full usable length of the payload.
 Payload messages can also be supplemented with various system information, for example: GEO data (longitude / latitude) based on data from the GPS service Sigfox Atlas, RSSI (Received Signal Strength), message number and others.
-The communication module that was used for the project is a Sigfox WISOL 868MHz UART LPWAN modem.
+The communication module that was used for the project is a Sigfox WISOL 868 MHz UART LPWAN modem (in case of USA, Canada you will need to use 915 MHz sensor).
 This modem communicates via AT commands via the UART interface, which is software emulated on microcontrollers.
 The communication will take over at a speed of 9600 baud / s. The WISOL modem is equipped with an integrated u.FL connector on the PCB module for antenna connection, which significantly reduces coverage even indoors / shaded outdoors.
 For successful data transmission, coverage by two, preferably three or more BTS stations is required for successful data transmission. The BTS sends the transmitted information to the Sigfox backend, where it is necessary to make a callback, which will start after receiving the data.
