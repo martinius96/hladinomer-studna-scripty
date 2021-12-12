@@ -252,10 +252,10 @@ Projekt je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domo
 </div>	
 <hr>
 <p style="text-align: justify;">
-Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj LPWAN sieť Sigfox, ktorá pokrýva takmer 90% Slovenska. 
+Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj LPWAN IoT sieť Sigfox, ktorá pokrýva takmer 90% geografickej oblasti Slovenska. 
 Bunkové stanice má operátor SimpleCell, ktorý IoT sieť Sigfox prevádzkuje hlavne na Towercom vysielačoch.
 Táto technológia umožňuje prenášať malé objemy správ s veľkosťou do 12B. 
-V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody. 
+V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody (UINT_32). 
 Pre projekt rozšírený o zrážkomer sa odosiela hodnota 8B hodnota, ktorá je tvorená výškou hladiny vody a prírastkom zrážok.
 Nakoľko Sigfox dovoľuje preniesť denne maximálne 140 správ, je interval odosielania dát rozšírený na 11 minút. 
 V oboch prípadoch tak správa neobsahuje plnú využívateľnú dĺžku payloadu. 
