@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>JSON-klient - Niveaumåler - MQTT Publish, ArduinoJson, deserialisering, dataparsing</title>
+	<meta name="description" content="JSON-klient på Arduino-platformen, ESP866, ESP32 til Hladinomer-projektet. De muliggør dataparsing, udgiv til MQTT-tjenesten IoT Industries Slovakia">
+	<meta name="keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, parsing, arduinojson, deserialisering, mqtt, publicere, abonnere, data, transmission, http, mqtts, krypteret, socket, iot, industrier, slovakien, niveau, vand, vandbrønd, niveau, skærm, liter">
+	<meta name="news_keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, parsing, arduinojson, deserialisering, mqtt, publicere, abonnere, data, transmission, http, mqtts, krypteret, socket, iot, industrier, slovakien, niveau, vand, vandbrønd, niveau, skærm, liter">	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Niveaumåler</a></li>
+	<li><a href="zapojenie.html">Inddragelse</a></li>   
+	<li class="active"><a href="json_client.html">JSON klient</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">Installation</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+	<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../th/index.html"><img src="https://i.imgur.com/iwaTzpm.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>
+<a href="../hi/index.html"><img src="https://i.imgur.com/vD6j3Ak.png" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../et/index.html"><img src="https://i.imgur.com/1qxI0wk.png" alt="Estonian.png, 2,2kB" title="Estonian" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+					<strong>Niveaumålerprojektlager med kildekoder til JSON-klienter - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Niveaumåler</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultralydssensor</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">JSON</span>
+<span class="label label-danger">MQTT</span>
+<div class="row">
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/X946pmi.png" width="128px" height="128px" style="border-radius: 50%;" alt="JSON DATA" title="JSON DATA"><br><b>JSON DATA</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/B2xdel0.png" width="128px" height="128px" alt="ArduinoJSON" title="ArduinoJSON"><br><b>ArduinoJSON</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/oXhOEZi.png" width="128px" height="128px" style="border-radius: 50%;" alt="MQTT" title="MQTT"><br><b>MQTT</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/WWpufkP.png" width="128px" height="128px" style="border-radius: 50%;" alt="HTTP" title="HTTP"><br><b>HTTP</b></center></div>
+</div>	
+<hr><center><h2>JSON-klienter - Niveaumåler</h2></center><hr>
+<p style="text-align: justify;">
+JSON-klient bygget på Arduino-platformen, ESP8266, ESP32 tillader forbindelse via en websocket til en webserver (webgrænseflade af Leveler).
+<b> Klienten foretager en cyklisk HTTP GET-anmodning hvert 60. sekund for at hente indholdet af <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php"> /json_output.php </a> , hvor webserveren distribuerer JSON-data på vandstand (i centimeter), brøndvolumen (i liter) baseret på aktuelt indstillet dybde og brønddiameter. </b>
+Den indlæste JSON-nyttelast kan parse JSON-klienten fra HTTP-svaret og derefter deserialisere denne streng.
+Efter deserialisering er det muligt at få adgang til de individuelle nøgler, som værdierne er tildelt, og få dem -> parse.
+De matchede data skrives til UART - Seriel linje - 115200 baud/s.
+I brugerapplikationen, som kan føjes til de eksisterende kildekoder for JSON-klienter, er det muligt at styre enheder baseret på disse værdier, for eksempel: automatiseret kunstvanding efter at have nået et bestemt vandniveau, vandpumpning, pumpestart, skat.
+<b> En del af firmwaren markeret som MQTT eller MQTTS (krypteret MQTT) er en udvidet JSON-klient med mulighed for at sende - Publicer data til MQTT Broker IoT Industries Slovakia - Slovakisk gratis MQTT Broker designet til udviklere. </b>
+Både MQTT- og MQTTS-varianterne bruger en socket, som også bruges til HTTP-anmodninger for at opnå JSON-nyttelast.
+Den eksisterende MQTT-server kan erstattes i din kildekode af din, så du også kan stille data fra niveaumåleren til rådighed i hjemmeautomationssystemer (Hassio, Mosquitto MQTT, Domoticz, Loxone og andre ...).
+I den aktuelle softwareimplementering sender mikrocontrolleren (JSON-klienten) de opnåede data til MQTT Broker i emneniveaumåleren, mens de individuelle temperaturer er differentieret i underemner.
+</p> 
+<div class="alert alert-success">
+	<strong>Eksempel på programimplementeringer til JSON-klienter: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">HER</a>
+</div>
+<div class="alert alert-info">
+  <strong> MQTTS-implementeringen er kun tilgængelig for ESP8266, ESP32-platformene. </strong> ESP8266 bruger et fingeraftryk af MQTT-servercertifikatet (offentlig nøgle) til krypterede forbindelser.
+ESP32 bruger et Root CA-certifikat til krypteret forbindelse til MQTT-serveren. <b> Den krypterede port på MQTT-serveren er 8883 som standard, ukrypteret 1883. </b>
+For at opnå et fingeraftryk, eller Root CA-certifikat for en specifik MQTT-server (domæne), er det muligt at bruge OpenSSL-værktøjet, som gør det nemt at hente og vise de pågældende oplysninger.
+<br> <b> MQTT-serverens fingeraftrykshentningskommando: </b> <br>
+<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
+<br><b>Kommando for at få det rod-CA-certifikat, der udstedte certifikatet til MQTT-serveren (udsteder):</b><br>
+<code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
+</div>
+<hr>
+<h4>Emnerne, der bruges til at udgive på MQTT Broker er:</h4> 
+<hr>
+<li><b>hladinomer/objem</b> - for brøndvolumen i liter</li>
+<li><b>hladinomer/vyska</b> - for den aktuelle vandstand i centimeter</li>
+<hr>
+<h4>Emne til abonnement:</h4>
+<hr>
+<li><b>hladinomer/#</b> - fjerner alle underemner under hladinomer/, altså brøndens volumen og højden af vandstanden i brønden</li>
+<p style="text-align: justify;">
+<b> MQTT-klienten har et abonnement på hovedemneniveaumåleren og alle dens underemner.
+Samtidig kan den bekræfte, at informationen er blevet offentliggjort på MQTT Broker - den vil skrive den tilbage til UART. </b>
+<b><font color="red">ADVARSEL: MQTT Broker IoT Industries Slovakia, som bruges i eksempelimplementeringen, er offentlig, så dataene kan ændres, overskrives, læses af enhver bruger!</font></b>
+Hvis en anden bruger uploader JSON-klientens firmware til deres mikrocontroller uden nogen ændring, vil dataene i det foruddefinerede emne blive overskrevet af dig såvel som af ham.
+Det er derfor tilrådeligt at vælge et andet emne, hvor dataene vil blive sendt under selve implementeringen.
+</p>
+<hr>    
+<h4>JSON PHP Output, Parsing og Publicer til MQTT Broker:</h4>
+<hr>
+<center><img src="https://i.imgur.com/4JE5zw8.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client (Arduino, ESP8266, ESP32) pre Hladiomer - UART výstup" title="JSON client (Arduino, ESP8266, ESP32) pre Hladiomer - UART výstup"></center>       		
+<h4>HiveMQ klient - Abonner emne hladinomer/#</h4>
+<center><img src="https://i.imgur.com/lHoBFgj.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat" title="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat"></center> 
+					</div>
+</div>
+</div>
+</body>
+</html>
