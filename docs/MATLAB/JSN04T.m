@@ -1,5 +1,8 @@
 close all;
 clear all;
+half_angle = 30;
+Radians = deg2rad( half_angle );
+Radians2 = -1*(Radians);
 hlbka1 = 0:0.01:0.5;
 hlbka2 = 0.5:0.01:1;
 hlbka3 = 1:0.01:1.5;
@@ -9,30 +12,30 @@ hlbka6 = 2.5:0.01:3;
 hlbka7 = 3:0.01:3.5;
 hlbka8 = 3.5:0.01:4;
 hlbka9 = 4:0.01:4.5;
-priemer1 = hlbka1*tan(0.57735027)
-priemer2 = hlbka1*tan(-0.57735027)
-priemer3 = hlbka2*tan(0.57735027)
-priemer4 = hlbka2*tan(-0.57735027)
-priemer5 = hlbka3*tan(0.57735027)
-priemer6 = hlbka3*tan(-0.57735027)
+priemer1 = hlbka1*tan(Radians)
+priemer2 = hlbka1*tan(Radians2)
+priemer3 = hlbka2*tan(Radians)
+priemer4 = hlbka2*tan(Radians2)
+priemer5 = hlbka3*tan(Radians)
+priemer6 = hlbka3*tan(Radians2)
 
-priemer7 = hlbka4*tan(0.57735027)
-priemer8 = hlbka4*tan(-0.57735027)
+priemer7 = hlbka4*tan(Radians)
+priemer8 = hlbka4*tan(Radians2)
 
-priemer9 = hlbka5*tan(0.57735027)
-priemer10 = hlbka5*tan(-0.57735027)
+priemer9 = hlbka5*tan(Radians)
+priemer10 = hlbka5*tan(Radians2)
 
-priemer11 = hlbka6*tan(0.57735027)
-priemer12 = hlbka6*tan(-0.57735027)
+priemer11 = hlbka6*tan(Radians)
+priemer12 = hlbka6*tan(Radians2)
 
-priemer13 = hlbka7*tan(0.57735027)
-priemer14 = hlbka7*tan(-0.57735027)
+priemer13 = hlbka7*tan(Radians)
+priemer14 = hlbka7*tan(Radians2)
 
-priemer15 = hlbka8*tan(0.57735027)
-priemer16 = hlbka8*tan(-0.57735027)
+priemer15 = hlbka8*tan(Radians)
+priemer16 = hlbka8*tan(Radians2)
 
-priemer17 = hlbka9*tan(0.57735027)
-priemer18 = hlbka9*tan(-0.57735027)
+priemer17 = hlbka9*tan(Radians)
+priemer18 = hlbka9*tan(Radians2)
 plot (hlbka1, priemer1, '-b')
 hold on 
 plot (hlbka1, priemer2, '-b')
@@ -79,7 +82,7 @@ patch([hlbka8 fliplr(hlbka8)], [priemer15 fliplr(priemer16)], 'r')
 patch([hlbka9 fliplr(hlbka9)], [priemer17 fliplr(priemer18)], 'g')
 hold on
 plot ([0,4.5], [0,0], '-k', 'LineWidth',3)
-title('Detekèná charakteristika senzora JSN-SR04T')
+title('DetekÄnÃ¡ charakteristika senzora JSN-SR04T')
 grid minor
-xlabel('Vzdialenos (m)') 
-ylabel('Polomer detekovanej plochy') 
+xlabel('HÄºbka studne (m)') 
+ylabel('Priemer detekovanej plochy (m)') 
