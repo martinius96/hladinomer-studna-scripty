@@ -1,3 +1,10 @@
+%%Vyhotovil: Martin Chlebovec (martinius96@gmail.com)
+%%Matlab: R2016b
+
+%%Vizualizácia detekčnej charakteristiky pre ultrazvukový senzor JSN-SR04T (vodotesný)
+%%Detekčná charakteristika: 60°
+%%Max. hĺbka studne 450 cm
+
 close all;
 clear all;
 half_angle = 30; %%60° detection angle / 2
