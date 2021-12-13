@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>ไคลเอนต์ JSON - เครื่องวัดระดับ - MQTT Publish, ArduinoJson, การดีซีเรียลไลเซชัน, การแยกวิเคราะห์ข้อมูล</title>
+	<meta name="description" content="ไคลเอนต์ JSON บนแพลตฟอร์ม Arduino, ESP866, ESP32 สำหรับโครงการ Hladinomer พวกเขาเปิดใช้งานการแยกวิเคราะห์ข้อมูล เผยแพร่ไปยังบริการ MQTT IoT Industries Slovakia">
+	<meta name="keywords" content="json, arduino, อีเธอร์เน็ต, wifi, esp8266, esp32, การแยกวิเคราะห์, arduinojson, การดีซีเรียลไลซ์เซชัน, mqtt, เผยแพร่, สมัครสมาชิก, ข้อมูล, การส่งผ่าน, http, mqtts, เข้ารหัส, ซ็อกเก็ต, iot, อุตสาหกรรม, สโลวาเกีย, ระดับ, น้ำ, บ่อน้ำ, ระดับ, จอมอนิเตอร์ ลิตร">
+	<meta name="news_keywords" content="json, arduino, อีเธอร์เน็ต, wifi, esp8266, esp32, การแยกวิเคราะห์, arduinojson, การดีซีเรียลไลซ์เซชัน, mqtt, เผยแพร่, สมัครสมาชิก, ข้อมูล, การส่งผ่าน, http, mqtts, เข้ารหัส, ซ็อกเก็ต, iot, อุตสาหกรรม, สโลวาเกีย, ระดับ, น้ำ, บ่อน้ำ, ระดับ, จอมอนิเตอร์ ลิตร">	
+<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/th/json_client.html">
+	<meta property="og:title" content="ไคลเอนต์ JSON - เครื่องวัดระดับ - MQTT Publish, ArduinoJson, การดีซีเรียลไลเซชัน, การแยกวิเคราะห์ข้อมูล">
+	<meta property="og:description" content="ไคลเอนต์ JSON บนแพลตฟอร์ม Arduino, ESP866, ESP32 สำหรับโครงการ Hladinomer พวกเขาเปิดใช้งานการแยกวิเคราะห์ข้อมูล เผยแพร่ไปยังบริการ MQTT IoT Industries Slovakia">
+	<meta property="og:image" content="">
+
+<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/th/json_client.html">
+	<meta property="twitter:title" content="ไคลเอนต์ JSON - เครื่องวัดระดับ - MQTT Publish, ArduinoJson, การดีซีเรียลไลเซชัน, การแยกวิเคราะห์ข้อมูล">
+	<meta property="twitter:description" content="ไคลเอนต์ JSON บนแพลตฟอร์ม Arduino, ESP866, ESP32 สำหรับโครงการ Hladinomer พวกเขาเปิดใช้งานการแยกวิเคราะห์ข้อมูล เผยแพร่ไปยังบริการ MQTT IoT Industries Slovakia">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+    <li><a href="index.html">เครื่องวัดระดับ</a></li>
+	  <li><a href="zapojenie.html">การเดินสายไฟ</a></li>   
+	  <li class="active"><a href="json_client.html">ลูกค้า JSON</a></li>   
+	  <li><a href="../Instructions/Waterwell%20monitor%20-%20instructions.pdf">การติดตั้ง</a></li>
+    <a href="../json_client.html"><img src="https://i.imgur.com/qGhO5tu.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+	  <a href="../en/json_client.html"><img src="https://i.imgur.com/a2PUEx3.png" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+	  <a href="../fr/json_client.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a>
+    <img src="https://i.imgur.com/YAi45JJ.png" alt="Arduino Core" title="Arduino Core" height="32" width="32">
+    <img src="https://i.imgur.com/2pOgsYZ.png" alt="Espressif IoT Development framework (ESP-IDF)" title="Espressif IoT Development framework (ESP-IDF)" height="32" width="32">
+    <img src="https://i.imgur.com/Lsk36Zb.png" alt="Sigfox IoT network supported" title="Sigfox IoT network supported" height="32" width="32">
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+					<strong>ที่เก็บโปรเจ็กต์ Hladinomer พร้อมซอร์สโค้ดสำหรับไคลเอนต์ JSON - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">เครื่องวัดระดับ</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">อัลตราซาวนด์</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">JSON</span>
+<span class="label label-danger">MQTT</span>
+<div class="row">
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/X946pmi.png" width="128px" height="128px" style="border-radius: 50%;" alt="JSON DATA" title="JSON DATA"><br><b>JSON DATA</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/B2xdel0.png" width="128px" height="128px" alt="ArduinoJSON" title="ArduinoJSON"><br><b>ArduinoJSON</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/oXhOEZi.png" width="128px" height="128px" style="border-radius: 50%;" alt="MQTT" title="MQTT"><br><b>MQTT</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/WWpufkP.png" width="128px" height="128px" style="border-radius: 50%;" alt="HTTP" title="HTTP"><br><b>HTTP</b></center></div>
+</div>	
+<hr><center><h2>ไคลเอนต์ JSON - เครื่องวัดระดับ</h2></center><hr>
+<p style="text-align: justify;">
+ไคลเอนต์ JSON ที่สร้างขึ้นบนแพลตฟอร์ม Arduino, ESP8266, ESP32 ช่วยให้สามารถเชื่อมต่อผ่าน websocket ไปยังเว็บเซิร์ฟเวอร์ (เว็บอินเตอร์เฟสของ Leveler)
+<b> ลูกค้าส่งคำขอ HTTP GET แบบวนซ้ำทุกๆ 60 วินาทีเพื่อดึงเนื้อหาของ <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php"> /json_output.php </a> โดยที่เว็บเซิร์ฟเวอร์เผยแพร่ข้อมูล JSON เกี่ยวกับระดับน้ำ (เป็นเซนติเมตร) ปริมาตรของบ่อน้ำ (เป็นลิตร) ตามความลึกและเส้นผ่านศูนย์กลางที่ตั้งไว้ในปัจจุบัน </b>
+เพย์โหลด JSON ที่โหลดสามารถแยกวิเคราะห์ไคลเอนต์ JSON จากการตอบกลับ HTTP แล้วทำการดีซีเรียลไลซ์สตริงนี้
+หลังจากการดีซีเรียลไลซ์เซชั่น คุณสามารถเข้าถึงคีย์แต่ละคีย์ที่ได้รับการกำหนดค่าและรับค่าเหล่านั้น -> แยกวิเคราะห์
+ข้อมูลที่ตรงกันจะถูกเขียนไปยัง UART - Serial line - 115200 baud / s
+ในแอปพลิเคชันผู้ใช้ซึ่งสามารถเพิ่มลงในซอร์สโค้ดที่มีอยู่ของไคลเอ็นต์ JSON ได้ เป็นไปได้ที่จะควบคุมเอนทิตีตามค่าเหล่านี้ ตัวอย่างเช่น การชลประทานอัตโนมัติหลังจากถึงระดับน้ำที่กำหนด การสูบน้ำ การสตาร์ทเครื่องสูบน้ำ ที่รัก
+<b> ส่วนหนึ่งของเฟิร์มแวร์ที่ทำเครื่องหมายเป็น MQTT หรือ MQTTS (MQTT ที่เข้ารหัส) เป็นไคลเอ็นต์ JSON แบบขยายที่มีความสามารถในการส่ง - เผยแพร่ข้อมูลไปยัง MQTT Broker IoT Industries Slovakia - โบรกเกอร์ MQTT ฟรีของสโลวาเกียที่ออกแบบมาสำหรับนักพัฒนา </b>
+ทั้งตัวแปร MQTT และ MQTTS ใช้ซ็อกเก็ต ซึ่งใช้สำหรับคำขอ HTTP เพื่อรับเพย์โหลด JSON ด้วย
+เซิร์ฟเวอร์ MQTT ที่มีอยู่สามารถเปลี่ยนในซอร์สโค้ดของคุณได้ ดังนั้นคุณจึงทำให้ข้อมูลจากเครื่องวัดระดับพร้อมใช้งานในระบบอัตโนมัติภายในบ้าน (Hassio, Mosquitto MQTT, Domoticz, Loxone และอื่นๆ ...)
+ในการใช้งานซอฟต์แวร์ในปัจจุบัน ไมโครคอนโทรลเลอร์ (ไคลเอนต์ JSON) จะส่งข้อมูลที่ได้รับไปยังโบรกเกอร์ MQTT ในมาตรวัดระดับหัวข้อ ในขณะที่อุณหภูมิแต่ละรายการจะแตกต่างกันในหัวข้อย่อย
+</p> 
+<div class="alert alert-success">
+	<strong>ตัวอย่างการใช้งานโปรแกรมสำหรับลูกค้า JSON: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">ที่นี่</a>
+</div>
+<div class="alert alert-info">
+  <strong>การใช้งาน MQTTS ใช้ได้กับแพลตฟอร์ม ESP8266, ESP32 เท่านั้น </strong> ESP8266 ใช้ลายนิ้วมือสำหรับการเชื่อมต่อที่เข้ารหัส - ลายนิ้วมือของใบรับรองเซิร์ฟเวอร์ MQTT (คีย์สาธารณะ). 
+ESP32 ใช้ใบรับรอง Root CA สำหรับการเชื่อมต่อที่เข้ารหัสไปยังเซิร์ฟเวอร์ MQTT <b> พอร์ตที่เข้ารหัสของเซิร์ฟเวอร์ MQTT คือ 8883 โดยค่าเริ่มต้น ไม่ได้เข้ารหัส 1883 </b>
+หากต้องการรับลายนิ้วมือหรือใบรับรอง Root CA สำหรับเซิร์ฟเวอร์ MQTT (โดเมน) ที่เฉพาะเจาะจง คุณสามารถใช้เครื่องมือ OpenSSL ซึ่งช่วยให้ดึงข้อมูลและแสดงข้อมูลที่เป็นปัญหาได้ง่าย
+<br> <b> คำสั่งดึงลายนิ้วมือของเซิร์ฟเวอร์ MQTT: </b> <br>
+<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
+<br><b>คำสั่งเพื่อรับใบรับรอง Root CA ที่ออกใบรับรองสำหรับเซิร์ฟเวอร์ MQTT (ผู้ออก):</b><br>
+<code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
+</div>
+<hr>
+<h4>หัวข้อที่ใช้สำหรับเผยแพร่บน MQTT Broker คือ:</h4> 
+<hr>
+<li><b>hladinomer/objem</b> - สำหรับปริมาตรที่ดีในหน่วยลิตร</li>
+<li><b>hladinomer/vyska</b> - สำหรับระดับน้ำปัจจุบัน หน่วยเซนติเมตร</li>
+<hr>
+<h4>หัวข้อสำหรับสมัครสมาชิก:</h4>
+<hr>
+<li><b>hladinomer/#</b> - ลบหัวข้อย่อยทั้งหมดภายใต้ hladinomer/, ดังนั้นปริมาณ ระดับน้ำ</li>
+<p style="text-align: justify;">
+<b>ไคลเอ็นต์ MQTT มีการสมัครรับข้อมูลมาตรวัดระดับหัวข้อหลักและหัวข้อย่อยทั้งหมด
+ในเวลาเดียวกัน สามารถตรวจสอบได้ว่าข้อมูลได้รับการเผยแพร่บน MQTT Broker สำเร็จหรือไม่ โดยจะเขียนกลับไปยัง UART</b>
+<b><font color="red">คำเตือน: โบรกเกอร์ MQTT IoT Industries สโลวาเกีย ซึ่งใช้ในการปรับใช้ตัวอย่าง เป็นสาธารณะ ดังนั้นข้อมูลจึงสามารถเปลี่ยนแปลง เขียนทับ อ่านโดยผู้ใช้คนใดก็ได้!</font></b>
+หากผู้ใช้รายอื่นอัปโหลดเฟิร์มแวร์ไคลเอ็นต์ JSON ไปยังไมโครคอนโทรลเลอร์โดยไม่มีการเปลี่ยนแปลง พวกเขาจะเขียนทับข้อมูลในหัวข้อที่กำหนดไว้ล่วงหน้า และคุณจะเขียนทับข้อมูลนั้น
+ดังนั้นจึงแนะนำให้เลือกหัวข้ออื่นที่จะส่งข้อมูลระหว่างการใช้งานจริง
+</p>
+<hr>    
+<h4>เอาต์พุต JSON PHP การแยกวิเคราะห์และเผยแพร่ไปยังโบรกเกอร์ MQTT:</h4>
+<hr>
+<center><img src="https://i.imgur.com/4JE5zw8.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client (Arduino, ESP8266, ESP32) pre Hladiomer - UART výstup" title="JSON client (Arduino, ESP8266, ESP32) pre Hladiomer - UART výstup"></center>       		
+<h4>ไคลเอนต์ HiveMQ - หัวข้อสมัครสมาชิก hladinomer/#</h4>
+<center><img src="https://i.imgur.com/lHoBFgj.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat" title="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat"></center> 
+					</div>
+</div>
+</div>
+</body>
+</html>
