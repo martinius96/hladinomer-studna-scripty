@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="et">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>JSON-klient – tasememõõtja – MQTT Publish, ArduinoJson, deserialiseerimine, andmete sõelumine</title>
+	<meta name="description" content="JSON-klient Arduino platvormil ESP866, ESP32 Hladinomeri projekti jaoks. Need võimaldavad andmete sõelumist, Avalda MQTT teenuses IoT Industries Slovakia">
+	<meta name="keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, sõelumine, arduinojson, deserialiseerimine, mqtt, avaldamine, tellimine, andmed, edastamine, http, mqtts, krüpteeritud, pistikupesa, iot, tööstused, slovakkia, tase, vesi, kaev, tase, monitor, liiter">
+	<meta name="news_keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, sõelumine, arduinojson, deserialiseerimine, mqtt, avaldamine, tellimine, andmed, edastamine, http, mqtts, krüpteeritud, pistikupesa, iot, tööstused, slovakkia, tase, vesi, kaev, tase, monitor, liiter">	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Tasememõõtja</a></li>
+	<li><a href="zapojenie.html">Kaasamine</a></li>   
+	<li class="active"><a href="json_client.html">JSON klient</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">Paigaldamine</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../th/index.html"><img src="https://i.imgur.com/iwaTzpm.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>
+<a href="../hi/index.html"><img src="https://i.imgur.com/vD6j3Ak.png" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+					<strong>Projektitaseme arvestite hoidla koos JSON-i klientide lähtekoodidega – Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Tasememõõtja</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultraheli andur</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">JSON</span>
+<span class="label label-danger">MQTT</span>
+<div class="row">
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/X946pmi.png" width="128px" height="128px" style="border-radius: 50%;" alt="JSON DATA" title="JSON DATA"><br><b>JSON DATA</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/B2xdel0.png" width="128px" height="128px" alt="ArduinoJSON" title="ArduinoJSON"><br><b>ArduinoJSON</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/oXhOEZi.png" width="128px" height="128px" style="border-radius: 50%;" alt="MQTT" title="MQTT"><br><b>MQTT</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/WWpufkP.png" width="128px" height="128px" style="border-radius: 50%;" alt="HTTP" title="HTTP"><br><b>HTTP</b></center></div>
+</div>	
+<hr><center><h2>JSON-kliendid – tasememõõtja</h2></center><hr>
+<p style="text-align: justify;">
+Arduino platvormile ehitatud JSON-klient ESP8266, ESP32 võimaldab veebipesa kaudu ühendust veebiserveriga (Leveleri veebiliides).
+<b> Klient teeb iga 60 sekundi järel tsüklilise HTTP GET-päringu faili <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php"> /json_output.php </a> sisu toomiseks. , kus veebiserver jagab JSON-i andmeid veetaseme (sentimeetrites), kaevu mahu (liitrites) kohta vastavalt hetkel määratud sügavusele ja kaevu läbimõõdule. </b>
+Laaditud JSON-i kasulik koormus saab JSON-kliendi HTTP vastusest sõeluda ja seejärel selle stringi deserialiseerida.
+Pärast deserialiseerimist on võimalik pääseda juurde üksikutele võtmetele, millele väärtused on määratud, ja hankida need -> sõeluda.
+Sobitatud andmed kirjutatakse UART - Serial line - 115200 baud / s.
+Kasutajarakenduses, mida saab lisada olemasolevatele JSON-klientide lähtekoodidele, on võimalik nende väärtuste alusel juhtida olemeid, näiteks: automatiseeritud kastmine pärast teatud veetaseme saavutamist, vee pumpamine, pumba käivitamine, kallis.
+<b> Osa püsivarast, mis on tähistatud kui MQTT või MQTTS (krüpteeritud MQTT), on laiendatud JSON-klient, mis võimaldab saata – Avalda andmeid MQTT Broker IoT Industries Slovakia – arendajatele mõeldud Slovakkia tasuta MQTT Broker. </b>
+Nii MQTT kui ka MQTTS variandid kasutavad pesa, mida kasutatakse ka HTTP päringute jaoks JSON-i kasulike koormuste hankimiseks.
+Olemasoleva MQTT serveri saab teie lähtekoodis asendada teie omaga, nii et saate tasememõõturi andmed kättesaadavaks teha ka koduautomaatikasüsteemides (Hassio, Mosquitto MQTT, Domoticz, Loxone jt ...).
+Praeguses tarkvararakenduses saadab mikrokontroller (JSON-klient) saadud andmed teemataseme mõõturis olevale MQTT Brokerile, kusjuures üksikud temperatuurid on alateemades diferentseeritud.
+</p> 
+<div class="alert alert-success">
+	<strong>Näidisprogrammide juurutused JSON-i klientidele: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">SIIN</a>
+</div>
+<div class="alert alert-info">
+  <strong> MQTTS-i juurutus on saadaval ainult platvormide ESP8266 ja ESP32 jaoks. </strong> ESP8266 kasutab krüptitud ühenduste jaoks MQTT-serveri sertifikaadi (avalikku võtit) sõrmejälge.
+ESP32 kasutab MQTT-serveriga krüptitud ühenduse loomiseks juur-CA sertifikaati. <b> MQTT-serveri krüptitud port on vaikimisi 8883, krüptimata 1883. </b>
+Kindla MQTT-serveri (domeeni) sõrmejälje ehk Root CA sertifikaadi saamiseks on võimalik kasutada OpenSSL-i tööriista, mis võimaldab kõnealust infot hõlpsalt kätte saada ja kuvada.
+<br> <b> MQTT-serveri sõrmejälje toomise käsk: </b> <br>
+<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
+<br><b>Käsk MQTT-serveri (väljaandja) jaoks serdi väljastanud CA juursertifikaadi hankimiseks:</b><br>
+<code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
+</div>
+<hr>
+<h4>MQTT Brokeris avaldamiseks kasutatakse järgmisi teemasid:</h4> 
+<hr>
+<li><b>hladinomer/objem</b> - kaevu mahu jaoks liitrites</li>
+<li><b>hladinomer/vyska</b> - praeguse veetaseme kohta sentimeetrites</li>
+<hr>
+<h4>Tellimise teema:</h4>
+<hr>
+<li><b>hladinomer/#</b> - võtab kõik alateemad alla tasememõõtja / ehk kaevu maht liitrites ja veetaseme kõrgus sentimeetrites</li>
+<p style="text-align: justify;">
+<b>MQTT kliendil on tellitud põhiteema taseme mõõtja ja kõik selle alamteemad.
+Samal ajal saab see kontrollida, kas teave on MQTT Brokeris edukalt avaldatud - see kirjutab selle UART-i tagasi.</b>
+<b><font color="red">HOIATUS: Näidisrakenduses kasutatav MQTT Broker IoT Industries Slovakia on avalik ja seega saab andmeid muuta, üle kirjutada, lugeda iga kasutaja!</font></b>
+Kui mõni teine kasutaja laadib JSON-kliendi püsivara oma mikrokontrollerisse üles ilma muudatusteta, kirjutatakse eelmääratletud teema andmed üle nii teie kui ka tema poolt.
+Seetõttu on soovitatav valida mõni muu teema, kuhu andmed tegeliku juurutamise käigus saadetakse.
+</p>
+<hr>    
+<h4>JSON PHP väljund, sõelumine ja avaldamine MQTT Brokeris:</h4>
+<hr>
+<center><img src="https://i.imgur.com/4JE5zw8.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client (Arduino, ESP8266, ESP32) pre Hladiomer - UART výstup" title="JSON client (Arduino, ESP8266, ESP32) pre Hladiomer - UART výstup"></center>       		
+<h4>HiveMQ klient – tellige teema hladinomer/#</h4>
+<center><img src="https://i.imgur.com/lHoBFgj.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat" title="JSON client MQTT Broker IoT Industries Slovakia - výstup topicu - Subscribe termostat"></center> 
+					</div>
+</div>
+</div>
+</body>
+</html>
