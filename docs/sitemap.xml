@@ -78,6 +78,16 @@
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/hi/index.html</loc>
+  <lastmod>2021-12-13T00:12:12+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/hi/</loc>
+  <lastmod>2021-12-13T00:12:12+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/zrazkomer.html</loc>
   <lastmod>2021-12-13T00:12:12+00:00</lastmod>
   <priority>1.00</priority>
@@ -93,12 +103,22 @@
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/hi/zapojenie.html</loc>
+  <lastmod>2021-12-13T00:12:12+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/th/zapojenie.html</loc>
   <lastmod>2021-12-13T00:12:12+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://martinius96.github.io/hladinomer-studna-scripty/en/json_client.html</loc>
+  <lastmod>2021-12-13T00:12:12+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://martinius96.github.io/hladinomer-studna-scripty/hi/json_client.html</loc>
   <lastmod>2021-12-13T00:12:12+00:00</lastmod>
   <priority>1.00</priority>
 </url>
