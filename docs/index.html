@@ -137,17 +137,17 @@ Webové rozhranie je responzíve, dokáže sa prispôsobiť každej obrazovke a 
 Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z requestu HTTP POST metódou.
 Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, počíta objem vody v studni z tohto parametra a priemeru studne.
 Hĺbku a priemer studne do systému vkladá používateľ na základe proporcií jeho studne.
-Dáta sa na webserver odosiela mikrokontróler, ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez IoT sieť Sigfox sa dáta odosielajú každých 11 minút, nakoľko je limitovaný sieťou na prenos max 140 správ denne.
+Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet / WiFi / LPWAN Sigfox), ktorý vykonáva merania každých 300 sekúnd - t.j. 5 minút, respektíve v prípade prenosu cez LPWAN IoT sieť Sigfox sa dáta odosielajú každých 11 minút, nakoľko je modem limitovaný sieťou na prenos max 140 správ denne.
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T, možno využiť aj iné senzory so signálmi Trigger / Echo z rady US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, DYP-ME007. 
 </p>
 <hr>
 <p style="text-align: justify;">
-Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
+Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10 μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
 Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na rozdielovú výšku hladiny vody od senzora.
 Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie (oxidácie) z dôvodu prítomnej vlhkosti v studni. 
 Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu. 
-Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 45 až 60°, čo ho nedovoľuje použiť v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko jednotiek metrov (6 metrov priemer pri 4,5 hĺbke studne).
+Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60°, čo ho značne limituje a zamedzuje jeho použitiu v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko metrov (6 metrov priemer pri hĺbke studne 4,5 metra).
 Ultrazvukové senzory sú plne bezúdržbové.
 V prípade štvrcovej studne sa do priemeru dosádza priemer vpísanej kružnice, ktorá bude tvoriť referenčnú hodnotu vodného valca a objem studne.
 Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (známe z datasheetu).
@@ -161,7 +161,7 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 	<li>Optické</li>
 	<li>Mechanické (plavák)</li>
 	<li>Magnetické (Hall)</li>
-	<li><b>Poznámka:</b> Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontorléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.</li>
+	<li><b>Poznámka:</b> Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontroléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.</li>
 </div>
 <hr><center><h3>Video demonštrácia webového rozhrania - Hladinomer:</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/ZihXBGEzcT0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
