@@ -1,6 +1,6 @@
 close all;
 clear all;
-half_angle = 30;
+half_angle = 30; %%60° detection angle / 2
 Radians = deg2rad( half_angle );
 Radians2 = -1*(Radians);
 hlbka1 = 0:0.01:0.5;
