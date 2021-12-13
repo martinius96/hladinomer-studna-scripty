@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="et">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Kaevu tasememõõtur - Veetaseme monitor - Arduino / ESP8266 / ESP32 / Sigfox</title>
+	<meta name="description" content="Tasememõõtja - Arduino platvormile ehitatud veetaseme monitor, ESP8266, ESP32. Mõõtmine ultrahelianduriga HC-SR04 / JSN-SR04T. Andmete saatmine Etherneti, WiFi, Sigfoxi kaudu. Veetaseme mõõtmine kaevus, süvendis.">
+	<meta name="keywords" content="tasememõõtur, kaev, süvend, septik, kõrgus, tase, monitor, mõõtmine, ultraheli, ujuk, optiline, hüdrostaatiline, rõhk, keelekümblus, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">
+	<meta name="news_keywords" content="tasememõõtur, kaev, süvend, septik, kõrgus, tase, monitor, mõõtmine, ultraheli, ujuk, optiline, hüdrostaatiline, rõhk, keelekümblus, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Tasememõõtja</a></li>
+	<li><a href="zapojenie.html">Kaasamine</a></li>   
+	<li class=""><a href="json_client.html">JSON klient</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">Paigaldamine</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../th/index.html"><img src="https://i.imgur.com/iwaTzpm.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>
+<a href="../hi/index.html"><img src="https://i.imgur.com/vD6j3Ak.png" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+<strong>Arduino, ESP8266, ESP32, NewPing Library lähtekoodid: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Githubi projektihoidla</a>
+</div>	
+<div class="alert alert-success">
+	<strong><font color="red">Proovige projektitaseme mõõturit kohe oma riistvaraga võrgus tasuta: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/">SIIN</font></a> - Ainult HTTP-protokoll (Endora.cz tasuta hostimine ei toeta HTTPS-ühendusi).
+</div>	
+<div class="alert alert-info">
+	<strong>ESP32 juurutamine on saadaval ESP-IDF v4.2 raamistikus (ühildub 4.0-ga), mis on saadaval alates 4. juunist 2021, kasutades FreeRTOS-i ja ülesandeid järjekorra lukustusmehhanismiga.</strong>
+</div>
+<div class="alert alert-danger">
+	<strong>Veebirakenduse lähtekoodide vastu huvi korral võtke ühendust projekti autoriga INGLISE KEELES aadressil: </strong>martinius96@gmail.com
+</div>
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultraheli</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">IoT</span>	
+<span class="label label-danger">WiFi</span>	
+<span class="label label-default">OTA</span>
+<span class="label label-primary">ULP</span>	
+<hr>
+<center> 
+	<h2>Juhtimisriistvara – ühilduvad mikrokontrollerid AVR / ESP</h2>
+</center>	
+<hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino UNO" title="Control microcontroller Arduino UNO"><br><b><a href="https://www.ebay.com/itm/254532156570">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Nano" title="Control microcontroller Arduino Nano"><br><b><a href="https://www.ebay.com/itm/252742123829">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Mega 1280/25" title="Control microcontroller Arduino Mega 1280/2560"><br><b><a href="https://www.ebay.com/itm/304122418040">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 / D1 Mini (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>Edastustehnoloogia moodulid – Ethernet / Sigfoxi IoT</h2>
+</center>
+<hr>
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.ebay.com/itm/185017231005">Ethernet shield Wiznet W5100</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.ebay.com/itm/263116282333">Ethernet module Wiznet W5500</a></b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/LhpZGxj.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet USR-ES1" title="Ethernet modul Wiznet USR-ES1"><br><b><a href="https://www.ebay.com/itm/202042600986">Ethernet module Wiznet USR-ES1</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.ebay.com/itm/252798986559">Ethernet module ENC28J60</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b><a href="https://www.ebay.com/itm/113194034192">Sigfox WISOL SFM10R1</a></b></center></div>
+</div>
+<hr>
+<center> 
+	<h2>Ühilduvad ultraheli kaugusandurid</h2>
+</center>	
+<hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR04" title="Ultrasonic distance sensor - HC-SR04"><br><b><a href="https://www.ebay.com/itm/183351362390">HC-SR04</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/WXWD0wt.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR05" title="Ultrasonic distance sensor - HC-SR05"><br><b><a href="https://www.ebay.com/itm/271666928961">HC-SR05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - JSN-SR04T" title="Ultrasonic distance sensor - JSN-SR04T"><br><b><a href="https://www.ebay.com/itm/272576395554">JSN-SR04T</a></b></center></div>		
+<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF05" title="Ultrasonic distance sensor - HY-SRF05"><br><b><a href="https://www.ebay.com/itm/224586332861">HY-SRF05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/R51S6y5.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF06" title="Ultrasonic distance sensor - HY-SRF06"><br><b>HY-SRF06</b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - DYP-ME007" title="Ultrasonic distance sensor - DYP-ME007"><br><b><a href="https://www.ebay.com/itm/152929703900">DYP-ME007</a></b></center></div>
+<!---
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>	
+--->	
+</div>					
+<hr><center><h1>Tasememõõtja - veetaseme monitor kaevus</h1></center><hr>
+<p style="text-align: justify;">
+Tasememõõtja projekt (veetaseme monitor) koosneb kesksest veebiliidest, mis kogub andurisõlmedest andmeid ja visualiseerib need kasutajale.
+Jooksvad veetaseme andmed on armatuurlaual esindatud koos kaevu mahuks teisendamisega, ajaloolised veetaseme andmed on kasutajale kättesaadavad ka tabelina või joongraafikutega graafilises visualiseeringus.
+Veebiliides on tundlik, see suudab kohaneda mis tahes ekraani ja seadme eraldusvõimega.
+Projekti veebiliides kasutab PHP-s kirjutatud taustaprogrammi, mis suudab töödelda päringust sissetulevaid andmeid HTTP POST meetodil.
+Taustaprogramm korrigeerib mõõdetud taseme tegelikule, lähtudes kaevu teadaolevast sügavusest, arvutab selle parameetri järgi kaevus oleva vee mahu ja kaevu läbimõõdu.
+Kaevu sügavuse ja läbimõõdu sisestab süsteemi kasutaja, lähtudes oma kaevu proportsioonidest.
+Andmed saadab veebiserverisse tehnoloogia (Ethernet / WiFi / LPWAN Sigfox) toega mikrokontroller, mis teostab mõõtmisi iga 300 sekundi järel – st. 5 minutit või LPWAN IoT võrgu Sigfoxi kaudu edastamise korral saadetakse andmeid iga 11 minuti järel, kuna modem on võrgu poolt piiratud edastama maksimaalselt 140 sõnumit päevas.
+<b> Veetaseme mõõtmiseks kasutatakse ultraheliandureid </b> - HC-SR04 või selle veekindla variandi JSN-SR04T, võib kasutada ka teisi Trigger / Echo signaalidega andureid seeriatest US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, DYP-ME007.
+</p>
+<hr>
+<p style="text-align: justify;">
+Ultraheliandurite mõõtmise põhimõte on saata Trigger signaali pikkusega 10 μs (mikrosekundit), mis põrkab veetasemelt tagasi ja naaseb vastuvõtjasse - Echo.
+Lennuaja meetodit kasutatakse signaali saatmise ja vastuvõtmise vahelise aja teisendamiseks anduri veetaseme erinevuseks.
+Mõlema ultrahelianduri oluline parameeter on kiire laius ehk teisisõnu tuvastuskarakteristik.
+Anduril HC-SR04 on 15° tuvastuskarakteristikud. Tala on suhteliselt kitsas ja andur sobib ka kitsamatesse kaevudesse ja mahutitesse, kuid see ei ole veekindel ja sellel on suur korrosiooni (oksüdatsiooni) oht kaevus niiskuse olemasolust.
+Sel põhjusel on soovitatav see ultraheliandur paigutada kaevu kohale.
+Veekindla anduri JSN-SR04T tuvastuskarakteristikuga on 60 °, mis piirab seda oluliselt ja takistab selle kasutamist kitsastes kaevudes, kuna tala laieneb kaugusega ja nõuab mitmemeetrise läbimõõduga kaevu (kaevu sügavusel läbimõõt 6 meetrit). 4,5 meetrit).
+Ultraheliandurid on täielikult hooldusvabad.
+Nelinurkse kaevu puhul sisestatakse keskmiseks sisse kirjutatud ringi läbimõõt, mis moodustab veeballooni ja kaevu mahu kontrollväärtuse.
+Maksimaalne andurite poolt mõõdetav taseme kõrgus (tase) on umbes 400 kuni 450 cm (teatav andmelehelt).
+</p>
+<div class="alert alert-info">
+  	<strong>Muud tüüpi veetaseme andureid, mida saab integreerida (peate looma oma püsivara):</strong> 
+ <li> Laser (LiDAR) </li>
+<li> Hüdrostaatiline </li>
+<li> Elektrostaatiline (mahtuvuslik / induktiivne) </li>
+<li> Rõhk (diferentsiaal / koos kompenseeriva atmosfäärirõhuanduriga) </li>
+<li> Optiline </li>
+<li> Mehaaniline (ujuk) </li>
+<li> Magnetiline (saal) </li>
+<li> Mikrolaineahi (radar) </li>
+<li> <b> Märkus. </b> Kui veetase arvutatakse ümber mikrokontrolleri poolelt alt, tuleb veebiliideses määrata kaevu sügavus 0 cm. </li>
+</div>
+<hr><center><h3>Veebiliidese videodemonstratsioon – tasememõõtja:</h3></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>Ultraheliandurid sobivad:</h4></center><hr>
+<div class="alert alert-success">
+<li> Kaevatud kaevud </li>
+<li> Septikud ja prügikastid </li>
+<li> Ojad ja järved </li>
+<li> Plastikust vihmaveepaagid </li>
+<li> Tugevus (hulgitäidise mõõtmine) </li>
+<li> Konteinerid (jäätmeseire, kogumismahutite täitmine) </li>
+<li> Boilerid (puidu, graanulite, kivisöe, puiduhakke seire) </li>
+<li> Kaevud ja keldrid (kütte / põhjavee seire) </li>
+</div>
+<hr><center><h3>Ultraheliandurid ei sobi:</h3></center><hr>
+<div class="alert alert-danger">
+<li> Puurkaevud (tuvastusomaduste tõttu – lai valgusvihk) </li>
+<li> Torud ja torud (tuvastusomaduste tõttu – lai valgusvihk) </li>
+<li> Lisajõega kaevudesse (laineline pind nõrgendab ultraheli, mõõtmine on võimatu / astmeline) </li>
+<li> Kohtades, kus temperatuur muutub järsult (temperatuur mõjutab heli levimise aega, nii et isegi paigalseisev tase näib kõikuvat) </li>
+<li> Vaakumpaagid (mõõtmine pole võimalik) </li>
+</div>
+<div class="alert alert-info">
+	<strong>Ultraheli kaugusandurite tuvastamise omadused – MATLAB-i skriptid:</strong>
+	<li><a href="../MATLAB/HCSR04.m">HC-SR04 - 15°</a></li>
+	<li><a href="../MATLAB/JSN04T.m">JSN-SR04T - 60°</a></li>
+</div>
+<hr><center><h4>Plug n' play firmware - Ultra Low Power</h4></center><hr>
+<div class="alert alert-success">
+  <strong>Kompileeritud püsivara on saadaval koheseks üleslaadimiseks mikrokontrollerisse ilma teeke installimata!</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Püsivara nimi</th>
+<th style="width: 50%">Püsivara funktsioon</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Püsivara madala voolutarbimisega ULP-rakenduste jaoks (vt ühendusskeemi). Püsivara laaditakse komplektis oleva ESPTOOL-tööriista kaudu automaatselt, mida käivitatakse .bat-skriptiga (skriptis on vaja muuta oma ESP-plaadi COM-porti).
+Pärast püsivara üleslaadimist ja eeldades, et ESP-l pole eelmise projekti SSID-d ja parooli salvestatud, käivitub WiFiManager, mida kasutatakse olemasoleva WiFi võrgu seadistamiseks.
+ESP hakkab levitama avatud WiFi-võrku SSID-ga AP-režiimis --> <b>Hladinomer_AP</b>. Pärast kliendi (Windows / Android / iOS) ühendamist käivitub Captive portaal aadressil 192.168.4.1 (klient tuleks automaatselt ümber suunata).
+WiFiManager võimaldab veebiliideses valida levialas oleva WiFi-võrgu, määrata parooli.
+Pärast ESP edukat ühendamist määratud WiFi võrguga ja IPv4 määramist antud vahemikust lülitub Captive Portal välja, ESP jääb STA-Station režiimi.
+Seejärel hakkab anduri sõlm edastama andmeid veebiliidesele <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> tasememõõtja </a>.
+<b> Järgmisel andurisõlme käivitamisel Captive Portal ja WiFiManager enam ei käivitu, kuna WiFi-võrgu konfiguratsioon säilib jäädavalt. </b>
+Pärast andmete saatmist lülitub mikrokontroller sügavale unerežiimile – Deep Sleep. Xtensi põhiprotsessor on puhkerežiimis välja lülitatud.
+ESP8266 äratatakse WAKE-taimeri kaudu (vajalik on hüppaja GPIO16 ja RST vahel), ESP32 RTC-taimeri kaudu.
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 püsivara</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 püsivara</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr><center><h3>Tasememõõturi tööpõhimõte - Plokkskeem</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<p style="text-align: justify;">
+Veebiliides kasutab trigonomeetriat, et hinnata kaevu mõõdetavat maksimaalset sügavust teadaoleva kaevu läbimõõdu juures (teine parameeter kaevu mahu arvutamiseks).
+Veebiliides võimaldab kasutajal oma omaduste põhjal arvutada, millisele maksimaalsele kaevu sügavusele iga andur sobib.
+Projekti on nii lihtne kasutada isegi võhikutel, kes ei tea, milline andur on nende kaevu jaoks sobivam.
+Samuti mängib süsteemis olulist rolli kasutatav mikrokontroller.
+Projekti jaoks on võimalik kasutada identse pistikupesaga Arduino platvormi (Uno / Mega) versioonis R3, mille saab ühendada ICSP liidese kaudu suhtleva Etherneti kilbiga.
+Samuti on võimalik kasutada Etherneti mooduleid ja ühendada need otse mikrokontrolleri riistvaraliste SPI kontaktidega.
+Toetatud on Wiznet W5100, W5500, USR-ES1 Etherneti moodulid.
+Etherneti moodulit ENC28J60 toetab MicroChip.
+Kõik Etherneti moodulid pakuvad HTTP-ühendust veebiserveriga.
+Toetatud on ka WiFi mikrokontrollerid firmalt Espressif Systems – ESP8266 ja ESP32.
+Mikrokontrolleritel on mitu töörežiimi: StandBy, StandBy + OTA püsivara kaugüleslaadimise võimalusega LAN võrgu kaudu ja ULP rakenduste sügav puhkerežiim – Deep Sleep.
+Puhkerežiimis ESP8266 jaoks on vaja lisada füüsiline hüppaja GPIO16 (WAKE) ja RST vahele – vaata juhtmestiku skeemi.
+ESP mikrokontrollerid võimaldavad rakendada ka HTTPS-ühendust veebiserveriga.
+ESP8266 platvorm kasutab veebiserveri avaliku võtme sõrmejälge SHA1 formaadis, kuid vajab tihedamat uuendamist, kuna see kehtib maksimaalselt üks kuni kaks aastat.
+ESP32 seeria mikrokontroller kasutab HTTPS-ühenduse jaoks juursertifitseerimisasutuse (Root CA) sertifikaati, mis väljastas veebiserveri jaoks .pem-vormingus sertifikaadi.
+Toimimise seisukohalt on see variant parem, kuna sertifitseerimisasutuse sertifikaat kehtib 20 aastat ja nii sagedane sertifikaadi uuendamine pole vajalik.
+Andmed kaevu hetke veetaseme ja veekoguse kohta on JSON-vormingus kättesaadavad veebiliidesest.
+Projekti saab MQTT kaudu integreerida koduautomaatikasse (Hassio, Domoticz, Loxone), et kuvada veetaset oma armatuurlaual nt. Grafana.
+</p>
+<div class="alert alert-info">
+	<strong>Tarkvararakendused Arduino, ESP8266, ESP32 jaoks: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Saadaval siin</a>
+</div>	
+<hr>
+<p style="text-align: justify;">
+Objektide jaoks, kus puudub interneti püsilevi, on võimalik kasutada ka LPWAN IoT võrku Sigfox, mis katab ligi 50% Eesti geograafilisest piirkonnast. 
+Hetkel on kaetud laiem Tallinna, Pärnu ja Tartu piirkond.
+Sigfoxi võrguoperaator peaks tulevikus oma leviala laiendama. See tehnoloogia võimaldab edastada väikeseid, kuni 12B suuruseid sõnumeid.
+Tasememõõtja projekti puhul saadetakse veetaseme 4B väärtus (UINT_32).
+Vihmamõõturiga pikendatud projekti puhul saadetakse väärtus 8B, mille moodustavad veetaseme kõrgus ja sademete hulk.
+Kuna Sigfox lubab päevas edastada maksimaalselt 140 sõnumit, pikeneb andmeedastusintervall 11 minutini.
+Mõlemal juhul ei sisalda sõnum kogu kasuliku koormuse pikkust.
+Koormusteateid saab täiendada ka mitmesuguse süsteemiinfoga, näiteks: GEO andmed (pikkus-/laiuskraad), mis põhinevad GPS-teenuse Sigfox Atlas andmetel, RSSI (Received Signal Strength), sõnumi number ja muud.
+Sidemoodul, mida projektis kasutati, on Sigfox WISOL 868MHz UART LPWAN modem.
+See modem suhtleb AT-käskude kaudu UART-liidese kaudu, mis on mikrokontrolleritel emuleeritud tarkvara.
+Side võtab üle kiirusega 9600 boodi / s. WISOL-modem on varustatud PCB-mooduli integreeritud u.FL-pistikuga antenni ühendamiseks, mis vähendab oluliselt katvust isegi siseruumides / varjus väljas.
+Edukaks andmeedastuseks on edukaks andmeedastuseks vajalik katvus kahe, eelistatavalt kolme või enama BTS-jaamaga. BTS saadab edastatud teabe Sigfoxi taustaprogrammi, kus on vaja teha tagasihelistamine, mis algab pärast andmete saamist.
+Tagasihelistamine teeb HTTP- või HTTPS-päringu domeenile, kus veebirakendus töötab, kasutades POST-meetodit ja sobivalt kodeeritud kasulikku koormust, mida veebirakenduse taustaprogramm eeldab.
+</p>
+<div class="alert alert-info">
+<h4>Sigfoxi taustaprogrammi tagasihelistamise seadistamine veebirakenduste testimiseks</h4>
+<b>Tasememõõtja:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Kirjutame jaotisesse Custom payload config:</b> cislo1::uint:16</li>
+<li><b>Kirjutame URL-i mustrisse:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (alebo iná URL adresa vašho webservera, kde bude projekt bežať), možnosť využiť i HTTPS</li>
+<li><b>HTTP-meetodis valige:</b> POST</li>
+<li><b>Lisame kehasse (sõnumi sisu) payload:</b></li>
+<li>hodnota={customData#cislo1}&token=123456789</li>
+<li><b>To Content-Type:</b> application/x-www-form-urlencoded</li>
+</div>				
+<hr>
+<center> 
+     <h3>Tasememõõtja projekti veebiliidese ekraanipildid</h3>
+     <hr>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/rkFWcWv.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/aTd6o11.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year"> 
+	</a>
+</center>  
+            <hr> 
+	
+ </div>
+		</div>
+</div>
+</body>
+</html>
