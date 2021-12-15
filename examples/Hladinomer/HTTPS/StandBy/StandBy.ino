@@ -1,11 +1,10 @@
-
 /*|------------------------------------------------------------------------------------|*/
 /*|Projekt: Hladinomer - HTTPS - Compact - HC-SR04 / JSN-SR04T / HY-SRF05              |*/
 /*|ESP8266 (NodeMCU, Wemos D1 Mini), ESP32 (DevKit, Standalone)                        |*/
 /*|Autor: Martin Chlebovec (martinius96)                                               |*/
 /*|E-mail: martinius96@gmail.com                                                       |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/  |*/
-/*|Testovacie webove rozhranie pre HTTP: http://arduino.clanweb.eu/studna_s_prekladom/ |*/
+/*|Testovacie webove rozhranie pre HTTPS: https://hladinomer.000webhostapp.com/        |*/
 /*|Knižnice NewPing, ESP8266NewPing a Ethernet2 je dostupná v Github repozitári:       |*/
 /*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť      |*/
 /*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/     |*/
@@ -13,39 +12,25 @@
 /*|Pre Arduino + Ethernet HTTPS nie je podporované! Možno využiť len HTTP variant!     |*/
 /*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv     |*/
 /*|Licencia pouzitia: MIT                                                              |*/
-/*|Revízia: 1. Apríl 2021                                                              |*/
+/*|Revízia: 15. December 2021                                                          |*/
 /*|------------------------------------------------------------------------------------|*/
 
 const char* host = "hladinomer.000webhostapp.com"; //adresa webservera (doména) na ktorú sa odosielajú dáta
 String url = "/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
 const char * ssid = "WIFI_NAME"; //MENO WiFi SIETE
+
 const char * password = "WIFI_PASSWORD"; //HESLO WiFi SIETE
+
+
 
 //Root CA cert --> CERTIFIKÁT CERTIFIKAČNEJ AUTORITY, KTORÁ VYDALA CERTIFIKÁT VÁŠ WEBSERVER v .pem formáte
 //DST ROOT CA X3 EXAMPLE (https://i.imgur.com/fvw4huT.png)
 const static char* test_root_ca PROGMEM = \
     "-----BEGIN CERTIFICATE-----\n" \
-    "MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\n" \
-    "MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3\n" \
-    "d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD\n" \
-    "QTAeFw0wNjExMTAwMDAwMDBaFw0zMTExMTAwMDAwMDBaMGExCzAJBgNVBAYTAlVT\n" \
-    "MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j\n" \
-    "b20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IENBMIIBIjANBgkqhkiG\n" \
-    "9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4jvhEXLeqKTTo1eqUKKPC3eQyaKl7hLOllsB\n" \
-    "CSDMAZOnTjC3U/dDxGkAV53ijSLdhwZAAIEJzs4bg7/fzTtxRuLWZscFs3YnFo97\n" \
-    "nh6Vfe63SKMI2tavegw5BmV/Sl0fvBf4q77uKNd0f3p4mVmFaG5cIzJLv07A6Fpt\n" \
-    "43C/dxC//AH2hdmoRBBYMql1GNXRor5H4idq9Joz+EkIYIvUX7Q6hL+hqkpMfT7P\n" \
-    "T19sdl6gSzeRntwi5m3OFBqOasv+zbMUZBfHWymeMr/y7vrTC0LUq7dBMtoM1O/4\n" \
-    "gdW7jVg/tRvoSSiicNoxBN33shbyTApOB6jtSj1etX+jkMOvJwIDAQABo2MwYTAO\n" \
-    "BgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUA95QNVbR\n" \
-    "TLtm8KPiGxvDl7I90VUwHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUw\n" \
-    "DQYJKoZIhvcNAQEFBQADggEBAMucN6pIExIK+t1EnE9SsPTfrgT1eXkIoyQY/Esr\n" \
-    "hMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg\n" \
-    "06O/nVsJ8dWO41P0jmP6P6fbtGbfYmbW0W5BjfIttep3Sp+dWOIrWcBAI+0tKIJF\n" \
-    "PnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0ls\n" \
-    "YSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQk\n" \
-    "CAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=\n" \
-    "-----END CERTIFICATE-----\n";
+    "CHANGE IT TO YOUR ROOT CA cert in .pem\n" \
+    "-----END CERTIFICATE-----\n";   
+
+
 
 #include <WiFiClientSecure.h>
 #if defined(ESP8266)
