@@ -1,12 +1,10 @@
-
 /*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTP - HC-SR04 / JSN-SR04T / HY-SRF05                        |*/
+/*|Projekt: Hladinomer - HTTPS - HC-SR04 / JSN-SR04T / HY-SRF05                       |*/
 /*|ESP32 (DevKit, Generic) - ESP-IDF v4.2 (4.0 compatible)                            |*/
 /*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie HTTPS: https://esp32.sk/studna_s_prekladom/            |*/
-/*|Revízia: 6. Jul 2021                                                               |*/
+/*|Revízia: 4. Jul 2021                                                               |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 /* HTTPS POST Example using plain POSIX sockets
@@ -69,7 +67,7 @@
 #define GPIO_TRIGGER	22
 #define GPIO_ECHO	23
 // Webserver
-#define WEB_SERVER "esp32.sk"
+#define WEB_SERVER "hladinomer.000webhostapp.com"
 #define WEB_PORT "443"
 
 
@@ -216,7 +214,7 @@ static void https_get_task(void *pvParameters)
     char REQUEST [1000];
 	 char values [250];
 	 sprintf(values, "hodnota=%d&token=123456789", distance);
-    sprintf (REQUEST, "POST /studna_s_prekladom/data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values);   
+    sprintf (REQUEST, "POST /data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values);   
         mbedtls_net_init(&server_fd);
 
         ESP_LOGI(TAG, "Connecting to %s:%s...", WEB_SERVER, WEB_PORT);
