@@ -214,7 +214,7 @@ ESP8266 äratatakse WAKE-taimeri kaudu (vajalik on hüppaja GPIO16 ja RST vahel)
 <hr><center><h3>Tasememõõturi tööpõhimõte - Plokkskeem</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
-Veebiliides kasutab trigonomeetriat, et hinnata kaevu mõõdetavat maksimaalset sügavust teadaoleva kaevu läbimõõdu juures (teine parameeter kaevu mahu arvutamiseks).
+Veebiliides kasutab trigonomeetriat, et hinnata kaevu teadaoleva läbimõõduga kaevu maksimaalset mõõdetavat sügavust (teine ​​parameeter kaevu mahu arvutamiseks).
 Veebiliides võimaldab kasutajal oma omaduste põhjal arvutada, millisele maksimaalsele kaevu sügavusele iga andur sobib.
 Projekti on nii lihtne kasutada isegi võhikutel, kes ei tea, milline andur on nende kaevu jaoks sobivam.
 Samuti mängib süsteemis olulist rolli kasutatav mikrokontroller.
@@ -224,14 +224,15 @@ Toetatud on Wiznet W5100, W5500, USR-ES1 Etherneti moodulid.
 Etherneti moodulit ENC28J60 toetab MicroChip.
 Kõik Etherneti moodulid pakuvad HTTP-ühendust veebiserveriga.
 Toetatud on ka WiFi mikrokontrollerid firmalt Espressif Systems – ESP8266 ja ESP32.
-Mikrokontrolleritel on mitu töörežiimi: StandBy, StandBy + OTA püsivara kaugüleslaadimise võimalusega LAN võrgu kaudu ja ULP rakenduste sügav puhkerežiim – Deep Sleep.
+Mikrokontrolleritel on mitu töörežiimi: StandBy, StandBy + OTA koos püsivara kaugüleslaadimise võimalusega LAN võrgu kaudu ja ULP rakenduste sügava une režiim – Deep Sleep.
 Puhkerežiimis ESP8266 jaoks on vaja lisada füüsiline hüppaja GPIO16 (WAKE) ja RST vahele – vaata juhtmestiku skeemi.
-ESP mikrokontrollerid võimaldavad rakendada ka HTTPS-ühendust veebiserveriga.
-ESP8266 platvorm kasutab veebiserveri avaliku võtme sõrmejälge SHA1 formaadis, kuid vajab tihedamat uuendamist, kuna see kehtib maksimaalselt üks kuni kaks aastat.
-ESP32 seeria mikrokontroller kasutab HTTPS-ühenduse jaoks juursertifitseerimisasutuse (Root CA) sertifikaati, mis väljastas veebiserveri jaoks .pem-vormingus sertifikaadi.
-Toimimise seisukohalt on see variant parem, kuna sertifitseerimisasutuse sertifikaat kehtib 20 aastat ja nii sagedane sertifikaadi uuendamine pole vajalik.
+ESP mikrokontrollerid võimaldavad ka HTTPS-i (krüpteeritud) ühenduse loomist veebiserveriga.
+Nii ESP8266 kui ka ESP32 platvormid kasutavad juur-CA-d, mis on veebiserveri domeeni jaoks väljastanud sertifikaadi (väljaandja).
+Sertifikaat on manustatud mikrokontrollerite lähtekoodi .pem-vormingus.
+Selleks, et sertifikaat ei võtaks ruumi mikrokontrolleri RAM-mälus, sisestatakse see mikrokontrolleri välkmällu - PROGMEM.
+Sertifitseerimisasutuse sertifikaat kehtib 10 kuni 20 aastat, seega ei nõua see sertifikaadi sagedast uuendamist.
 Andmed kaevu hetke veetaseme ja veekoguse kohta on JSON-vormingus kättesaadavad veebiliidesest.
-Projekti saab MQTT kaudu integreerida koduautomaatikasse (Hassio, Domoticz, Loxone), et kuvada veetaset oma armatuurlaual nt. Grafana.
+Projektiga saab integreerida Level meter projekti läbi MQTT koduautomaatikasse (Hassio, Domoticz, Loxone), et kuvada veetaset oma armatuurlaual nt. Grafana.
 </p>
 <div class="alert alert-info">
 	<strong>Tarkvararakendused Arduino, ESP8266, ESP32 jaoks: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Saadaval siin</a>
