@@ -219,19 +219,20 @@ Webgrænsefladen giver brugeren mulighed for at beregne, til hvilken maksimal dy
 Projektet er så nemt at bruge selv for lægmænd, der ikke ved, hvilken sensor der er bedst egnet til anvendelse i deres brønd.
 Den anvendte mikrocontroller spiller også en vigtig rolle i systemet.
 Til projektet er det muligt at bruge Arduino platformen (Uno / Mega) i revision R3 med en identisk pinout, som kan tilsluttes et Ethernet skjold, der kommunikerer via ICSP interfacet.
-Det er også muligt at bruge Ethernet-moduler og forbinde dem direkte til hardware SPI-benene på mikrocontrolleren.
+Det er også muligt at bruge Ethernet-moduler og forbinde dem direkte til hardware-SPI-benene på mikrocontrolleren.
 Ethernet-moduler fra Wiznet W5100, W5500, USR-ES1 understøttes.
 Ethernet-modulet ENC28J60 understøttes af MicroChip.
 Alle Ethernet-moduler giver HTTP-forbindelse til webserveren.
 WiFi mikrocontrollere fra Espressif Systems - ESP8266 og ESP32 er også understøttet.
 Mikrocontrollere har flere driftstilstande: StandBy, StandBy + OTA med mulighed for fjernopladning af firmware via LAN-netværk og dyb dvaletilstand for ULP-applikationer - Deep Sleep.
 I dvaletilstand for ESP8266 er det nødvendigt at tilføje en fysisk jumper mellem GPIO16 (WAKE) og RST - se ledningsdiagram.
-ESP-mikrocontrollere gør det også muligt at implementere HTTPS-forbindelse med en webserver.
-ESP8266-platformen bruger et fingeraftryk af webserverens offentlige nøgle i SHA1-format, men kræver en hyppigere fornyelse, da den er gyldig i maksimalt et til to år.
-Mikrocontrolleren fra ESP32-serien bruger certifikatet fra root-certificeringsmyndigheden (Root CA) til HTTPS-forbindelsen, som udstedte certifikatet i .pem-format til webserveren.
-Fra et driftssynspunkt er denne mulighed bedre, da certificeringsmyndighedens certifikat er gyldigt i 20 år, og en så hyppig fornyelse af certifikatet er ikke nødvendig.
+ESP-mikrocontrollere tillader også implementering af HTTPS (krypteret) forbindelse med webserveren.
+Både ESP8266- og ESP32-platformene bruger Root CA, som har udstedt et certifikat (Issuer) for webserverdomænet.
+Certifikatet er indlejret i mikrocontrollernes kildekode i .pem-format.
+For at certifikatet ikke skal optage plads i mikrocontrollerens RAM-hukommelse, indsættes det i mikrocontrollerens flashhukommelse - PROGMEM.
+Certifikatet fra certificeringsmyndigheden er gyldigt i 10 til 20 år, så det kræver ikke hyppig fornyelse af certifikatet.
 Data om den aktuelle vandstand og vandmængde i brønden er tilgængelige i JSON-format fra webgrænsefladen.
-Projektet kan via MQTT integreres i hjemmeautomation (Hassio, Domoticz, Loxone) for at vise vandstanden i sit eget dashboard, f.eks. Grafana.
+Projektet kan integrere Level meter projektet via MQTT i hjemmeautomation (Hassio, Domoticz, Loxone) for at vise vandstanden i sit eget dashboard, f.eks. Grafana.
 </p>
 <div class="alert alert-info">
 	<strong>Softwareimplementeringer til Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Tilgængelig her</a>
