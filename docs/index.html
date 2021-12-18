@@ -243,12 +243,13 @@ Všetky Ethernet moduly zabezpečujú HTTP konektivitu s webserverom.
 Podporované sú aj WiFi mikrokontroléry od Espressif Systems - ESP8266 a ESP32.
 Mikrokontroléry majú viacero prevádzkových režimov: StandBy, StandBy + OTA s možnosťou vzdialeného uploadu firmvéru cez LAN sieť a režim hlbokého spánku pre ULP aplikácie - Deep Sleep.
 V režime spánku pre ESP8266 je nutné pridať fyzickú prepojku medzi GPIO16 (WAKE) a RST - pozri Schému zapojenia.
-Mikrokontroléry ESP umožňujú implementovať aj HTTPS konektivitu s webserverom. 
-Platforma ESP8266 využíva odtlačok (fingeprint) verejného kľúča webservera v SHA1 formáte, vyžaduje však častejší renew, nakoľko platí maximálne rok až dva. 
-Mikrokontróler z rady ESP32 využíva pre HTTPS spojenie certifikát koreňovej certifikačnej autority (Root CA), ktorá pre webserver vydala certifikát v .pem formáte. 
-Z hľadiska prevádzky je táto možnosť lepšia, nakoľko certifikát certifikačnej autority platí aj 20 rokov a nie je nutný tak častý renew certifikátu.
+Mikrokontroléry ESP umožňujú implementovať aj HTTPS (šifrovanú) konektivitu s webserverom. 
+Platforma ESP8266 i ESP32 využíva certifikát koreňovej certifikačnej autority (Root CA), ktorá pre doménu webservera vydala certifikát (Issuer). 
+Certifikát je vložený do zdrojového kódu mikrokontrolérov v .pem formáte.
+Aby certifikát nezaberal miesto v RAM pamäti mikrokontroléra, je vložený do flash pamäte mikrokontroléra - PROGMEM. 
+Certifikát certifikačnej autority platí v rozmedzí 10 až 20 rokov, nevyžaduje tak častý renew certifikátu.
 Dáta o aktuálnej výške hladiny vody a objeme vody v studni sú z webového rozhrania dostupné v JSON formáte.
-Projekt je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde napr. Grafana.
+Projekt je možné integrovať projekt Hladinomer cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde napr. Grafana.
 </p>
 <div class="alert alert-info">
 	<strong>Programové implementácie pre Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">Dostupné tu</a>
