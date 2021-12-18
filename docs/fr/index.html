@@ -239,12 +239,13 @@ Tous les modules Ethernet fournissent une connectivité HTTP avec le serveur Web
 Les microcontrôleurs WiFi d'Espressif Systems - ESP8266 et ESP32 sont également pris en charge.
 Les microcontrôleurs ont plusieurs modes de fonctionnement : StandBy, StandBy + OTA avec possibilité de téléchargement à distance du firmware via le réseau LAN et mode veille profonde pour les applications ULP - Deep Sleep.
 En mode veille pour ESP8266, il est nécessaire d'ajouter un cavalier physique entre GPIO16 (WAKE) et RST - voir Schéma de câblage.
-Les microcontrôleurs ESP vous permettent également de mettre en œuvre une connectivité HTTPS avec un serveur Web.
-La plateforme ESP8266 utilise une empreinte digitale de la clé publique du serveur Web au format SHA1, mais nécessite un renouvellement plus fréquent, car elle est valable un à deux ans maximum.
-Le microcontrôleur de la série ESP32 utilise le certificat de l'autorité de certification racine (Root CA) pour la connexion HTTPS, qui a émis le certificat au format .pem pour le serveur Web.
-Du point de vue de l'exploitation, cette option est meilleure, car le certificat de l'autorité de certification est valable 20 ans et un renouvellement aussi fréquent du certificat n'est pas nécessaire.
+Les microcontrôleurs ESP permettent également la mise en œuvre d'une connectivité HTTPS (cryptée) avec le serveur Web.
+Les plates-formes ESP8266 et ESP32 utilisent toutes deux l'autorité de certification racine, qui a émis un certificat (émetteur) pour le domaine du serveur Web.
+Le certificat est intégré dans le code source des microcontrôleurs au format .pem.
+Afin que le certificat ne prenne pas de place dans la mémoire RAM du microcontrôleur, il est inséré dans la mémoire flash du microcontrôleur - PROGMEM.
+Le certificat de l'autorité de certification est valable 10 à 20 ans, il ne nécessite donc pas de renouvellement fréquent du certificat.
 Les données sur le niveau d'eau actuel et le volume d'eau dans le puits sont disponibles au format JSON à partir de l'interface Web.
-Le projet peut être intégré via MQTT dans la domotique (Hassio, Domoticz, Loxone) pour afficher le niveau d'eau dans son propre tableau de bord, par ex. Grafana.
+Le projet peut intégrer le projet Level meter via MQTT dans la domotique (Hassio, Domoticz, Loxone) pour afficher le niveau d'eau dans son propre tableau de bord, par ex. Grafana.
 </p>
 <div class="alert alert-info">
 	<strong>Implémentations de programmes pour Arduino, ESP8266, ESP32: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Disponible ici</a>
