@@ -93,11 +93,10 @@ In the current software implementation, the microcontroller (JSON client) sends 
 	<strong>Example source codes for JSON Clients are available: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">HERE</a>
 </div>
 <div class="alert alert-info">
-  <strong> The implementation for MQTTS is only available for the ESP8266, ESP32 platforms. </strong> ESP8266 uses a fingerprint for the encrypted connection - the fingerprint of the MQTT server certificate (public key).
-ESP32 uses a Root CA certificate for encrypted connection to the MQTT server. <b> The encrypted port of the MQTT server is 8883 by default, unencrypted 1883. </b>
-To obtain a fingerprint, ie a Root CA certificate for a specific MQTT server (domain), it is possible to use the OpenSSL tool, which allows easy retrieval and display of the information in question.
-<br> <b> Command to get MQTT server fingerprint: </b> <br>
-<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
+<strong> MQTTS implementation is available for ESP8266, ESP32 microcontrollers. </strong>
+ESP8266 and ESP32 use a Root CA certificate for encrypted connection to the MQTT server. <b> The encrypted port of the MQTT server is 8883 by default, unencrypted 1883. </b>
+To obtain a Root CA certificate for a specific MQTT server (domain), it is possible to use the OpenSSL tool, which allows easy retrieval and display of the information in question.
+The individual certificates are listed in Chain-of-Trust order, i. from Root CA to Intermediate.
 <br> <b> Command to obtain the Root CA certificate that issued the certificate for the MQTT server (Issuer): </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
