@@ -98,11 +98,10 @@ V aktuálnej programovej implementácii mikrokontróler (JSON klient) odosiela z
 	<strong>Ukážkové programové implementácie pre JSON klientov: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">TU</a>
 </div>
 <div class="alert alert-info">
-  <strong>Implementácia pre MQTTS je dostupná iba pre platformy ESP8266, ESP32.</strong> ESP8266 využíva pre šifrované spojenie fingerprint - odtlačok certifikátu MQTT servera (verejného kľúča). 
-ESP32 využíva Root CA certifikát pre šifrované spojenie s MQTT serverom. <b>Šifrovaný port MQTT servera je štandardne 8883, nešifrovaný 1883.</b> 
-Pre získanie fingerprintu, potažmo Root CA certifikátu pre konkrétny MQTT server (doménu) je možné využiť nástroj OpenSSL, ktorý umožňuje jednoduché načítanie a zobrazenie predmetných informácii.
-<br><b>Príkaz pre získanie fingerprintu MQTT servera:</b><br>
-<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
+<strong>Implementácia pre MQTTS je dostupná pre mikrokontroléry ESP8266, ESP32.</strong>
+ESP8266 a ESP32 využíva Root CA certifikát pre šifrované spojenie s MQTT serverom. <b>Šifrovaný port MQTT servera je štandardne 8883, nešifrovaný 1883.</b> 
+Pre získanie Root CA certifikátu pre konkrétny MQTT server (doménu) je možné využiť nástroj OpenSSL, ktorý umožňuje jednoduché načítanie a zobrazenie predmetných informácii.
+Jednotlivé certifikáty sú vypísané v Chain-of-Trust poradí, t.j. od Root CA po Intermediate.
 <br><b>Príkaz pre získanie Root CA certifikátu, ktorý vydal certifikát pre MQTT server (Issuer):</b><br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
