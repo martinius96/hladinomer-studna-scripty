@@ -82,12 +82,11 @@ Praeguses tarkvararakenduses saadab mikrokontroller (JSON-klient) saadud andmed 
 	<strong>Näidisprogrammide juurutused JSON-i klientidele: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">SIIN</a>
 </div>
 <div class="alert alert-info">
-  <strong> MQTTS-i juurutus on saadaval ainult platvormide ESP8266 ja ESP32 jaoks. </strong> ESP8266 kasutab krüptitud ühenduste jaoks MQTT-serveri sertifikaadi (avalikku võtit) sõrmejälge.
-ESP32 kasutab MQTT-serveriga krüptitud ühenduse loomiseks juur-CA sertifikaati. <b> MQTT-serveri krüptitud port on vaikimisi 8883, krüptimata 1883. </b>
-Kindla MQTT-serveri (domeeni) sõrmejälje ehk Root CA sertifikaadi saamiseks on võimalik kasutada OpenSSL-i tööriista, mis võimaldab kõnealust infot hõlpsalt kätte saada ja kuvada.
-<br> <b> MQTT-serveri sõrmejälje toomise käsk: </b> <br>
-<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
-<br><b>Käsk MQTT-serveri (väljaandja) jaoks serdi väljastanud CA juursertifikaadi hankimiseks:</b><br>
+<strong> MQTTS-i juurutus on saadaval ESP8266 ja ESP32 mikrokontrolleritele. </strong>
+ESP8266 ja ESP32 kasutavad MQTT-serveriga krüptitud ühenduse loomiseks juur-CA sertifikaati. <b> MQTT-serveri krüptitud port on vaikimisi 8883, krüptimata 1883. </b>
+Konkreetse MQTT-serveri (domeeni) juur-CA sertifikaadi saamiseks on võimalik kasutada OpenSSL-i tööriista, mis võimaldab kõnealust teavet hõlpsalt hankida ja kuvada.
+Üksikud sertifikaadid on loetletud usaldusahela järjekorras, st. juur-CA-st kesktasemeni.
+<br> <b> Käsk MQTT-serveri (väljaandja) jaoks sertifikaadi väljastanud CA juursertifikaadi hankimiseks: </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
 <hr>
