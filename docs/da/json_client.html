@@ -82,12 +82,11 @@ I den aktuelle softwareimplementering sender mikrocontrolleren (JSON-klienten) d
 	<strong>Eksempel på programimplementeringer til JSON-klienter: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">HER</a>
 </div>
 <div class="alert alert-info">
-  <strong> MQTTS-implementeringen er kun tilgængelig for ESP8266, ESP32-platformene. </strong> ESP8266 bruger et fingeraftryk af MQTT-servercertifikatet (offentlig nøgle) til krypterede forbindelser.
-ESP32 bruger et Root CA-certifikat til krypteret forbindelse til MQTT-serveren. <b> Den krypterede port på MQTT-serveren er 8883 som standard, ukrypteret 1883. </b>
-For at opnå et fingeraftryk, eller Root CA-certifikat for en specifik MQTT-server (domæne), er det muligt at bruge OpenSSL-værktøjet, som gør det nemt at hente og vise de pågældende oplysninger.
-<br> <b> MQTT-serverens fingeraftrykshentningskommando: </b> <br>
-<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
-<br><b>Kommando for at få det rod-CA-certifikat, der udstedte certifikatet til MQTT-serveren (udsteder):</b><br>
+<strong> MQTTS-implementering er tilgængelig for ESP8266, ESP32 mikrocontrollere. </strong>
+ESP8266 og ESP32 bruger et Root CA-certifikat til krypteret forbindelse til MQTT-serveren. <b> Den krypterede port på MQTT-serveren er 8883 som standard, ukrypteret 1883. </b>
+For at få et Root CA-certifikat til en specifik MQTT-server (domæne) er det muligt at bruge OpenSSL-værktøjet, som giver mulighed for nem genfinding og visning af de pågældende oplysninger.
+De enkelte certifikater er opført i Chain-of-Trust rækkefølge, dvs. fra Root CA til Intermediate.
+<br> <b> Kommando for at få det rod-CA-certifikat, der udstedte certifikatet til MQTT-serveren (udsteder): </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
 <hr>
