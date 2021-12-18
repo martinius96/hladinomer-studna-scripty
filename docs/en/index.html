@@ -233,10 +233,10 @@ ESP8266 is awakened via WAKE timer (jumper between GPIO16 and RST required - che
 <hr><center><h3>Principle of level meter operation - Block diagram</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor" title="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor"></center>
 <p style = "text-align: justify;">
-The web interface uses trigonometry to estimate the measurable maximum depth of a well at a known well diameter (another parameter for calculating well volume).
-The web interface thus allows the user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
-The project is so easy to use even for laymen who do not know which sensor is more suitable for application in their well.
-The microcontroller used also plays an important role in the system.
+Web interface uses trigonometry to estimate the measurable maximum depth of a well at a known well diameter (another parameter for calculating well volume).
+Interface allows user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
+Project is so easy to use even for laymen who do not know which sensor is more suitable for application in their well.
+Microcontroller used also plays an important role in the system.
 For the project, it is possible to use the Arduino platform (Uno / Mega) in revision R3 with an identical pinout, which can be connected to an Ethernet shield that communicates via the ICSP interface.
 It is also possible to use Ethernet modules and connect them directly to the hardware SPI pins of the microcontroller.
 Ethernet modules from Wiznet W5100, W5500, USR-ES1 are supported.
@@ -245,12 +245,13 @@ All Ethernet modules provide HTTP connectivity with the web server.
 WiFi microcontrollers from Espressif Systems - ESP8266 and ESP32 are also supported.
 Microcontrollers have several operating modes: StandBy, StandBy + OTA with the possibility of remote firmware upload via LAN network and deep sleep mode for ULP applications - Deep Sleep.
 In sleep mode for ESP8266 it is necessary to add a physical jumper between GPIO16 (WAKE) and RST - see Wiring Diagram.
-ESP microcontrollers also allow you to implement HTTPS connectivity with a web server.
-The ESP8266 platform uses a fingeprint of the web server's public key in SHA1 format, but requires a more frequent renewal, as it is valid for a maximum of one to two years.
-The microcontroller from the ESP32 series uses the certificate of the root certification authority (Root CA) for the HTTPS connection, which issued the certificate in .pem format for the web server.
-From the point of view of operation, this option is better, as the certificate of the certification authority is valid for 20 years and such a frequent renewal of the certificate is not necessary.
+ESP microcontrollers also allow the implementation of HTTPS (encrypted) connectivity with the web server.
+Both the ESP8266 and ESP32 platforms use the Root CA, which has issued a certificate (Issuer) for the web server domain.
+The certificate is embedded in the source code of the microcontrollers in .pem format.
+In order for the certificate not to take up space in the RAM memory of the microcontroller, it is inserted into the flash memory of the microcontroller - PROGMEM.
+Certificate of the certification authority is valid for 10 to 20 years, so it does not require frequent renewal of the certificate.
 Data on the current water level and water volume in the well are available in JSON format from the web interface.
-The project can be integrated via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
+The project can integrate the Level meter project via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
 </p>
 <div class = "alert alert-info">
 <strong> Program implementations for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> Available here </a>
