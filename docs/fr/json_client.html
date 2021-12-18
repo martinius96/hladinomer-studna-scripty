@@ -95,12 +95,11 @@ Dans l'implémentation logicielle actuelle, le microcontrôleur (client JSON) en
 	<strong>Exemples d'implémentations de programmes pour les clients JSON: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">CIC</a>
 </div>
 <div class="alert alert-info">
-  <strong> L'implémentation MQTTS n'est disponible que pour les plates-formes ESP8266, ESP32. </strong> ESP8266 utilise une empreinte du certificat du serveur MQTT (clé publique) pour les connexions cryptées.
-ESP32 utilise un certificat Root CA pour une connexion cryptée au serveur MQTT. <b> Le port crypté du serveur MQTT est 8883 par défaut, 1883 non crypté. </b>
-Pour obtenir une empreinte digitale ou un certificat Root CA pour un serveur MQTT (domaine) spécifique, il est possible d'utiliser l'outil OpenSSL, qui permet de récupérer et d'afficher facilement les informations en question.
-<br> <b> Commande de récupération des empreintes digitales du serveur MQTT : </b> <br>
-<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
-<br><b>Commande pour obtenir le certificat racine CA qui a émis le certificat pour le serveur MQTT (émetteur) :</b><br>
+<strong> L'implémentation MQTTS est disponible pour les microcontrôleurs ESP8266, ESP32. </strong>
+ESP8266 et ESP32 utilisent un certificat Root CA pour une connexion cryptée au serveur MQTT. <b> Le port crypté du serveur MQTT est 8883 par défaut, 1883 non crypté. </b>
+Pour obtenir un certificat Root CA pour un serveur MQTT (domaine) spécifique, il est possible d'utiliser l'outil OpenSSL, qui permet de récupérer et d'afficher facilement les informations en question.
+Les certificats individuels sont répertoriés dans l'ordre de la chaîne de confiance, i. de l'autorité de certification racine à l'intermédiaire.
+<br> <b> Commande pour obtenir le certificat CA racine qui a émis le certificat pour le serveur MQTT (Émetteur) : </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
 <hr>
