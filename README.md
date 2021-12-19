@@ -45,10 +45,8 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 | ESP8266 | ✓ | ✓ | ✓ | ✓ |
 | ESP32 | ✓ | ✓ | ✓ | ✓ |
 
-# Získanie Root CA certifikátu (Pre ESP32 / ESP8266 - HTTPS)
+# Získanie Root CA certifikátu (Pre ESP32 / ESP8266 - HTTPS) - OpenSSL
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
-	~~# Získanie fingerprintu certifikátu servera (Pre ESP8266 - HTTPS)	~~
-	~~* openssl s_client -connect example.com:443 -showcerts < /dev/null 2>/dev/null   | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint	~~
 
 # Podporovaný hardvér
 ![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
