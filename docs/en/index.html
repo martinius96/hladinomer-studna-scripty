@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Water level monitor with ultrasonic measurement - Arduino / ESP8266 / ESP32 - IoT measurement using Sigfox</title>
+	<title>Digging well water level monitor with ultrasonic measuring method - Arduino / ESP8266 / ESP32 / Sigfox</title>
 	<meta name="description" content="Level meter built on the Arduino platform, ESP8266, ESP32. Measurement with ultrasonic sensor HC-SR04 / JSN-SR04T. Sending data via Ethernet, WiFi, Sigfox. Water level measurement in a well, sump.">
 	<meta name="robots" content="index, follow">
 	<!-- Open Graph / Facebook -->
@@ -230,7 +230,7 @@ ESP8266 is awakened via WAKE timer (jumper between GPIO16 and RST required - che
 </tbody>
 </table>
 	</div>
-<hr><center><h3>Principle of level meter operation - Block diagram</h3></center><hr>
+<hr><center><h3>Principle of water level measurement and data transmission - Block diagram</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor" title="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor"></center>
 <p style = "text-align: justify;">
 Web interface uses trigonometry to estimate the measurable maximum depth of a well at a known well diameter (another parameter for calculating well volume).
@@ -254,12 +254,11 @@ Data on the current water level and water volume in the well are available in JS
 The project can integrate the Level meter project via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
 </p>
 <div class = "alert alert-info">
-<strong> Program implementations for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> Available here </a>
+<strong> Program implementations (source codes) for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> Available here </a>
 </div>
 <hr>
 <p style = "text-align: justify;">
-For sites where there is no fixed internet coverage, it is also possible to use the LPWAN network Sigfox, which covers most European countries, certain Asian countries and some American countries..
-The cell station has the operator SimpleCell, which operates the Sigfox IoT network mainly on Towercom transmitters.
+For states, regions without internet coverage, it is also possible to use the LPWAN network Sigfox, which covers most European countries, certain Asian countries and some American countries..
 This technology allows you to transmit small volumes of messages up to 12B in size.
 In the case of the Level project, a 4B water level value is sent.
 For a project extended by a rain gauge, the value 8B value is sent, which is formed by the height of the water level and the increment of precipitation.
@@ -279,7 +278,7 @@ The callback makes an HTTP or HTTPS request to the domain where the web applicat
 <img src="https://i.imgur.com/Q08nWoH.png" style="display: block; max-width: 100%; height: auto;" alt="Coverage of the United States of America by the Sigfox network - a level well for a well" title="Coverage of the United States of America by the Sigfox network - a level well for a well">
 </center>
 <div class="alert alert-info">
-<b>Level meter - Callback settings in Sigfox Backend:</b>
+<b>Water Level Monitor - Callback settings in Sigfox Backend:</b>
 <li>Callbacks --> Custom --> New</li>
 <li><b>In Custom payload config we write:</b> cislo1::uint:16</li>
 <li><b>To URL pattern:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (or another URL of your web server where the project will run), the possibility to use HTTPS</li>
