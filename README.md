@@ -1,18 +1,18 @@
 # Hladinomer - Arduino / ESP / Sigfox IoT
 <p align="justify">
-Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR (Arduino), ESP8266 a ESP32.
-Implementácie dokážu merať výšku hladiny vody v studni s kompatibilným ultrazvukovým senzorom vzdialenosti (HC-SR0X / JSN-SR04T / HY-SRF0X / DYP-ME007). 
-Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT sieť Sigfox.
-Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím FreeRTOS.
+Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR ATmega328P / ATmega2560 (Arduino Uno / Mega R3), ESP8266 a ESP32.
+Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti (HC-SR0X / JSN-SR04T / HY-SRF0X / DYP-ME007) pre záznam výšky hladiny vody (vzdialenosti). 
+Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT LPWAN sieť Sigfox.
+Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím operačného systému FreeRTOS.
 Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
 Štandardný režim StandBy umožňuje prenos dát na webové rozhranie a stará sa o udržanie stálej konektivity v LAN sieti.
 Pre ESP8266 a ESP32 sú dostupné implementácie s podporou vzdialenej aktualizácie firmvéru Over-The-Air (OTA) cez LAN sieť so sieťovým OTA portom.
-K dispozícii je aj Ultra-Low-Power (ULP) firmvér pre tieto mikrokontroléry, ktorý minimalizuje spotrebu elektrickej energie v dôsledku prepnutia mikrokontroléru do režimu hlbokého spánku (Deep Sleep). 
+K dispozícii je aj Ultra-Low-Power (ULP) firmvér pre ESP mikrokontroléry, ktorý minimalizuje spotrebu elektrickej energie v dôsledku prepnutia mikrokontroléru do režimu hlbokého spánku (Deep Sleep). 
 Prebudenie mikrokontroléru sa realizuje podporovanou metódou (RTC Timer pre ESP32, External Wake pre ESP8266).
 Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde je možné zaznamenávať a vizualizovať dáta o výške hladiny vody v studni.
 <b>Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!</b>
 Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
-Projekt Hladinomer v staršej verzii existuje aj s rozšírením o zrážkomer, ktorý umožňuje zaznamenávať početnosť zrážok.
+Projekt Hladinomer v staršej verzii existuje aj s rozšírením o zrážkomer, ktorý umožňuje zaznamenávať početnosť zrážok (projekt zrážkomera je neudržiavaný).
 Rozšírený opis projektu: https://martinius96.github.io/hladinomer-studna-scripty/
 Webové rozhranie je Hladinomer s možnosťou vyskúšania: http://arduino.clanweb.eu/studna_s_prekladom/
 Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: http://arduino.clanweb.eu/studna/
@@ -20,6 +20,7 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 
 # Ako získať webové rozhranie?
 **Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
+* Na testovacom webovom rozhraní je možné zdarma po ľubovoľnú dobu vyskúšať projekt s vašim hardvérom
 
 # Spustenie systému Hladinomer
 * **Obsah priečinka /src/ rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries**
