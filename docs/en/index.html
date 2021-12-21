@@ -196,7 +196,7 @@ The maximum measurable level height (level) by the sensors is about 400 to 450 c
 </div>
 <hr><center><h4>Plug n' play firmware - Ultra Low Power</h4></center><hr>
 <div class="alert alert-success">
-  <strong>Compiled firmware available for immediate upload to the microcontroller!</strong>
+  <strong>Compiled firmware available for immediate upload to the microcontroller (libraries are not required)!</strong>
 </div>
 <div class="table-responsive">   
 <table class="table" style="border: 1px solid black;">
@@ -256,6 +256,70 @@ The project can integrate the Level meter project via MQTT into home automation 
 <div class = "alert alert-info">
 <strong> Program implementations (source codes) for Arduino, ESP8266, ESP32: </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en"> Available here </a>
 </div>
+<hr><center><h4>Available libraries for microcontrollers (Arduino / ESP)</h4></center><hr>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Library name</th>
+<th style="width: 50%">Library function</th>
+<th style="width: 25%">Download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>NewPing</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for AVR microcontrollers (ATmega) Arduino Uno / Nano / Mega.
+It allows to perform measurements with ultrasonic distance sensors US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, JSN-SR0XT, DYP-ME007.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPing" class="btn btn-success" role="button">Download</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>NewPingESP8266</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for ESP8266 and ESP32 microcontrollers.
+It allows to perform measurements with ultrasonic distance sensors US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, JSN-SR0XT, DYP-ME007.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPingESP8266" class="btn btn-success" role="button">Download</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet2</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for AVR microcontrollers (ATmega) Arduino Uno / Nano / Mega.
+It enables communication with the Ethernet module Wiznet W5200 to W5500 via the SPI interface.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet2" class="btn btn-success" role="button">Download</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet3</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for AVR microcontrollers (ATmega) Arduino Uno / Nano / Mega.
+It enables communication with Ethernet module Wiznet W5500 V2 - USR-ES1 via SPI interface.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet3" class="btn btn-success" role="button">Download</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>UIPEthernet</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for AVR microcontrollers (ATmega) Arduino Uno / Nano / Mega.
+It enables communication with the Ethernet module ENC28J60 from Microchip via the SPI interface.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/UIPEthernet" class="btn btn-success" role="button">Download</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
 <hr>
 <p style = "text-align: justify;">
 For states, regions without internet coverage, it is also possible to use the LPWAN network Sigfox, which covers most European countries, certain Asian countries and some American countries..
