@@ -60,7 +60,7 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 ![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/k1DgXgY.png)
 ![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/vtg6NpT.png)
 
-# Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka:
+# Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka (NEPODPOROVANÁ):
 * Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom 15ms
 * Vizualizácia vo web rozhraní
 * Vizualizácia rozšírená o 30 dní, 365 dní
