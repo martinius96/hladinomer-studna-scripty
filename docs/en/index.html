@@ -143,18 +143,18 @@ Data is sent to the web server by a microcontroller, which performs measurements
 </p>
 <hr>
 <p style = "text-align: justify;">
-The principle of measuring ultrasonic sensors is to send a Trigger signal with a length of 10μs (microseconds), which bounces off the water surface and returns to the receiver - Echo.
-Time-of-Flight method is used to convert the time between sending and receiving the signal to the differential water level from the sensor.
+Principle of measuring ultrasonic sensors is to send a Trigger signal with a length of 10 μs (microseconds), which bounces off the water level and returns to the receiver - Echo.
+Time-of-Flight method is used to recalculate the time between sending and receiving the signal to determine the distance of the water level from the sensor, which is located at the top of the well.
+Conversion formula takes into account the speed of sound 343 m/s at a temperature of 20 °C.
 An important parameter for both ultrasonic sensors is the beam width, in other words the detection characteristic.
-The HC-SR04 sensor has a 15 ° detection characteristic. The beam is relatively narrow and the sensor is also suitable for narrower wells and tanks, but it is not waterproof and has a high risk of corrosion (oxidation).
-For this reason, it is advisable to place it above the well.
-The JSN-SR04T waterproof sensor has a detection characteristic of 45 to 60 °, which does not allow it to be used in narrow wells, as the beam widens with distance and a well with a diameter of several units (6 meters at 4.5 well depth) is required.
-Ultrasonic measurement is suitable for measuring the level of drinking, utility and waste water.
-The system and ultrasonic sensors are maintenance-free.
-Just plug in, upload the software implementation and run.
-Ultrasonic sensors can also be used to measure material height in various applications.
-In the case of a square well, the diameter of the inscribed circle is entered into the average, which will form the reference value of the water cylinder and the volume of the well.
-The maximum measurable level height (level) by the sensors is about 400 to 450 cm (known from the datasheet).
+HC-SR04 sensor has a 15° detection characteristic. The beam is relatively narrow and the sensor is also suitable for narrower wells and tanks, but it is not waterproof and has a high risk of corrosion (oxidation) due to the presence of moisture in the well.
+For this reason, it is advisable to place this ultrasonic sensor above the well.
+Waterproof sensor JSN-SR04T has a detection characteristic of 60°, which considerably limits it and prevents its use in narrow wells, as the beam widens with distance and requires a well with a diameter of several meters (6 meters diameter at a well depth of 4.5 meters) .
+Ultrasonic sensors are fully maintenance-free. The JSN-SR04T sensor has an electronic control board that must not be exposed to moisture and water.
+Standard communication shielded cable is 2.5 meters long, it is possible to connect counterparts of the same cable to extend the line.
+In the case of a square well, the diameter of the inscribed circle is entered into the average, which will form the reference value of the water cylinder for the calculation of the well volume.
+Error of the total well volume in this case will be similar to ~12.5%.
+Maximum measurable level height (level) by the sensors is about 400 to 450 cm (known from the datasheet).
 </p>
 <div class = "alert alert-info">
  	<strong> Other types of water level sensors that can be integrated (you need to create your own firmware): </strong>
