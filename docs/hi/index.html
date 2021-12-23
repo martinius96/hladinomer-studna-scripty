@@ -224,6 +224,23 @@ ESP8266 WAKE टाइमर (GPIO16 और RST के बीच जम्पर
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 फर्मवेयर</a></td>
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 फर्मवेयर</a></td>
 </tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+माइक्रोकंट्रोलर के स्टैंडबाय मोड के लिए फर्मवेयर, जो वेब सर्वर को नियमित अंतराल (5 मिनट) जल स्तर के माप भेजता है और साथ ही लैन नेटवर्क में एपी के साथ कनेक्टिविटी बनाए रखता है।
+फर्मवेयर को बंडल किए गए ESPTOOL टूल के माध्यम से स्वचालित रूप से लोड किया जाता है, जो कि .bat स्क्रिप्ट के साथ चलाया जाता है (स्क्रिप्ट में आपके ESP बोर्ड के COM पोर्ट को बदलना आवश्यक है)।
+फर्मवेयर अपलोड करने के बाद और यह मानते हुए कि ईएसपी के पास पिछले प्रोजेक्ट से एसएसआईडी और पासवर्ड नहीं है, वाईफाईमैनेजर शुरू हो जाएगा, जिसका उपयोग मौजूदा वाईफाई नेटवर्क को कॉन्फ़िगर करने के लिए किया जाता है।
+ईएसपी एपी मोड में एसएसआईडी के साथ एक खुले वाईफाई नेटवर्क का प्रसारण शुरू करेगा --> <b>Hladinomer_AP</b>. क्लाइंट (विंडोज/एंड्रॉइड/आईओएस) को जोड़ने के बाद कैप्टिव पोर्टल 192.168.4.1 पर शुरू होगा (क्लाइंट को स्वचालित रूप से पुनर्निर्देशित किया जाना चाहिए)।
+वाईफाईमैनेजर आपको वेब इंटरफेस में रेंज में वाईफाई नेटवर्क का चयन करने, पासवर्ड सेट करने की अनुमति देता है।
+ईएसपी को निर्दिष्ट वाईफाई नेटवर्क से सफलतापूर्वक कनेक्ट करने और दी गई सीमा से आईपीवी 4 असाइन करने के बाद, कैप्टिव पोर्टल बंद हो जाएगा, ईएसपी एसटीए-स्टेशन मोड में रहता है।
+इसके बाद, सेंसर नोड डेटा को वेब इंटरफेस में ट्रांसमिट करना शुरू कर देता है <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">स्तर मापक</a>.
+<b>अगली बार सेंसर नोड शुरू होने पर, Captive Portal और WiFiManager अब प्रारंभ नहीं होंगे, क्योंकि WiFi नेटवर्क कॉन्फ़िगरेशन स्थायी रूप से संग्रहीत है.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 फर्मवेयर</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 फर्मवेयर</a></td>
+</tr>
 </tbody>
 </table>
 	</div>
