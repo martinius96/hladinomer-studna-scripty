@@ -234,7 +234,7 @@ ESP8266 je prebudené cez WAKE timer (vyžaduje sa prepojka medzi GPIO16 a RST),
 <td style="width: 25%"><b>StandBy</b></td>
 <td style="width: 50%">
 <p style="text-align: justify;">
-Firmvér pre StandBy režim mikrokontroléra, ktorý odosiela v pravidelných intervaloch (5 min) meranie o výšky hladiny vody na webserver, udržuje konektivitu s AP v LAN sieti. 
+Firmvér pre StandBy režim mikrokontroléra, ktorý odosiela v pravidelných intervaloch (5 min) meranie o výšky hladiny vody na webserver a zároveň udržuje konektivitu s AP v LAN sieti. 
 Firmvér sa nahráva cez pribalený nástroj ESPTOOL automatizovane, ktorý je spustený s .bat scriptom (v scripte nutné zmeniť COM port vašej ESP dosky). 
 Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
 ESP začne vysielať v režime AP otvorenú WiFi sieť s SSID --> <b>Hladinomer_AP</b>. Po pripojení klienta (Windows / Android / iOS) sa spustí Captive portál na 192.168.4.1 (klient by mal byť presmerovaný automaticky). 
@@ -245,7 +245,7 @@ Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="htt
 </p>
 </td>
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
-<td style="width: 12.50%"><a href="" class="btn btn-danger" role="button" disabled>ESP32 firmvér</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
 </tr>
 </tbody>
 </table>
