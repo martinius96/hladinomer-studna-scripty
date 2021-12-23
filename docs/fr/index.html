@@ -222,6 +222,23 @@ L'ESP8266 est réveillé via la minuterie WAKE (cavalier entre GPIO16 et RST req
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmware</a></td>
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmware</a></td>
 </tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Firmware pour le mode StandBy du microcontrôleur, qui envoie à intervalles réguliers (5 min) des mesures du niveau d'eau au serveur Web et maintient en même temps la connectivité avec l'AP dans le réseau LAN.
+Le firmware est chargé automatiquement via l'outil ESPTOOL fourni, qui est exécuté avec un script .bat (dans le script, il est nécessaire de changer le port COM de votre carte ESP).
+Après avoir téléchargé le micrologiciel et en supposant qu'ESP n'a pas stocké le SSID et le mot de passe du projet précédent, WiFiManager démarrera, qui est utilisé pour configurer le réseau WiFi existant.
+ESP commencera à diffuser un réseau WiFi ouvert avec SSID en mode AP --> <b>Hladinomer_AP</b>. Après avoir connecté le client (Windows / Android / iOS) le portail captif démarrera sur 192.168.4.1 (le client doit être redirigé automatiquement).
+WiFiManager vous permet de sélectionner un réseau WiFi à portée dans l'interface Web, de définir un mot de passe.
+Après avoir connecté avec succès ESP au réseau WiFi spécifié et attribué IPv4 à partir de la plage donnée, le portail captif sera désactivé, ESP reste en mode STA-Station.
+Par la suite, le nœud de capteur commence à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">Indicateur de niveau</a>.
+<b>Au prochain démarrage du nœud de capteur, Captive Portal et WiFiManager ne démarreront plus, car la configuration du réseau WiFi est stockée de manière permanente.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 firmware</a></td>
+</tr>
 </tbody>
 </table>
 	</div>
