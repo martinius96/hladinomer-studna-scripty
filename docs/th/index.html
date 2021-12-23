@@ -222,6 +222,23 @@ ESP8266 ถูกปลุกโดยใช้ตัวจับเวลา WA
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 เฟิร์มแวร์</a></td>
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 เฟิร์มแวร์</a></td>
 </tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+เฟิร์มแวร์สำหรับโหมดสแตนด์บายของไมโครคอนโทรลเลอร์ ซึ่งส่งการวัดระดับน้ำไปยังเว็บเซิร์ฟเวอร์เป็นระยะ (5 นาที) ไปยังเว็บเซิร์ฟเวอร์ และในขณะเดียวกันก็รักษาการเชื่อมต่อกับ AP ในเครือข่าย LAN
+เฟิร์มแวร์ถูกโหลดผ่านเครื่องมือ ESPTOOL ที่ให้มาโดยอัตโนมัติ ซึ่งรันด้วยสคริปต์ .bat (ในสคริปต์ จำเป็นต้องเปลี่ยนพอร์ต COM ของบอร์ด ESP ของคุณ)
+หลังจากอัปโหลดเฟิร์มแวร์และสมมติว่า ESP ไม่มี SSID และรหัสผ่านจากโครงการก่อนหน้าที่จัดเก็บไว้ WiFiManager จะเริ่มทำงาน ซึ่งจะใช้ในการกำหนดค่าเครือข่าย WiFi ที่มีอยู่
+ESP จะเริ่มออกอากาศเครือข่าย WiFi แบบเปิดด้วย SSID ในโหมด AP --> <b>Hladinomer_AP</b>. หลังจากเชื่อมต่อไคลเอนต์ (Windows / Android / iOS) พอร์ทัล Captive จะเริ่มต้นใน 192.168.4.1 (ไคลเอนต์ควรถูกเปลี่ยนเส้นทางโดยอัตโนมัติ)
+WiFiManager ให้คุณเลือกเครือข่าย WiFi ที่อยู่ในขอบเขตของเว็บอินเตอร์เฟส ตั้งรหัสผ่าน
+หลังจากเชื่อมต่อ ESP กับเครือข่าย WiFi ที่ระบุและกำหนด IPv4 จากช่วงที่กำหนดเรียบร้อยแล้ว Captive Portal จะถูกปิด และ ESP ยังคงอยู่ในโหมด STA-Station
+ต่อจากนั้นโหนดเซ็นเซอร์จะเริ่มส่งข้อมูลไปยังเว็บอินเตอร์เฟส <a href="http://arduino.clanweb.eu/studna_s_prekladom/">เครื่องวัดระดับ</a>.
+<b>ในครั้งถัดไปที่โหนดเซ็นเซอร์เริ่มทำงาน Captive Portal และ WiFiManager จะไม่เริ่มทำงานอีกต่อไป เนื่องจากการกำหนดค่าเครือข่าย WiFi จะถูกเก็บไว้อย่างถาวร.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 เฟิร์มแวร์</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 เฟิร์มแวร์</a></td>
+</tr>
 </tbody>
 </table>
 	</div>
