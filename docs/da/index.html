@@ -209,6 +209,23 @@ ESP8266 vækkes via WAKE timer (jumper mellem GPIO16 og RST påkrævet), ESP32 v
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
 </tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Firmware til StandBy-tilstand af mikrocontrolleren, som med jævne mellemrum (5 min) sender målinger af vandstanden til webserveren og samtidig opretholder forbindelse med AP'en i LAN-netværket.
+Firmwaren indlæses automatisk via det medfølgende ESPTOOL-værktøj, som køres med et .bat-script (i scriptet er det nødvendigt at ændre COM-porten på dit ESP-kort).
+Efter at have uploadet firmwaren og antaget, at ESP ikke har gemt SSID og adgangskode fra det tidligere projekt, starter WiFiManager, som bruges til at konfigurere det eksisterende WiFi-netværk.
+ESP vil begynde at udsende et åbent WiFi-netværk med SSID i AP-tilstand --> <b>Hladinomer_AP</b>. Efter tilslutning af klienten (Windows / Android / iOS) starter Captive-portalen på 192.168.4.1 (klienten bør omdirigeres automatisk).
+WiFiManager giver dig mulighed for at vælge et WiFi-netværk inden for rækkevidde i webgrænsefladen, indstille en adgangskode.
+Efter vellykket forbindelse af ESP til det specificerede WiFi-netværk og tildeling af IPv4 fra det givne område, vil Captive Portal blive slukket, ESP forbliver i STA-Station-tilstand.
+Efterfølgende begynder sensorknuden at sende data til webgrænsefladen <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">Niveaumåler</a>.
+<b>Næste gang sensornoden startes, starter Captive Portal og WiFiManager ikke længere, da WiFi-netværkskonfigurationen er permanent gemt.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
+</tr>
 </tbody>
 </table>
 	</div>
