@@ -209,6 +209,23 @@ ESP8266 äratatakse WAKE-taimeri kaudu (vajalik on hüppaja GPIO16 ja RST vahel)
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 püsivara</a></td>
 <td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 püsivara</a></td>
 </tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Mikrokontrolleri StandBy režiimi püsivara, mis saadab regulaarsete intervallidega (5 min) veetaseme mõõtmisi veebiserverisse ja samal ajal säilitab ühenduse AP-ga LAN võrgus.
+Püsivara laaditakse komplektis oleva ESPTOOL-tööriista kaudu automaatselt, mida käivitatakse .bat-skriptiga (skriptis on vaja muuta oma ESP-plaadi COM-porti).
+Pärast püsivara üleslaadimist ja eeldades, et ESP-l pole eelmise projekti SSID-d ja parooli salvestatud, käivitub WiFiManager, mida kasutatakse olemasoleva WiFi võrgu seadistamiseks.
+ESP hakkab levitama avatud WiFi-võrku SSID-ga AP-režiimis --> <b>Hladinomer_AP</b>. Pärast kliendi (Windows / Android / iOS) ühendamist käivitub Captive portaal aadressil 192.168.4.1 (klient tuleks automaatselt ümber suunata).
+WiFiManager võimaldab veebiliideses valida levialas oleva WiFi-võrgu, määrata parooli.
+Pärast ESP edukat ühendamist määratud WiFi võrguga ja IPv4 määramist antud vahemikust lülitub Captive Portal välja, ESP jääb STA-Station režiimi.
+Seejärel hakkab andurisõlm andmeid veebiliidesele edastama <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">Tasememõõtja</a>.
+<b>Järgmisel andurisõlme käivitamisel Captive Portal ja WiFiManager enam ei käivitu, kuna WiFi võrgu konfiguratsioon on püsivalt säilinud.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 püsivara</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 püsivara</a></td>
+</tr>
 </tbody>
 </table>
 	</div>
