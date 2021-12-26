@@ -17,7 +17,7 @@
 * If the microcontroller does not have data about the WiFi network stored in the flash memory, it will start transmitting its own SSID - Hladinomer_AP.
 * WiFi network Hladinomer_AP is open without entering a password
 * After connecting to a WiFi network with a smartphone / computer, the WiFi Manager web interface is available at 192.168.4.1
-* At Android device, you will receive automatic notifiaction about opening captive portal, or if you put any HTTP url in your browser, it will automatically redirect you to configuration page
+* At Android device, you will receive automatic notifiaction about opening captive portal to set ssid and password, or if you put any HTTP url in your browser, it will automatically redirect you to configuration page
 * Web interface provides the ability to configure a WiFi Sensor node for your home WiFi network.
 * In the interface it is possible to enter the name and password of the existing WiFi network to which the WiFi thermostat will connect.
 <p align="center">
