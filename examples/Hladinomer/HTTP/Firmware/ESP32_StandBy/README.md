@@ -20,8 +20,7 @@
 * At Android device, you will receive automatic notifiaction about opening captive portal to set ssid and password, or if you put any HTTP url in your browser, it will automatically redirect you to configuration page
 * Web interface provides the ability to configure a WiFi Sensor node for your home WiFi network.
 * In the interface it is possible to enter the name and password of the existing WiFi network to which the WiFi thermostat will connect.
-<p align="center">
-<img src="https://i.imgur.com/ZYksQHp.png" />  
+<p align="center"> 
 <img src="https://i.imgur.com/cJb6DR9.png" />
 </p>
 
@@ -31,5 +30,6 @@
 * WiFi network data is stored in the ESP flash memory and it is no longer necessary to enter it again when restarting the thermostat, power failure, device restart.
 * If the network is not available, ESP will start again broadcasting its own SSID: Hladinomer_AP and ssid and password to new WiFi network can be entered
 <p align="center">
+<img src="https://i.imgur.com/ZYksQHp.png" /> <br>
   <img src="https://i.imgur.com/OTKLoID.png" />
 </p>
