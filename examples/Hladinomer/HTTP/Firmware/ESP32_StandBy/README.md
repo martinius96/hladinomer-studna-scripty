@@ -21,7 +21,8 @@
 * Web interface provides the ability to configure a WiFi Sensor node for your home WiFi network.
 * In the interface it is possible to enter the name and password of the existing WiFi network to which the WiFi thermostat will connect.
 <p align="center">
-  <img src="https://i.imgur.com/cJb6DR9.png" />
+<img src="https://i.imgur.com/ZYksQHp.png" />  
+<img src="https://i.imgur.com/cJb6DR9.png" />
 </p>
 
 # Sensor Node function
