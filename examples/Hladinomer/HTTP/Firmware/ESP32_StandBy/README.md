@@ -30,5 +30,5 @@
 * WiFi network data is stored in the ESP flash memory and it is no longer necessary to enter it again when restarting the thermostat, power failure, device restart.
 * If the network is not available, ESP will start again broadcasting its own SSID: Hladinomer_AP and ssid and password to new WiFi network can be entered
 <p align="center">
-  <img src="https://i.imgur.com/A3mGI9i.png" />
+  <img src="https://i.imgur.com/OTKLoID.png" />
 </p>
