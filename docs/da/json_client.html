@@ -90,6 +90,13 @@ De enkelte certifikater er opført i Chain-of-Trust rækkefølge, dvs. fra Root 
 <br> <b> Kommando for at få det rod-CA-certifikat, der udstedte certifikatet til MQTT-serveren (udsteder): </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
+<h4><font color="#C0392B">Eksempel på dataliste i JSON-format</font></h4>
+<div class="alert alert-danger">
+	{<br>
+		"value": 378,<br>
+		"volume": 1900.04<br>
+	}
+</div>
 <hr>
 <h4>Emnerne, der bruges til at udgive på MQTT Broker er:</h4> 
 <hr>
