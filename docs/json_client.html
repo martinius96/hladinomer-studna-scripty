@@ -98,6 +98,43 @@ V aktuálnej programovej implementácii mikrokontróler (JSON klient) odosiela z
 <div class="alert alert-success">
 	<strong>Ukážkové programové implementácie pre JSON klientov: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">TU</a>
 </div>
+<hr><center><h4>Dostupné knižnice pre mikrokontroléry (Arduino / ESP) - JSON klienti</h4></center><hr>
+<div class="alert alert-danger">
+	Archív knižnice (.zip) rozbaliť do <strong>C:/Používatelia/[Používateľ]/Dokumenty/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Názov knižnice</th>
+<th style="width: 50%">Funkcia knižnice</th>
+<th style="width: 25%">Stiahnuť</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>PubSubClient</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Knižnica pre AVR mikrokontroléry (ATmega) Arduino Uno / Nano / Mega, ESP8266 a ESP32. 
+Umožňuje komunikovať po MQTT protokole, možno implementovať aj šifrované spojenie s MQTT Brokrom, vyžaduje sa použitie WiFiClientSecure u ESP mikrokontrolérov. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/PubSubClient" class="btn btn-success" role="button">Stiahnuť</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>ArduinoJson</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Knižnica pre AVR mikrokontroléry (ATmega) Arduino Uno / Nano / Mega, ESP8266 a ESP32. 
+Umožňuje deserializovať reťazec v JSON štruktúre, dokáže vyparsovať hodnotu, ktorá je priradená ku kľúču. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/ArduinoJson" class="btn btn-success" role="button">Stiahnuť</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
 <div class="alert alert-info">
 <strong>Implementácia pre MQTTS je dostupná pre mikrokontroléry ESP8266, ESP32.</strong>
 ESP8266 a ESP32 využíva Root CA certifikát pre šifrované spojenie s MQTT serverom. <b>Šifrovaný port MQTT servera je štandardne 8883, nešifrovaný 1883.</b> 
