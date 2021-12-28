@@ -82,6 +82,43 @@ I den aktuelle softwareimplementering sender mikrocontrolleren (JSON-klienten) d
 <div class="alert alert-success">
 	<strong>Eksempel på programimplementeringer til JSON-klienter: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">HER</a>
 </div>
+<hr><center><h4>Tilgængelige biblioteker til mikrocontrollere (Arduino / ESP) - JSON-klienter</h4></center><hr>
+<div class="alert alert-danger">
+	Biblioteksarkiv (.zip) udvides til <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Bibliotekets navn</th>
+<th style="width: 50%">Bibliotek funktion</th>
+<th style="width: 25%">Hent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>PubSubClient</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliotek til AVR mikrocontrollere (ATmega) Arduino Uno / Nano / Mega, ESP8266 og ESP32.
+Det muliggør kommunikation via MQTT-protokollen, det er også muligt at implementere en krypteret forbindelse med MQTT Broker, brugen af WiFiClientSecure er påkrævet for ESP-mikrocontrollere.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/PubSubClient" class="btn btn-success" role="button">Hent</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>ArduinoJson</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliotek til AVR mikrocontrollere (ATmega) Arduino Uno / Nano / Mega, ESP8266 og ESP32.
+Det giver dig mulighed for at deserialisere en streng i en JSON-struktur, den kan parse den værdi, der er tildelt en nøgle. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/ArduinoJson" class="btn btn-success" role="button">Hent</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
 <div class="alert alert-info">
 <strong> MQTTS-implementering er tilgængelig for ESP8266, ESP32 mikrocontrollere. </strong>
 ESP8266 og ESP32 bruger et Root CA-certifikat til krypteret forbindelse til MQTT-serveren. <b> Den krypterede port på MQTT-serveren er 8883 som standard, ukrypteret 1883. </b>
