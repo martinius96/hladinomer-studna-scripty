@@ -95,6 +95,43 @@ Dans l'implémentation logicielle actuelle, le microcontrôleur (client JSON) en
 <div class="alert alert-success">
 	<strong>Exemples d'implémentations de programmes pour les clients JSON: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">CIC</a>
 </div>
+<hr><center><h4>Bibliothèques disponibles pour les microcontrôleurs (Arduino / ESP) - Clients JSON</h4></center><hr>
+<div class="alert alert-danger">
+	Archive de la bibliothèque (.zip) étendre à <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Le nom de la bibliothèque</th>
+<th style="width: 50%">Fonction bibliothèque</th>
+<th style="width: 25%">Télécharger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>PubSubClient</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothèque pour microcontrôleurs AVR (ATmega) Arduino Uno / Nano / Mega, ESP8266 et ESP32.
+Il permet la communication via le protocole MQTT, il est également possible de mettre en place une connexion cryptée avec le MQTT Brokrom, l'utilisation de WiFiClientSecure est obligatoire pour les microcontrôleurs ESP.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/PubSubClient" class="btn btn-success" role="button">Télécharger</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>ArduinoJson</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothèque pour microcontrôleurs AVR (ATmega) Arduino Uno / Nano / Mega, ESP8266 et ESP32.
+Il permet de désérialiser une chaîne dans une structure JSON, il peut analyser la valeur qui est attribuée à une clé.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/ArduinoJson" class="btn btn-success" role="button">Télécharger</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
 <div class="alert alert-info">
 <strong> L'implémentation MQTTS est disponible pour les microcontrôleurs ESP8266, ESP32. </strong>
 ESP8266 et ESP32 utilisent un certificat Root CA pour une connexion cryptée au serveur MQTT. <b> Le port crypté du serveur MQTT est 8883 par défaut, 1883 non crypté. </b>
