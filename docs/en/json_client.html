@@ -101,6 +101,13 @@ The individual certificates are listed in Chain-of-Trust order, i. from Root CA 
 <br> <b> Command to obtain the Root CA certificate that issued the certificate for the MQTT server (Issuer): </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
+<h4><font color="#C0392B">Sample data listing in JSON format</font></h4>
+<div class="alert alert-danger">
+	{<br>
+		"value": 378,<br>
+		"volume": 1900.04<br>
+	}
+</div>
 <hr>
 <h4> The topics used for Publish to MQTT Broker are: </h4>
 <hr>
