@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>井戸レベルメーター-水位モニター-Arduino / ESP8266 / ESP32 / Sigfox</title>
+	<meta name="description" content="レベルメーター-Arduinoプラットフォーム、ESP8266、ESP32上に構築された水位モニター。 超音波センサーHC-SR04 / JSN-SR04Tによる測定。 イーサネット、WiFi、Sigfoxを介してデータを送信します。 井戸、排水溜めの水位測定.">
+	<meta name="keywords" content="レベルメーター、ウェルレベルメーター、arduinoプロジェクト、sigfox、lpwan iot sigfox、ethernetおよびwifiプロジェクト、ArduinoマイクロコントローラーESP8266 ESP32">
+	<meta name="news_keywords" content="レベルメーター、ウェル、サンプ、浄化槽、高さ、レベル、モニター、測定、超音波、フロート、光学、静水圧、圧力、液浸、20mA、5V、ESP8266、WiFi、Arduino、Sigfox、IoT、イーサネット">	
+<!-- Open Graph / Facebook -->
+	<meta name="robots" content="index, follow">
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">レベルメーター</a></li>
+	<!---<li><a href="zrazkomer.html">Zrážkomer</a></li>-->
+	<li><a href="zapojenie.html">関与</a></li>   
+	<li class=""><a href="json_client.html">JSONクライアント</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">インストール</a></li>
+	<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../th/index.html"><img src="https://i.imgur.com/iwaTzpm.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>
+<a href="../hi/index.html"><img src="https://i.imgur.com/vD6j3Ak.png" alt="Hindi.png, 2,2kB" title="Hindi" height="32" width="32"></a>
+<a href="../et/index.html"><img src="https://i.imgur.com/1qxI0wk.png" alt="Estonian.png, 2,2kB" title="Estonian" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+<strong>Arduinoマイクロコントローラー、ESP8266、ESP32、NewPingライブラリ、Ethernet2、Ethernet3、UIPEthernetのレベルメータープロジェクトのソースコード: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Githubプロジェクトリポジトリ</a>
+</div>	
+<div class="alert alert-success">
+	<strong><font color="red">ハードウェアでレベルメータープロジェクトを無料でお試しください-オンライン: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">ここ</font></a> -HTTPプロトコルのみ（Endora.cz freehostingはHTTPS接続をサポートしていません）.
+</div>
+<div class="alert alert-warning">
+	<strong><font color="red">ハードウェアでレベルメータープロジェクトを無料でお試しください-オンライン: </strong><a href="https://hladinomer.000webhostapp.com/?lang=en">ここ</font></a> -HTTPS（ESP8266およびESP32で使用可能、Arduino +イーサネットはHTTPSをサポートしていません）
+</div>		
+<div class="alert alert-info">
+	<strong>FreeRTOSとキューロックメカニズムを備えたタスクを使用して、2021年6月4日から利用可能なESP-IDF v4.2フレームワーク（4.0互換）で利用可能なESP32の実装。</strong>
+</div>
+<div class="alert alert-danger">
+	<strong>Webアプリケーションのソースコードに興味がある場合は、英語でプロジェクトの作成者に連絡してください。: </strong>martinius96@gmail.com
+</div>
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">超音波</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">IoT</span>	
+<span class="label label-danger">WiFi</span>	
+<span class="label label-default">OTA</span>
+<span class="label label-primary">ULP</span>	
+<hr>
+<center> 
+	<h2>制御ハードウェア-互換性のあるAVR / ESPマイクロコントローラー</h2>
+</center>	
+<hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino UNO" title="Control microcontroller Arduino UNO"><br><b><a href="https://www.ebay.com/itm/254532156570">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Nano" title="Control microcontroller Arduino Nano"><br><b><a href="https://www.ebay.com/itm/252742123829">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Mega 1280/25" title="Control microcontroller Arduino Mega 1280/2560"><br><b><a href="https://www.ebay.com/itm/304122418040">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 / D1 Mini (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>伝送技術モジュール-イーサネット/ Sigfox IoT</h2>
+</center>
+<hr>
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.ebay.com/itm/185017231005">Ethernet shield Wiznet W5100</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.ebay.com/itm/263116282333">Ethernet module Wiznet W5500</a></b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/LhpZGxj.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet USR-ES1" title="Ethernet modul Wiznet USR-ES1"><br><b><a href="https://www.ebay.com/itm/202042600986">Ethernet module Wiznet USR-ES1</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.ebay.com/itm/252798986559">Ethernet module ENC28J60</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b><a href="https://www.ebay.com/itm/113194034192">Sigfox WISOL SFM10R1</a></b></center></div>
+</div>
+<hr>
+<center> 
+	<h2>互換性のある超音波距離センサー</h2>
+</center>	
+<hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR04" title="Ultrasonic distance sensor - HC-SR04"><br><b><a href="https://www.ebay.com/itm/183351362390">HC-SR04</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/WXWD0wt.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR05" title="Ultrasonic distance sensor - HC-SR05"><br><b><a href="https://www.ebay.com/itm/271666928961">HC-SR05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - JSN-SR04T" title="Ultrasonic distance sensor - JSN-SR04T"><br><b><a href="https://www.ebay.com/itm/272576395554">JSN-SR04T</a></b></center></div>		
+<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF05" title="Ultrasonic distance sensor - HY-SRF05"><br><b><a href="https://www.ebay.com/itm/224586332861">HY-SRF05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/R51S6y5.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF06" title="Ultrasonic distance sensor - HY-SRF06"><br><b>HY-SRF06</b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - DYP-ME007" title="Ultrasonic distance sensor - DYP-ME007"><br><b><a href="https://www.ebay.com/itm/152929703900">DYP-ME007</a></b></center></div>
+<!---
+<div class="col-sm-3"><center><img src="https://i.imgur.com/P4HvyLn.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART" title="Ultrazvukový senzor vzdialenosti URM07 ovládaný cez UART"><br><b>URM07</b></center></div>	
+--->	
+</div>					
+<hr><center><h1>レベルメーター-井戸の水位モニター</h1></center><hr>
+<p style="text-align: justify;">
+レベルメータープロジェクト（水位モニター）は、センサーノードからデータを収集してユーザーに視覚化するのに役立つ中央のWebインターフェイスで構成されています。
+水位に関する現在のデータは、井戸の容積への変換とともにダッシュボードに表示されます。水位に関する履歴データは、線グラフを使用した表形式またはグラフ形式の視覚化でも利用できます。
+Webインターフェイスはレスポンシブであり、任意の画面およびデバイスの解像度に適応できます。
+プロジェクトのウェブインターフェースは、HTTP POSTメソッドを使用してリクエストからの受信データを処理できる、PHPで記述されたバックエンドを使用します。
+バックエンドは、井戸の既知の深さに基づいて測定されたレベルを実際のレベルに修正し、このパラメータと井戸の直径から井戸内の水の量を計算します。
+井戸の深さと直径は、ユーザーが井戸の比率に基づいてシステムに入力します。
+データは、テクノロジー（Ethernet / WiFi / LPWAN Sigfox）でサポートされているマイクロコントローラーによってWebサーバーに送信されます。このマイクロコントローラーは、300秒ごとに測定を実行します。 5分、またはLPWAN IoTネットワークSigfoxを介した送信の場合、モデムは1日あたり最大140のメッセージを送信するようにネットワークによって制限されているため、データは11分ごとに送信されます。
+<b>水位測定は超音波センサーを使用して実行されます</b> -HC-SR04またはその防水バリアントJSN-SR04T。
+US-02X、IOE-SR0X、HC-SR0X、HY-SRF0X、DYP-ME007シリーズからのトリガー/エコー信号を備えた他のセンサーも使用できます。
+</p>
+<hr>
+<p style="text-align: justify;">
+超音波センサーの測定の原理は、10μs（マイクロ秒）の長さのトリガー信号を送信することです。これは、水位で跳ね返り、受信機であるエコーに戻ります。
+飛行時間法は、信号の送信と受信の間の時間を再計算して、井戸の上部にあるセンサーからの水位の距離を決定するために使用されます。
+変換式は、20°Cの温度で343 m / sの音速を考慮に入れています。
+両方の超音波センサーの重要なパラメーターは、ビーム幅、つまり検出特性です。
+HC-SR04センサーは15°の検出特性を持っています。ビームは比較的狭く、センサーは狭い井戸やタンクにも適していますが、防水性がなく、井戸内に水分が存在するために腐食（酸化）のリスクが高くなります。
+このため、この超音波センサーをウェルの上に配置することをお勧めします。
+防水センサーJSN-SR04Tは60°の検出特性を備えており、ビームが距離とともに広がり、直径数メートル（ウェルの深さで直径6メートル）のウェルが必要になるため、検出特性が大幅に制限され、狭いウェルでの使用が妨げられます。 4.5メートルの）。
+超音波センサーは完全にメンテナンスフリーです。 JSN-SR04Tセンサーには、湿気や水にさらされてはならない電子制御ボードがあります。
+標準の通信シールドケーブルの長さは2.5メートルで、同じケーブルの対応するケーブルを接続して回線を延長することができます。
+正方形の井戸の場合、内接円の直径が平均に入力されます。これは、井戸の体積を計算するための水筒の基準値を形成します。
+この場合の総ウェルボリュームの誤差は、約12.5％のレベルになります。
+センサーによって測定可能な最大レベルの高さ（レベル）は、約400〜450 cmです（データシートからわかります）。
+</p>
+<div class="alert alert-info">
+  	<strong>統合可能な他のタイプの水位センサー（独自のファームウェアを作成する必要があります）:</strong> 
+ 	<li>レーザー（LiDAR）</li>
+<li>静水圧</li>
+<li>静電（容量性/誘導性）</li>
+<li>圧力（差圧/補正大気圧センサー付き）</li>
+<li>オプティカル</li>
+<li>機械的（フロート）</li>
+<li>磁気（ホール）</li>
+<li>マイクロ波（レーダー）</li>
+<li> <b>注：</b>マイクロコントローラー側で水位を下から再計算する場合は、Webインターフェイスで井戸の深さを0cmに設定する必要があります。</li>
+</div>
+<hr><center><h3>Webインターフェイスのビデオデモンストレーション-レベルメーター:</h3></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>超音波センサーは:</h4></center><hr>
+<div class="alert alert-success">
+<li>掘った井戸</li>
+<li>浄化槽とセスプール</li>
+<li>小川と湖</li>
+<li>プラスチック製の雨水タンク</li>
+<li>強度（バルク充填の測定）</li>
+<li>コンテナ（廃棄物の監視、収集コンテナの充填）</li>
+<li>ボイラー（木材、ペレット、石炭、木材チップの監視）</li>
+<li>シャフトとセラー（地下水モニタリング）</li>
+</div>
+<hr><center><h3>超音波センサーは以下には適していません：</h3></center><hr>
+<div class="alert alert-danger">
+<li>掘削された井戸（検出特性による-ワイドビーム）</li>
+<li>パイプとチューブ（検出特性による-ワイドビーム）</li>
+<li>支流のある井戸（乱流表面は超音波を減衰させるため、測定は不可能/段階的）</li>
+<li>温度が急激に変化する場所（温度は音の伝播時間に影響を与えるため、定常レベルでも変動しているように見えます）</li>
+<li>バキュームタンク（測定不可）</li>
+</div>
+<div class="alert alert-info">
+	<strong>超音波距離センサーの検出特性-MATLABスクリプト:</strong>
+	<li><a href="../MATLAB/HCSR04.m">HC-SR04</a></li>
+	<li><a href="../MATLAB/JSN04T.m">JSN-SR04T</a></li>
+</div>
+<hr><center><h4>Plug n' play firmware - Ultra Low Power / StandBy</h4></center><hr>
+<div class="alert alert-success">
+  <strong>コンパイルされたファームウェアをマイクロコントローラーにすぐにアップロードできます（ライブラリをインストールする必要はありません）.</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">ファームウェア名</th>
+<th style="width: 50%">ファームウェア機能</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+低消費電流のULPアプリケーション用のファームウェア（配線図を参照）。 ファームウェアは、バンドルされたESPTOOLツールを介して自動的にロードされます。このツールは.batスクリプトで実行されます（スクリプトでは、ESPボードのCOMポートを変更する必要があります）。
+ファームウェアをアップロードし、ESPに前のプロジェクトのSSIDとパスワードが保存されていないと想定した後、WiFiManagerが起動します。これは、既存のWiFiネットワークの構成に使用されます。
+ESPは、APモードでSSIDを使用してオープンWiFiネットワークのブロードキャストを開始します --> <b>Hladinomer_AP</b>. クライアント（Windows / Android / iOS）に接続すると、キャプティブポータルが192.168.4.1で起動します（クライアントは自動的にリダイレクトされます）。
+WiFiManagerを使用すると、Webインターフェイスで範囲内のWiFiネットワークを選択し、パスワードを設定できます。
+ESPを指定されたWiFiネットワークに正常に接続し、指定された範囲からIPv4を割り当てた後、キャプティブポータルはオフになり、ESPはSTA-Stationモードのままになります。
+その後、センサーノードはウェブインターフェース<a href = "http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">レベルメーター</a>へのデータ送信を開始します。
+<b>次にセンサーノードを起動すると、WiFiネットワーク構成が永続的に保持されるため、キャプティブポータルとWiFiManagerは起動しなくなります。</b>
+データを送信した後、マイクロコントローラはディープスリープモードになります。 Xtensメインプロセッサはスリープモードでオフになります。
+ESP8266はWAKEタイマー（GPIO16とRSTの間のジャンパーが必要）を介してウェイクアップされ、ESP32はRTCタイマーを介してウェイクアップされます。
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 ファームウェア</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 ファームウェア</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+マイクロコントローラーのスタンバイモードのファームウェア。水位の測定値を定期的（5分）でWebサーバーに送信し、同時にLANネットワーク内のAPとの接続を維持します。
+ファームウェアは、バンドルされたESPTOOLツールを介して自動的にロードされます。このツールは.batスクリプトで実行されます（スクリプトでは、ESPボードのCOMポートを変更する必要があります）。
+ファームウェアをアップロードし、ESPに前のプロジェクトのSSIDとパスワードが保存されていないと想定した後、WiFiManagerが起動します。これは、既存のWiFiネットワークの構成に使用されます。
+ESPは、APモードでSSIDを使用してオープンWiFiネットワークのブロードキャストを開始します --> <b>Hladinomer_AP</b>. クライアント（Windows / Android / iOS）に接続すると、キャプティブポータルが192.168.4.1で起動します（クライアントは自動的にリダイレクトされます）。
+WiFiManagerを使用すると、Webインターフェイスで範囲内のWiFiネットワークを選択し、パスワードを設定できます。
+ESPを指定されたWiFiネットワークに正常に接続し、指定された範囲からIPv4を割り当てた後、キャプティブポータルはオフになり、ESPはSTA-Stationモードのままになります。
+その後、センサーノードはウェブインターフェース<a href = "http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">レベルメーター</a>へのデータ送信を開始します。
+<b>次にセンサーノードを起動すると、WiFiネットワーク構成が永続的に保持されるため、キャプティブポータルとWiFiManagerは起動しなくなります。</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 ファームウェア</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 ファームウェア</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr><center><h4>WiFiManagerを介したWiFiネットワーク構成 - Plug n' play firmware</h4></center><hr>
+<center>
+<img src="https://i.imgur.com/9VECUFT.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi sieť Hladinomer_AP, Captive Portal a webové rozhranie WiFiManagera v systéme Android" title="WiFi sieť Hladinomer_AP, Captive Portal a webové rozhranie WiFiManagera v systéme Android">
+</center>
+<hr><center><h3>レベルメータの動作原理-ブロック図</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<p style="text-align: justify;">
+Webインターフェイスは、三角法を使用して、既知の井戸の直径（井戸の体積を計算するための別のパラメーター）での井戸の測定可能な最大深度を推定します。
+したがって、Webインターフェイスを使用すると、ユーザーは、その特性に基づいて、各センサーが適切なウェルの最大深度を計算できます。
+このプロジェクトは、どのセンサーが自分の井戸でのアプリケーションに適しているかわからない素人でも非常に使いやすいです。
+使用するマイクロコントローラもシステムで重要な役割を果たします。
+このプロジェクトでは、リビジョンR3のArduinoプラットフォーム（Uno / Mega）を同じピン配置で使用できます。これは、ICSPインターフェイスを介して通信するイーサネットシールドに接続できます。
+イーサネットモジュールを使用して、マイクロコントローラのハードウェアSPIピンに直接接続することもできます。
+Wiznet W5100、W5500、USR-ES1のイーサネットモジュールがサポートされています。
+イーサネットモジュールENC28J60は、MicroChipでサポートされています。
+すべてのイーサネットモジュールは、WebサーバーとのHTTP接続を提供します。
+EspressifSystemsのWiFiマイクロコントローラー-ESP8266およびESP32もサポートされています。
+マイクロコントローラーにはいくつかの動作モードがあります。スタンバイ、スタンバイ+ OTAで、LANネットワークを介したリモートファームウェアアップロードの可能性と、ULPアプリケーションのディープスリープモード（ディープスリープ）があります。
+ESP8266のスリープモードでは、GPIO16（WAKE）とRSTの間に物理ジャンパーを追加する必要があります。配線図を参照してください。
+ESPマイクロコントローラーを使用すると、HTTPSプロトコルを介してWebサーバーとの暗号化通信を実装することもできます。
+ESP8266プラットフォームとESP32プラットフォームはどちらも、Webサーバードメインの証明書（発行者）を発行したルートCAを使用します。
+証明書は、マイクロコントローラーのソースコードに.pem形式で埋め込まれています。
+証明書がマイクロコントローラのRAMメモリのスペースを占有しないようにするために、証明書はマイクロコントローラのフラッシュメモリ（PROGMEM）に挿入されます。
+認証局の証明書は10年から20年間有効であるため、証明書を頻繁に更新する必要はありません。
+井戸の現在の水位と水量に関するデータは、WebインターフェイスからJSON形式で入手できます。
+レベルメータープロジェクトは、MQTTを介してホームオートメーション（Hassio、Domoticz、Loxone）に統合して、独自のダッシュボードに水位を表示できます。グラファナ。
+その後、ウェブインターフェースからの井戸の水位データに基づいて、サブシステムの周辺制御（灌漑、散水、家庭用水道の活性化）を行うことができます。
+</p>
+<div class="alert alert-info">
+	<strong>Arduino、ESP8266、ESP32のソフトウェア実装（ライブラリのインストールが必要）: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">ここで入手可能</a>
+</div>	
+<hr><center><h4>マイクロコントローラーで利用可能なライブラリ（Arduino / ESP）</h4></center><hr>
+<div class="alert alert-danger">
+	ライブラリアーカイブ（.zip）をに展開 <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">ライブラリの名前</th>
+<th style="width: 50%">ライブラリ関数</th>
+<th style="width: 25%">ダウンロード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>NewPing</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVRマイクロコントローラー用ライブラリー（ATmega）Arduino Uno / Nano / Mega。
+超音波距離センサーUS-02X、IOE-SR0X、HC-SR0X、HY-SRF0X、JSN-SR0XT、DYP-ME007で測定できます。
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPing" class="btn btn-success" role="button">ダウンロード</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>NewPingESP8266</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ESP8266およびESP32マイクロコントローラー用のライブラリ。
+超音波距離センサーUS-02X、IOE-SR0X、HC-SR0X、HY-SRF0X、JSN-SR0XT、DYP-ME007で測定できます。
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPingESP8266" class="btn btn-success" role="button">ダウンロード</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet2</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVRマイクロコントローラー用ライブラリー（ATmega）Arduino Uno / Nano / Mega。
+SPIインターフェースを介してイーサネットモジュールWiznetW5200〜W5500との通信を可能にします。
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet2" class="btn btn-success" role="button">ダウンロード</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet3</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVRマイクロコントローラー用ライブラリー（ATmega）Arduino Uno / Nano / Mega。
+SPIインターフェースを介したイーサネットモジュールWiznetW5500 V2-USR-ES1との通信を可能にします。
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet3" class="btn btn-success" role="button">ダウンロード</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>UIPEthernet</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVRマイクロコントローラー用ライブラリー（ATmega）Arduino Uno / Nano / Mega。
+これにより、Microchip社からSPIインターフェースを介してイーサネットモジュールENC28J60との通信が可能になります。 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/UIPEthernet" class="btn btn-success" role="button">ダウンロード</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr>
+<p style="text-align: justify;">
+固定インターネットカバレッジがないサイトでは、LPWAN IoTネットワークSigfoxを使用することもできます。これは、日本の地理的領域のほぼ80％をカバーしています。
+このテクノロジーにより、最大12Bのサイズの少量のメッセージを送信できます。
+レベルメータープロジェクトの場合、4B水位値（UINT_32）が送信されます。
+雨量計によって拡張されたプロジェクトの場合、値8B値が送信されます。これは、水位の高さと降水量の増分によって形成されます。
+Sigfoxでは1日あたり最大140のメッセージを送信できるため、データ送信間隔は11分に延長されます。
+どちらの場合も、メッセージにはペイロードの使用可能な長さ全体が含まれていません。
+ペイロードメッセージには、さまざまなシステム情報を追加することもできます。たとえば、GPSサービスSigfox Atlasからのデータに基づくGEOデータ（経度/緯度）、RSSI（受信信号強度）、メッセージ番号などです。
+プロジェクトで使用された通信モジュールはSigfoxWISOL UART LPWANモデムであり、日本で使用されている周波数（923 MHz）に注意する必要があります。
+このモデムは、マイクロコントローラーでエミュレートされたソフトウェアであるUARTインターフェイスを介してATコマンドを介して通信します。
+通信は9600ボー/秒の速度で引き継ぎます。 WISOLモデムは、アンテナ接続用にPCBモジュールに統合されたu.FLコネクタを備えています。これにより、屋内/日陰でもカバレッジが大幅に低下します。
+データ送信を成功させるには、データ送信を成功させるために2つ、できれば3つ以上のBTSステーションによるカバレッジが必要です。 BTSは、送信された情報をSigfoxバックエンドに送信します。ここで、コールバックを作成する必要があります。コールバックは、データの受信後に開始されます。
+コールバックは、WebアプリケーションがPOSTメソッドを使用して実行されているドメインと、Webアプリケーションバックエンドが期待する適切にエンコードされたペイロードに対してHTTPまたはHTTPS要求を行います。</p>
+<hr><center><h4>日本の LPWAN IoT Sigfoxネットワークカバレッジ:</h4></center><hr>
+<center>
+<img src="https://i.imgur.com/LCKqslY.png" style="display: block; max-width: 100%; height: auto;" alt="IoT LPWAN Sigfoxネットワークによる日本のカバレッジ-井戸へのレベルメーター" title="IoT LPWAN Sigfoxネットワークによる日本のカバレッジ-井戸へのレベルメーター">
+</center>
+<div class="alert alert-info">
+<h4>テストWebインターフェースで使用するためのSigfoxバックエンドコールバックの設定</h4>
+<b>レベルメーター:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>カスタムペイロード設定を書き込みます:</b> cislo1::uint:16</li>
+<li><b>URLパターンで書き込みます:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php （またはプロジェクトが実行されるWebサーバーの別のURL）、ドメインがHTTPSをサポートしている場合はHTTPSを使用する可能性</li>
+<li><b>HTTPメソッドで、:</b> POST</li>
+<li><b>本文（メッセージ本文）に追加します:</b></li>
+<li>hodnota={customData#cislo1}&token=123456789</li>
+<li><b>コンテンツタイプに追加します:</b> application/x-www-form-urlencoded</li>
+</div>				
+<hr>
+<center> 
+     <h3>レベルメータープロジェクトのWebインターフェイスのスクリーンショット</h3>
+     <hr>
+	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/rkFWcWv.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/aTd6o11.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year"> 
+	</a>
+</center>  
+            <hr> 
+	
+ </div>
+		</div>
+</div>
+</body>
+</html>
