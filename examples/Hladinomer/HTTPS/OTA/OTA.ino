@@ -179,6 +179,13 @@ void loop() {
         client.println();
         client.println(data);
         Serial.println(F("Data uspesne odoslane na web"));
+        while (client.connected()) {
+          String line = client.readStringUntil('\n');
+          if (line == "\r") {
+            break;
+          }
+        }
+        String line = client.readStringUntil('\n');
       } else {
         Serial.println(F("Pripojenie zlyhalo..."));
         delay(500);
