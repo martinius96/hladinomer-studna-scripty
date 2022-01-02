@@ -1,6 +1,6 @@
 /*|-----------------------------------------------------------------------------------|*/
 /*|Projekt: Hladinomer - HTTP - FreeRTOS - HC-SR04 / JSN-SR04T / HY-SRF05             |*/
-/*|ESP8266 (NodeMCU, Wemos D1 Mini, Generic), ESP32 (DevKit, Generic)                 |*/
+/*|ESP32 (DevKit, Generic)                                                            |*/
 /*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
