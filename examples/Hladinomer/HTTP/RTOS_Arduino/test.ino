@@ -1,4 +1,3 @@
-//NOT WORKING, EXPERIMENTAL
 #include <WiFi.h>
 #include <NewPingESP8266.h>
 
@@ -17,8 +16,8 @@ TaskHandle_t Task2; //WIFI HTTP SOCKET
 QueueHandle_t  q = NULL;
 
 WiFiClient client;
-void Task1code( void * parameter);
-void Task2code( void * parameter);
+static void Task1code( void * parameter);
+static void Task2code( void * parameter);
 void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
@@ -34,30 +33,26 @@ void setup() {
     Serial.println(F("Queue FIFO buffer is created"));
     vTaskDelay(1000 / portTICK_PERIOD_MS); //wait for a second
     xTaskCreatePinnedToCore(
-      Task1code, /* Function to implement the task */
-      "Task1", /* Name of the task */
-      10000,  /* Stack size in words */
-      NULL,  /* Task input parameter */
-      0,  /* Priority of the task*/
-      &Task1,  /* Task handle. */
-      1); /* Core where the task should run */
+      Task1code,   /* Task function. */
+      "Task1",     /* name of task. */
+      10000,       /* Stack size of task */
+      NULL,        /* parameter of the task */
+      1,           /* priority of the task */
+      &Task1,      /* Task handle to keep track of created task */
+      1);          /* pin task to core 0 */
     Serial.println(F("Ultrasonic measurement task started"));
     xTaskCreatePinnedToCore(
-      Task2code, /* Function to implement the task */
-      "Task2", /* Name of the task */
-      10000,  /* Stack size in words */
-      NULL,  /* Task input parameter */
-      0,  /* Priority of the task */
-      &Task2,  /* Task handle. */
-      0); /* Core where the task should run */
+      Task2code,   /* Task function. */
+      "Task2",     /* name of task. */
+      10000,       /* Stack size of task */
+      NULL,        /* parameter of the task */
+      1,           /* priority of the task */
+      &Task2,      /* Task handle to keep track of created task */
+      0);          /* pin task to core 1 */
     Serial.println(F("HTTP Socket task started"));
   } else {
     Serial.println(F("Queue creation failed"));
   }
-
-
-
-
 }
 
 void loop() {
@@ -72,7 +67,7 @@ void loop() {
 
 }
 
-void Task1code( void * parameter) {
+static void Task1code( void * parameter) {
   if (q == NULL) {
     Serial.println(F("Queue in Measurement task is not ready"));
     return;
@@ -103,7 +98,7 @@ void Task1code( void * parameter) {
     }
   }
 }
-void Task2code( void * parameter) {
+static void Task2code( void * parameter) {
   int distance;
   if (q == NULL) {
     Serial.println(F("Queue in HTTP socket task is not ready"));
