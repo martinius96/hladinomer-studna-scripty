@@ -132,7 +132,9 @@ Brøndens dybde og diameter indtastes i systemet af brugeren baseret på proport
 Dataene sendes til webserveren af en mikrocontroller understøttet af teknologi (Ethernet / WiFi / LPWAN Sigfox), som udfører målinger hvert 300. sekund - dvs. 5 minutter, eller ved transmission via LPWAN IoT netværk Sigfox sendes data hvert 11. minut, da modemmet er begrænset af netværket til maksimalt at transmittere 140 beskeder pr.
 <b> Vandstandsmåling udføres ved hjælp af ultralydssensorer </b> - HC-SR04, eller dens vandtætte variant JSN-SR04T, andre sensorer med trigger/ekko-signaler fra US-02X, IOE-SR0X-serien kan også bruges, HC-SR0X, HY-SRF0X, DYP-ME007.
 </p>
-<hr>
+<center>
+<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery" title="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery">
+</center>
 <p style="text-align: justify;">
 Princippet for måling af ultralydssensorer er at sende et Trigger-signal med en længde på 10 μs (mikrosekunder), som hopper af vandstanden og vender tilbage til modtageren - Echo.
 Time-of-Flight-metoden bruges til at konvertere tiden mellem afsendelse og modtagelse af signalet til den differentielle vandstand fra sensoren.
@@ -367,7 +369,6 @@ Tilbagekaldet foretager en HTTP- eller HTTPS-anmodning til det domæne, hvor web
      <h3>Skærmbilleder af webgrænsefladen til niveaumålerprojektet</h3>
      <hr>
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
-	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
     	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
     	<img src="https://i.imgur.com/rkFWcWv.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
 	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
