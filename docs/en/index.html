@@ -147,7 +147,9 @@ Depth and diameter of the well are entered into the system by the user based on 
 Data is sent to the web server by a microcontroller, which performs measurements every 300 seconds - i. 5 minutes, or in the case of transmission via IoT network Sigfox, data is sent every 11 minutes, as it is limited by the network to transmit a maximum of 140 messages per day.
 <b> Water level measurement is performed using ultrasonic sensors </b> - HC-SR04, or its waterproof variant JSN-SR04T, other sensors with Trigger / Echo signals from US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, DYP-ME007 series can also be used.
 </p>
-<hr>
+<center>
+<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery" title="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery">
+</center>
 <p style = "text-align: justify;">
 Principle of measuring ultrasonic sensors is to send a Trigger signal with a length of 10 μs (microseconds), which bounces off the water level and returns to the receiver - Echo.
 Time-of-Flight method is used to recalculate the time between sending and receiving the signal to determine the distance of the water level from the sensor, which is located at the top of the well.
@@ -387,7 +389,6 @@ The callback makes an HTTP or HTTPS request to the domain where the web applicat
      <h3>Screenshots of Water Level monitor webapp</h3>
      <hr>
 	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
-	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
     	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
     	<img src="https://i.imgur.com/rkFWcWv.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
 	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
