@@ -150,7 +150,9 @@ Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
 Možno využiť aj iné senzory so signálmi Trigger / Echo z rady US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, DYP-ME007. 
 </p>
-<hr>
+<center>
+	<img src="https://i.imgur.com/tBct9oJ.gif" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTP, POST metóda prenosu" title="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTP, POST metóda prenosu">
+</center>
 <p style="text-align: justify;">
 Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10 μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
 Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na určenie vzdialenosti hladiny vody od senzora, ktorý je umiestnený na vrchu studne.
