@@ -276,7 +276,7 @@ Od výrobcu MicroChip je podporovaný Ethernet modul ENC28J60.
 Všetky Ethernet moduly zabezpečujú HTTP konektivitu s webserverom.
 Podporované sú aj WiFi mikrokontroléry od Espressif Systems - ESP8266 a ESP32.
 Mikrokontroléry majú viacero prevádzkových režimov: StandBy, StandBy + OTA s možnosťou vzdialeného uploadu firmvéru cez LAN sieť a režim hlbokého spánku pre ULP aplikácie - Deep Sleep.
-V režime spánku pre ESP8266 je nutné pridať fyzickú prepojku medzi GPIO16 (WAKE) a RST - pozri Schému zapojenia.
+V režime spánku pre mikrokontróler ESP8266 je nutné pridať fyzickú prepojku medzi GPIO16 (WAKE) a RST - pozri Schému zapojenia.
 Mikrokontroléry ESP umožňujú implementovať aj šifrovanú komunikáciu s webserverom cez HTTPS protokol. 
 Platforma ESP8266 i ESP32 využíva certifikát koreňovej certifikačnej autority (Root CA), ktorá pre doménu webservera vydala certifikát (Issuer). 
 Certifikát je vložený do zdrojového kódu mikrokontrolérov v .pem formáte.
