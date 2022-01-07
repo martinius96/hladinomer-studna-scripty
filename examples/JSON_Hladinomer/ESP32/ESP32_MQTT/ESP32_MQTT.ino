@@ -15,14 +15,15 @@
 #if defined HTTP && defined HTTPS
 #error HTTP and HTTPS cannot used in same time. Use only one definition and comment other (unsued) definiton of protocol
 #endif
+
 //CHOOSE PROTOCOL FOR CONNECTION TO MQTT BROKER FOR TOPIC DATA PUBLISH / SUBSCRIBE
-#define MQTT
-//#define MQTTS
+//#define MQTT
+#define MQTTS
 #if defined MQTT && defined MQTTS
 #error MQTT and MQTTS cannot used in same time. Use only one definition and comment other (unsued) definiton of protocol
 #endif
 #include <WiFi.h>
-#if defined HTTPS
+#if defined HTTPS || defined MQTTS
 #include <WiFiClientSecure.h>
 #endif
 #include <ArduinoJson.h>
@@ -91,18 +92,18 @@ const static char* mqtt_root_ca PROGMEM = \
     "0fKtirOMxyHNwu8=\n" \
     "-----END CERTIFICATE-----\n";
 #if defined HTTP
-  const int httpPort = 80;
-  WiFiClient klient; //pre HTTP
+const int httpPort = 80;
+WiFiClient klient; //pre HTTP
 #endif
 #if defined HTTPS
-  const int httpPort = 443;
-  WiFiClientSecure klient; //pre HTTPS
+const int httpPort = 443;
+WiFiClientSecure klient; //pre HTTPS
 #endif
 #if defined MQTT
-  WiFiClient espClient; //pre MQTT
+WiFiClient espClient; //pre MQTT
 #endif
 #if defined MQTTS
-  WiFiClientSecure espClient; //pre MQTTS
+WiFiClientSecure espClient; //pre MQTTS
 #endif
 PubSubClient client(espClient);
 unsigned long timer = 0;
@@ -160,10 +161,10 @@ void setup() {
   espClient.setCACert(mqtt_root_ca);
 #endif
 #if defined MQTT
-  client.setServer(mqtt_server, 1883); //MQTT port
+  client.setServer(mqtt_server, 1883);
 #endif
 #if defined MQTTS
-  client.setServer(mqtt_server, 8883); //MQTTS port
+  client.setServer(mqtt_server, 8883);
 #endif
   client.setCallback(callback);
   if (!client.connected()) {
@@ -207,14 +208,14 @@ void loop() {
       char pole_vyska[32];
       dtostrf(vyska, 1, 2, pole_vyska);
       client.publish("hladinomer/vyska", pole_vyska);
-      Serial.print(F("Objem studne: "));
+      Serial.print("Objem studne: ");
       Serial.print(objem);
-      Serial.println(F(" litrov"));
+      Serial.println(" litrov");
       char pole_objem[32];
       dtostrf(objem, 1, 2, pole_objem);
       client.publish("hladinomer/objem", pole_objem);
     } else if (!klient.connect(host, httpPort)) {
-      Serial.println(F("Nepodarilo sa pripojenie k hladinomeru, ani nacitanie JSON dat"));
+      Serial.println("Nepodarilo sa pripojenie k hladinomeru, ani nacitanie JSON dat");
     }
   }
 }
