@@ -4,7 +4,9 @@
 /*|Stiahnutie JSON dat, vyparsovanie hodnot, vypis  |*/
 /*|Odoslanie dat do dvoch topicov na free MQTT      |*/
 /*|Broker pre vývojárov IoT Industies Slovakia      |*/
-/*|Revízia: 7. Januar 2022                          |*/
+/*|Autor: Martin Chlebovec                          |*/
+/*|E-mail: martinius96@gmail.com                    |*/
+/*|Revízia: 7. Januar 2021                          |*/
 /*|-------------------------------------------------|*/
 
 //CHOOSE PROTOCOL FOR CONNECTION TO WEBSERVER
