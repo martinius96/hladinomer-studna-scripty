@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Bohrlochebene - Open-Source-Hardware - Arduino / ESP8266 / ESP32 / Sigfox</title>
+	<meta name="description" content="Füllstandsmesser - Wasserstandsmonitor, der auf der Arduino-Plattform ESP8266, ESP32 basiert. Messung mit Ultraschallsensor HC-SR04 / JSN-SR04T. Senden von Daten über Ethernet, WiFi, Sigfox. Wasserstandsmessung in einem Brunnen, Sumpf.">
+	<meta name="keywords" content="Füllstandsmesser, Brunnenpegelmesser, Arduino-Projekt, Sigfox, lpwan iot sigfox, Ethernet- und WLAN-Projekt, Arduino-Mikrocontroller ESP8266 ESP32, Fußballbrunnen, Monitor, Webinterface, Visualisierung">
+	<meta name="news_keywords" content="Füllstandsmesser, Brunnenpegelmesser, Arduino-Projekt, Sigfox, lpwan iot sigfox, Ethernet- und WLAN-Projekt, Arduino-Mikrocontroller ESP8266 ESP32, Fußballbrunnen, Monitor, Webinterface, Visualisierung">	
+<!-- Open Graph / Facebook -->
+	<meta name="robots" content="index, follow">	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Pegelmesser</a></li>
+	<!---<li><a href="zrazkomer.html">Zrážkomer</a></li>-->
+	<li><a href="zapojenie.html">Beteiligung</a></li>   
+	<li class=""><a href="json_client.html">JSON-Client</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">Installation</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../et/index.html"><img src="https://i.imgur.com/1qxI0wk.png" alt="Estonian.png, 2,2kB" title="Estonian" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+<a href="../ja/index.html"><img src="https://i.imgur.com/noyb0NF.png" alt="Japanese.png, 2,2kB" title="Japanese" height="32" width="32"></a>
+<a href="../pl/index.html"><img src="https://i.imgur.com/OteBe4t.png" alt="Polish.png, 2,2kB" title="Polish" height="32" width="32"></a>
+<a href="../ru/index.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+<strong>Quellcodes des Projekts Levelmeter für Arduino-Mikrocontroller, ESP8266, ESP32, Bibliothek NewPing, Ethernet2, Ethernet3, UIPEthernet: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-Projekt-Repository</a>
+</div>	
+<div class="alert alert-success">
+	<strong><font color="red">Testen Sie den Projektwasserstandsmesser kostenlos mit Ihrer Hardware - online: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=de">HIER</font></a> - Nur HTTP-Protokoll (Endora.cz Freehosting unterstützt keine HTTPS-Verbindungen).
+</div>
+<div class="alert alert-warning">
+	<strong><font color="red">Testen Sie den Projektwasserstandsmesser kostenlos mit Ihrer Hardware - online: </strong><a href="https://hladinomer.000webhostapp.com/?lang=de">HIER</font></a> - HTTPS (verfügbar für ESP8266 und ESP32, Arduino + Ethernet unterstützt kein HTTPS)
+</div>		
+<div class="alert alert-info">
+	<strong>Implementierung für ESP32 im ESP-IDF v4.2-Framework (4.0 kompatibel) verfügbar ab 4. Juni 2021 unter Verwendung von FreeRTOS und Aufgaben mit dem Queue-Sperrmechanismus.</strong>
+</div>
+<div class="alert alert-danger">
+	<strong>Bei Interesse an den Quellcodes der Webanwendung kontaktieren Sie den Autor des Projekts in englischer Sprache unter: </strong>martinius96@gmail.com
+</div>
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultraschall</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>
+      <hr>
+			<center> 
+	<h2>Steuerungshardware - kompatible Mikrocontroller AVR / ESP</h2>
+</center>	
+<hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino UNO" title="Control microcontroller Arduino UNO"><br><b><a href="https://www.ebay.com/itm/254532156570">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Nano" title="Control microcontroller Arduino Nano"><br><b><a href="https://www.ebay.com/itm/252742123829">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Mega 1280/25" title="Control microcontroller Arduino Mega 1280/2560"><br><b><a href="https://www.ebay.com/itm/304122418040">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 / D1 Mini (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>Übertragungstechnik Module - Ethernet / Sigfox IoT LPWAN</h2>
+</center>
+<hr>
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.ebay.com/itm/185017231005">Ethernet shield Wiznet W5100</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.ebay.com/itm/263116282333">Ethernet Modul Wiznet W5500</a></b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/LhpZGxj.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet USR-ES1" title="Ethernet modul Wiznet USR-ES1"><br><b><a href="https://www.ebay.com/itm/202042600986">Ethernet Modul Wiznet USR-ES1</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.ebay.com/itm/252798986559">Ethernet Modul ENC28J60</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b><a href="https://www.ebay.com/itm/113194034192">Sigfox WISOL SFM10R1</a></b></center></div>
+</div>
+<hr>
+<center> 
+	<h2>Kompatible Ultraschall-Distanzsensoren</h2>
+</center>	
+<hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR04" title="Ultrasonic distance sensor - HC-SR04"><br><b><a href="https://www.ebay.com/itm/183351362390">HC-SR04</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/WXWD0wt.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR05" title="Ultrasonic distance sensor - HC-SR05"><br><b><a href="https://www.ebay.com/itm/271666928961">HC-SR05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/DlWRbhK.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - JSN-SR04T" title="Ultrasonic distance sensor - JSN-SR04T"><br><b><a href="https://www.ebay.com/itm/272576395554">JSN-SR04T</a></b></center></div>		
+<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF05" title="Ultrasonic distance sensor - HY-SRF05"><br><b><a href="https://www.ebay.com/itm/224586332861">HY-SRF05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/R51S6y5.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF06" title="Ultrasonic distance sensor - HY-SRF06"><br><b>HY-SRF06</b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - DYP-ME007" title="Ultrasonic distance sensor - DYP-ME007"><br><b><a href="https://www.ebay.com/itm/152929703900">DYP-ME007</a></b></center></div>
+</div>					
+<hr><center><h1>Pegelmesser - Wasserstandswächter im Brunnen</h1></center><hr>
+<p style="text-align: justify;">
+Das Level Meter Project (Wasserstandsmonitor) besteht aus einem zentralen Webinterface, das dazu dient, Daten von Sensorknoten zu sammeln und für den Benutzer zu visualisieren.
+Aktuelle Wasserstandsdaten werden zusammen mit der Umrechnung in das Brunnenvolumen im Dashboard dargestellt, historische Wasserstandsdaten stehen dem Benutzer auch in tabellarischer oder grafischer Visualisierung mit Liniendiagrammen zur Verfügung.
+Das Webinterface ist reaktionsschnell und kann sich an jede Bildschirm- und Geräteauflösung anpassen.
+Die Webschnittstelle des Projekts verwendet ein in PHP geschriebenes Backend, das eingehende Daten aus der Anfrage mithilfe der HTTP-POST-Methode verarbeiten kann.
+Das Backend korrigiert das gemessene Niveau auf das tatsächliche Niveau basierend auf der bekannten Tiefe des Brunnens, berechnet das Wasservolumen im Brunnen aus diesem Parameter und dem Durchmesser des Brunnens.
+Die Tiefe und der Durchmesser des Bohrlochs werden vom Benutzer anhand der Proportionen seines Bohrlochs in das System eingegeben.
+Die Daten werden von einem technisch unterstützten Mikrocontroller (Ethernet / WiFi / LPWAN Sigfox) an den Webserver gesendet, der alle 300 Sekunden Messungen durchführt - d. 5 Minuten, bzw. bei der Übertragung über das LPWAN IoT-Netzwerk Sigfox werden alle 11 Minuten Daten gesendet, da das Modem durch das Netzwerk auf maximal 140 Nachrichten pro Tag beschränkt ist.
+<b> Die Wasserstandsmessung erfolgt mit Ultraschallsensoren </b> - HC-SR04 oder seine wasserdichte Variante JSN-SR04T.
+Andere Sensoren mit Trigger-/Echosignalen der Serien US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, DYP-ME007 können ebenfalls verwendet werden.
+</p>
+<hr>
+<p style="text-align: justify;">
+Das Prinzip der Messung von Ultraschallsensoren besteht darin, ein Triggersignal mit einer Länge von 10 μs (Mikrosekunden) zu senden, das vom Wasserspiegel abprallt und zum Empfänger zurückkehrt - Echo.
+Die Time-of-Flight-Methode wird verwendet, um die Zeit zwischen Senden und Empfangen des Signals neu zu berechnen, um den Abstand des Wasserstands von dem Sensor zu bestimmen, der sich an der Spitze des Brunnens befindet.
+Die Umrechnungsformel berücksichtigt die Schallgeschwindigkeit 343 m / s bei einer Temperatur von 20 ° C.
+Ein wichtiger Parameter für beide Ultraschallsensoren ist die Strahlbreite, also die Detektionscharakteristik.
+Der HC-SR04 Sensor hat eine 15° Erkennungscharakteristik. Der Strahl ist relativ schmal und der Sensor ist auch für schmalere Brunnen und Tanks geeignet, jedoch ist er nicht wasserdicht und birgt ein hohes Korrosionsrisiko (Oxidation) durch Feuchtigkeit im Brunnen.
+Aus diesem Grund empfiehlt es sich, diesen Ultraschallsensor über dem Brunnen zu platzieren.
+Der wasserdichte Sensor JSN-SR04T hat eine Erkennungscharakteristik von 60°, was ihn erheblich einschränkt und seinen Einsatz in engen Brunnen verhindert, da sich der Strahl mit der Entfernung aufweitet und einen Brunnen mit einem Durchmesser von mehreren Metern (6 Meter Durchmesser bei einer Brunnentiefe) benötigt von 4,5 Metern).
+Ultraschallsensoren sind völlig wartungsfrei. Der Sensor JSN-SR04T verfügt über eine elektronische Steuerplatine, die weder Feuchtigkeit noch Wasser ausgesetzt werden darf.
+Das standardmäßige abgeschirmte Kommunikationskabel ist 2,5 Meter lang, es ist möglich, Gegenstücke desselben Kabels anzuschließen, um die Leitung zu verlängern.
+Bei einem quadratischen Brunnen geht der Durchmesser des einbeschriebenen Kreises in den Mittelwert ein, der den Bezugswert des Wasserzylinders für die Berechnung des Brunnenvolumens bildet.
+Der Fehler des gesamten Bohrlochvolumens liegt in diesem Fall bei ~ 12,5 %.
+Die von den Sensoren maximal messbare Füllstandshöhe (Level) beträgt ca. 400 bis 450 cm (aus Datenblatt bekannt).
+</p>
+<div class="alert alert-info">
+  	<strong>Andere Arten von Wasserstandssensoren, die integriert werden können (Sie müssen Ihre eigene Firmware erstellen):</strong> 
+ 	<li> Laser (LiDAR) </li>
+<li> Hydrostatisch </li>
+<li> Elektrostatisch (kapazitiv / induktiv) </li>
+<li>Druck (Differenzdruck / mit kompensierendem Atmosphärendrucksensor) </li>
+<li> Optisch </li>
+<li> Mechanisch (Schwimmer) </li>
+<li> Magnet (Halle) </li>
+<li> Mikrowelle (Radar) </li>
+<li> <b> Hinweis: </b> Wenn der Wasserstand mikrocontrollerseitig von unten neu berechnet wird, müssen Sie im Webinterface die Brunnentiefe auf 0 cm einstellen. </li>
+</div>
+<hr><center><h3>Videodemonstration des Webinterface - Levelmeter:</h3></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>Ultraschallsensoren sind geeignet für:</h4></center><hr>
+<div class="alert alert-success">
+<li> Ausgehobene Brunnen </li>
+<li> Klärgruben und Senkgruben </li>
+<li> Bäche und Seen </li>
+<li> Regenwassertanks aus Kunststoff </li>
+<li> Stärke (Messung der Massenfüllung) </li>
+<li>Behälter (Abfallüberwachung, Sammelbehälterbefüllung) </li>
+<li>Kessel (Überwachung von Holz, Pellets, Kohle, Hackschnitzel) </li>
+<li> Schächte und Keller (Grundwasserüberwachung) </li>
+</div>
+<hr><center><h3>Ultraschallsensoren sind nicht geeignet für:</h3></center><hr>
+<div class="alert alert-danger">
+<li> Gebohrte Brunnen (aufgrund von Erkennungsmerkmalen - breitstrahlend) </li>
+<li>Rohre und Röhren (aufgrund von Erkennungsmerkmalen - breitstrahlend) </li>
+<li> Zu Brunnen mit Nebenfluss (turbulente Oberfläche dämpft Ultraschall, Messung ist unmöglich / schrittweise) </li>
+<li> An Orten mit einer plötzlichen Temperaturänderung (die Temperatur beeinflusst die Zeit der Schallausbreitung, sodass sogar der stationäre Pegel zu schwanken scheint) </li>
+<li> Vakuumtanks (Messung nicht möglich) </li>
+</div>
+<hr><center><h4>Plug n play firmware - Ultra Low Power / StandBy</h4></center><hr>
+<div class="alert alert-success">
+  <strong>Kompilierte Firmware zum sofortigen Hochladen auf den Mikrocontroller verfügbar (erfordert keine Installation der Bibliothek).</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Firmware-Name</th>
+<th style="width: 50%">Firmware-Funktion</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Firmware für ULP-Anwendungen mit geringer Stromaufnahme (siehe Schaltplan). Die Firmware wird über das mitgelieferte ESPTOOL-Tool automatisch geladen, das mit einem .bat-Skript ausgeführt wird (im Skript ist es notwendig, den COM-Port Ihres ESP-Boards zu ändern).
+Nach dem Hochladen der Firmware und unter der Annahme, dass ESP nicht die SSID und das Passwort aus dem vorherigen Projekt gespeichert hat, startet WiFiManager, der zur Konfiguration des bestehenden WiFi-Netzwerks verwendet wird.
+ESP beginnt mit der Übertragung eines offenen WLAN-Netzwerks mit SSID im AP-Modus --> <b>Hladinomer_AP</b>. Nach dem Verbinden des Clients (Windows / Android / iOS) startet das Captive Portal auf 192.168.4.1 (der Client sollte automatisch umgeleitet werden).
+Mit WiFiManager können Sie ein WiFi-Netzwerk in Reichweite im Webinterface auswählen und ein Passwort festlegen.
+Nachdem ESP erfolgreich mit dem angegebenen WLAN-Netzwerk verbunden und IPv4 aus dem angegebenen Bereich zugewiesen wurde, wird das Captive Portal deaktiviert, ESP bleibt im STA-Station-Modus.
+Anschließend beginnt der Sensorknoten mit der Übertragung von Daten an das Webinterface <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=de"> Füllstandsmessgeräte </a>.
+<b> Beim nächsten Start des Sensorknotens werden Captive Portal und WiFiManager nicht mehr gestartet, da die WLAN-Netzwerkkonfiguration dauerhaft erhalten bleibt. </b>
+Nach dem Senden der Daten geht der Mikrocontroller in den Tiefschlafmodus. Der Hauptprozessor des Xtens ist im Schlafmodus ausgeschaltet.
+ESP8266 wird per WAKE Timer geweckt (Jumper zwischen GPIO16 und RST erforderlich), ESP32 per RTC Timer.
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Firmware für den StandBy-Modus des Mikrocontrollers, der in regelmäßigen Abständen (5 min) Messwerte des Wasserstands an den Webserver sendet und gleichzeitig die Verbindung zum AP im LAN-Netzwerk aufrechterhält.
+Die Firmware wird über das mitgelieferte ESPTOOL-Tool automatisch geladen, das mit einem .bat-Skript ausgeführt wird (im Skript ist es notwendig, den COM-Port Ihres ESP-Boards zu ändern).
+Nach dem Hochladen der Firmware und unter der Annahme, dass ESP nicht die SSID und das Passwort aus dem vorherigen Projekt gespeichert hat, startet WiFiManager, der zur Konfiguration des bestehenden WiFi-Netzwerks verwendet wird.
+ESP beginnt mit der Übertragung eines offenen WLAN-Netzwerks mit SSID im AP-Modus --> <b>Hladinomer_AP</b>. Nach dem Verbinden des Clients (Windows / Android / iOS) startet das Captive Portal auf 192.168.4.1 (der Client sollte automatisch umgeleitet werden).
+Mit WiFiManager können Sie ein WiFi-Netzwerk in Reichweite im Webinterface auswählen und ein Passwort festlegen.
+Nachdem ESP erfolgreich mit dem angegebenen WLAN-Netzwerk verbunden und IPv4 aus dem angegebenen Bereich zugewiesen wurde, wird das Captive Portal deaktiviert, ESP bleibt im STA-Station-Modus.
+Anschließend beginnt der Sensorknoten mit der Übertragung von Daten an das Webinterface <a href="http://arduino.clanweb.eu/studna_s_prekladom/"> Füllstandsmesser </a>.
+<b> Beim nächsten Start des Sensorknotens werden Captive Portal und WiFiManager nicht mehr gestartet, da die WiFi-Netzwerkkonfiguration dauerhaft erhalten bleibt.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr><center><h3>Funktionsprinzip des Füllstandsmessers - Blockschaltbild</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<p style="text-align: justify;">
+Das Webinterface verwendet Trigonometrie, um die messbare maximale Tiefe eines Bohrlochs bei einem bekannten Bohrlochdurchmesser abzuschätzen (ein weiterer Parameter zur Berechnung des Bohrlochvolumens).
+Über das Webinterface kann der Benutzer berechnen, bis zu welcher maximalen Tiefe des Bohrlochs jeder der Sensoren aufgrund seiner Eigenschaften geeignet ist.
+Das Projekt ist auch für Laien, die nicht wissen, welcher Sensor für den Einsatz in ihrem Brunnen besser geeignet ist, so einfach zu handhaben.
+Auch der verwendete Mikrocontroller spielt eine wichtige Rolle im System.
+Für das Projekt ist es möglich, die Arduino-Plattform (Uno / Mega) in der Revision R3 mit identischer Pinbelegung zu verwenden, die an ein Ethernet-Shield angeschlossen werden kann, das über die ICSP-Schnittstelle kommuniziert.
+Es ist auch möglich, Ethernet-Module zu verwenden und diese direkt mit den Hardware-SPI-Pins des Mikrocontrollers zu verbinden.
+Ethernet-Module von Wiznet W5100, W5500, USR-ES1 werden unterstützt.
+Das Ethernet-Modul ENC28J60 wird von MicroChip unterstützt.
+Alle Ethernet-Module bieten HTTP-Konnektivität mit dem Webserver.
+WiFi-Mikrocontroller von Espressif Systems - ESP8266 und ESP32 werden ebenfalls unterstützt.
+Mikrocontroller haben mehrere Betriebsmodi: StandBy, StandBy + OTA mit der Möglichkeit des Remote-Firmware-Uploads über das LAN-Netzwerk und den Deep-Sleep-Modus für ULP-Anwendungen - Deep Sleep.
+Im Schlafmodus für ESP8266 ist es notwendig, einen physikalischen Jumper zwischen GPIO16 (WAKE) und RST hinzuzufügen - siehe Schaltplan.
+ESP-Mikrocontroller ermöglichen auch die Implementierung von HTTPS (verschlüsselt)-Konnektivität mit dem Webserver.
+Sowohl die ESP8266- als auch die ESP32-Plattform verwenden die Root-CA, die ein Zertifikat (Aussteller) für die Webserverdomäne ausgestellt hat.
+Das Zertifikat ist im Quellcode der Mikrocontroller im .pem-Format eingebettet.
+Damit das Zertifikat keinen Platz im RAM-Speicher des Mikrocontrollers belegt, wird es in den Flash-Speicher des Mikrocontrollers - PROGMEM - eingefügt.
+Das Zertifikat der Zertifizierungsstelle ist 10 bis 20 Jahre gültig, erfordert also keine häufige Erneuerung des Zertifikats.
+Daten zum aktuellen Wasserstand und Wasservolumen im Brunnen stehen im JSON-Format über das Webinterface zur Verfügung.
+Das Projekt kann das Level-Meter-Projekt über MQTT in die Hausautomation (Hassio, Domoticz, Loxone) integrieren, um den Wasserstand in einem eigenen Dashboard anzuzeigen, z.B. Grafana.
+</p>
+<div class="alert alert-info">
+	<strong>Softwareimplementierungen für Arduino, ESP8266, ESP32 (erfordert Bibliotheksinstallation): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=de">Hier verfügbar</a>
+</div>	
+<hr><center><h4>Verfügbare Bibliotheken für Mikrocontroller (Arduino / ESP)</h4></center><hr>
+<div class="alert alert-danger">
+	Bibliotheksarchiv (.zip) erweitern auf <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Name der Bibliothek</th>
+<th style="width: 50%">Bibliotheksfunktion</th>
+<th style="width: 25%">Herunterladen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>NewPing</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für AVR-Mikrocontroller (ATmega) Arduino Uno / Nano / Mega.
+Es ermöglicht Messungen mit Ultraschall-Distanzsensoren US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, JSN-SR0XT, DYP-ME007.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPing" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>NewPingESP8266</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für ESP8266- und ESP32-Mikrocontroller.
+Es ermöglicht Messungen mit Ultraschall-Distanzsensoren US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, JSN-SR0XT, DYP-ME007.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPingESP8266" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet2</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für AVR-Mikrocontroller (ATmega) Arduino Uno / Nano / Mega.
+Es ermöglicht die Kommunikation mit dem Ethernet-Modul Wiznet W5200 bis W5500 über die SPI-Schnittstelle. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet2" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet3</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für AVR-Mikrocontroller (ATmega) Arduino Uno / Nano / Mega.
+Es ermöglicht die Kommunikation mit dem Ethernet-Modul Wiznet W5500 V2 - USR-ES1 über die SPI-Schnittstelle. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet3" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>UIPEthernet</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für AVR-Mikrocontroller (ATmega) Arduino Uno / Nano / Mega.
+Es ermöglicht die Kommunikation mit dem Ethernet-Modul ENC28J60 von Microchip über die SPI-Schnittstelle.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/UIPEthernet" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr>
+<p style="text-align: justify;">
+Für Standorte, an denen keine feste Internetabdeckung besteht, kann auch das LPWAN-IoT-Netz Sigfox genutzt werden, das fast 90 % des geografischen Gebiets Deutschlands abdeckt. Es werden größere Städte und angrenzende Ortschaften des ländlichen und ländlichen Raums abgedeckt.Diese Technologie ermöglicht es, kleine Nachrichtenmengen bis zu einer Größe von 12B zu übertragen.
+Bei einem Levelmeter-Projekt wird der 4B Wasserstandswert (UINT_32) gesendet.
+Bei einem um einen Niederschlagsmesser erweiterten Projekt wird der Wert 8B gesendet, der aus der Höhe des Wasserspiegels und der Niederschlagszunahme gebildet wird.
+Da Sigfox maximal 140 Nachrichten pro Tag zulässt, verlängert sich das Datenübertragungsintervall auf 11 Minuten.
+In beiden Fällen enthält die Nachricht nicht die volle nutzbare Länge der Nutzlast.
+Nutzlastnachrichten können auch mit verschiedenen Systeminformationen ergänzt werden, zum Beispiel: GEO-Daten (Längengrad / Breitengrad) basierend auf Daten des GPS-Dienstes Sigfox Atlas, RSSI (Received Signal Strength), Nachrichtennummer und andere.
+Das für das Projekt verwendete Kommunikationsmodul ist ein Sigfox WISOL 868MHz UART LPWAN Modem.
+Dieses Modem kommuniziert über AT-Befehle über die UART-Schnittstelle, die auf Mikrocontrollern per Software emuliert wird.
+Die Kommunikation wird mit einer Geschwindigkeit von 9600 Baud/s übernommen. Das WISOL-Modem ist mit einem integrierten u.FL-Stecker auf dem PCB-Modul für den Antennenanschluss ausgestattet, der die Abdeckung auch im Innenbereich / im Schatten im Freien deutlich reduziert.
+Für eine erfolgreiche Datenübertragung ist eine Abdeckung durch zwei, vorzugsweise drei oder mehr BTS-Stationen für eine erfolgreiche Datenübertragung erforderlich. Die BTS sendet die übermittelten Informationen an das Sigfox-Backend, wo ein Rückruf erforderlich ist, der nach Erhalt der Daten beginnt.
+Der Callback stellt eine HTTP- oder HTTPS-Anfrage an die Domäne, in der die Webanwendung ausgeführt wird, mit der POST-Methode und einer entsprechend codierten Nutzlast, die das Webanwendungs-Back-End erwartet.
+</p>
+<hr><center><h4>Abdeckung Deutschlands durch das LPWAN IoT Sigfox Netzwerk:</h4></center><hr>
+<center>
+<img src="https://i.imgur.com/MoJ9fIb.png" style="display: block; max-width: 100%; height: auto;" alt="Abdeckung von Deutschland IoT LPWAN durch Sigfox-Netzwerk - Füllstandsmesser zum Brunnen" title="Abdeckung von Deutschland IoT LPWAN durch Sigfox-Netzwerk - Füllstandsmesser zum Brunnen">
+</center>
+<div class="alert alert-info">
+<h4>Sigfox-Backend-Callback-Setup für Webanwendungstests</h4>
+<b>Pegelmesser:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>In "Benutzerdefinierte Payload-Konfiguration" schreiben wir:</b> cislo1::uint:16</li>
+<li><b>Wir werden das "URL-Muster" hinzufügen:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (oder eine andere URL Ihres Webservers, auf dem das Projekt ausgeführt wird), die Möglichkeit, HTTPS zu verwenden</li>
+<li><b>Bei der HTTP-Methode wählen wir:</b> POST</li>
+<li><b>Wir werden zum Body (Nachrichtentext) hinzufügen:</b></li>
+<li>hodnota={customData#cislo1}&token=123456789</li>
+<li><b>Bei "Content-Type" wählen wir die Option:</b> application/x-www-form-urlencoded</li>
+</div>	
+<hr>
+<center> 
+     <h3>Screenshots der Webapp zur Wasserstandsüberwachung</h3>
+     <hr>
+	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=de">
+	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp with automatic refresh of measurement value" title="Water Level Monitor webapp with automatic refresh of measurement value">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/rkFWcWv.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/aTd6o11.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year"> 
+	</a>
+		</center>		
+            <hr> 
+	
+ </div>
+		</div>
+</div>
+</body>
+</html>
