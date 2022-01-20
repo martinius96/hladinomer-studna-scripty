@@ -1,26 +1,13 @@
-/* HTTPS GET Example using plain mbedTLS sockets
- *
- * Contacts the howsmyssl.com API via TLS v1.2 and reads a JSON
- * response.
- *
- * Adapted from the ssl_client1 example in mbedtls.
- *
- * Original Copyright (C) 2006-2016, ARM Limited, All Rights Reserved, Apache 2.0 License.
- * Additions Copyright (C) Copyright 2015-2016 Espressif Systems (Shanghai) PTE LTD, Apache 2.0 License.
- *
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/*|-----------------------------------------------------------------------------------|*/
+/*|Projekt: Hladinomer - HTTPS - HC-SR04 / JSN-SR04T / HY-SRF05                       |*/
+/*|ESP32 (DevKit, Generic) - ESP-IDF v4.3.X                                           |*/
+/*|Autor: Martin Chlebovec (martinius96)                                              |*/
+/*|E-mail: martinius96@gmail.com                                                      |*/
+/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
+/*|Testovacie webove rozhranie HTTPS: https://hladinomer.000webhostapp.com/           |*/
+/*|Revízia: 20. Január 2022                                                           |*/
+/*|-----------------------------------------------------------------------------------|*/
+
 #include <string.h>
 #include <stdlib.h>
 #include "freertos/FreeRTOS.h"
