@@ -1,7 +1,5 @@
 ## PLEASE TRY DEVELOPMENT BRANCH before submitting bugs on release or master, in case they were already fixed. ##
 
-## POST SERIAL OUTPUT !
-
 Issues without basic info will be ignored or closed!
 
 Please fill the info fields, it helps to get you faster support ;)
@@ -17,24 +15,13 @@ https://github.com/esp8266/Arduino/blob/master/doc/Troubleshooting/debugging.rst
 ### Basic Infos
 
 #### Hardware
-**WiFimanager Branch/Release:**
-- [ ] Master
-- [ ] Development
+WiFimanager Branch/Release:  Master
 
-**Esp8266/Esp32:**
-- [ ] ESP8266
-- [ ] ESP32
+Esp8266/Esp32: 
 
-**Hardware:			ESP-12e, esp01, esp25**
-- [ ] ESP01
-- [ ] ESP12 E/F/S (nodemcu, wemos, feather)
-- [ ] Other
+Hardware:			ESP-12e, esp01, esp25
 
-
-**ESP Core Version:	2.4.0, staging**
-- [ ] 2.3.0
-- [ ] 2.4.0
-- [ ] staging (master/dev)
+Core Version:      	2.4.0, staging
 
 ### Description
 
@@ -49,7 +36,7 @@ Additional libraries:
 ### Sketch
 
 ```cpp
-
+#BEGIN
 #include <Arduino.h>
 
 void setup() {
@@ -59,6 +46,7 @@ void setup() {
 void loop() {
 
 }
+#END
 ```
 
 ### Debug Messages
