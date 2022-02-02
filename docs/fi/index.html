@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Kaivokaivon tasolla - avoimen lähdekoodin laitteisto - Arduino / ESP8266 / ESP32 / Sigfox</title>
+	<meta name="description" content="Tasomittari - Arduino-alustalle rakennettu vesitasomittari, ESP8266, ESP32. Mittaus ultraäänianturilla HC-SR04 / JSN-SR04T. Tietojen lähettäminen Ethernetin, WiFin, Sigfoxin kautta. Vedenpinnan mittaus kaivossa, kaivo.">
+	<meta name="keywords" content="tasomittari, freertos, kaivon tasomittari, arduino-projekti, sigfox, lpwan iot sigfox, ethernet- ja wifi-projekti, Arduino-mikroohjaimet ESP8266 ESP32, jalkapallokaivo, näyttö, verkkokäyttöliittymä, visualisointi">
+	<meta name="news_keywords" content="tasomittari, freertos, kaivon tasomittari, arduino-projekti, sigfox, lpwan iot sigfox, ethernet- ja wifi-projekti, Arduino-mikroohjaimet ESP8266 ESP32, jalkapallokaivo, näyttö, verkkokäyttöliittymä, visualisointi">	
+<!-- Open Graph / Facebook -->
+	<meta name="robots" content="index, follow">
+	<meta property="og:type" content="website">	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Tasomittari</a></li>
+	<!---<li><a href="zrazkomer.html">Zrážkomer</a></li>-->
+	<li><a href="zapojenie.html">Osallistuminen</a></li>   
+	<li class=""><a href="json_client.html">JSON-asiakas</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">Asennus</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+	<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../de/index.html"><img src="https://i.imgur.com/kY5DFH5.png" alt="German.png, 2,2kB" title="German" height="32" width="32"></a>
+<a href="../et/index.html"><img src="https://i.imgur.com/1qxI0wk.png" alt="Estonian.png, 2,2kB" title="Estonian" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+<a href="../pl/index.html"><img src="https://i.imgur.com/OteBe4t.png" alt="Polish.png, 2,2kB" title="Polish" height="32" width="32"></a>
+<a href="../ru/index.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+<strong>Tasomittariprojektin lähdekoodit Arduino-mikrokontrollereille, ESP8266, ESP32, NewPing-kirjasto, Ethernet2, Ethernet3, UIPEthernet: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-projektin arkisto</a>
+</div>	
+<div class="alert alert-success">
+	<strong><font color="red">Kokeile tasomittariprojektia ilmaiseksi laitteistollasi - verkossa: </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/">TÄSSÄ</font></a> - Vain HTTP-protokolla (Endora.cz-ilmaispalvelin ei tue HTTPS-yhteyksiä).
+</div>
+<div class="alert alert-warning">
+	<strong><font color="red">Kokeile tasomittariprojektia ilmaiseksi laitteistollasi - verkossa: </strong><a href="https://hladinomer.000webhostapp.com/">TÄSSÄ</font></a> - HTTPS (saatavilla ESP8266:lle ja ESP32:lle, Arduino + Ethernet ei tue HTTPS:ää).
+</div>		
+<div class="alert alert-danger">
+	<strong>Jos olet kiinnostunut verkkosovelluksen lähdekoodeista, ota yhteyttä projektin tekijään englanniksi osoitteessa: </strong>martinius96@gmail.com
+</div>
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultraääni</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">IoT</span>	
+<span class="label label-danger">WiFi</span>	
+<span class="label label-default">OTA</span>
+<span class="label label-primary">ULP</span>	
+<hr>
+<center> 
+	<h2>Ohjauslaitteisto - yhteensopivat AVR / ESP-mikro-ohjaimet</h2>
+</center>	
+<hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino UNO" title="Control microcontroller Arduino UNO"><br><b><a href="https://www.ebay.com/itm/254532156570">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Nano" title="Control microcontroller Arduino Nano"><br><b><a href="https://www.ebay.com/itm/252742123829">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Mega 1280/25" title="Control microcontroller Arduino Mega 1280/2560"><br><b><a href="https://www.ebay.com/itm/304122418040">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 / D1 Mini (ESP8266)</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>Siirtotekniikkamoduulit - Ethernet / Sigfox LPWAN IoT</h2>
+</center>
+<hr>
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.ebay.com/itm/185017231005">Ethernet shield Wiznet W5100</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.ebay.com/itm/263116282333">Ethernet module Wiznet W5500</a></b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/LhpZGxj.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet USR-ES1" title="Ethernet modul Wiznet USR-ES1"><br><b><a href="https://www.ebay.com/itm/202042600986">Ethernet module Wiznet USR-ES1</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.ebay.com/itm/252798986559">Ethernet module ENC28J60</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 868 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 868 MHz"><br><b><a href="https://www.ebay.com/itm/113194034192">Sigfox WISOL SFM10R1</a></b></center></div>
+</div>
+<hr>
+<center> 
+	<h2>Yhteensopivat ultraäänietäisyysanturit</h2>
+</center>	
+<hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR04" title="Ultrasonic distance sensor - HC-SR04"><br><b><a href="https://www.ebay.com/itm/191841217528">HC-SR04</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/WXWD0wt.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR05" title="Ultrasonic distance sensor - HC-SR05"><br><b><a href="https://www.ebay.com/itm/271666928961">HC-SR05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/I7O3IGQ.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - JSN-SR04T" title="Ultrasonic distance sensor - JSN-SR04T"><br><b><a href="https://www.ebay.com/itm/321714364470">JSN-SR04T</a></b></center></div>		
+<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF05" title="Ultrasonic distance sensor - HY-SRF05"><br><b><a href="https://www.ebay.com/itm/252083407959">HY-SRF05</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mKqoqgT.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - Parallax PING)))™" title="Ultrasonic distance sensor - Parallax PING)))™"><br><b><a href="https://www.parallax.com/product/ping-ultrasonic-distance-sensor/">Parallax PING)))™</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - DYP-ME007" title="Ultrasonic distance sensor - DYP-ME007"><br><b><a href="https://www.ebay.com/itm/154713159645">DYP-ME007</a></b></center></div>	
+</div>					
+<hr><center><h1>Tasomittari - vedenpinnan valvonta kaivossa</h1></center><hr>
+<p style="text-align: justify;">
+Tasomittariprojekti (vesitasomonitori) koostuu keskitetystä verkkoliittymästä, jonka avulla kerätään tietoja anturisolmuista ja visualisoidaan ne käyttäjälle.
+Tämänhetkinen vedenkorkeustiedot esitetään kojelaudassa yhdessä kaivon tilavuuteen muuntamisen kanssa, historialliset vedenkorkeustiedot ovat myös käyttäjän käytettävissä taulukkomuodossa tai graafisessa visualisoinnissa viivakaavioilla.
+Verkkokäyttöliittymä on responsiivinen, se voi mukautua mihin tahansa näytön ja laitteen resoluutioon.
+Projektin verkkokäyttöliittymä käyttää PHP:llä kirjoitettua taustaohjelmaa, joka pystyy käsittelemään pyynnöstä saapuvat tiedot HTTP POST -menetelmällä.
+Taustaosa korjaa mitatun tason todelliseen kaivon tunnetun syvyyden perusteella, laskee tästä parametrista kaivon vesitilavuuden ja kaivon halkaisijan.
+Käyttäjä syöttää järjestelmään kaivon syvyyden ja halkaisijan kaivon mittasuhteiden perusteella.
+Tiedot lähetetään web-palvelimelle teknologian (Ethernet / WiFi / LPWAN IoT Sigfox) tukeman mikro-ohjaimen avulla, joka suorittaa mittauksia 300 sekunnin välein - ts. 5 minuuttia tai LPWAN IoT -verkon Sigfox kautta lähetettäessä dataa lähetetään 11 minuutin välein, koska verkko rajoittaa modeemin lähettämään enintään 140 viestiä päivässä.
+<b> Vedenpinnan mittaus suoritetaan ultraääniantureilla </b> - HC-SR04 tai sen vedenpitävä versio JSN-SR04T.
+Voidaan käyttää myös muita antureita, joissa on trigger / Echo-signaalit sarjoista US-02X, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-ME007, Parallax PING)))™.
+</p>
+<center>
+	<img src="https://i.imgur.com/tBct9oJ.gif" style="display: block; max-width: 100%; height: auto;" alt="Tasomittari - kojelauta - tällä hetkellä mitattujen tietojen automaattinen palautus jQueryn kautta" title="Tasomittari - kojelauta - tällä hetkellä mitattujen tietojen automaattinen palautus jQueryn kautta">
+</center>
+<p style="text-align: justify;">
+Ultraääniantureiden mittauksen periaate on lähettää Trigger-signaali, jonka pituus on 10 μs (mikrosekuntia), joka pomppii vedenpinnasta ja palaa vastaanottimeen - Echo.
+Lentoaikamenetelmällä lasketaan uudelleen signaalin lähettämisen ja vastaanottamisen välinen aika, jotta voidaan määrittää vedenpinnan etäisyys kaivon yläosassa sijaitsevasta anturista.
+Muunnoskaava ottaa huomioon äänen nopeuden 343 m/s lämpötilassa 20 °C.
+Tärkeä parametri molemmille ultraääniantureille on säteen leveys, toisin sanoen havaitsemisominaisuus.
+HC-SR04-anturin tunnistusominaisuus on 15°. Säde on suhteellisen kapea ja anturi soveltuu myös kapeammille kaivoille ja säiliöille, mutta se ei ole vesitiivis ja sillä on suuri korroosion (hapettumisen) riski kaivossa olevan kosteuden vuoksi.
+Tästä syystä on suositeltavaa sijoittaa tämä ultraäänianturi kaivon yläpuolelle.
+Vesitiiviin anturin JSN-SR04T tunnistusominaisuus on 60°, mikä rajoittaa sitä huomattavasti ja estää sen käytön kapeissa kaivoissa, koska säde levenee etäisyyden myötä ja vaatii halkaisijaltaan usean metrin kaivon (kaivon syvyydessä halkaisija 6 metriä). 4,5 metriä).
+Ultraäänianturit ovat täysin huoltovapaita. JSN-SR04T-anturissa on elektroninen ohjauskortti, jota ei saa altistaa kosteudelle ja vedelle.
+Vakioviestintäsuojattu kaapeli on 2,5 metriä pitkä, on mahdollista kytkeä saman kaapelin vastineita linjan jatkamiseksi.
+Neliömäisen kaivon tapauksessa sisäänkirjoitetun ympyrän halkaisija syötetään keskiarvoon, joka muodostaa vesisylinterin viitearvon kaivon tilavuuden laskemiseksi.
+Kaivon kokonaistilavuuden virhe on tässä tapauksessa ~12,5 %.
+Antureilla mitattava maksimikorkeus (taso) on noin 400 - 450 cm (tunnettu tietolomakkeesta).
+</p>
+<div class="alert alert-info">
+  	<strong>Muita integroitavia vedenkorkeusantureita (sinun on luotava oma laiteohjelmisto):</strong> 
+ 	<li> Laser (LiDAR) </li>
+<li> Hydrostaattinen (upotettava) </li>
+<li> Sähköstaattinen (kapasitiivinen / induktiivinen) </li>
+<li> Paine (ero / kompensoivalla ilmanpaineanturilla) </li>
+<li> Optinen </li>
+<li> Mekaaninen (kelluke) </li>
+<li> Magneettinen (halli) </li>
+<li> Mikroaaltouuni (tutka) </li>
+<li> <b> Huomautus: </b> Jos vedenkorkeus lasketaan uudelleen mikro-ohjaimen puolelta, sinun on asetettava kaivon syvyydeksi 0 cm verkkoliittymässä. </li>
+</div>
+<hr><center><h3>Web-käyttöliittymän esittelyvideo - Tasomittari:</h3></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/ZihXBGEzcT0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>Ultraäänianturit sopivat mm:</h4></center><hr>
+<div class="alert alert-success">
+<li> Kaivetut kaivot </li>
+<li> Septikot ja jätealtaat </li>
+<li> Purot ja järvet </li>
+<li> Muoviset sadevesisäiliöt </li>
+<li> Lujuus (massatäyttömittaus) </li>
+<li> Säiliöt (jätevalvonta, keräysastioiden täyttö) </li>
+<li> Kattilat (puun, pellettien, hiilen, puuhakkeen valvonta) </li>
+<li> Kaivot ja kellarit (tulva-/pohjavesivalvonta) </li>
+<li> Tuotanto (tuotteiden havaitseminen, niiden korkeus ja lukumäärä, haavamateriaalin korkeus) </li>
+<li> Pysäköintipaikat (vapaiden ja varattujen pysäköintipaikkojen havaitseminen) </li>
+</div>
+<hr><center><h3>Ultraäänianturit eivät sovellu:</h3></center><hr>
+<div class="alert alert-danger">
+<li> Poratut kaivot (havaitsemisominaisuuksien vuoksi - leveä säde) </li>
+<li> Putket ja putket (ilmaisuominaisuuksien vuoksi - laaja säde) </li>
+<li> Kaivoihin, joissa on sivujoki (pyörteinen pinta vaimentaa ultraääntä, mittaus on mahdotonta / portaittain) </li>
+<li> Paikoissa, joissa lämpötila muuttuu äkillisesti (lämpötila vaikuttaa äänen etenemisaikaan, joten jopa paikallaan oleva taso näyttää vaihtelevan) </li>
+<li> Tyhjiösäiliöt (mittaus ei mahdollista) </li>
+</div>
+<div class="alert alert-info">
+	<strong>Ultraäänietäisyysantureiden tunnistusominaisuudet - MATLAB-skriptit visualisointia varten:</strong>
+	<li><a href="../MATLAB/HCSR04.m" class="btn btn-success" role="button">HC-SR04.m ladata</a></li>
+	<li><a href="../MATLAB/JSN04T.m" class="btn btn-primary" role="button">JSN-SR04T.m ladata</a></li>
+</div>
+<hr><center><h4>Plug n' play firmware - Ultra Low Power / StandBy</h4></center><hr>
+<div class="alert alert-success">
+  <strong>Käännetty laiteohjelmisto ladattavissa välittömästi mikro-ohjaimeen (ei vaadi kirjaston asennusta).</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Laiteohjelmiston nimi</th>
+<th style="width: 50%">Firmware-toiminto</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Laiteohjelmisto ULP-sovelluksiin, joissa virrankulutus on alhainen (katso kytkentäkaavio). Laiteohjelmisto latautuu automaattisesti mukana toimitetun ESPTOOL-työkalun kautta, jota ajetaan .bat-skriptillä (skriptissä on vaihdettava ESP-kortin COM-portti).
+Kun laiteohjelmisto on ladattu ja oletettu, että ESP:ssä ei ole tallennettuna edellisen projektin SSID:tä ja salasanaa, WiFiManager käynnistyy, jota käytetään olemassa olevan WiFi-verkon määrittämiseen.
+ESP alkaa lähettää avointa WiFi-verkkoa SSID -> AP-tilassa <b>Hladinomer_AP</b>. Kun asiakas (Windows / Android / iOS) on yhdistetty, Captive-portaali alkaa 192.168.4.1 (asiakas tulee uudelleenohjata automaattisesti).
+WiFiManagerin avulla voit valita kantaman sisällä olevan WiFi-verkon verkkoliittymässä ja asettaa salasanan.
+Kun ESP on yhdistetty määritettyyn WiFi-verkkoon ja IPv4 on määritetty annetulta alueelta, Captive Portal sammuu ja ESP pysyy STA-Station-tilassa.
+Sen jälkeen anturisolmu alkaa lähettää tietoja verkkoliittymän <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> tasomittariin </a>.
+<b> Kun seuraavan kerran käynnistät anturisolmun, Captive Portal ja WiFiManager eivät enää käynnisty, koska WiFi-verkon asetukset säilyvät pysyvästi. </b>
+Tietojen lähettämisen jälkeen mikro-ohjain siirtyy syvään lepotilaan - Deep Sleep. Xtens-pääprosessori on sammutettu lepotilassa.
+ESP8266 herätetään WAKE-ajastimen kautta (GPIO16:n ja RST:n välissä hyppääjä vaaditaan), ESP32 RTC-ajastimen kautta.
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 laiteohjelmisto</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 laiteohjelmisto</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Mikro-ohjaimen StandBy-tilan laiteohjelmisto, joka lähettää säännöllisin väliajoin (5 min) vedenpinnan mittauksia web-palvelimelle ja samalla ylläpitää yhteyttä LAN-verkon tukiasemaan.
+Laiteohjelmisto latautuu automaattisesti mukana toimitetun ESPTOOL-työkalun kautta, jota ajetaan .bat-skriptillä (skriptissä on vaihdettava ESP-kortin COM-portti).
+Kun laiteohjelmisto on ladattu ja oletettu, että ESP:ssä ei ole tallennettuna edellisen projektin SSID:tä ja salasanaa, WiFiManager käynnistyy, jota käytetään olemassa olevan WiFi-verkon määrittämiseen.
+ESP alkaa lähettää avointa WiFi-verkkoa SSID -> AP-tilassa <b>Hladinomer_AP</b>. Kun asiakas (Windows / Android / iOS) on yhdistetty, Captive-portaali alkaa 192.168.4.1 (asiakas tulee uudelleenohjata automaattisesti).
+WiFiManagerin avulla voit valita kantaman sisällä olevan WiFi-verkon verkkoliittymässä ja asettaa salasanan.
+Kun ESP on yhdistetty määritettyyn WiFi-verkkoon ja IPv4 on määritetty annetulta alueelta, Captive Portal sammuu ja ESP pysyy STA-Station-tilassa.
+Sen jälkeen anturisolmu alkaa lähettää tietoja verkkoliittymän <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> tasomittariin </a>.
+<b> Kun seuraavan kerran käynnistät anturisolmun, Captive Portal ja WiFiManager eivät enää käynnisty, koska WiFi-verkon asetukset säilyvät pysyvästi. </b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 laiteohjelmisto</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 laiteohjelmisto</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr><center><h4>WiFi-verkon määritys WiFiManagerin kautta - Plug n' play firmware</h4></center><hr>
+<center>
+<img src="https://i.imgur.com/9VECUFT.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi sieť Hladinomer_AP, Captive Portal a webové rozhranie WiFiManagera v systéme Android" title="WiFi sieť Hladinomer_AP, Captive Portal a webové rozhranie WiFiManagera v systéme Android">
+</center>
+<hr><center><h3>Tasomittarin toimintaperiaate - Lohkokaavio</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<p style="text-align: justify;">
+Verkkokäyttöliittymä käyttää trigonometriaa kaivon mitattavissa olevan maksimisyvyyden arvioimiseen tunnetulla kaivon halkaisijalla (toinen parametri kaivon tilavuuden laskemiseen).
+Verkkokäyttöliittymän avulla käyttäjä voi laskea, mihin kaivon maksimisyvyyteen kukin anturi sopii ominaisuuksiensa perusteella.
+Projekti on niin helppokäyttöinen jopa maallikoille, jotka eivät tiedä mikä anturi sopii paremmin käytettäväksi kaivossaan.
+Myös käytetyllä mikro-ohjaimella on tärkeä rooli järjestelmässä.
+Projektissa on mahdollista käyttää Arduino-alustaa (Uno / Mega) versiossa R3 identtisellä liittimellä, joka voidaan liittää ICSP-liitännän kautta kommunikoivaan Ethernet-suojaan.
+On myös mahdollista käyttää Ethernet-moduuleja ja liittää ne suoraan mikro-ohjaimen laitteiston SPI-nastoihin.
+Wiznet W5100, W5500, USR-ES1 Ethernet-moduuleja tuetaan.
+MicroChip tukee Ethernet-moduulia ENC28J60.
+Kaikki Ethernet-moduulit tarjoavat HTTP-yhteyden web-palvelimeen.
+Myös Espressif Systemsin WiFi-mikro-ohjaimet ESP8266 ja ESP32 ovat tuettuja.
+Mikro-ohjaimilla on useita toimintatiloja: StandBy, StandBy + OTA, jossa on mahdollisuus laiteohjelmiston etälataukseen LAN-verkon kautta ja syvä lepotila ULP-sovelluksille - Deep Sleep.
+ESP8266-mikro-ohjaimen lepotilassa on tarpeen lisätä fyysinen hyppyjohdin GPIO16:n (WAKE) ja RST:n välille - katso kytkentäkaavio.
+ESP-mikro-ohjaimet mahdollistavat myös salatun viestinnän toteuttamisen web-palvelimen kanssa HTTPS-protokollan kautta.
+Sekä ESP8266- että ESP32-alustat käyttävät juuri CA:ta, joka on myöntänyt varmenteen (myöntäjä) verkkopalvelimen toimialueelle.
+Sertifikaatti on upotettu mikro-ohjainten lähdekoodiin .pem-muodossa.
+Jotta varmenne ei vie tilaa mikro-ohjaimen RAM-muistissa, se asetetaan mikro-ohjaimen - PROGMEM - flash-muistiin.
+Varmenneviranomaisen sertifikaatti on voimassa 10-20 vuotta, joten se ei vaadi varmenteen toistuvaa uusimista.
+Tiedot kaivon nykyisestä vedenkorkeudesta ja vesimäärästä ovat saatavilla JSON-muodossa verkkoliittymästä.
+Tasomittariprojekti voidaan integroida MQTT:n kautta kotiautomaatioon (Hassio, Domoticz, Loxone) näyttämään vedenpinnan omassa kojelautassaan, esim. Grafana.
+Tämän jälkeen on mahdollista suorittaa osajärjestelmän oheisohjaus (kastelu, kastelu, kotitalousvesilaitoksen aktivointi) verkkorajapinnasta saatavan kaivon vedenkorkeustietojen perusteella.
+</p>
+<div class="alert alert-info">
+	<strong>Ohjelmistototeutukset Arduinolle, ESP8266:lle, ESP32:lle (vaatii kirjaston asennuksen): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Saatavilla täältä</a>
+</div>	
+<hr><center><h4>Saatavilla olevat kirjastot mikro-ohjaimille (Arduino / ESP)</h4></center><hr>
+<div class="alert alert-danger">
+	Kirjaston arkisto (.zip) laajenna muotoon <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Kirjaston nimi</th>
+<th style="width: 50%">Kirjaston toiminto</th>
+<th style="width: 25%">ladata</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>NewPing</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVR-mikro-ohjainkirjasto (ATmega) Arduino Uno / Nano / Mega.
+Se mahdollistaa mittausten suorittamisen ultraäänietäisyysantureilla US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, JSN-SR0XT, DYP-ME007. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPing" class="btn btn-success" role="button">ladata</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>NewPingESP8266</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Kirjasto ESP8266- ja ESP32-mikrokontrollereille.
+Se mahdollistaa mittausten suorittamisen ultraäänietäisyysantureilla US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, JSN-SR0XT, DYP-ME007. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPingESP8266" class="btn btn-success" role="button">ladata</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet2</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVR-mikro-ohjainkirjasto (ATmega) Arduino Uno / Nano / Mega.
+Se mahdollistaa tiedonsiirron Ethernet-moduulin Wiznet W5200 - W5500 kanssa SPI-liitännän kautta. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet2" class="btn btn-success" role="button">ladata</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet3</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVR-mikro-ohjainkirjasto (ATmega) Arduino Uno / Nano / Mega.
+Se mahdollistaa tiedonsiirron Ethernet-moduulin Wiznet W5500 V2 - USR-ES1 kanssa SPI-liitännän kautta.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet3" class="btn btn-success" role="button">ladata</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>UIPEthernet</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+AVR-mikro-ohjainkirjasto (ATmega) Arduino Uno / Nano / Mega.
+Se mahdollistaa tiedonsiirron Microchipin Ethernet-moduulin ENC28J60 kanssa SPI-liitännän kautta. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/UIPEthernet" class="btn btn-success" role="button">ladata</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr>
+<p style="text-align: justify;">
+Sivustoille, joilla ei ole kiinteää Internet-peittoa, on mahdollista käyttää myös LPWAN IoT -verkkoa Sigfox. Tällä hetkellä tämä esineiden internet -verkko kattaa suurimman osan Etelä-Suomesta. Kantavuus laajenee lähivuosina koko Suomeen.
+Tämän tekniikan avulla voit lähettää pieniä määriä jopa 12B kokoisia viestejä.
+Tasomittariprojektissa lähetetään 4B vedenkorkeusarvo (UINT_32).
+Koska Sigfox sallii enintään 140 viestin lähettämisen päivässä, tiedonsiirtoväli on pidennetty 11 minuuttiin.
+Hyötykuormasanomia voidaan täydentää myös erilaisilla järjestelmätiedoilla, esimerkiksi: GEO-tiedot (pituusaste / leveysaste) GPS-palvelun Sigfox Atlas -tietoihin perustuen, RSSI (Received Signal Strength), viestin numero ja muut.
+Projektissa käytetty viestintämoduuli on Sigfox WISOL 868MHz UART LPWAN -modeemi.
+Tämä modeemi kommunikoi AT-komentojen kautta UART-liitännän kautta, joka on mikro-ohjaimiin emuloitu ohjelmisto.
+Tietoliikenne siirtyy nopeudella 9600 baud/s. WISOL-modeemissa on integroitu u.FL-liitin PCB-moduuliin antenniliitäntää varten, mikä vähentää merkittävästi peittoa jopa sisällä / varjossa ulkona.
+Onnistunut tiedonsiirto edellyttää kahden, edullisesti kolmen tai useamman BTS-aseman peittoa. BTS lähettää lähetetyt tiedot Sigfox-taustajärjestelmään, jossa on tarpeen tehdä takaisinsoitto, joka alkaa tiedon vastaanottamisen jälkeen.
+Takaisinsoitto tekee HTTP- tai HTTPS-pyynnön toimialueelle, jossa verkkosovellus on käynnissä, käyttäen POST-menetelmää ja sopivasti koodattua hyötykuormaa, jota verkkosovelluksen taustaohjelma odottaa.
+</p>
+<hr><center><h4>Suomen kattavuus LPWAN IoT Sigfox -verkon kautta:</h4></center><hr>
+<center>
+<img src="https://i.imgur.com/cTSpuqs.png" style="display: block; max-width: 100%; height: auto;" alt="Suomen IoT LPWANin kattavuus Sigfox-verkolla - tasomittari kaivoon" title="Suomen IoT LPWANin kattavuus Sigfox-verkolla - tasomittari kaivoon">
+</center>
+<div class="alert alert-info">
+<h4>Sigfox-taustapuhelun takaisinsoittoasetus verkkosovellusten testausta varten</h4>
+<b>Tasomittari:</b>
+<li>Callbacks --> Custom --> New</li>
+<li><b>Kirjoitamme Custom payload konfiguraatioon:</b> cislo1::uint:16</li>
+<li><b>Kirjoitamme URL-malliin:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (tai verkkopalvelimesi muu URL-osoite, jossa projekti suoritetaan), mahdollisuus käyttää HTTPS:ää</li>
+<li><b>Valitse HTTP-menetelmässä:</b> POST</li>
+<li><b>Lisäämme runkoon (viestin runkoon):</b></li>
+<li>hodnota={customData#cislo1}&token=123456789</li>
+<li><b>Valitse vaihtoehto Sisältötyypissä:</b> application/x-www-form-urlencoded</li>
+</div>				
+<hr>
+<center> 
+     <h3>Kuvakaappauksia tasomittariprojektin verkkoliittymästä</h3>
+     <hr>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/YrL0DG1.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/3ynXOBb.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year">
+	</a>
+<hr><center><h4>Anturisolmujen UART-lähtö - FreeRTOS - ESP32:</h4></center><hr>	
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+<img src="https://i.imgur.com/A3mGI9i.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTP, POST metóda prenosu" title="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTP, POST metóda prenosu"> 	
+<img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTPS, POST metóda prenosu" title="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTPS, POST metóda prenosu"> 
+</a>
+<hr><center><h4>Yhteensopiva laitteisto tasomittariprojektiin</h4></center><hr>		
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+<img src="https://i.imgur.com/KFZANfa.jpg" style="display: block; max-width: 100%; height: auto;" alt="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32" title="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32"> 
+</a>
+</center>  
+            <hr> 
+	
+ </div>
+		</div>
+</div>
+</body>
+</html>
