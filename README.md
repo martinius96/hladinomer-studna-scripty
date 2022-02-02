@@ -55,10 +55,11 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 ![Schéma zapojenia - hladinomer - senzor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
 # Ukážka webaplikácie - Hladinomer
 ![Hladinomer - Prehľad hladiny vody v studni a objemu studne v reálnom čase](https://i.imgur.com/gHbErg5.gif)
-![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/SdDbSvn.png)
-![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/Rido0yn.png)
-![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/k1DgXgY.png)
-![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/vtg6NpT.png)
+![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/mRWHkEU.png)
+![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/VjgTmxd.png)
+![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/Bh98Yx0.png)
+![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/CLO2A7I.png)
+![Hladinomer - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
 
 # Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka (NEPODPOROVANÁ):
 * Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom 15ms
