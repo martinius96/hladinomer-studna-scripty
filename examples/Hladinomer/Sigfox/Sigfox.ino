@@ -1,47 +1,37 @@
-/*|------------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTP - Sigfox 868 MHz UART - HC-SR04 / JSN-SR04T / HY-SRF05   |*/
-/*|Arduino, ESP8266 (NodeMCU), ESP32 (DevKit)                                          |*/
-/*|Autor: Bc. Martin Chlebovec (martinius96)                                           |*/
-/*|E-mail: martinius96@gmail.com                                                       |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/  |*/
-/*|Testovacie webove rozhranie pre HTTP: http://arduino.clanweb.eu/studna_s_prekladom/ |*/
-/*|Testovacie webove rozhranie pre HTTPS: https://esp32.sk/studna_s_prekladom/         |*/
-/*|Knižnice NewPing, ESP8266NewPing sú dostupné v Github repozitári:                   |*/
-/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť      |*/
-/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/     |*/
-/*|Na toto webove rozhranie posiela mikrokontroler data                                |*/
-/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv     |*/
-/*|Licencia pouzitia: MIT                                                              |*/
-/*|Revízia: 1. April 2021                                                              |*/
-/*|------------------------------------------------------------------------------------|*/
+/*|--------------------------------------------------------------------------------------|*/
+/*|Project: Water Level monitor - Sigfox 868 MHz UART - HC-SR04 / JSN-SR04T / HY-SRF05   |*/
+/*|Arduino, ESP8266 (NodeMCU), ESP32 (DevKit)                                            |*/
+/*|Autor: Ing. Martin Chlebovec (martinius96)                                            |*/
+/*|E-mail: martinius96@gmail.com                                                         |*/
+/*|Project info, schematics: https://martinius96.github.io/hladinomer-studna-scripty/en/ |*/
+/*|Test web interface for HTTP: http://arduino.clanweb.eu/studna_s_prekladom/            |*/
+/*|Test web interface for HTTPS: https://hladinomer.000webhostapp.com/                   |*/
+/*|Revízia: 9. February 2022                                                             |*/
+/*|--------------------------------------------------------------------------------------|*/
 
-/*|---------------------------------------------------------------------|*/
-/*|Inštrukcie pre nastavenie Sigfox Modemu na stránkach Sigfox backend: |*/
-/*|Callbacks --> NEW --> Custom callback                                |*/
-/*|UPLINK, TYPE: DATA, CHANNEL: URL                                     |*/
-/*|Do Custom payload config napíšeme: cislo1::uint:16                   |*/
-/*|Do URL pattern: http://arduino.clanweb.eu/studna_s_prekladom/data.php|*/
-/*|PRIPADNE AK SA POUZIVA HTTPS PROTOKOL - SSL, nastavenie nizsie       |*/
-/*|Do URL pattern: https://esp32.sk/studna_s_prekladom/data.php (+ SSL) |*/
-/*|V HTTP metóde zvolíme: POST (jediná podporovaná metóda Hladinomeru)  |*/
-/*|Do Body (tela správy) doplníme:                                      |*/
-/*|hodnota={customData#cislo1}&token=123456789                          |*/
-/*|Mozno odosielat aj systemove udaje - cislo spravy, RSSI, GEO UDAJE   |*/
-/*|Do Content-Type: application/x-www-form-urlencoded                   |*/
-/*|---------------------------------------------------------------------|*/
+/*|---------------------------------------------------------------------------------|*/
+/*|Instructions to set Sigfox backend:                                              |*/
+/*|Callbacks --> NEW --> Custom callback                                            |*/
+/*|UPLINK, TYPE: DATA, CHANNEL: URL                                                 |*/
+/*|To Custom payload config write: cislo1::uint:16                                  |*/
+/*|To URL pattern add (HTTP): http://arduino.clanweb.eu/studna_s_prekladom/data.php |*/
+/*|IF WANT TO USE HTTPS (SSL) CONENCTION WRITE BELOW:                               |*/
+/*|To URL pattern add (HTTP): https://hladinomer.000webhostapp.com/data.php         |*/
+/*|In HTTP method use: POST                                                         |*/
+/*|To Body of message add: hodnota={customData#cislo1}&token=123456789              |*/
+/*|At Content-Type set: application/x-www-form-urlencoded                           |*/
+/*|---------------------------------------------------------------------------------|*/
 
-//HLAVICKOVE SUBORY watchdog a software serial
-#include <avr\wdt.h>
 #include <SoftwareSerial.h>
 
-// nastavenie softverovej zbernice pre Sigfox Modem
+//SW Uart for Sigfox MODEM WISOL
 #define TX 7
 #define RX 8
 SoftwareSerial Sigfox(RX, TX);
 
-//PREMENNE, HLAVICKOVY SUBOR, OBJEKT PRE HC-SR04 / JSN-SR04T
+//Library for ultrasonic sensor (use with Arduino)
 #include <NewPing.h>
-//#include <NewPingESP8266.h> // pre ESP8266, ESP32
+//#include <NewPingESP8266.h> //for ESP8266, ESP32
 #define pinTrigger    5
 #define pinEcho       6
 #define maxVzdialenost 450
@@ -52,19 +42,17 @@ unsigned long timer = 0;
 
 void setup() {
   Sigfox.begin(9600); //SoftwareSerial
-  Serial.begin(115200);
-  wdt_enable(WDTO_8S);
+  Serial.begin(115200); //HW SERIAL
 }
 
 void loop() {
-  wdt_reset();
   if (Sigfox.available()) {
-    Serial.write(Sigfox.read()); //MOZNO VYSKUSAT AT prikaz, odpoved OK
+    Serial.write(Sigfox.read());
   }
   if (Serial.available()) {
     Sigfox.write(Serial.read());
   }
-  if ((millis() - timer) >= 660000 || timer == 0) { //rutina raz za 11 minut (limit 140 sprav za den), odosle sa 130 správ za deň (24h)
+  if ((millis() - timer) >= 660000 || timer == 0) { //routine each 11 minutes = 130 messages per day
     timer = millis();
     Sigfox.println(); //Wakeup from Light sleep via ‘\n’ (ASCII 10)
     //Sigfox.print('\n'); //Wakeup from Light sleep via ‘\n’ (ASCII 10) - ekvivalent
@@ -76,7 +64,6 @@ void loop() {
         vzdialenost += sonar.ping_cm();
         delay(50);
       }
-      wdt_reset();
       vzdialenost = vzdialenost / 10;
       Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
       Serial.print(vzdialenost);
@@ -88,11 +75,9 @@ void loop() {
       Serial.print(cislo1);
       Serial.print(F(", hexa tvar: "));
       Serial.println(sprava);
-      wdt_reset();
       Sigfox.print(F("AT$SF="));
       Sigfox.println(sprava);
-      wdt_reset();
-      delay(1000);
+      delay(5000);
       Sigfox.print(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
       //Sigfox.print(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
     } else {
