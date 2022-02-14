@@ -264,25 +264,26 @@ Subsequently, the sensor node starts transmitting data to the web interface <a h
 <hr><center><h3>Principle of water level measurement and data transmission - Block diagram</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor" title="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor"></center>
 <p style = "text-align: justify;">
-Web interface uses trigonometry to estimate the measurable maximum depth of a well at a known well diameter (another parameter for calculating well volume).
-Interface allows user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
+Backend at web interface uses trigonometry to estimate the measurable maximum depth of a well at a known well diameter (another parameter for calculating well volume).
+Wnterface allows the user to calculate to what maximum depth of the well each of the sensors is suitable based on its characteristics.
 Project is so easy to use even for laymen who do not know which sensor is more suitable for application in their well.
 Microcontroller used also plays an important role in the system.
 For the project, it is possible to use the Arduino platform (Uno / Mega) in revision R3 with an identical pinout, which can be connected to an Ethernet shield that communicates via the ICSP interface.
 It is also possible to use Ethernet modules and connect them directly to the hardware SPI pins of the microcontroller.
 Ethernet modules from Wiznet W5100, W5500, USR-ES1 are supported.
-The Ethernet module ENC28J60 is supported by MicroChip.
+Ethernet module ENC28J60 is supported also from manufacturer MicroChip.
 All Ethernet modules provide HTTP connectivity with the web server.
 WiFi microcontrollers from Espressif Systems - ESP8266 and ESP32 are also supported.
 Microcontrollers have several operating modes: StandBy, StandBy + OTA with the possibility of remote firmware upload via LAN network and deep sleep mode for ULP applications - Deep Sleep.
-In sleep mode for ESP8266 it is necessary to add a physical jumper between GPIO16 (WAKE) and RST - see Wiring Diagram.
-ESP microcontrollers also allow the implementation of HTTPS (encrypted) connectivity with the web server.
+In sleep mode for the ESP8266 microcontroller, it is necessary to add a physical jumper between GPIO16 (WAKE) and RST - see Wiring Diagram.
+ESP microcontrollers also allow to implement encrypted communication with the web server via HTTPS protocol.
 Both the ESP8266 and ESP32 platforms use the Root CA, which has issued a certificate (Issuer) for the web server domain.
-The certificate is embedded in the source code of the microcontrollers in .pem format.
+Certificate is embedded in the source code of the microcontrollers in .pem format.
 In order for the certificate not to take up space in the RAM memory of the microcontroller, it is inserted into the flash memory of the microcontroller - PROGMEM.
 Certificate of the certification authority is valid for 10 to 20 years, so it does not require frequent renewal of the certificate.
 Data on the current water level and water volume in the well are available in JSON format from the web interface.
-The project can integrate the Level meter project via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
+Water level monitor project can be integrated via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
+Subsequently, it is possible to perform peripheral control in the subsystem (irrigation, watering, activation of the domestic waterworks) on the basis of data on the water level in the well from the web interface.
 </p>
 <div class = "alert alert-info">
 <strong>Source codes for Arduino, ESP8266, ESP32 (required installation of libraries): </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Available here</a>
@@ -380,7 +381,7 @@ The callback makes an HTTP or HTTPS request to the domain where the web applicat
 <b>Water Level Monitor - Callback settings in Sigfox Backend:</b>
 <li>Callbacks --> Custom --> New</li>
 <li><b>In Custom payload config we write:</b> cislo1::uint:16</li>
-<li><b>To URL pattern:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (or another URL of your web server where the project will run), the possibility to use HTTPS</li>
+<li><b>To URL pattern write:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (or another URL of your web server where the project will run), the possibility to use HTTPS</li>
 <li><b>In the HTTP method, select:</b> POST</li>
 <li><b>To the Body (body of the message) we add:</b></li>
 <li>hodnota={customData#cislo1}</li>
