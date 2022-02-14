@@ -361,7 +361,7 @@ Umožňuje komunikáciu s Ethernet modulom ENC28J60 od Microchipu cez SPI rozhra
 	</div>
 <hr>
 <p style="text-align: justify;">
-Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj LPWAN IoT sieť Sigfox, ktorá pokrýva takmer 90% geografickej oblasti Slovenska. 
+Pre lokality, kde sa nenachádza pokrytie pevným internetom je možné využiť aj LPWAN IoT sieť Sigfox RC1, ktorá pokrýva takmer 90% geografickej oblasti Slovenska. 
 Bunkové stanice má operátor SimpleCell, ktorý IoT sieť Sigfox prevádzkuje hlavne na Towercom vysielačoch.
 Táto technológia umožňuje prenášať malé objemy správ s veľkosťou do 12B. 
 V prípade projektu Hladinomer sa odosiela 4B hodnota výšky hladiny vody (UINT_32). 
@@ -369,7 +369,7 @@ Pre projekt rozšírený o zrážkomer sa odosiela hodnota 8B hodnota, ktorá je
 Nakoľko Sigfox dovoľuje preniesť denne maximálne 140 správ, je interval odosielania dát rozšírený na 11 minút. 
 V oboch prípadoch tak správa neobsahuje plnú využívateľnú dĺžku payloadu. 
 Payload správy je možné doplniť aj o rôzne systémové informácie, napríklad: GEO údaje (zemepisná dĺžka / šírka) na základe údajov z GPS služby Sigfox Atlas, RSSI (Sila prijatého signálu), číslo správy a iné.
-Komunikačný modul, ktorý bol využitý pre projekt je Sigfox WISOL 868MHz UART LPWAN modem. 
+Komunikačný modul, ktorý bol využitý pre projekt je Sigfox WISOL 868MHz (RC1) UART LPWAN modem. 
 Tento modem komunikuje cez AT príkazy prostredníctvom UART rozhrania, ktoré je softvérovo emulované na mikrokontroléry.
 Komunikácia preberia rýchlosťou 9600 baud/s. WISOL modem je vybavený integrovaným u.FL konektorom na PCB modulu pre pripojenie antény, ktorá výrazne zdostupní pokrytie aj v interiéri / zatienenom exteriéri.
 Pre úspešný prenos dát sa vyžaduje pokrytie dvomi, najlepšie tromi a viac BTS stanicami pre úspešný prenos údajov. BTS-ky prenesenú informáciu odošlú do Sigfox backendu, kde je nutné urobiť Callback, ktorý sa spustí po prijatí dát.
