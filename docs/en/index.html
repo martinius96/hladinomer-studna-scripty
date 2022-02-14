@@ -136,14 +136,15 @@
 </center> 
 <hr>
 <p style = "text-align: justify;">
-Water Level monitor project consists of a central web interface that serves to collect data from sensor nodes and visualize them to the user.
+Water level monitor project consists of a central web interface that serves to collect data from sensor nodes and visualize them to the user.
 Current data on the water level are represented in the dashboard together with the conversion to the volume of the well, historical data on the water level are also available to the user in tabular or graphical visualization with line graphs.
 Web interface is responsive, it can adapt to any screen and device resolution.
 Project's web interface uses a backend written in PHP that can process incoming data from the request using the HTTP POST method.
 Backend corrects the measured level to the actual one based on the known depth of the well, calculates the volume of water in the well from this parameter and the diameter of the well.
 Depth and diameter of the well are entered into the system by the user based on the proportions of his well.
-Data is sent to the web server by a microcontroller, which performs measurements every 300 seconds - i. 5 minutes, or in the case of transmission via IoT network Sigfox, data is sent every 11 minutes, as it is limited by the network to transmit a maximum of 140 messages per day.
-<b> Water level measurement is performed using ultrasonic sensors </b> - HC-SR04, or its waterproof variant JSN-SR04T, other sensors with Trigger / Echo signals from US-02X, IOE-SR0X, HC-SR0X, HY-SRF0X, DYP-ME007 series can also be used.
+Data is sent to the web server by a microcontroller supported by technology (Ethernet / WiFi / LPWAN IoT Sigfox), which performs measurements every 300 seconds - i. 5 minutes, or in the case of transmission via LPWAN IoT network Sigfox, data is sent every 11 minutes, as the modem is limited by the network to transmit a maximum of 140 messages per day.
+<b> Water level measurement is performed using ultrasonic sensors </b> - HC-SR04, or its waterproof variant JSN-SR04T.
+Other sensors with Trigger / Echo signals from the US-02X, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-ME007, Parallax PING)))™ series can also be used.
 </p>
 <center>
 <img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery" title="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery">
@@ -159,8 +160,8 @@ Waterproof sensor JSN-SR04T has a detection characteristic of 60°, which consid
 Ultrasonic sensors are fully maintenance-free. The JSN-SR04T sensor has an electronic control board that must not be exposed to moisture and water.
 Standard communication shielded cable is 2.5 meters long, it is possible to connect counterparts of the same cable to extend the line.
 In the case of a square well, the diameter of the inscribed circle is entered into the average, which will form the reference value of the water cylinder for the calculation of the well volume.
-Error of the total well volume in this case will be similar to ~12.5%.
-Maximum measurable level height (level) by the sensors is about 400 to 450 cm (known from the datasheet).
+Error of the total well volume in this case will be at the level of ~12.5%.
+The maximum measurable level height (level) by the sensors is about 400 to 450 cm (known from the datasheet).
 </p>
 <div class = "alert alert-info">
  	<strong> Other types of water level sensors that can be integrated (you need to create your own firmware): </strong>
