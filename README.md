@@ -1,7 +1,7 @@
 # Hladinomer - Arduino / ESP / Sigfox LPWAN IoT
 <p align="justify">
 Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR ATmega328P / ATmega2560 (Arduino Uno / Mega R3), ESP8266 a ESP32.
-Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti (HC-SR0X / JSN-SR04T / HY-SRF0X / DYP-ME007) pre záznam výšky hladiny vody (vzdialenosti). 
+Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti (US-02X, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-ME007, Parallax PING)))™) pre záznam výšky hladiny vody (vzdialenosti). 
 Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT LPWAN sieť Sigfox.
 Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím operačného systému FreeRTOS.
 Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
@@ -60,6 +60,17 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 ![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/Bh98Yx0.png)
 ![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/CLO2A7I.png)
 ![Hladinomer - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
+
+# Iné senzory pre záznam výšky hladiny (vyžaduje vlastný firmvér)
+* Laserové (LiDAR)
+* Hydrostatické (ponorné)
+* Elektrostatické (kapacitné / indukčné)
+* Tlakové (diferenčné / s kompenzačným senzorom atmosférického tlaku)
+* Optické
+* Mechanické (plavák)
+* Magnetické (Hall)
+* Mikrovlnné (radarové)
+* **Poznámka:** Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontroléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.
 
 # Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka (NEPODPOROVANÁ):
 * Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom 15ms
