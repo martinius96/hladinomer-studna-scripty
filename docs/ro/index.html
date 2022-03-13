@@ -70,7 +70,7 @@
 <div class="alert alert-danger">
 	<strong>Dacă sunteți interesat de codurile sursă ale aplicației web, contactați autorul proiectului în limba engleză la adresa: </strong>martinius96@gmail.com
 </div>
-<center><h2>Meranie výšky hladiny vody v studni ultrazvukovou metódou</h2></center>
+<center><h2>Măsurarea nivelului apei într-o fântână prin metoda ultrasonică</h2></center>
 <span class="label label-default">Arduino</span>
 <span class="label label-primary">Ethernet</span>
 <span class="label label-success">Wiznet W5100 / W5500</span>
@@ -152,7 +152,7 @@ Datele sunt trimise către serverul web de către un microcontroler suportat de 
 Pot fi utilizați și alți senzori cu semnale Trigger / Echo din seria US-02X, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-ME007, Parallax PING)))™.
 </p>
 <center>
-	<img src="https://i.imgur.com/tBct9oJ.gif" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - dashboard - automatická obnova aktuálne nameraných dát cez jQuery" title="Hladinomer - dashboard - automatická obnova aktuálne nameraných dát cez jQuery">
+	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Contor de nivel - tablou de bord - recuperare automată a datelor măsurate curent prin jQuery" title="Contor de nivel - tablou de bord - recuperare automată a datelor măsurate curent prin jQuery">
 </center>
 <p style="text-align: justify;">
 Principiul măsurării senzorilor cu ultrasunete este de a trimite un semnal de declanșare cu o lungime de 10 μs (microsecunde), care sări de pe nivelul apei și revine la receptor - Echo.
@@ -181,7 +181,7 @@ Eroarea volumului total al sondei în acest caz va fi la nivelul de ~ 12,5%.
 <li> <b> Notă: </b> Dacă nivelul apei este recalculat din partea de jos pe partea microcontrolerului, trebuie să setați adâncimea puțului la 0 cm în interfața web. </li>
 </div>
 <hr><center><h3>Demonstrație video a interfeței web - Contor de nivel:</h3></center><hr>
-<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/ZihXBGEzcT0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 <hr><center><h4>Senzorii cu ultrasunete sunt potriviti pentru:</h4></center><hr>
 <div class="alert alert-success">
 <li> Fântâni săpate </li>
@@ -266,7 +266,7 @@ Ulterior, nodul senzor va începe să transmită date către interfața web <a h
 <img src="https://i.imgur.com/9VECUFT.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi sieť Hladinomer_AP, Captive Portal a webové rozhranie WiFiManagera v systéme Android" title="WiFi sieť Hladinomer_AP, Captive Portal a webové rozhranie WiFiManagera v systéme Android">
 </center>
 <hr><center><h3>Principiul funcționării contorului de nivel - Schema bloc</h3></center><hr>
-<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Contor de nivel pentru fosă, fosă septică, puț, principiu de măsurare - senzor ultrasonic de distanță" title="Contor de nivel pentru fosă, fosă septică, puț, principiu de măsurare - senzor ultrasonic de distanță"></center>
 <p style="text-align: justify;">
 Interfața web folosește trigonometria pentru a estima adâncimea maximă măsurabilă a unei sonde la un diametru cunoscut al sondei (un alt parametru pentru calcularea volumului sondei).
 Interfața web permite utilizatorului să calculeze la ce adâncime maximă a puțului este potrivită fiecare dintre senzori în funcție de caracteristicile sale.
@@ -394,15 +394,15 @@ Callback-ul efectuează o solicitare HTTP sau HTTPS către domeniul în care rul
      <h3>Capturi de ecran ale interfeței web pentru proiectul contorului de nivel</h3>
      <hr>
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
-    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
-    	<img src="https://i.imgur.com/YrL0DG1.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
-	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
-	<img src="https://i.imgur.com/3ynXOBb.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="Monitor nivel puț de apă - aplicație web - pagina principală - Ultimele valori măsurate cu reîmprospătare automată - AJAX" title="Monitor nivel puț de apă - aplicație web - pagina principală - Ultimele valori măsurate cu reîmprospătare automată - AJAX">
+    	<img src="https://i.imgur.com/YrL0DG1.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor nivel puț de apă - webapp - Date istorice măsurate cu marcaj de timp" title="Monitor nivel puț de apă - webapp - Date istorice măsurate cu marcaj de timp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor nivel puț de apă - Înregistrare, valoare minimă, maximă pe zi, săptămână, lună" title="Monitor nivel puț de apă - Înregistrare, valoare minimă, maximă pe zi, săptămână, lună"> 
+	<img src="https://i.imgur.com/3ynXOBb.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor nivel puț de apă - grafic al nivelului apei în timp - săptămână/an" title="Monitor nivel puț de apă - grafic al nivelului apei în timp - săptămână/an">
 </a>
 <hr><center><h4>Ieșirea UART a nodurilor senzorului (HTTP și HTTPS) - FreeRTOS - ESP-IDF - ESP32:</h4></center><hr>	
 	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">	
-	<img src="https://i.imgur.com/62K3i3T.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTP, POST transfer method" title="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTP, POST transfer method"> 	
-	<img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTPS, POST transfer method" title="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTPS, POST transfer method"> 
+	<img src="https://i.imgur.com/62K3i3T.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - măsurarea senzorului cu ultrasunete și transferul de date către serverul web prin HTTP, metoda de transfer POST" title="ESP32 - FreeRTOS - ESP-IDF - măsurarea senzorului cu ultrasunete și transferul de date către serverul web prin HTTP, metoda de transfer POST"> 	
+	<img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - măsurarea senzorului cu ultrasunete și transferul de date către serverul web prin HTTPS, metoda de transfer POST" title="ESP32 - FreeRTOS - ESP-IDF - măsurarea senzorului cu ultrasunete și transferul de date către serverul web prin HTTPS, metoda de transfer POST"> 
 	</a>
 <hr><center><h4>Hardware compatibil pentru proiectul contorului de nivel</h4></center><hr>		
 	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
