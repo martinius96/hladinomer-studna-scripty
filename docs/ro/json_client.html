@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Client JSON - Contor de nivel - Publicare MQTT, ArduinoJson, deserializare, analizare a datelor</title>
+	<meta name="description" content="Client JSON pe platforma Arduino, ESP866, ESP32 pentru proiectul contorului de nivel. Acestea permit analizarea datelor, Publicare în serviciul MQTT IoT Industries Slovakia">
+	<meta name="keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, parsare, arduinojson, deserializare, mqtt, publica, abonare, date, transmisie, http, mqtts, criptat, priză, iot, industrii, slovacia, nivel, apă, puț de apă, nivel, monitor, litru">
+	<meta name="news_keywords" content="json, arduino, ethernet, wifi, esp8266, esp32, parsare, arduinojson, deserializare, mqtt, publica, abonare, date, transmisie, http, mqtts, criptat, priză, iot, industrii, slovacia, nivel, apă, puț de apă, nivel, monitor, litru">	
+<!-- Open Graph / Facebook -->
+	<meta name="robots" content="index, follow">
+	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Contor de nivel</a></li>
+	<!---<li><a href="zrazkomer.html">Zrážkomer</a></li>-->
+	<li><a href="zapojenie.html">Implicare</a></li>   
+	<li class="active"><a href="json_client.html">Client JSON</a></li>   
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">Instalare</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../de/index.html"><img src="https://i.imgur.com/kY5DFH5.png" alt="German.png, 2,2kB" title="German" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+<a href="../fi/index.html"><img src="https://i.imgur.com/dDFaJqs.png" alt="Finnish.png, 2,2kB" title="Finnish" height="32" width="32"></a>
+<a href="../pl/index.html"><img src="https://i.imgur.com/OteBe4t.png" alt="Polish.png, 2,2kB" title="Polish" height="32" width="32"></a>
+<a href="../ru/index.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+</ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+					<strong>Depozitul de contor la nivel de proiect cu coduri sursă pentru clienții JSON - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Contor de nivel</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ecografie</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">Sigfox</span>	
+<span class="label label-warning">JSON</span>
+<span class="label label-danger">MQTT</span>
+<div class="row">
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/X946pmi.png" width="128px" height="128px" style="border-radius: 50%;" alt="JSON DATA" title="JSON DATA"><br><b>JSON DATA</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/B2xdel0.png" width="128px" height="128px" alt="ArduinoJSON" title="ArduinoJSON"><br><b>ArduinoJSON</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/oXhOEZi.png" width="128px" height="128px" style="border-radius: 50%;" alt="MQTT" title="MQTT"><br><b>MQTT</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/WWpufkP.png" width="128px" height="128px" style="border-radius: 50%;" alt="HTTP" title="HTTP"><br><b>HTTP</b></center></div>
+</div>	
+<hr><center><h2>Clienți JSON - Contor de nivel</h2></center><hr>
+<p style="text-align: justify;">
+Clientul JSON construit pe platforma Arduino, ESP8266, ESP32 permite conectarea printr-un websocket la un server web (interfața web a Leveler).
+<b> Clientul face o solicitare HTTP GET ciclică la fiecare 60 de secunde pentru a prelua conținutul <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php"> /json_output.php </a> pagina, unde serverul web distribuie date JSON privind nivelul apei (în centimetri), volumul sondei (în litri) pe baza adâncimii și diametrului sondei setate în prezent. </b>
+Sarcina utilă JSON încărcată poate analiza clientul JSON din răspunsul HTTP și apoi deserializa acest șir.
+După deserializare, este posibil să accesați cheile individuale cărora le sunt alocate valorile și să le obțineți -> parse.
+Datele potrivite sunt scrise pe UART - linie serială - 115200 baud / s.
+În aplicația utilizator, care poate fi adăugată la codurile sursă existente ale clienților JSON, este posibilă controlul entităților pe baza acestor valori, de exemplu: irigarea automată după atingerea unui anumit nivel de apă, pomparea apei, pornirea pompei, dragă.
+<b> O parte a firmware-ului marcată ca MQTT sau MQTTS (MQTT criptat) este un client JSON extins cu capacitatea de a trimite - Publica date către MQTT Broker IoT Industries Slovakia - Broker MQTT gratuit slovac conceput pentru dezvoltatori. </b>
+Atât variantele MQTT, cât și MQTTS folosesc un socket, care este, de asemenea, utilizat pentru solicitările HTTP pentru a obține încărcături utile JSON.
+Serverul MQTT existent poate fi înlocuit în codul dumneavoastră sursă cu al dumneavoastră, astfel încât să puteți face și datele de la contorul de nivel disponibile în sistemele de automatizare a locuinței (Hassio, Mosquitto MQTT, Domoticz, Loxone și altele...).
+În implementarea software actuală, microcontrolerul (clientul JSON) trimite datele obținute către Broker MQTT în contorul de nivel de subiect, în timp ce temperaturile individuale sunt diferențiate în subteme.
+</p> 
+<div class="alert alert-success">
+	<strong>Exemple de implementări de programe pentru clienții JSON: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">AICI</a>
+</div>
+<hr><center><h4>Biblioteci disponibile pentru microcontrolere (Arduino / ESP) - clienți JSON</h4></center><hr>
+<div class="alert alert-danger">
+	Arhiva bibliotecii (.zip) extinde la <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Numele bibliotecii</th>
+<th style="width: 50%">Funcția de bibliotecă</th>
+<th style="width: 25%">Descarca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>PubSubClient</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliotecă pentru microcontrolere AVR (ATmega) Arduino Uno / Nano / Mega, ESP8266 și ESP32.
+Permite comunicarea prin protocolul MQTT, este de asemenea posibilă implementarea unei conexiuni criptate cu MQTT Broker, utilizarea clasei WiFiClientSecure este necesară pentru microcontrolerele ESP. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/PubSubClient" class="btn btn-success" role="button">Descarca</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>ArduinoJson</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliotecă pentru microcontrolere AVR (ATmega) Arduino Uno / Nano / Mega, ESP8266 și ESP32.
+Vă permite să deserializați un șir într-o structură JSON, poate analiza valoarea care este atribuită unei chei.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/ArduinoJson" class="btn btn-success" role="button">Descarca</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<div class="alert alert-info">
+<strong> Implementarea MQTTS este disponibilă pentru microcontrolerele ESP8266, ESP32. </strong>
+ESP8266 și ESP32 utilizează un certificat CA rădăcină pentru conexiunea criptată la serverul MQTT. <b> Portul criptat al serverului MQTT este 8883 în mod implicit, necriptat 1883. </b>
+Pentru a obține un certificat Root CA pentru un anumit server (domeniu) MQTT, este posibil să utilizați instrumentul OpenSSL, care permite regăsirea și afișarea ușoară a informațiilor în cauză.
+Certificatele individuale sunt listate în ordinea lanțului de încredere, i. de la rădăcină CA la intermediar.
+<br> <b> Comandă pentru a obține certificatul CA rădăcină care a emis certificatul pentru serverul MQTT (Emitent): </b> <br>
+<code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
+</div>
+<h4><font color="#C0392B">Exemplu de listare a datelor în format JSON</font></h4>
+<div class="alert alert-danger">
+	{<br>
+		"value": 378,<br>
+		"volume": 1900.04<br>
+	}
+</div>
+<hr>
+<h4>Subiectele utilizate pentru Publicare pe MQTT Broker sunt:</h4> 
+<hr>
+<li><b>hladinomer/objem</b> - pentru volum bine în litri</li>
+<li><b>hladinomer/vyska</b> - pentru nivelul actual al apei în centimetri</li>
+<hr>
+<h4>Topic pre Subscribe:</h4>
+<hr>
+<li><b>hladinomer/#</b> - elimină toate subsubiectele de sub hladinomer/, deci volumul puţului şi înălţimea nivelului apei</li>
+<p style="text-align: justify;">
+<b> Clientul MQTT are un abonament abonat la contorul principal al nivelului de subiect și la toate subiectele secundare ale acestuia.
+În același timp, poate verifica dacă informațiile au fost publicate cu succes pe MQTT Broker - le va scrie înapoi în UART. </b>
+<b> <font color = "red"> AVERTISMENT: MQTT Broker IoT Industries Slovakia, care este utilizat în implementarea eșantionului, este public și astfel datele pot fi modificate, suprascrise, citite de orice utilizator! </font> </ b>
+Dacă orice alt utilizator încarcă firmware-ul clientului JSON pe microcontrolerul său fără nicio modificare, datele din subiectul predefinit vor fi suprascrise atât de dvs., cât și de el.
+Prin urmare, este recomandabil să alegeți un alt subiect la care datele vor fi trimise în timpul implementării efective.
+</p>
+<hr>    
+<h4>Ieșire PHP JSON, analizare și publicare în MQTT Broker:</h4>
+<hr>
+<center><img src="https://i.imgur.com/vZu48Mc.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client (Arduino, ESP8266, ESP32) pentru contor de nivel - ieșire UART" title="JSON client (Arduino, ESP8266, ESP32) pentru contor de nivel - ieșire UART"></center>       		
+<h4>Client HiveMQ - Abonare la subiect hladinomer/#</h4>
+<center><img src="https://i.imgur.com/WS9gThO.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client MQTT Broker IoT Industries Slovakia - ieșire subiect - Abonați-vă termostat" title="JSON client MQTT Broker IoT Industries Slovakia - ieșire subiect - Abonați-vă termostat"></center> 
+					</div>
+</div>
+</div>
+</body>
+</html>
