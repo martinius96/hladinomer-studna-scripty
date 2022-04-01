@@ -46,7 +46,7 @@ static void Task1code( void * parameter);
 static void Task2code( void * parameter);
 
 void setup() {
-  Sigfox.begin(115200, SERIAL_8N1, RX TX;
+  Sigfox.begin(9600, SERIAL_8N1, RX, TX);
   Serial.begin(115200);
   q = xQueueCreate(20, sizeof(int));
   if (q != NULL) {
