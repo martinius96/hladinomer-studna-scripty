@@ -7,6 +7,7 @@
 /*|Test web interface for HTTP: http://arduino.clanweb.eu/studna_s_prekladom/            |*/
 /*|Test web interface for HTTPS: https://hladinomer.000webhostapp.com/                   |*/
 /*|Revision: 1. April 2022                                                               |*/
+/*|Flash usage: 234 kB (17%), RAM usage: 16 kB (5%)                                      |*/
 /*|--------------------------------------------------------------------------------------|*/
 
 /*|---------------------------------------------------------------------------------|*/
