@@ -50,7 +50,7 @@ void setup() {
       NULL,        /* parameter of the task */
       1,           /* priority of the task */
       &Task1,      /* Task handle to keep track of created task */
-      1);          /* pin task to core 0 */
+      1);          /* pin task to core 1 */
     Serial.println(F("Ultrasonic measurement task started"));
     xTaskCreatePinnedToCore(
       Task2code,   /* Task function. */
@@ -59,7 +59,7 @@ void setup() {
       NULL,        /* parameter of the task */
       1,           /* priority of the task */
       &Task2,      /* Task handle to keep track of created task */
-      0);          /* pin task to core 1 */
+      0);          /* pin task to core 0 */
     Serial.println(F("HTTP Socket task started"));
   } else {
     Serial.println(F("Queue creation failed"));
