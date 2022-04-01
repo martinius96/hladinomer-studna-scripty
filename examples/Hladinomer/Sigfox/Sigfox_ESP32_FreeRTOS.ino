@@ -11,7 +11,7 @@
 /*|--------------------------------------------------------------------------------------|*/
 
 /*|---------------------------------------------------------------------------------|*/
-/*|Instructions to set Sigfox backend:                                              |*/
+/*|Instructions to set Sigfox backend for correct callback to web interface:        |*/
 /*|Callbacks --> NEW --> Custom callback                                            |*/
 /*|UPLINK, TYPE: DATA, CHANNEL: URL                                                 |*/
 /*|To Custom payload config write: cislo1::uint:16                                  |*/
