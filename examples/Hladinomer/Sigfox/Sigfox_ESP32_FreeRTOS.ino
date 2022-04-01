@@ -1,7 +1,7 @@
 /*|--------------------------------------------------------------------------------------|*/
 /*|Project: Water Level monitor - Sigfox 868 MHz (RC1) - HC-SR04 / JSN-SR04T / HY-SRF05  |*/
-/*|ESP32 (DevKit) + FreeRTOS, Core: 2.0.2 release                                        |*/
-/*|Author: Ing. Martin Chlebovec (martinius96)                                           |*/
+/*|ESP32 (DevKit) + FreeRTOS, Core: 2.0.2 release, should work on older cores too        |*/
+/*|Author: Martin Chlebovec (martinius96)                                                |*/
 /*|E-mail: martinius96@gmail.com                                                         |*/
 /*|Project info, schematics: https://martinius96.github.io/hladinomer-studna-scripty/en/ |*/
 /*|Test web interface for HTTP: http://arduino.clanweb.eu/studna_s_prekladom/            |*/
@@ -17,7 +17,7 @@
 /*|To URL pattern add (HTTP): http://arduino.clanweb.eu/studna_s_prekladom/data.php |*/
 /*|IF WANT TO USE HTTPS (SSL) CONENCTION WRITE BELOW:                               |*/
 /*|To URL pattern add (HTTPS): https://hladinomer.000webhostapp.com/data.php        |*/
-/*|In HTTP method use: POST                                                         |*/
+/*|In HTTP method choose: POST                                                      |*/
 /*|To Body of message add: hodnota={customData#cislo1}&token=123456789              |*/
 /*|At Content-Type set: application/x-www-form-urlencoded                           |*/
 /*|---------------------------------------------------------------------------------|*/
@@ -106,7 +106,7 @@ static void Task1code( void * parameter) {
       Serial.print(distance);
       Serial.println(F(" cm."));
       xQueueSend(q, (void *)&distance, (TickType_t )0); //add the measurement value to Queue
-      for (int countdown = 300; countdown >= 0; countdown--) {
+      for (int countdown = 660; countdown >= 0; countdown--) { //wait 11 minutes, because of Sigfox allows to sent 140 messages per day
         Serial.print(F("Next measurement in: "));
         Serial.print(countdown);
         Serial.println(F(" seconds"));
