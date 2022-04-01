@@ -156,14 +156,15 @@
 </div>
 <hr><center><h1>Hladinomer - monitor výšky hladiny vody v studni</h1></center><hr>
 <p style="text-align: justify;">
-Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži zber dát zo senzorových uzlov a ich vizualizáciu používateľovi.
-Aktuálne dáta o výške hladiny vody sú reprezentované v dashboarde spolu s prepočtom na objem studne, historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
-Webové rozhranie je responzíve, dokáže sa prispôsobiť každej obrazovke a rozlíšeniu zariadenia. 
-Webové rozhranie projektu využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta z requestu HTTP POST metódou.
+Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži na zber dát zo senzorových uzlov a ich vizualizáciu používateľovi.
+Aktuálne dáta o výške hladiny vody sú reprezentované v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny.
+Historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
+Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj SmartTV. 
+Webaplikácia využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta a archivovať ich v MySQL databáze.
 Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, počíta objem vody v studni z tohto parametra a priemeru studne.
-Hĺbku a priemer studne do systému vkladá používateľ na základe proporcií jeho studne.
-Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet / WiFi /  NB-IoT), pričom meranie sa vykonáva periodicky v rutine každých 5 minút. 
-V prípade využitia IoT LPWAN siete Sigfox, sa meranie a odoslanie dát vykoná raz za 11 minút z dôvodu limitovaného počtu správ (140), ktoré je možné denne preniesť.
+Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ na základe proporcií jeho studne.
+Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet / WiFi / NB-IoT), pričom meranie sa vykonáva periodicky v rutine každých 5 minút. 
+V prípade využitia IoT LPWAN siete Sigfox, sa meranie a odoslanie dát vykoná raz za 11 minút z dôvodu limitovaného počtu správ (140), ktoré je možné denne preniesť cez sieť.
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
 Možno využiť aj iné senzory so signálmi Trigger / Echo z rady US-02X, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-ME007, Parallax PING)))™. 
 </p>
