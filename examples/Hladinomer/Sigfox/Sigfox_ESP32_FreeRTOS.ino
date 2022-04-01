@@ -23,12 +23,12 @@
 /*|---------------------------------------------------------------------------------|*/
 
 #include <NewPingESP8266.h>
-#include <SoftwareSerial.h>
 
-//SW Uart for Sigfox MODEM WISOL WSSFM10R1
-#define TX 35
-#define RX 34
-SoftwareSerial Sigfox(RX, TX);
+
+//HW UART for Sigfox MODEM WISOL WSSFM10R1
+#define TX 17
+#define RX 16
+HardwareSerial Sigfox(2);
 
 //Ultrasonic sensor related
 #define pinTrigger    22
@@ -46,7 +46,7 @@ static void Task1code( void * parameter);
 static void Task2code( void * parameter);
 
 void setup() {
-  Sigfox.begin(9600); //SoftwareSerial
+  Sigfox.begin(115200, SERIAL_8N1, RX TX;
   Serial.begin(115200);
   q = xQueueCreate(20, sizeof(int));
   if (q != NULL) {
