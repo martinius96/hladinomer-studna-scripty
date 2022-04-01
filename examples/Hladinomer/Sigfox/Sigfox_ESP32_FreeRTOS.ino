@@ -16,7 +16,7 @@
 /*|UPLINK, TYPE: DATA, CHANNEL: URL                                                 |*/
 /*|To Custom payload config write: cislo1::uint:16                                  |*/
 /*|To URL pattern add (HTTP): http://arduino.clanweb.eu/studna_s_prekladom/data.php |*/
-/*|IF WANT TO USE HTTPS (SSL) CONENCTION WRITE BELOW:                               |*/
+/*|IF WANT TO USE HTTPS (SSL) CONENCTION WRITE URL available BELOW:                 |*/
 /*|To URL pattern add (HTTPS): https://hladinomer.000webhostapp.com/data.php        |*/
 /*|In HTTP method choose: POST                                                      |*/
 /*|To Body of message add: hodnota={customData#cislo1}&token=123456789              |*/
