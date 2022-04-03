@@ -1,7 +1,7 @@
 # Hladinomer - Arduino / ESP / Sigfox LPWAN IoT
 <p align="justify">
 Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR ATmega328P / ATmega2560 (Arduino Uno / Mega R3), ESP8266 a ESP32.
-Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti (US-02X, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-ME007, Parallax PING)))™) pre záznam výšky hladiny vody (vzdialenosti). 
+Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti zo sérii RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ pre záznam výšky hladiny vody (vzdialenosti). 
 Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT LPWAN sieť Sigfox.
 Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím operačného systému FreeRTOS.
 Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
