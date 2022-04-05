@@ -3,12 +3,12 @@
 Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR ATmega328P / ATmega2560 (Arduino Uno / Mega R3), ESP8266 a ESP32.
 Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti zo sérii RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ pre záznam výšky hladiny vody (vzdialenosti). 
 Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT LPWAN sieť Sigfox.
-Pre ESP32 je dostupná experimentálna implementácia aj v prostredí frameworku ESP-IDF s využitím operačného systému FreeRTOS.
 Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
 Štandardný režim StandBy umožňuje prenos dát na webové rozhranie a stará sa o udržanie stálej konektivity v LAN sieti.
 Pre ESP8266 a ESP32 sú dostupné implementácie s podporou vzdialenej aktualizácie firmvéru Over-The-Air (OTA) cez LAN sieť so sieťovým OTA portom.
 K dispozícii je aj Ultra-Low-Power (ULP) firmvér pre ESP mikrokontroléry, ktorý minimalizuje spotrebu elektrickej energie v dôsledku prepnutia mikrokontroléru do režimu hlbokého spánku (Deep Sleep). 
 Prebudenie mikrokontroléru sa realizuje podporovanou metódou (RTC Timer pre ESP32, External Wake pre ESP8266).
+Pre ESP32 je dostupný firmvér s využitím operačného systému reálneho času FreeRTOS. Implementácia je dostupná v Arduino Core, alebo v ESP-IDF frameworku, odpovedá režimu StandBy.
 Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde je možné zaznamenávať a vizualizovať dáta o výške hladiny vody v studni.
 <b>Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!</b>
 Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
