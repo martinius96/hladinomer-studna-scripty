@@ -1,22 +1,24 @@
-/*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTPS - FreeRTOS - HC-SR04 / JSN-SR04T / HY-SRF05            |*/
-/*|ESP32 (DevKit, Generic)                                                            |*/
-/*|Autor: Martin Chlebovec (martinius96)                                              |*/
-/*|E-mail: martinius96@gmail.com                                                      |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie: https://hladinomer.000webhostapp.com/                 |*/
-/*|Licencia pouzitia: MIT                                                             |*/
-/*|Revízia: 3. Január 2022                                                            |*/
-/*|-----------------------------------------------------------------------------------|*/
+/*|-------------------------------------------------------------------------------|*/
+/*|Project: Ultrasonic sensor node - HTTPS - FreeRTOS - HC-SR04 / JSN-SR04T       |*/
+/*|ESP32 (DevKit, Generic)                                                        |*/
+/*|Author: Martin Chlebovec (martinius96)                                         |*/
+/*|E-mail: martinius96@gmail.com                                                  |*/
+/*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en/      |*/
+/*|Test web interface where data is sent: https://hladinomer.000webhostapp.com/   |*/
+/*|Buy me coffee: https://paypal.me/chlebovec                                     |*/
+/*|Revision: 8. April 2022                                                        |*/
+/*|Compatible Arduino Core based on ESP-IDF 4.4 - versions 2.0.1, 2.0.3-RC1       |*/
+/*|Partition scheme Default 1,2 MB APP, 827 kB (63%) flash, 38 kB (11%) RAM usage |*/
+/*|-------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <NewPingESP8266.h>
 
-const char * ssid = "MY_WIFI"; //MENO WiFi SIETE
-const char * password = "MY_WIFI_PASSWORD"; //HESLO WiFi SIETE
-const char* host = "hladinomer.000webhostapp.com"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = "/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+const char * ssid = "MY_WIFI"; //WiFi SSID name
+const char * password = "MY_WIFI_PASSWORD"; //WiFi password
+const char* host = "hladinomer.000webhostapp.com"; //webserver address (domain)
+String url = "/data.php"; //PHP file under domain host
 
 #define pinTrigger    22
 #define pinEcho       23
@@ -24,14 +26,14 @@ String url = "/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php sú
 NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 
 TaskHandle_t Task1; //ULTRASONIC MEASUREMENT
-TaskHandle_t Task2; //WIFI HTTP SOCKET
-QueueHandle_t  q = NULL;
+TaskHandle_t Task2; //HTTPS POST request task
+QueueHandle_t  q = NULL; //Queue handler
 
-WiFiClientSecure client;
+WiFiClientSecure client; //Secured client object for HTTPS connection
 static void Task1code( void * parameter);
 static void Task2code( void * parameter);
 
-//Root CA cert --> CERTIFIKÁT CERTIFIKAČNEJ AUTORITY, KTORÁ VYDALA CERTIFIKÁT VÁŠ WEBSERVER v .pem formáte
+//DigiCert Global Root CA in .pem format, stored in PROGMEM flash
 //DST ROOT CA X3 EXAMPLE (https://i.imgur.com/fvw4huT.png)
 const static char* test_root_ca PROGMEM = \
     "-----BEGIN CERTIFICATE-----\n" \
@@ -59,16 +61,16 @@ const static char* test_root_ca PROGMEM = \
 
 void setup() {
   Serial.begin(115200);
-  WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  WiFi.begin(ssid, password); //connect to WiFi
   while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.print(".");
+    delay(500);
+    Serial.print(F("."));
   }
   Serial.println(F(""));
   Serial.println(F("Wifi connected with IP:"));
   Serial.println(WiFi.localIP());
   client.setCACert(test_root_ca);
-  q = xQueueCreate(20, sizeof(int));
+  q = xQueueCreate(20, sizeof(int)); //create Queue of 20 INT values 
   if (q != NULL) {
     Serial.println(F("Queue FIFO buffer is created"));
     vTaskDelay(1000 / portTICK_PERIOD_MS); //wait for a second
@@ -80,7 +82,7 @@ void setup() {
       1,           /* priority of the task */
       &Task1,      /* Task handle to keep track of created task */
       1);          /* pin task to core 1 */
-    Serial.println(F("Ultrasonic measurement task started"));
+    Serial.println(F("Ultrasonic measurement task started - pinned to APP CPU"));
     xTaskCreatePinnedToCore(
       Task2code,   /* Task function. */
       "Task2",     /* name of task. */
@@ -89,7 +91,7 @@ void setup() {
       1,           /* priority of the task */
       &Task2,      /* Task handle to keep track of created task */
       0);          /* pin task to core 0 */
-    Serial.println(F("HTTP Socket task started"));
+    Serial.println(F("HTTPS POST request task started - pinned to PRO CPU"));
   } else {
     Serial.println(F("Queue creation failed"));
   }
@@ -101,7 +103,7 @@ void loop() {
   }
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    Serial.print(F("."));
   }
   yield();
 
@@ -109,7 +111,7 @@ void loop() {
 
 static void Task1code( void * parameter) {
   if (q == NULL) {
-    Serial.println(F("Queue in Measurement task is not ready"));
+    Serial.println(F("Queue in ultrasonic Measurement task is not ready"));
     return;
   }
   while (1) {
@@ -145,9 +147,10 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
+    xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT until portMAX_DELAY
+    //If received data in Queue, delete value in Queue and execute code below
     String data = "hodnota=" + String(distance) + "&token=123456789";
-    client.stop();
+    client.stop(); //close all opened connections
     if (client.connect(host, 443)) {
       Serial.println(F("Connected to server successfully"));
       client.println("POST " + url + " HTTP/1.0");
@@ -170,6 +173,6 @@ static void Task2code( void * parameter) {
     } else {
       Serial.println(F("Connection to webserver was NOT successful"));
     }
-    client.stop();
+    client.stop(); //close all opened connections
   }
 }
