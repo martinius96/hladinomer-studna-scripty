@@ -136,7 +136,7 @@ static void Task2code( void * parameter) {
     Serial.println(payload_message);
     Sigfox.print(F("AT$SF="));
     Sigfox.println(payload_message);
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
     Sigfox.print(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
     //Sigfox.print(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
   }
