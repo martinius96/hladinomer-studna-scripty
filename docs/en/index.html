@@ -246,8 +246,8 @@ After datas are sent to server, ESP microcontroller will switch to Deep Sleep mo
 ESP8266 is awakened via WAKE timer (jumper between GPIO16 and RST required - check Wiring diagram), ESP32 is awakened via RTC Timer.
 </p>
 </td>
-<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmware</a></td>
-<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
 </tr>
 <tr>
 <td style="width: 25%"><b>StandBy</b></td>
@@ -263,8 +263,8 @@ Subsequently, the sensor node starts transmitting data to the web interface <a h
 <b>The next time the sensor node is started, Captive Portal and WiFiManager will no longer start, as the WiFi network configuration is permanently stored.</b>
 </p>
 </td>
-<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 firmware</a></td>
-<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
 </tr>
 </tbody>
 </table>
@@ -282,9 +282,8 @@ Project is so easy to use even for laymen who do not know which sensor is more s
 Microcontroller used also plays an important role in the system.
 For the project, it is possible to use the Arduino platform (Uno / Mega) in revision R3 with an identical pinout, which can be connected to an Ethernet shield that communicates via the ICSP interface.
 It is also possible to use Ethernet modules and connect them directly to the hardware SPI pins of the microcontroller.
-Ethernet modules from Wiznet W5100, W5500, USR-ES1 are supported.
-Ethernet module ENC28J60 is supported also from manufacturer MicroChip.
-All Ethernet modules provide HTTP connectivity with the web server.
+Ethernet modules from Wiznet W5100, W5500, USR-ES1 are supported. From manufacturer MicroChip there is supported module ENC28J60 with software TCP stack.
+All Ethernet modules provide HTTP connectivity with the web server - port 80.
 WiFi microcontrollers from Espressif Systems - ESP8266 and ESP32 are also supported.
 Microcontrollers have several operating modes: StandBy, StandBy + OTA with the possibility of remote firmware upload via LAN network and deep sleep mode for ULP applications - Deep Sleep.
 In sleep mode for the ESP8266 microcontroller, it is necessary to add a physical jumper between GPIO16 (WAKE) and RST - see Wiring Diagram.
