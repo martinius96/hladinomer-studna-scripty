@@ -1,6 +1,6 @@
 /*|----------------------------------------------------------------------------|*/
 /*|Project: Ultrasonic water level monitor - HC-SR04 / JSN-SR04T / HY-SRF05... |*/
-/*|ESP32 (DevKit, Generic)                                                     |*/
+/*|ESP32 (DevKit, Generic) + PHY Ethernet LAN8720 / TLK110, RMII interface     |*/
 /*|Author: Martin Chlebovec (martinius96)                                      |*/
 /*|E-mail: martinius96@gmail.com                                               |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en    |*/
