@@ -8,6 +8,7 @@
 /*|Revision: 16. April 2022                                                    |*/
 /*|----------------------------------------------------------------------------|*/
 
+#include <WiFiClientSecure.h>
 #include <ETH.h>
 #include <NewPingESP8266.h>
 
