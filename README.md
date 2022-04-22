@@ -70,6 +70,7 @@ Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: 
 * Mechanické (plavák)
 * Magnetické (Hall)
 * Mikrovlnné (radarové)
+* Ultrazvukové - iný typ výstupu (UART, RS-232, prúdová slučka 4-20 mA, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN...)
 * **Poznámka:** Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontroléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.
 
 # Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka (NEPODPOROVANÁ):
