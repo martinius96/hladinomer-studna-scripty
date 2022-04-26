@@ -81,8 +81,7 @@ Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of
 * Measurable total (sum) of precipitation in 2 hours, 24 hours, 7 days, 30 days, 365 days
 
 # Screenshots of Water level monitor project with Rain Gauge
-![Hladinomer + Zrážkomer - Prehľad hĺbky studne a zrážok v reálnom čase](https://i.imgur.com/AQI6Zz2.png)
-![Hladinomer + Zrážkomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/HjrBQTO.png)
-![Zrážkomer + Zrážkomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/HadPs1L.png)
-![Hladinomer + Zrážkomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/NAL0cNG.png)
-![Hladinomer + Zrážkomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/svIAGZb.png)
+![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Dashboard](https://i.imgur.com/9JfO3lg.png)
+![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Historical datas](https://i.imgur.com/ZQGQntl.png)
+![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Graphical visualisation in time - water level](https://i.imgur.com/aTd6o11.png)
+![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Graphical visualisation in time - rain](https://i.imgur.com/b1h0Itj.png)
