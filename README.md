@@ -50,26 +50,26 @@ Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
 
 # Supported hardware
-![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
+![Level meter hardware - well water level monitor](https://i.imgur.com/RqUwKbw.jpg)
 # Wiring for microcontrollers + HC-SR04 / JSN-SR04T
-![Schéma zapojenia - hladinomer - senzor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
+![Wiring diagram - level meter - sensor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
 # Water level monitor - webapp screenshots
-![Hladinomer - Prehľad hladiny vody v studni a objemu studne v reálnom čase](https://i.imgur.com/VMLOkiW.gif)
-![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/YrL0DG1.png)
-![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/FqqGV8o.png)
-![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/3ynXOBb.png)
-![Hladinomer - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
+![Level meter - Overview of the water level in the well and the volume of the well in real time](https://i.imgur.com/VMLOkiW.gif)
+![Level meter - Table of difference records, historical data for the entire period of the well monitor](https://i.imgur.com/YrL0DG1.png)
+![Level meter - Alarm representation of maximum, minimum data](https://i.imgur.com/FqqGV8o.png)
+![Level meter - Graphical representation of measured data in 24 hours, 7 days, 30 days](https://i.imgur.com/3ynXOBb.png)
+![Level meter - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
 
 # Other water level sensors (requires own firmware)
-* Laser (LiDAR)
-* Hydrostatic (submersible)
+* Laser (LiDAR)- Garmin LIDAR-Lite v3HP / TFMini
+* Hydrostatic (submersible) - LMK307 / LMP305 / DPT200
 * Electrostatic (capacitive / inductive)
 * Pressure (differential / with compensating atmospheric pressure sensor)
-* Optical
+* Optical - GP2Y0A02YK0F 
 * Mechanical (float)
 * Magnetic (Hall)
-* Microwave (radar)
-* Ultrasonic - other type of output (UART, RS-232, current loop 4-20 mA, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN ...)
+* Microwave (radar) - CS476 / CS475A-L / SP69 / WLR 8/15/30
+* Ultrasonic - other type of output (UART, RS-232, current loop 4-20 mA, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN, SDI, DQ ...)
 * **Note:** If the water level is recalculated from the bottom on the microcontroller side, it is necessary to set the well depth to 0 cm on the web interface.
 
 # Extended version of Water Level monitor project with Rain Gauge offers (NOT SUPPORTED):
