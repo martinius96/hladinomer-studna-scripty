@@ -1,7 +1,7 @@
 # Water Level Monitor - Arduino / ESP / Sigfox LPWAN IoT
 <p align="justify">
 Repository contains software implementations in Wiring language (Arduino Core) for AVR ATmega328P / ATmega2560 microcontrollers (Arduino Uno / Mega R3), ESP8266 and ESP32.
-Implementations allow the use of an ultrasonic distance sensor from the RCW series, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING))) ™ to record the water level (distance).
+Implementations allow the use of an ultrasonic distance sensor from the RCW series, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ to record the water level (distance).
 Supported technologies for data transmission are: Ethernet / WiFi / IoT LPWAN network Sigfox.
 Firmware is divided based on additional functions that microcontrollers support.
 Standard StandBy mode enables data transfer to the web interface and takes care of maintaining constant connectivity in the LAN network.
