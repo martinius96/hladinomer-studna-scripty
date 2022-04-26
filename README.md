@@ -1,86 +1,86 @@
-# Hladinomer - Arduino / ESP / Sigfox LPWAN IoT
+# Water Level Monitor - Arduino / ESP / Sigfox LPWAN IoT
 <p align="justify">
-Repozitár obsahuje programové implementácie v jazyku Wiring (Arduino Core) pre mikrokontroléry AVR ATmega328P / ATmega2560 (Arduino Uno / Mega R3), ESP8266 a ESP32.
-Implementácie počítajú s využitím ultrazvukového senzora vzdialenosti zo sérii RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ pre záznam výšky hladiny vody (vzdialenosti). 
-Podporované technológie pre prenos údajov sú: Ethernet / WiFi / IoT LPWAN sieť Sigfox.
-Firmvér je rozdelený na základe doplnkových funkcií, ktoré mikrokontroléry podporujú.
-Štandardný režim StandBy umožňuje prenos dát na webové rozhranie a stará sa o udržanie stálej konektivity v LAN sieti.
-Pre ESP8266 a ESP32 sú dostupné implementácie s podporou vzdialenej aktualizácie firmvéru Over-The-Air (OTA) cez LAN sieť so sieťovým OTA portom.
-K dispozícii je aj Ultra-Low-Power (ULP) firmvér pre ESP mikrokontroléry, ktorý minimalizuje spotrebu elektrickej energie v dôsledku prepnutia mikrokontroléru do režimu hlbokého spánku (Deep Sleep). 
-Prebudenie mikrokontroléru sa realizuje podporovanou metódou (RTC Timer pre ESP32, External Wake pre ESP8266).
-Pre ESP32 je dostupný firmvér s využitím operačného systému reálneho času FreeRTOS. Implementácia je dostupná v Arduino Core, alebo v ESP-IDF frameworku, odpovedá režimu StandBy.
-Dostupný firmvér umožňuje prenos dát na testovacie webové rozhranie, kde je možné zaznamenávať a vizualizovať dáta o výške hladiny vody v studni.
-<b>Testovacie webové rozhranie projektu podporuje iba HTTP protokol, príklady pre HTTPS spojenie fungovať nebudú!</b>
-Webaplikácia je dostupná v anglickom, nemeckom, ruskom a slovenskom jazyku.
-Projekt Hladinomer v staršej verzii existuje aj s rozšírením o zrážkomer, ktorý umožňuje zaznamenávať početnosť zrážok (projekt zrážkomera je neudržiavaný).
-Rozšírený opis projektu: https://martinius96.github.io/hladinomer-studna-scripty/
-Webové rozhranie je Hladinomer s možnosťou vyskúšania: http://arduino.clanweb.eu/studna_s_prekladom/
-Webové rozhranie je Hladinomer + Zrážkomer RG-11 s možnosťou vyskúšania: http://arduino.clanweb.eu/studna/
+Repository contains software implementations in Wiring language (Arduino Core) for AVR ATmega328P / ATmega2560 microcontrollers (Arduino Uno / Mega R3), ESP8266 and ESP32.
+Implementations allow the use of an ultrasonic distance sensor from the RCW series, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING))) ™ to record the water level (distance).
+Supported technologies for data transmission are: Ethernet / WiFi / IoT LPWAN network Sigfox.
+Firmware is divided based on additional functions that microcontrollers support.
+Standard StandBy mode enables data transfer to the web interface and takes care of maintaining constant connectivity in the LAN network.
+Implementations with Remote Over-The-Air (OTA) firmware update support are available for the ESP8266 and ESP32 over a LAN with a network OTA port.
+Ultra-Low-Power (ULP) firmware for ESP microcontrollers is also available, which minimizes power consumption due to the microcontroller switching to Deep Sleep mode.
+Microcontroller wake-up is performed by a supported method (RTC Timer for ESP32, External Wake for ESP8266).
+Firmware is available for ESP32 using the FreeRTOS real-time operating system. The implementation is available in Arduino Core, or in the ESP-IDF framework, corresponds to StandBy mode.
+Available firmware allows data transfer to a test web interface, where it is possible to record and visualize data on the water level in the well.
+<b> Project's test web interface only supports the HTTP protocol, examples for HTTPS connections will not work! </b>
+Web application is available in English, German, Russian and Slovak.
+Water Level Monitor project in the older version also exists with the extension of a rain gauge, which allows you to record the frequency of precipitation (the rain gauge project is not maintained).
+Extended project description: https://martinius96.github.io/hladinomer-studna-scripty/en/
+Web interface for Water Level Monitor with the possibility of testing: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en
+Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of testing: http://arduino.clanweb.eu/studna/?lang=en
 </p>
 
-# Ako získať webové rozhranie?
-**Pri záujme o kúpu webového rozhrania kontaktovať na: martinius96@gmail.com**
-* Na testovacom webovom rozhraní je možné zdarma po ľubovoľnú dobu vyskúšať projekt s vašim hardvérom
+# How to get web interface?
+**If you are interested in purchasing the web interface, contact: martinius96@gmail.com**
+* It is possible to try the project with your hardware for free for any period of time on the test web interface
 
-# Spustenie systému Hladinomer
-* **Obsah priečinka /src/ rozbaliť do C:/Users/[User]/Dokumenty/Arduino/libraries**
-* Nahrať do mikrokontroléra daný program (off-line tester / on-line sketch) pre odosielanie dát do webového rozhrania POST metódou
-* V prípade zakúpenia projektu s webovým rozhraním --> importovať .sql tabuľku do MySQL databázy
-* V connect.php nastaviť prístupové údaje k MySQL databáze, HTTP Auth údaje a API key pre mikrokontróler, ktorým bude autorizovaný pre zápis dát
-* Nastaviť hĺbku a priemer studne v časti Nastavení vrátane názvu studne / miesta merania
-* Nahrať program, ktorý sa po tomto kroku vygeneruje (s API kľúčom) do mikrokontroléra
-* Prevádzkovanie projektu s možnosťou klonovania
+# Starting the Water Level monitor project
+* **The contents of the folder /src/ expand to C:/Users/[User]/Documents/Arduino/libraries**
+* Upload the given program (off-line tester / on-line sketch) to the microcontroller for sending data to the web interface by POST method
+* In case of purchasing a project with a web interface -> import .sql table into MySQL database
+* In connect.php set the access data to the MySQL database, HTTP Auth data and API key for the microcontroller that will be authorized to write data
+* Set the depth and diameter of the well in the Settings section, including the name of the well / measuring point
+* Upload the program that will be generated after this step (with API key) to the microcontroller
+* Operation of the project with the possibility of cloning
 
-**Programové implementácie pre prenosové protokoly podľa mikrokontrolérov:**
-| Mikrokontróler | HTTP | HTTPS |
+**Software implementations for transmission protocols according to microcontrollers:**
+| Microcontroller | HTTP | HTTPS |
 | ------------ | ------------- | ------------- |
 | Arduino + Ethernet | ✓ | × |
 | ESP8266 | ✓ | ✓ |
 | ESP32 | ✓ | ✓ |
 
-**Podporované operačné módy prevádzky mikrokontrolérov v zdrojových kódoch:**
-| Operačný mód | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) |
+**Supported operating modes of microcontroller operation in source codes:**
+| Operating mode | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) |
 | ------------ | ------------- | ------------- | ------------- | ------------- |
-| **Mikrokontróler** | - | - | - | - |
+| **Microcontroller** | - | - | - | - |
 | Arduino + Ethernet | ✓ | ✓ | × | × |
 | ESP8266 | ✓ | ✓ | ✓ | ✓ |
 | ESP32 | ✓ | ✓ | ✓ | ✓ |
 
-# Získanie Root CA certifikátu (Pre ESP32 / ESP8266 - HTTPS) - OpenSSL
+# Obtaining Root CA certificate (For ESP32 / ESP8266 - HTTPS) - OpenSSL tool
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
 
-# Podporovaný hardvér
+# Supported hardware
 ![Hardvér pre hladinomer - monitor výšky hladiny vody v studni](https://i.imgur.com/RqUwKbw.jpg)
-# Schéma zapojenia mikrokontrolérov + HC-SR04 / JSN-SR04T
+# Wiring for microcontrollers + HC-SR04 / JSN-SR04T
 ![Schéma zapojenia - hladinomer - senzor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
-# Ukážka webaplikácie - Hladinomer
-![Hladinomer - Prehľad hladiny vody v studni a objemu studne v reálnom čase](https://i.imgur.com/gHbErg5.gif)
-![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/mRWHkEU.png)
-![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/VjgTmxd.png)
-![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/Bh98Yx0.png)
-![Hladinomer - Odhad maximálneho merania senzormi bez odrazov so známym priemerom studne](https://i.imgur.com/CLO2A7I.png)
+# Water level monitor - webapp screenshots
+![Hladinomer - Prehľad hladiny vody v studni a objemu studne v reálnom čase](https://i.imgur.com/VMLOkiW.gif)
+![Hladinomer - Tabuľka rozdielových záznamov, historické dáta za celé obdobie monitoru studne](https://i.imgur.com/YrL0DG1.png)
+![Hladinomer - Budíková reprezentácia maximálnych, minimálnych dát](https://i.imgur.com/FqqGV8o.png)
+![Hladinomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/3ynXOBb.png)
 ![Hladinomer - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
 
-# Iné senzory pre záznam výšky hladiny (vyžaduje vlastný firmvér)
-* Laserové (LiDAR)
-* Hydrostatické (ponorné)
-* Elektrostatické (kapacitné / indukčné)
-* Tlakové (diferenčné / s kompenzačným senzorom atmosférického tlaku)
-* Optické
-* Mechanické (plavák)
-* Magnetické (Hall)
-* Mikrovlnné (radarové)
-* Ultrazvukové - iný typ výstupu (UART, RS-232, prúdová slučka 4-20 mA, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN...)
-* **Poznámka:** Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontroléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.
+# Other water level sensors (requires own firmware)
+* Laser (LiDAR)
+* Hydrostatic (submersible)
+* Electrostatic (capacitive / inductive)
+* Pressure (differential / with compensating atmospheric pressure sensor)
+* Optical
+* Mechanical (float)
+* Magnetic (Hall)
+* Microwave (radar)
+* Ultrasonic - other type of output (UART, RS-232, current loop 4-20 mA, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN ...)
+* **Note:** If the water level is recalculated from the bottom on the microcontroller side, it is necessary to set the well depth to 0 cm on the web interface.
 
-# Rozšírená verzia projektu Hladinomer o Zrážkomer ponúka (NEPODPOROVANÁ):
-* Zber údajov zo zrážkomera Hydreon RG-11 - načítavanie v prerušení s debouncingom 15ms
-* Vizualizácia vo web rozhraní
-* Vizualizácia rozšírená o 30 dní, 365 dní
-* Grafický vývoj zrážok
-* Merateľný úhrn (súčet) zrážok za 2 hodin, 24 hodín, 7 dní, 30 dní, 365 dní
+# Extended version of Water Level monitor project with Rain Gauge offers (NOT SUPPORTED):
+* Water level monitor features (above)
+* Data collection from Hydreon RG-11 rain gauge - reading in interruption with debouncing 15ms
+* Visualization in the web interface
+* Visualization extended by 30 days, 365 days
+* Graphic development of precipitation
+* Measurable total (sum) of precipitation in 2 hours, 24 hours, 7 days, 30 days, 365 days
 
-# Ukážka rozšírenej webaplikácie - Hladinomer + Zrážkomer
+# Screenshots of Water level monitor project with Rain Gauge
 ![Hladinomer + Zrážkomer - Prehľad hĺbky studne a zrážok v reálnom čase](https://i.imgur.com/AQI6Zz2.png)
 ![Hladinomer + Zrážkomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/HjrBQTO.png)
 ![Zrážkomer + Zrážkomer - Grafická reprezentácia nameraných údajov za 24 hodín, 7 dní, 30 dní](https://i.imgur.com/HadPs1L.png)
