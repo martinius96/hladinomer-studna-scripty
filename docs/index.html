@@ -307,6 +307,49 @@ Dáta o aktuálnej výške hladiny vody a objeme vody v studni sú z webového r
 Projekt Hladinomer je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde napr. Grafana.
 Následne je možné v podsystéme vykonávať aj ovládanie periférii (zavlažovanie, polievanie, aktivácia domácej vodárne) na základe dát o výške hladiny vody v studni z web rozhrania.
 </p>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>Operačný mód</th>
+<th>StandBy</th>
+<th>StandBy + Over The Air (OTA)</th>
+<th>Ultra Low Power (ULP)</th>
+<th>FreeRTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mikrokontróler</strong></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Arduino + Ethernet</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP8266</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP32</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>				
+</div>
 <div class="alert alert-info">
 	<strong>Programové implementácie pre Arduino, ESP8266, ESP32 (vyžadujú doinštalovanie knižníc): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">Dostupné tu</a>
 </div>	
