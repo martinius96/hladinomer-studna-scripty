@@ -39,12 +39,12 @@ Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of
 | ESP32 | ✓ | ✓ |
 
 **Supported operating modes of microcontroller operation in source codes:**
-| Operating mode | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) |
-| ------------ | ------------- | ------------- | ------------- | ------------- |
-| **Microcontroller** | - | - | - | - |
-| Arduino + Ethernet | ✓ | ✓ | × | × |
-| ESP8266 | ✓ | ✓ | ✓ | ✓ |
-| ESP32 | ✓ | ✓ | ✓ | ✓ |
+| Operating mode | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) | FreeRTOS |
+| ------------ | ------------- | ------------- | ------------- | ------------- | ------------- |
+| **Microcontroller** | - | - | - | - | - |
+| Arduino + Ethernet | ✓ | ✓ | × | × | × |
+| ESP8266 | ✓ | ✓ | ✓ | ✓ | × |
+| ESP32 | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 # Obtaining Root CA certificate (For ESP32 / ESP8266 - HTTPS) - OpenSSL tool
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
