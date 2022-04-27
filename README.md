@@ -8,6 +8,9 @@ Standard StandBy mode enables data transfer to the web interface and takes care 
 Implementations with Remote Over-The-Air (OTA) firmware update support are available for the ESP8266 and ESP32 over a LAN with a network OTA port.
 Ultra-Low-Power (ULP) firmware for ESP microcontrollers is also available, which minimizes power consumption due to the microcontroller switching to Deep Sleep mode.
 Microcontroller wake-up is performed by a supported method (RTC Timer for ESP32, External Wake for ESP8266).
+</p>
+<hr>
+<p align="justify">
 Firmware is available for ESP32 using the FreeRTOS real-time operating system. The implementation is available in Arduino Core, or in the ESP-IDF framework, corresponds to StandBy mode.
 Available firmware allows data transfer to a test web interface, where it is possible to record and visualize data on the water level in the well.
 <b> Project's test web interface only supports the HTTP protocol, examples for HTTPS connections will not work! </b>
