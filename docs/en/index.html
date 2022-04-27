@@ -296,6 +296,54 @@ Data on the current water level and water volume in the well are available in JS
 Water level monitor project can be integrated via MQTT into home automation (Hassio, Domoticz, Loxone) to display the water level in its own dashboard, e.g. Grafana.
 Subsequently, it is possible to perform peripheral control in the subsystem (irrigation, watering, activation of the domestic waterworks) on the basis of data on the water level in the well from the web interface.
 </p>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>Operating mode</th>
+<th>Offline Tester</th>
+<th>StandBy</th>
+<th>Deep Sleep</th>
+<th>StandBy + Over The Air (OTA)</th>
+<th>FreeRTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Microcontroller</strong></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Arduino + Ethernet</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP8266</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP32</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>				
+</div>
 <div class = "alert alert-info">
 <strong>Source codes for Arduino, ESP8266, ESP32 (required installation of libraries): </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Available here</a>
 </div>
