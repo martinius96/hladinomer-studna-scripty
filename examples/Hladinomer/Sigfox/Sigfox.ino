@@ -78,8 +78,8 @@ void loop() {
       Sigfox.print(F("AT$SF="));
       Sigfox.println(sprava);
       delay(5000);
-      Sigfox.print(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
-      //Sigfox.print(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
+      Sigfox.println(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
+      //Sigfox.println(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
     } else {
       Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
       timer = 0; //vynulujeme timer, vykoname nove meranie
