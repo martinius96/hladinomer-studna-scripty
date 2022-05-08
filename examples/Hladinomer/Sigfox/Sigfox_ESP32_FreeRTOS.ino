@@ -137,7 +137,7 @@ static void Task2code( void * parameter) {
     Sigfox.print(F("AT$SF="));
     Sigfox.println(payload_message);
     vTaskDelay(1000 / portTICK_PERIOD_MS);
-    Sigfox.print(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
-    //Sigfox.print(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
+    Sigfox.println(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
+    //Sigfox.println(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
   }
 }
