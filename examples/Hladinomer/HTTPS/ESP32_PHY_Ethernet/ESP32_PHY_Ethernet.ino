@@ -15,8 +15,8 @@
 const char* host = "hladinomer.000webhostapp.com"; //webhost
 String url = "/data.php"; //URL address to PHP file
 
-#define pinTrigger    22
-#define pinEcho       21 //CHANGED FROM D23 !!!!
+#define pinTrigger    4
+#define pinEcho       5 //CHANGED FROM D23 !!!!
 #define maxVzdialenost 450
 NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 
@@ -86,6 +86,7 @@ void setup() {
   Serial.begin(115200);
   WiFi.onEvent(WiFiEvent);
   ETH.begin(ETH_ADDR, ETH_POWER_PIN, ETH_MDC_PIN, ETH_MDIO_PIN, ETH_TYPE, ETH_CLK_MODE);
+  delay(5000);
   Serial.println(F("Ethernet connected with IP:"));
   Serial.println(ETH.localIP());
   client.setCACert(test_root_ca);
@@ -110,7 +111,7 @@ void setup() {
       1,           /* priority of the task */
       &Task2,      /* Task handle to keep track of created task */
       0);          /* pin task to core 0 */
-    Serial.println(F("HTTP Socket task started"));
+    Serial.println(F("HTTPS Socket task started"));
   } else {
     Serial.println(F("Queue creation failed"));
   }
