@@ -5,7 +5,7 @@
 /*|E-mail: martinius96@gmail.com                                               |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en    |*/
 /*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en   |*/
-/*|Revision: 16. April 2022                                                    |*/
+/*|Revision: 3. August 2022                                                    |*/
 /*|----------------------------------------------------------------------------|*/
 
 #include <ETH.h>
@@ -60,6 +60,16 @@ void setup() {
   WiFi.onEvent(WiFiEvent);
   ETH.begin(ETH_ADDR, ETH_POWER_PIN, ETH_MDC_PIN, ETH_MDIO_PIN, ETH_TYPE, ETH_CLK_MODE);
   delay(5000);
+  Serial.print("ETH MAC: ");
+  Serial.print(ETH.macAddress());
+  Serial.print(", IPv4: ");
+  Serial.print(ETH.localIP());
+  if (ETH.fullDuplex()) {
+    Serial.print(", FULL_DUPLEX");
+  }
+  Serial.print(", ");
+  Serial.print(ETH.linkSpeed());
+  Serial.println("Mbps");
   Serial.println(F("Ethernet connected with IP:"));
   Serial.println(ETH.localIP());
   q = xQueueCreate(20, sizeof(int));
