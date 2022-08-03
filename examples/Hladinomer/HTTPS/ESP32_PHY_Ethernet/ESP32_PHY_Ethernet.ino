@@ -3,6 +3,7 @@
 /*|ESP32 (DevKit, Generic) + PHY Ethernet LAN8720 / TLK110, RMII interface     |*/
 /*|Author: Martin Chlebovec (martinius96)                                      |*/
 /*|E-mail: martinius96@gmail.com                                               |*/
+/*|Buy me a coffee at: paypal.me/chlebovec                                     |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en    |*/
 /*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en   |*/
 /*|Revision: 3. August 2022                                                    |*/
