@@ -70,8 +70,6 @@ void setup() {
   Serial.print(", ");
   Serial.print(ETH.linkSpeed());
   Serial.println("Mbps");
-  Serial.println(F("Ethernet connected with IP:"));
-  Serial.println(ETH.localIP());
   q = xQueueCreate(20, sizeof(int));
   if (q != NULL) {
     Serial.println(F("Queue FIFO buffer is created"));
