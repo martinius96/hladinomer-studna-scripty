@@ -61,16 +61,6 @@ void setup() {
   WiFi.onEvent(WiFiEvent);
   ETH.begin(ETH_ADDR, ETH_POWER_PIN, ETH_MDC_PIN, ETH_MDIO_PIN, ETH_TYPE, ETH_CLK_MODE);
   delay(5000);
-  Serial.print("ETH MAC: ");
-  Serial.print(ETH.macAddress());
-  Serial.print(", IPv4: ");
-  Serial.print(ETH.localIP());
-  if (ETH.fullDuplex()) {
-    Serial.print(", FULL_DUPLEX");
-  }
-  Serial.print(", ");
-  Serial.print(ETH.linkSpeed());
-  Serial.println("Mbps");
   q = xQueueCreate(20, sizeof(int));
   if (q != NULL) {
     Serial.println(F("Queue FIFO buffer is created"));
@@ -169,17 +159,18 @@ static void Task2code( void * parameter) {
   }
 }
 
-void WiFiEvent(WiFiEvent_t event) {
+void WiFiEvent(WiFiEvent_t event)
+{
   switch (event) {
-    case SYSTEM_EVENT_ETH_START:
+    case ARDUINO_EVENT_ETH_START:
       Serial.println("ETH Started");
       //set eth hostname here
       ETH.setHostname("esp32-ethernet");
       break;
-    case SYSTEM_EVENT_ETH_CONNECTED:
+    case ARDUINO_EVENT_ETH_CONNECTED:
       Serial.println("ETH Connected");
       break;
-    case SYSTEM_EVENT_ETH_GOT_IP:
+    case ARDUINO_EVENT_ETH_GOT_IP:
       Serial.print("ETH MAC: ");
       Serial.print(ETH.macAddress());
       Serial.print(", IPv4: ");
@@ -191,10 +182,10 @@ void WiFiEvent(WiFiEvent_t event) {
       Serial.print(ETH.linkSpeed());
       Serial.println("Mbps");
       break;
-    case SYSTEM_EVENT_ETH_DISCONNECTED:
+    case ARDUINO_EVENT_ETH_DISCONNECTED:
       Serial.println("ETH Disconnected");
       break;
-    case SYSTEM_EVENT_ETH_STOP:
+    case ARDUINO_EVENT_ETH_STOP:
       Serial.println("ETH Stopped");
       break;
     default:
