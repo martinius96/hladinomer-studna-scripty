@@ -40,6 +40,7 @@ Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of
 | Arduino + Ethernet | ✓ | × |
 | ESP8266 | ✓ | ✓ |
 | ESP32 | ✓ | ✓ |
+| ESP32 + PHY LAN8720 | ✓ | ✓ |
 
 **Supported operating modes of microcontroller operation in source codes:**
 | Operating mode | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) | FreeRTOS |
