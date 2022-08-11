@@ -2,6 +2,7 @@
 //AT$I=10 ==> ID
 //AT$I=10 ==> PAC
 //Used for device registration
+//AT commands list: https://www.lpwan.cz/LPWAN_sigfox_node_datasheet_v1.pdf
 #include <SoftwareSerial.h>
 
 //SW Uart for Sigfox MODEM WISOL
