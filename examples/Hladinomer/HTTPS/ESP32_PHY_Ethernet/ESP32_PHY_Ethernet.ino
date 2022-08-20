@@ -5,7 +5,7 @@
 /*|E-mail: martinius96@gmail.com                                               |*/
 /*|Buy me a coffee at: paypal.me/chlebovec                                     |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en    |*/
-/*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en   |*/
+/*|Test web interface: https://hladinomer.000webhostapp.com                    |*/
 /*|Revision: 3. August 2022                                                    |*/
 /*|----------------------------------------------------------------------------|*/
 
