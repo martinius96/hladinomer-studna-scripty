@@ -6,17 +6,17 @@
 /*|Buy me a coffee at: paypal.me/chlebovec                                     |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en    |*/
 /*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en   |*/
-/*|Revision: 3. August 2022                                                    |*/
+/*|Revision: 21. August 2022                                                    |*/
 /*|----------------------------------------------------------------------------|*/
 
 #include <ETH.h>
 #include <NewPingESP8266.h>
 
 const char* host = "arduino.clanweb.eu"; //webhost
-String url = "/studna_s_prekladom/data.php"; //URL address to PHP file
-
-#define pinTrigger    4
-#define pinEcho       5 //CHANGED FROM D23 !!!!
+String url = "/studna_s_prekladom/data.php"; //URL address to target PHP file
+boolean ip_set = false;
+#define pinTrigger    4 //CONNECT TO TRIGGER PIN OF ULTRASONIC SENSOR
+#define pinEcho       5 //CONNECT TO ECHO PIN OF ULTRASONIC SENSOR
 #define maxVzdialenost 450
 NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 
@@ -130,6 +130,9 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
+    if (ip_set != true) {
+      return;
+    }
     xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
     client.stop();
@@ -171,6 +174,7 @@ void WiFiEvent(WiFiEvent_t event)
       Serial.println("ETH Connected");
       break;
     case ARDUINO_EVENT_ETH_GOT_IP:
+      ip_set = true;
       Serial.print("ETH MAC: ");
       Serial.print(ETH.macAddress());
       Serial.print(", IPv4: ");
@@ -183,9 +187,11 @@ void WiFiEvent(WiFiEvent_t event)
       Serial.println("Mbps");
       break;
     case ARDUINO_EVENT_ETH_DISCONNECTED:
+      ip_set = false;
       Serial.println("ETH Disconnected");
       break;
     case ARDUINO_EVENT_ETH_STOP:
+      ip_set = false;
       Serial.println("ETH Stopped");
       break;
     default:
