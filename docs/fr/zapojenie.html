@@ -168,7 +168,7 @@ table,thead,tbody,tfoot,tr, td,th{
   <li> Ajout de la possibilité d'utiliser la mise à jour OTA en mode veille pour les plates-formes ESP8266 et ESP32 dans le réseau LAN via le téléchargeur Python d'Arduino IDE - Basic OTA </li>
   <li> Pour les zones sans ligne fixe, vous pouvez utiliser le réseau Sigfox IoT pour transférer les données du puits. Utilisation du modem UART Sigfox WISOL SFM10R1 compatible contrôlé via des commandes AT par interface UART émulée par logiciel, possibilité de le faire dormir en mode Veille légère / Veille profonde. </li>
   <li> Informations sur le projet avec description du matériel compatible, description de la fonctionnalité des capteurs à ultrasons, mise en œuvre de la connexion HTTPS pour ESP32, ESP8266. Configuration d'un backend Sigfox pour la saisie de données de rappel dans l'interface Web. </li>
-</div><center><img src="https://i.imgur.com/Uzpb7bi.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
+</div><center><img src="https://i.imgur.com/8OJ9TQC.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
 <div class="alert alert-danger">
 	<a class="btn btn-primary" href="../scheme/studna_V2.sch">Télécharger le Diagramme de câblage - Autodesk Eagle .sch</a>
 </div> 
@@ -293,6 +293,53 @@ table,thead,tbody,tfoot,tr, td,th{
 <tr>
 <td>D5</td>
 <td>Echo <font color="red"><b><a href="https://i.imgur.com/u27Uf0t.png">(3V3)</a></b></font></td>
+</tr>
+</table>
+<table class="table table-striped flat-table flat-table-3" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>ESP32</strong></th>
+<th style="width: 50%;"><strong>PHY Ethernet LAN8720</strong></th>
+</tr>
+<tr>
+<td>3V3</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND / RBIAS</td>
+</tr>
+<tr>
+<td>D18</td>
+<td>MDIO</td>
+</tr>
+<tr>
+<td>D19</td>
+<td>TXD0</td>
+</tr>
+<tr>
+<td>D21</td>
+<td>TXEN</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>TXD1</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>MDC</td>
+</tr>
+<tr>
+<td>D25</td>
+<td>RXD0</td>
+</tr>
+<tr>
+<td>D26</td>
+<td>RXD1</td>
+</tr>
+<tr>
+<td>D27</td>
+<td>CRS_DV</td>
 </tr>
 </table>
 <center> 
