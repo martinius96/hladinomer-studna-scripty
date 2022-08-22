@@ -54,9 +54,10 @@ Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
 
 # Supported hardware
-![Level meter hardware - well water level monitor](https://i.imgur.com/RqUwKbw.jpg)
+![Water level monitor open-source hardware - well water level monitor](https://i.imgur.com/RqUwKbw.jpg)
+![Water level monitor - ESP32 + PHY Ethernet LAN8720 module, waterproof ultrasonic sensor JSN-SR04T](https://i.imgur.com/xLaYlmK.jpg)
 # Wiring for microcontrollers + HC-SR04 / JSN-SR04T
-![Wiring diagram - level meter - sensor HC-SR04 / JSN-SR04T](https://i.imgur.com/O7QYERr.png)
+![Wiring diagram - level meter - sensor HC-SR04 / JSN-SR04T](https://i.imgur.com/8OJ9TQC.png)
 # Water level monitor - webapp screenshots
 ![Level meter - Overview of the water level in the well and the volume of the well in real time](https://i.imgur.com/VMLOkiW.gif)
 ![Level meter - Table of difference records, historical data for the entire period of the well monitor](https://i.imgur.com/YrL0DG1.png)
