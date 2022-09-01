@@ -144,10 +144,10 @@ Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webov�
 Aktuálne dáta o výške hladiny vody sú reprezentované v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny.
 Historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
 Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj SmartTV. 
-Webaplikácia využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta a archivovať ich v MySQL databáze.
-Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, počíta objem vody v studni z tohto parametra a priemeru studne.
+Webaplikácia využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta zo senzorových uzlov (Arduino / ESP) a archivovať ich v MySQL databáze.
+Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, dokáže vypočítať aj objem vody v studni na základe známeho priemeru studne.
 Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ na základe proporcií jeho studne.
-Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet / WiFi / NB-IoT), pričom meranie sa vykonáva periodicky v rutine každých 5 minút. 
+Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet / WiFi / cez IoT sieť), pričom meranie sa vykonáva periodicky každých 5 minút. 
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
 Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™. 
 </p>
@@ -157,16 +157,13 @@ Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, 
 <p style="text-align: justify;">
 Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10 μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
 Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na určenie vzdialenosti hladiny vody od senzora, ktorý je umiestnený na vrchu studne.
-Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C.
-Dôležitým parametrom u oboch ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
-Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie (oxidácie) z dôvodu prítomnej vlhkosti v studni. 
-Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu. 
+Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C. Niektoré ultrazvukové senzory majú aj teplotný senzor, ktorý môže vykonať korekciu meraní.
+Dôležitým parametrom ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
+Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie vo vlhkých podmienkach studne. 
+Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu pre zníženie účinkov vlhkosti. 
 Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60°, čo ho značne limituje a zamedzuje jeho použitiu v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko metrov (6 metrov priemer pri hĺbke studne 4,5 metra).
 Ultrazvukové senzory sú plne bezúdržbové. Senzor JSN-SR04T má riadiacu elektronickú dosku, ktorá nesmie byť vystavená vlhkosti a vode. 
-Štandardný komunikačný tienený kábel má dĺžku 2,5 metra, možno nadpojiť protikusy rovnakého kábla pre predĺženie vedenia.
-V prípade štvorcovej studne sa do priemeru dosádza priemer vpísanej kružnice, ktorá bude tvoriť referenčnú hodnotu vodného valca pre výpočet objemu studne.
-Chyba celkového objemu studne bude v tomto prípade na úrovni ~12,5%.
-Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (známe z datasheetu).
+Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm na základe údajov z katalógových listov (datasheetov).
 </p>
 <div class="alert alert-info">
   	<strong>Iné typy senzorov pre záznam výšky hladiny vody, ktoré je možné integrovať (nutné vytvoriť vlastný firmvér):</strong> 
@@ -200,7 +197,7 @@ Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm (
 <li>Potrubí a rúr (z dôvodu detekčnej charakteristiky - široký lúč)</li>
 <li>Do studní so spádovým prítokom (rozbúrená hladina utlmí ultrazvuk, meranie je nemožné / skokovité)</li>
 <li>Do miest s náhlou zmenou teplôt (teplota ovplyvňuje čas šírenia zvuku, teda aj stacionárna hladina sa javí ako kolísavá)</li>
-<li>Vákuových nádrží (meranie je nemožné)</li>
+<li>Vákuových nádrží (meranie je nemožné, zvuk sa nešíri)</li>
 </div>
 <div class="alert alert-info">
 	<strong>Detekčná charakteristika ultrazvukových senzorov vzdialenosti - MATLAB scripty pre vizualizáciu:</strong>
