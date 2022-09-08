@@ -160,7 +160,7 @@ static void Task2code( void * parameter) {
   }
   while (1) {
     while (eth_state != true) {
-      yield();
+      vTaskDelay(1 / portTICK_PERIOD_MS);
     }
     xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
