@@ -14,7 +14,8 @@
 
 const char* host = "arduino.clanweb.eu"; //webhost
 String url = "/studna_s_prekladom/data.php"; //URL address to target PHP file
-boolean ip_set = false;
+
+boolean eth_state = false;
 #define pinTrigger    4 //CONNECT TO TRIGGER PIN OF ULTRASONIC SENSOR
 #define pinEcho       5 //CONNECT TO ECHO PIN OF ULTRASONIC SENSOR
 #define maxVzdialenost 450
@@ -130,8 +131,8 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    if (ip_set != true) {
-      return;
+    while (eth_state != true) {
+      yield();
     }
     xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
@@ -166,15 +167,17 @@ void WiFiEvent(WiFiEvent_t event)
 {
   switch (event) {
     case ARDUINO_EVENT_ETH_START:
+      eth_state = false;
       Serial.println("ETH Started");
       //set eth hostname here
       ETH.setHostname("esp32-ethernet");
       break;
     case ARDUINO_EVENT_ETH_CONNECTED:
+      eth_state = false;
       Serial.println("ETH Connected");
       break;
     case ARDUINO_EVENT_ETH_GOT_IP:
-      ip_set = true;
+      eth_state = true;
       Serial.print("ETH MAC: ");
       Serial.print(ETH.macAddress());
       Serial.print(", IPv4: ");
@@ -187,11 +190,11 @@ void WiFiEvent(WiFiEvent_t event)
       Serial.println("Mbps");
       break;
     case ARDUINO_EVENT_ETH_DISCONNECTED:
-      ip_set = false;
+      eth_state = false;
       Serial.println("ETH Disconnected");
       break;
     case ARDUINO_EVENT_ETH_STOP:
-      ip_set = false;
+      eth_state = false;
       Serial.println("ETH Stopped");
       break;
     default:
