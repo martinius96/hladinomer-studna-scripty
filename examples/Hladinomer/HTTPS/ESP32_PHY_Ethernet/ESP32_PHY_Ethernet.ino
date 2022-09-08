@@ -159,12 +159,12 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    while (eth_state != true) {
-      vTaskDelay(1 / portTICK_PERIOD_MS);
-    }
     xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
     client.stop();
+    while (eth_state != true) {
+      vTaskDelay(1 / portTICK_PERIOD_MS);
+    }
     if (client.connect(host, 443)) {
       Serial.println(F("Connected to server successfully"));
       client.println("POST " + url + " HTTP/1.0");
