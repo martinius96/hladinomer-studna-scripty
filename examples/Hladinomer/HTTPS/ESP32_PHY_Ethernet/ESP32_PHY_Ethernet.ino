@@ -16,6 +16,7 @@
 const char* host = "hladinomer.000webhostapp.com"; //webhost
 String url = "/data.php"; //URL address to PHP file
 
+boolean eth_state = false;
 #define pinTrigger    4
 #define pinEcho       5 //CHANGED FROM D23 !!!!
 #define maxVzdialenost 450
@@ -158,6 +159,9 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
+    while (eth_state != true) {
+      yield();
+    }
     xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
     client.stop();
@@ -191,14 +195,17 @@ void WiFiEvent(WiFiEvent_t event)
 {
   switch (event) {
     case ARDUINO_EVENT_ETH_START:
+      eth_state = false;
       Serial.println("ETH Started");
       //set eth hostname here
       ETH.setHostname("esp32-ethernet");
       break;
     case ARDUINO_EVENT_ETH_CONNECTED:
+      eth_state = false;
       Serial.println("ETH Connected");
       break;
     case ARDUINO_EVENT_ETH_GOT_IP:
+      eth_state = true;
       Serial.print("ETH MAC: ");
       Serial.print(ETH.macAddress());
       Serial.print(", IPv4: ");
@@ -211,9 +218,11 @@ void WiFiEvent(WiFiEvent_t event)
       Serial.println("Mbps");
       break;
     case ARDUINO_EVENT_ETH_DISCONNECTED:
+      eth_state = false;
       Serial.println("ETH Disconnected");
       break;
     case ARDUINO_EVENT_ETH_STOP:
+      eth_state = false;
       Serial.println("ETH Stopped");
       break;
     default:
