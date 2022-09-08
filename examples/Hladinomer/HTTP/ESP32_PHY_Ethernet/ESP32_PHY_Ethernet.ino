@@ -159,6 +159,7 @@ static void Task2code( void * parameter) {
     } else {
       Serial.println(F("Connection to webserver was NOT successful"));
     }
+    yield();
     client.stop();
   }
 }
