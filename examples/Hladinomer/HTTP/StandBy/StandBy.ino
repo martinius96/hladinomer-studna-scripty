@@ -6,11 +6,11 @@
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
 /*|Knižnice NewPing, ESP8266NewPing a Ethernet2 je dostupná v Github repozitári:      |*/
-/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
+/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stiahnuť a rozbaliť    |*/
 /*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
 /*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
 /*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
-/*|Licencia pouzitia: MIT                                                             |*/
+/*|DONATE: paypal.me/chlebovec                                                        |*/
 /*|Revízia: 24. Jun 2022                                                              |*/
 /*|-----------------------------------------------------------------------------------|*/
 
