@@ -11,7 +11,7 @@
 /*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
 /*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
 /*|Licencia pouzitia: MIT                                                             |*/
-/*|Revízia: 24. Jun 2022                                                          |*/
+/*|Revízia: 24. Jun 2022                                                              |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
