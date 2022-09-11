@@ -6,7 +6,8 @@
 /*|Project info, schematics: https://martinius96.github.io/hladinomer-studna-scripty/en/ |*/
 /*|Test web interface for HTTP: http://arduino.clanweb.eu/studna_s_prekladom/            |*/
 /*|Test web interface for HTTPS: https://hladinomer.000webhostapp.com/                   |*/
-/*|Revision: 1. April 2022                                                               |*/
+/*|Revision: 11. September 2022                                                          |*/
+/*|Buy me coffee: paypal.me/chlebovec                                                    |*/
 /*|Flash usage: 234 kB (17%), RAM usage: 16 kB (5%)                                      |*/
 /*|--------------------------------------------------------------------------------------|*/
 
@@ -124,7 +125,7 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
+    xQueuePeek(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     Sigfox.println(); //Wakeup from Light sleep via ‘\n’ (ASCII 10)
     //Sigfox.print('\n'); //Wakeup from Light sleep via ‘\n’ (ASCII 10) - ekvivalent
     char payload_message[4]; //4B message, maximum 12B can be used total
@@ -137,6 +138,7 @@ static void Task2code( void * parameter) {
     Sigfox.print(F("AT$SF="));
     Sigfox.println(payload_message);
     vTaskDelay(1000 / portTICK_PERIOD_MS);
+    xQueueReset(q); //EMPTY QUEUE
     Sigfox.println(F("AT$P=1")); //Light sleep (Send a break (‘\n’) to wake up.)
     //Sigfox.println(F("AT$P=2")); //Deep sleep (power-on reset needed for wake up)
   }
