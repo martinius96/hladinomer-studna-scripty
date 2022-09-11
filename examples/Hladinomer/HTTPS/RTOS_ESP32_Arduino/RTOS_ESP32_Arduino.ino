@@ -6,8 +6,7 @@
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en/      |*/
 /*|Test web interface where data is sent: https://hladinomer.000webhostapp.com/   |*/
 /*|Buy me coffee: https://paypal.me/chlebovec                                     |*/
-/*|Revision: 8. April 2022                                                        |*/
-/*|Compatible Arduino Core based on ESP-IDF 4.4 - versions 2.0.1, 2.0.3-RC1       |*/
+/*|Revision: 11. September 2022                                                   |*/
 /*|Partition scheme Default 1,2 MB APP, 827 kB (63%) flash, 38 kB (11%) RAM usage |*/
 /*|-------------------------------------------------------------------------------|*/
 
@@ -147,8 +146,7 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT until portMAX_DELAY
-    //If received data in Queue, delete value in Queue and execute code below
+    xQueuePeek(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
     client.stop(); //close all opened connections
     if (client.connect(host, 443)) {
@@ -163,6 +161,7 @@ static void Task2code( void * parameter) {
       client.println();
       client.println(data);
       Serial.println(F("Datas were sent to server successfully"));
+      xQueueReset(q); //EMPTY QUEUE, IF REQUEST WAS SUCCESSFUL, OTHERWISE RUN REQUEST AGAIN
       while (client.connected()) {
         String line = client.readStringUntil('\n');
         if (line == "\r") {
