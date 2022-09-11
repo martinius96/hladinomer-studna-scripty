@@ -131,7 +131,7 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
+    xQueuePeek(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
     client.stop();
     while (eth_state != true) {
@@ -149,6 +149,7 @@ static void Task2code( void * parameter) {
       client.println();
       client.println(data);
       Serial.println(F("Datas were sent to server successfully"));
+      xQueueReset(q); //EMPTY QUEUE, IF REQUEST WAS SUCCESSFUL, OTHERWISE RUN REQUEST AGAIN
       while (client.connected()) {
         String line = client.readStringUntil('\n');
         if (line == "\r") {
