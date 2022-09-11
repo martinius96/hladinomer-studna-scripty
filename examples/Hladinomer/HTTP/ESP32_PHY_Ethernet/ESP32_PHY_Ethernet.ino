@@ -6,7 +6,7 @@
 /*|Buy me a coffee at: paypal.me/chlebovec                                     |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en    |*/
 /*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en   |*/
-/*|Revision: 8. September 2022                                                 |*/
+/*|Revision: 11. September 2022                                                |*/
 /*|----------------------------------------------------------------------------|*/
 
 #include <ETH.h>
