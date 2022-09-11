@@ -5,8 +5,8 @@
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
-/*|Licencia pouzitia: MIT                                                             |*/
-/*|Revízia: 2. Január 2022                                                            |*/
+/*|Buy me coffee: paypal.me/chlebovec                                                 |*/
+/*|Revízia: 11. September 2022                                                        |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
@@ -116,7 +116,7 @@ static void Task2code( void * parameter) {
     return;
   }
   while (1) {
-    xQueueReceive(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
+    xQueuePeek(q, &distance, portMAX_DELAY); //read measurement value from Queue and run code below, if no value, WAIT....
     String data = "hodnota=" + String(distance) + "&token=123456789";
     client.stop();
     if (client.connect(host, 80)) {
@@ -131,6 +131,7 @@ static void Task2code( void * parameter) {
       client.println();
       client.println(data);
       Serial.println(F("Datas were sent to server successfully"));
+      xQueueReset(q); //EMPTY QUEUE, IF REQUEST WAS SUCCESSFUL, OTHERWISE RUN REQUEST AGAIN
       while (client.connected()) {
         String line = client.readStringUntil('\n');
         if (line == "\r") {
