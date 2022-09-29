@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>เครื่องวัดระดับน้ำสำหรับหลุมขุด / ขุด - ฮาร์ดแวร์โอเพ่นซอร์ส - Arduino / ESP8266 / ESP32 / Sigfox / LoRaWAN</title>
+	<meta name="description" content="เครื่องวัดระดับที่สร้างขึ้นบนแพลตฟอร์ม Arduino, ESP8266, ESP32 การวัดด้วยเซ็นเซอร์อัลตราโซนิก HC-SR04 / JSN-SR04T การส่งข้อมูลผ่านอีเทอร์เน็ต, WiFi การวัดระดับน้ำในบ่อบ่อ.">
+	<meta name="robots" content="index, follow">
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">เครื่องวัดระดับน้ำ</a></li>
+	<!---<li><a href="zrazkomer.html">Rainfall monitor</a></li>-->
+	<li><a href="zapojenie.html">การเดินสายไฟ</a></li>      
+<li><a href="json_client.html">ลูกค้า JSON</a></li>    
+      	<li><a href="kontakt.html">ติดต่อ</a></li>
+	<li><a href="../Instructions/Waterwell monitor - instructions.pdf">การติดตั้ง</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../de/index.html"><img src="https://i.imgur.com/kY5DFH5.png" alt="German.png, 2,2kB" title="German" height="32" width="32"></a>  
+<a href="../ro/index.html"><img src="https://i.imgur.com/yCHCmMZ.png" alt="Romanian.png, 2,2kB" title="Romanian" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+<a href="../fi/index.html"><img src="https://i.imgur.com/dDFaJqs.png" alt="Finnish.png, 2,2kB" title="Finnish" height="32" width="32"></a>
+<a href="../pl/index.html"><img src="https://i.imgur.com/OteBe4t.png" alt="Polish.png, 2,2kB" title="Polish" height="32" width="32"></a>
+<a href="../ru/index.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+ </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>ซอร์สโค้ดสำหรับ Arduino, ESP8266, ESP32, NewPing library: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">ที่เก็บโปรเจ็กต์ Github</a>
+				</div>	
+<div class="alert alert-info">
+<strong>ลองใช้เว็บอินเตอร์เฟสของโครงการตรวจสอบระดับน้ำฟรีกับฮาร์ดแวร์ของคุณ - ON-LINE: </strong>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">HTTP - Arduino + Ethernet / ESP8266 / ESP32 / Sigfox</a>
+</div>	
+				<div class="alert alert-danger">
+					<strong>สำหรับซอร์สโค้ดของเว็บอินเตอร์เฟสหรือคำถาม โปรดติดต่อผู้เขียนเป็นภาษาอังกฤษที่: </strong>martinius96@gmail.com
+				</div>
+<center><h1>Water level monitor project</h1></center>
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">อัลตราโซนิก</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-info">PHY Ethernet</span>
+<span class="label label-warning">WiFi</span>				
+<hr>
+<center> 
+	<h2>ไมโครคอนโทรลเลอร์ที่รองรับสำหรับการตรวจสอบระดับน้ำ - AVR / ESP</h2>
+</center>	
+     <hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino UNO" title="Control microcontroller Arduino UNO"><br><b><a href="https://www.ebay.com/itm/254532156570">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Nano" title="Control microcontroller Arduino Nano"><br><b><a href="https://www.ebay.com/itm/252742123829">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Mega 1280/25" title="Control microcontroller Arduino Mega 1280/2560"><br><b><a href="https://www.ebay.com/itm/304122418040">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU 0.9 / 1.0</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 Mini</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>โมดูลเทคโนโลยีการส่งสัญญาณ - Ethernet / Sigfox IoT</h2>
+</center>
+<hr>
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.ebay.com/itm/185017231005">Ethernet shield Wiznet W5100</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.ebay.com/itm/263116282333">Ethernet module Wiznet W5500</a></b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/ppyXzMM.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul LAN 8720 PHY Ethernet" title="Ethernet modul LAN 8720 PHY Ethernet"><br><b><a href="https://www.ebay.com/itm/112102912664">Ethernet module PHY LAN8720</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.ebay.com/itm/252798986559">Ethernet module ENC28J60</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/r2Q4faF.png" width="128px" height="128px" style="border-radius: 50%;" alt="Sigfox Wisol modem - IoT LPWAN Node 920 MHz" title="Sigfox Wisol modem - IoT LPWAN Node 920 MHz"><b>Sigfox WISOL SFM10R4</b></center></div></div>
+<hr>
+<center> 
+	<h2>เซ็นเซอร์ระยะอัลตราโซนิกที่เข้ากันได้</h2>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HC-SR04" title="Ultrasonic distance sensor - HC-SR04"><br><b><a href="https://www.ebay.com/itm/191841217528">HC-SR04</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - HY-SRF05" title="Ultrasonic distance sensor - HY-SRF05"><br><b><a href="https://www.ebay.com/itm/252083407959">HY-SRF05</a></b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/I7O3IGQ.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - JSN-SR04T" title="Ultrasonic distance sensor - JSN-SR04T"><br><b><a href="https://www.ebay.com/itm/321714364470">JSN-SR04T</a></b></center></div>		
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mKqoqgT.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - Parallax PING)))™" title="Ultrasonic distance sensor - Parallax PING)))™"><br><b><a href="https://www.parallax.com/product/ping-ultrasonic-distance-sensor/">Parallax PING)))™</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic distance sensor - DYP-ME007" title="Ultrasonic distance sensor - DYP-ME007"><br><b><a href="https://www.ebay.com/itm/154713159645">DYP-ME007</a></b></center></div>	
+</div>									
+<hr>
+<center> 
+	<h2> เครื่องวัดระดับน้ำ - Arduino / ESP8266 / ESP32 </h2> 
+</center> 
+<hr>
+<p style = "text-align: justify;">
+โครงการตรวจสอบระดับน้ำประกอบด้วยเว็บอินเตอร์เฟสส่วนกลางที่ทำหน้าที่รวบรวมข้อมูลจากโหนดเซ็นเซอร์และแสดงภาพให้ผู้ใช้เห็น
+ข้อมูลปัจจุบันเกี่ยวกับระดับน้ำจะแสดงในแดชบอร์ดพร้อมกับการแปลงเป็นปริมาตรของบ่อน้ำ ข้อมูลในอดีตเกี่ยวกับระดับน้ำยังมีให้สำหรับผู้ใช้ในรูปแบบตารางหรือภาพกราฟิกพร้อมกราฟเส้น
+เว็บอินเตอร์เฟสตอบสนอง สามารถปรับให้เข้ากับหน้าจอและความละเอียดของอุปกรณ์
+เว็บอินเตอร์เฟสของโปรเจ็กต์ใช้แบ็กเอนด์ที่เขียนด้วย PHP ที่สามารถประมวลผลข้อมูลขาเข้าจากคำขอโดยใช้เมธอด HTTP POST
+แบ็กเอนด์แก้ไขระดับที่วัดได้เป็นระดับจริงตามความลึกที่ทราบของบ่อน้ำ คำนวณปริมาตรของน้ำในบ่อน้ำจากพารามิเตอร์นี้และเส้นผ่านศูนย์กลางของบ่อน้ำ
+ผู้ใช้เข้าสู่ระบบความลึกและเส้นผ่านศูนย์กลางของหลุมเจาะตามสัดส่วนของบ่อน้ำของเขา
+ข้อมูลถูกส่งไปยังเว็บเซิร์ฟเวอร์โดยไมโครคอนโทรลเลอร์ที่รองรับโดยเทคโนโลยี (Ethernet / WiFi) ซึ่งทำการวัดทุก ๆ 300 วินาที - i 5 นาที.
+<b> การวัดระดับน้ำทำได้โดยใช้เซ็นเซอร์อัลตราโซนิก </b> - HC-SR04 หรือรุ่นกันน้ำ JSN-SR04T
+เซ็นเซอร์อื่นๆ ที่มีสัญญาณทริกเกอร์/เอคโค่จาก RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ ซีรีส์ก็สามารถใช้ได้เช่นกัน
+</p>
+<center>
+<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="แดชบอร์ดเว็บแอพตรวจสอบระดับน้ำใน OS Android พร้อมอัปเดตข้อมูลอัตโนมัติผ่าน jQuery" title="แดชบอร์ดเว็บแอพตรวจสอบระดับน้ำใน OS Android พร้อมอัปเดตข้อมูลอัตโนมัติผ่าน jQuery">
+</center>
+<p style = "text-align: justify;">
+หลักการวัดเซ็นเซอร์อัลตราโซนิกคือการส่งสัญญาณทริกเกอร์ที่มีความยาว 10 μs (ไมโครวินาที) ซึ่งกระเด็นจากระดับน้ำและกลับสู่เครื่องรับ - Echo
+วิธี Time-of-Flight ใช้ในการคำนวณเวลาใหม่ระหว่างการส่งและรับสัญญาณเพื่อกำหนดระยะห่างของระดับน้ำจากเซ็นเซอร์ซึ่งอยู่ที่ด้านบนของบ่อน้ำ
+สูตรการแปลงคำนึงถึงความเร็วของเสียง 343 m/s ที่อุณหภูมิ 20 °C
+พารามิเตอร์ที่สำคัญสำหรับเซ็นเซอร์อัลตราโซนิกทั้งสองคือความกว้างของลำแสงหรืออีกนัยหนึ่งคือลักษณะการตรวจจับ
+เซ็นเซอร์ HC-SR04 มีลักษณะการตรวจจับ 15° ลำแสงค่อนข้างแคบและเซ็นเซอร์ยังเหมาะสำหรับหลุมและถังที่แคบกว่า แต่ไม่กันน้ำและมีความเสี่ยงสูงต่อการกัดกร่อน (ออกซิเดชัน) เนื่องจากมีความชื้นในบ่อน้ำ
+ด้วยเหตุผลนี้ ขอแนะนำให้วางเซ็นเซอร์อัลตราโซนิกไว้เหนือบ่อน้ำ
+เซ็นเซอร์กันน้ำ JSN-SR04T มีลักษณะการตรวจจับ 60° ซึ่งจำกัดอย่างมากและป้องกันไม่ให้ใช้ในหลุมแคบ เนื่องจากลำแสงจะกว้างขึ้นตามระยะทาง และต้องใช้บ่อน้ำที่มีเส้นผ่านศูนย์กลางหลายเมตร (เส้นผ่านศูนย์กลาง 6 เมตรที่ความลึกของบ่อ 4.5 เมตร) .
+เซ็นเซอร์อัลตราโซนิกไม่มีการบำรุงรักษาอย่างสมบูรณ์ เซ็นเซอร์ JSN-SR04T มีแผงควบคุมอิเล็กทรอนิกส์ที่ต้องไม่ให้โดนความชื้นและน้ำ
+สายเคเบิลหุ้มฉนวนการสื่อสารมาตรฐานยาว 2.5 เมตร สามารถต่อสายคู่เดียวกันเพื่อต่อขยายสายได้
+ในกรณีของหลุมสี่เหลี่ยม เส้นผ่านศูนย์กลางของวงกลมที่จารึกไว้จะถูกป้อนลงในค่าเฉลี่ย ซึ่งจะสร้างค่าอ้างอิงของกระบอกสูบน้ำสำหรับการคำนวณปริมาตรของบ่อน้ำ
+ข้อผิดพลาดของปริมาตรหลุมทั้งหมดในกรณีนี้จะอยู่ที่ระดับ ~12.5%
+ความสูงระดับสูงสุดที่วัดได้ (ระดับ) โดยเซ็นเซอร์คือประมาณ 400 ถึง 450 ซม. (ทราบจากแผ่นข้อมูล)
+</p>
+<div class = "alert alert-info">
+ 	<strong> เซ็นเซอร์ระดับน้ำประเภทอื่นๆ ที่สามารถผสานรวมได้ (คุณต้องสร้างเฟิร์มแวร์ของคุณเอง): </strong>
+  <li> <b>เลเซอร์ (LiDAR)</b> - (Garmin LIDAR-Lite v3HP, TFMini ...)</li>
+<li> <b>ไฮโดรสแตติก</b> - (LMK307, LMP305, DPT200 ...) </li>
+<li> <b>ไฟฟ้าสถิต</b> (ตัวเก็บประจุ / อุปนัย) </li>
+<li> <b>ความดัน</b> (ส่วนต่าง / พร้อมเซ็นเซอร์ความดันบรรยากาศชดเชย) </li>
+<li> <b>ออปติคัล</b> - (GP2Y0A02YK0F, YD-02F, FS-IR02 ...)</li>
+<li> <b>เครื่องกล (ลอย / บ๊อบ)</b> </li>
+<li> <b>แม่เหล็ก (ฮอลล์)</b> - (VCL9, Sen-Hz41wa ...)</li>
+<li> <b>ไมโครเวฟ (เรดาร์)</b> - (CS476, CS475A-L, SP69, WLR 8/15/30 ...)</li>
+<li> <b>อัลตราโซนิก</b> - เอาต์พุตประเภทอื่น (UART, RS-232, RS-485, ลูปปัจจุบัน 4-20 mA, Modbus TCP / RTU, M-bus, PROFINET, CAN, SDI, DQ ...) </li>
+<li> <b>หมายเหตุ:</b> หากระดับน้ำจากด้านล่างของบ่อน้ำถูกคำนวณใหม่ทางฝั่งไมโครคอนโทรลเลอร์ พารามิเตอร์ - ความลึกของหลุมในเว็บอินเตอร์เฟสจะต้องตั้งไว้ที่ 0 ซม.! </li>
+</div>
+<hr><center><h4>วิดีโอสาธิตอินเทอร์เฟซเว็บ - เครื่องวัดระดับน้ำ:</h4></center><hr>
+<center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<hr><center><h4>เซ็นเซอร์อัลตราโซนิกเหมาะสำหรับ:</h4></center><hr>
+<div class="alert alert-success">
+<li>ขุดบ่อน้ำ </li>
+<li> ขุดบ่อน้ำ </li>
+<li> สิ่งปฏิกูลและส้วมซึม </li>
+<li> ลำธารและทะเลสาบ </li>
+<li> ถังเก็บน้ำฝนพลาสติก </li>
+<li> ไซโล (การวัดการเติมจำนวนมาก) </li>
+<li> คอนเทนเนอร์ (การตรวจสอบของเสีย ระดับการเติม) </li>
+<li> ห้องหม้อไอน้ำ (การตรวจสอบไม้ เม็ด ถ่านหิน วัสดุเศษไม้) </li>
+<li> เพลาและห้องใต้ดิน (น้ำท่วม - การตรวจสอบความสูงของน้ำใต้ดิน) </li>
+</div>
+<hr><center><h4>เซ็นเซอร์อัลตราโซนิกไม่เหมาะสำหรับ:</h4></center><hr>
+<div class="alert alert-danger">
+<li> เจาะบ่อน้ำ (เนื่องจากลักษณะการตรวจจับ - ลำแสงกว้าง) </li>
+<li> ท่อและท่อ (เนื่องจากลักษณะการตรวจจับ - ลำแสงกว้าง) </li>
+<li> ไปยังบ่อน้ำที่มีแควลาด (ผิวน้ำระลอกคลื่นทำให้อัลตราซาวนด์อ่อนลง การวัดเป็นไปไม่ได้) </li>
+<li> ในสถานที่ที่มีอุณหภูมิเปลี่ยนแปลงอย่างกะทันหัน (อุณหภูมิมีผลต่อเวลาของการแพร่กระจายเสียง ดังนั้นแม้ระดับคงที่ก็จะผันผวน) </li>
+<li> ถังสุญญากาศ (ไม่สามารถวัดได้) </li>
+</div>
+<div class="alert alert-info">
+	<strong>ลักษณะการตรวจจับของเซ็นเซอร์ระยะอัลตราโซนิก - สคริปต์ MATLAB:</strong>
+	<li><a href="../MATLAB/HCSR04.m" class="btn btn-success" role="button">HC-SR04.m ดาวน์โหลด</a></li>
+	<li><a href="../MATLAB/JSN04T.m" class="btn btn-primary" role="button">JSN-SR04T.m ดาวน์โหลด</a></li>
+</div>
+<hr><center><h4>เฟิร์มแวร์ Plug n' play - Ultra Low Power / StandBy</h4></center><hr>
+<div class="alert alert-success">
+  <strong>เฟิร์มแวร์ที่คอมไพล์แล้วพร้อมสำหรับการอัปโหลดไปยังไมโครคอนโทรลเลอร์ทันที (ไม่จำเป็นต้องใช้ไลบรารี่)!</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">ชื่อเฟิร์มแวร์</th>
+<th style="width: 50%">ฟังก์ชั่นเฟิร์มแวร์</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+เฟิร์มแวร์สำหรับแอปพลิเคชัน ULP ที่ใช้กระแสไฟต่ำ เฟิร์มแวร์ถูกโหลดผ่านเครื่องมือ ESPTOOL ที่ให้มาโดยอัตโนมัติ ซึ่งรันด้วยสคริปต์ .bat (ในสคริปต์ จำเป็นต้องเปลี่ยนพอร์ต COM ของบอร์ด ESP ของคุณ)
+หลังจากอัปโหลดเฟิร์มแวร์และสมมติว่า ESP ไม่มี SSID และรหัสผ่านจากโครงการก่อนหน้าที่จัดเก็บไว้ WiFiManager จะเริ่มทำงาน ซึ่งจะใช้ในการกำหนดค่าเครือข่าย WiFi ที่มีอยู่
+ESP จะเริ่มออกอากาศเครือข่าย WiFi แบบเปิดด้วย SSID -> <b> Hladinomer_AP </b> ในโหมด AP หลังจากเชื่อมต่อไคลเอนต์ (Windows / Android / iOS) พอร์ทัล Captive จะเริ่มต้นใน 192.168.4.1 (ไคลเอนต์ควรถูกเปลี่ยนเส้นทางโดยอัตโนมัติ)
+WiFiManager ให้คุณเลือกเครือข่าย WiFi ที่อยู่ในระยะในเว็บอินเตอร์เฟส ตั้งรหัสผ่าน
+หลังจากเชื่อมต่อ ESP กับเครือข่าย WiFi ที่ระบุสำเร็จและกำหนด IPv4 จากช่วงที่กำหนด Captive Portal จะถูกปิด และ ESP ยังคงอยู่ในโหมด STA-Station
+ต่อจากนั้น โหนดเซ็นเซอร์จะเริ่มส่งข้อมูลไปยังอินเทอร์เฟซเว็บ <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> เครื่องวัดระดับน้ำ </a>
+<b> ในครั้งถัดไปที่โหนดเซ็นเซอร์เริ่มทำงาน Captive Portal และ WiFiManager จะไม่เริ่มทำงานอีกต่อไป เนื่องจากการกำหนดค่าเครือข่าย WiFi จะได้รับการเก็บรักษาไว้อย่างถาวร </b>
+หลังจากส่งข้อมูลไปยังเซิร์ฟเวอร์แล้ว ไมโครคอนโทรลเลอร์ ESP จะเปลี่ยนเป็นโหมด Deep Sleep มันจะปิดโปรเซสเซอร์ Xtensa หลัก
+ESP8266 ถูกปลุกโดยใช้ตัวจับเวลา WAKE (ต้องใช้จัมเปอร์ระหว่าง GPIO16 และ RST - ตรวจสอบแผนภาพการเดินสาย) ESP32 ถูกปลุกผ่าน RTC Timer
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_ULP" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_ULP" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+เฟิร์มแวร์สำหรับโหมดสแตนด์บายของไมโครคอนโทรลเลอร์ ซึ่งส่งการวัดระดับน้ำไปยังเว็บเซิร์ฟเวอร์เป็นระยะ (5 นาที) ไปยังเว็บเซิร์ฟเวอร์ และในขณะเดียวกันก็รักษาการเชื่อมต่อกับ AP ในเครือข่าย LAN
+เฟิร์มแวร์ถูกโหลดผ่านเครื่องมือ ESPTOOL ที่ให้มาโดยอัตโนมัติ ซึ่งรันด้วยสคริปต์ .bat (ในสคริปต์ จำเป็นต้องเปลี่ยนพอร์ต COM ของบอร์ด ESP ของคุณ)
+หลังจากอัปโหลดเฟิร์มแวร์และสมมติว่า ESP ไม่มี SSID และรหัสผ่านจากโครงการก่อนหน้าที่จัดเก็บไว้ WiFiManager จะเริ่มทำงาน ซึ่งจะใช้ในการกำหนดค่าเครือข่าย WiFi ที่มีอยู่
+ESP จะเริ่มแพร่ภาพเครือข่าย WiFi แบบเปิดด้วย SSID ในโหมด AP --> <b>Hladinomer_AP</b> หลังจากเชื่อมต่อไคลเอนต์ (Windows / Android / iOS) พอร์ทัล Captive จะเริ่มต้นใน 192.168.4.1 (ไคลเอนต์ควรถูกเปลี่ยนเส้นทางโดยอัตโนมัติ)
+WiFiManager ให้คุณเลือกเครือข่าย WiFi ที่อยู่ในระยะในเว็บอินเตอร์เฟส ตั้งรหัสผ่าน
+หลังจากเชื่อมต่อ ESP กับเครือข่าย WiFi ที่ระบุสำเร็จและกำหนด IPv4 จากช่วงที่กำหนด Captive Portal จะถูกปิด และ ESP ยังคงอยู่ในโหมด STA-Station
+ต่อจากนั้น โหนดเซ็นเซอร์จะเริ่มส่งข้อมูลไปยังอินเทอร์เฟซเว็บ <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">การตรวจสอบระดับน้ำ</a>
+<b>ครั้งถัดไปที่โหนดเซ็นเซอร์เริ่มทำงาน Captive Portal และ WiFiManager จะไม่เริ่มทำงานอีกต่อไป เนื่องจากการกำหนดค่าเครือข่าย WiFi จะถูกเก็บไว้อย่างถาวร</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP8266_StandBy" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
+<td style="width: 12.50%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer/HTTP/Firmware/ESP32_StandBy" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr><center><h4>การกำหนดค่าเครือข่าย WiFi ผ่าน WiFiManager - Plug n' play firmware</h4></center><hr>
+<center>
+<img src="https://i.imgur.com/9VECUFT.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi network Hladinomer_AP, Captive Portal and WiFiManager web interface on Android" title="WiFi network Hladinomer_AP, Captive Portal and WiFiManager web interface on Android">
+</center>
+<hr><center><h3>หลักการวัดระดับน้ำและการส่งข้อมูล - แผนภาพบล็อก</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor" title="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic distance sensor"></center>
+<p style = "text-align: justify;">
+ส่วนต่อประสานแบ็กเอนด์ที่เว็บใช้ตรีโกณมิติเพื่อประเมินความลึกสูงสุดที่วัดได้ของบ่อน้ำที่เส้นผ่านศูนย์กลางของหลุมที่ทราบ (พารามิเตอร์อื่นสำหรับการคำนวณปริมาตรของหลุม)
+Wnterface ช่วยให้ผู้ใช้สามารถคำนวณความลึกสูงสุดของบ่อที่เซ็นเซอร์แต่ละตัวเหมาะสมตามลักษณะเฉพาะ
+โปรเจ็กต์นี้ใช้งานง่ายมาก แม้แต่ฆราวาสที่ไม่รู้ว่าเซ็นเซอร์ตัวไหนเหมาะกับการใช้งานในบ่อน้ำของตนมากกว่า
+ไมโครคอนโทรลเลอร์ที่ใช้ก็มีบทบาทสำคัญในระบบเช่นกัน
+สำหรับโครงการนี้ คุณสามารถใช้แพลตฟอร์ม Arduino (Uno / Mega) ในการแก้ไข R3 ที่มีพินเอาต์เหมือนกัน ซึ่งสามารถเชื่อมต่อกับอีเทอร์เน็ตชิลด์ที่สื่อสารผ่านอินเทอร์เฟซ ICSP
+นอกจากนี้ยังสามารถใช้โมดูลอีเทอร์เน็ตและเชื่อมต่อโดยตรงกับหมุด SPI ของฮาร์ดแวร์ของไมโครคอนโทรลเลอร์
+รองรับโมดูลอีเทอร์เน็ตจาก Wiznet W5100, W5500, USR-ES1 จากผู้ผลิต MicroChip มีโมดูลที่รองรับ ENC28J60 พร้อมซอฟต์แวร์ TCP stack
+โมดูลอีเทอร์เน็ตทั้งหมดมีการเชื่อมต่อ HTTP กับเว็บเซิร์ฟเวอร์ - พอร์ต 80
+ไมโครคอนโทรลเลอร์ WiFi จาก Espressif Systems - รองรับ ESP8266 และ ESP32
+ไมโครคอนโทรลเลอร์มีโหมดการทำงานหลายโหมด: StandBy, StandBy + OTA พร้อมความเป็นไปได้ในการอัปโหลดเฟิร์มแวร์ระยะไกลผ่านเครือข่าย LAN และโหมด Deep Sleep สำหรับแอปพลิเคชัน ULP - Deep Sleep
+ในโหมดสลีปสำหรับไมโครคอนโทรลเลอร์ ESP8266 จำเป็นต้องเพิ่มจัมเปอร์จริงระหว่าง GPIO16 (WAKE) และ RST - ดูแผนภาพการเดินสายไฟ
+ไมโครคอนโทรลเลอร์ ESP ยังอนุญาตให้ใช้การสื่อสารที่เข้ารหัสกับเว็บเซิร์ฟเวอร์ผ่านโปรโตคอล HTTPS
+ทั้งแพลตฟอร์ม ESP8266 และ ESP32 ใช้ Root CA ซึ่งออกใบรับรอง (ผู้ออก) สำหรับโดเมนเว็บเซิร์ฟเวอร์
+ใบรับรองถูกฝังอยู่ในซอร์สโค้ดของไมโครคอนโทรลเลอร์ในรูปแบบ .pem
+เพื่อไม่ให้ใบรับรองกินพื้นที่ในหน่วยความจำ RAM ของไมโครคอนโทรลเลอร์ ให้ใส่ใบรับรองลงในหน่วยความจำแฟลชของไมโครคอนโทรลเลอร์ - PROGMEM
+ใบรับรองของผู้มีอำนาจออกใบรับรองมีอายุ 10 ถึง 20 ปี ดังนั้นจึงไม่จำเป็นต้องต่ออายุใบรับรองบ่อยครั้ง
+ข้อมูลเกี่ยวกับระดับน้ำในปัจจุบันและปริมาณน้ำในบ่อน้ำมีอยู่ในรูปแบบ JSON จากเว็บอินเตอร์เฟส
+โครงการตรวจสอบระดับน้ำสามารถผสานรวมผ่าน MQTT ในระบบอัตโนมัติภายในบ้าน (Hassio, Domoticz, Loxone) เพื่อแสดงระดับน้ำในแดชบอร์ดของตัวเอง เช่น กราฟาน่า
+ต่อจากนั้นก็เป็นไปได้ที่จะทำการควบคุมอุปกรณ์ต่อพ่วงในระบบย่อย (การชลประทาน, การรดน้ำ, การเปิดใช้งานการประปาในประเทศ) บนพื้นฐานของข้อมูลเกี่ยวกับระดับน้ำในบ่อน้ำจากเว็บอินเตอร์เฟส
+</p>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>โหมดการทำงาน</th>
+<th>StandBy</th>
+<th>StandBy + Over The Air (OTA)</th>
+<th>Ultra Low Power (ULP)</th>
+<th>FreeRTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ไมโครคอนโทรลเลอร์</strong></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Arduino + Ethernet</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP8266</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP32</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>				
+</div>
+<div class = "alert alert-info">
+<strong>ซอร์สโค้ดสำหรับ Arduino, ESP8266, ESP32 (จำเป็นต้องติดตั้งไลบรารี่): </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">มีจำหน่ายที่นี่</a>
+</div>
+<hr><center><h4>ไลบรารีที่พร้อมใช้งานสำหรับไมโครคอนโทรลเลอร์ (Arduino / ESP)</h4></center><hr>
+<div class="alert alert-danger" style="word-wrap:break-word;">
+	ไฟล์เก็บถาวรไลบรารี (.zip) แยกไปที่ <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">ชื่อห้องสมุด</th>
+<th style="width: 50%">ฟังก์ชั่นห้องสมุด</th>
+<th style="width: 25%">ดาวน์โหลด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>NewPing</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ไลบรารีสำหรับไมโครคอนโทรลเลอร์ AVR (ATmega) Arduino Uno / Nano / Mega
+อนุญาตให้ทำการวัดด้วยเซ็นเซอร์ระยะอัลตราโซนิก RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPing" class="btn btn-success" role="button">ดาวน์โหลด</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>NewPingESP8266</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ไลบรารี่สำหรับไมโครคอนโทรลเลอร์ ESP8266 และ ESP32
+อนุญาตให้ทำการวัดด้วยเซ็นเซอร์ระยะอัลตราโซนิก RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/NewPingESP8266" class="btn btn-success" role="button">ดาวน์โหลด</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet2</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ไลบรารีสำหรับไมโครคอนโทรลเลอร์ AVR (ATmega) Arduino Uno / Nano / Mega
+ช่วยให้สามารถสื่อสารกับโมดูลอีเธอร์เน็ต Wiznet W5200 ถึง W5500 ผ่านอินเทอร์เฟซ SPI
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet2" class="btn btn-success" role="button">ดาวน์โหลด</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet3</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ไลบรารีสำหรับไมโครคอนโทรลเลอร์ AVR (ATmega) Arduino Uno / Nano / Mega
+ช่วยให้สามารถสื่อสารกับโมดูลอีเธอร์เน็ต Wiznet W5500 V2 - USR-ES1 ผ่านอินเทอร์เฟซ SPI
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/Ethernet3" class="btn btn-success" role="button">ดาวน์โหลด</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>UIPEthernet</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ไลบรารีสำหรับไมโครคอนโทรลเลอร์ AVR (ATmega) Arduino Uno / Nano / Mega
+ช่วยให้สามารถสื่อสารกับโมดูล Ethernet ENC28J60 จาก Microchip ผ่านอินเทอร์เฟซ SPI
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/UIPEthernet" class="btn btn-success" role="button">ดาวน์โหลด</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr>
+<center> 
+     <h3>ภาพหน้าจอของ webapp ตรวจสอบระดับน้ำ</h3>
+     <hr>
+	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+    	<img src="https://i.imgur.com/VMLOkiW.gif" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/YrL0DG1.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/3ynXOBb.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year">
+	</a>
+	<hr><center><h4>เอาต์พุต UART ของโหนดเซ็นเซอร์ - FreeRTOS - ESP32:</h4></center><hr>	
+	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">	
+	<img src="https://i.imgur.com/62K3i3T.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTP, POST transfer method" title="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTP, POST transfer method"> 	
+	<img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTPS, POST transfer method" title="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTPS, POST transfer method"> 
+	<img src="https://i.imgur.com/KFZANfa.jpg" style="display: block; max-width: 100%; height: auto;" alt="Supported hardware for well level project - Arduino - Ethernet and WiFi connectivity - ESP8266 - ESP32" title="Supported hardware for well level project - Arduino - Ethernet and WiFi connectivity - ESP8266 - ESP32">   
+<img src="https://i.imgur.com/xLaYlmK.jpg" style="display: block; max-width: 100%; height: auto;" alt="Sensor node ESP32 with PHY Ethernet module LAN7820 and ultrasonic sensor JSN-SR04T" title="Sensor node ESP32 with PHY Ethernet module LAN7820 and ultrasonic sensor JSN-SR04T"> 	
+</a>
+		</center>					
+ </div>
+		</div>
+</div>
+</body>
+</html>
