@@ -262,6 +262,7 @@ Obsługiwane są również mikrokontrolery WiFi firmy Espressif Systems - ESP826
 Mikrokontrolery posiadają kilka trybów pracy: StandBy, StandBy + OTA z możliwością zdalnego wgrywania firmware przez sieć LAN oraz tryb głębokiego uśpienia dla aplikacji ULP - Deep Sleep.
 W trybie uśpienia dla mikrokontrolera ESP8266 konieczne jest dodanie fizycznej zworki pomiędzy GPIO16 (WAKE) a RST - patrz Schemat połączeń.
 Mikrokontrolery ESP pozwalają również na realizację szyfrowanej komunikacji z serwerem WWW za pomocą protokołu HTTPS.
+ESP32 może być również używany z modułem PHY Ethernet LAN8720 przez interfejs RMII, obsługuje połączenie HTTP i HTTPS.
 Zarówno platformy ESP8266, jak i ESP32 korzystają z głównego urzędu certyfikacji, który wystawił certyfikat (wystawcę) dla domeny serwera WWW.
 Certyfikat jest osadzony w kodzie źródłowym mikrokontrolerów w formacie .pem.
 Aby certyfikat nie zajmował miejsca w pamięci RAM mikrokontrolera, umieszczany jest w pamięci flash mikrokontrolera - PROGMEM.
