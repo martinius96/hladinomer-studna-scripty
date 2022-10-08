@@ -269,6 +269,7 @@ Les microcontrôleurs WiFi d'Espressif Systems - ESP8266 et ESP32 sont égalemen
 Les microcontrôleurs ont plusieurs modes de fonctionnement : StandBy, StandBy + OTA avec possibilité de téléchargement à distance du firmware via le réseau LAN et mode veille profonde pour les applications ULP - Deep Sleep.
 En mode veille pour ESP8266, il est nécessaire d'ajouter un cavalier physique entre GPIO16 (WAKE) et RST - voir Schéma de câblage.
 Les microcontrôleurs ESP permettent également la mise en œuvre d'une connectivité HTTPS (cryptée) avec le serveur Web.
+ESP32 peut également être utilisé avec le module Ethernet PHY LAN8720 via l'interface RMII, prend en charge les connexions HTTP et HTTPS.
 Les plates-formes ESP8266 et ESP32 utilisent toutes deux l'autorité de certification racine, qui a émis un certificat (émetteur) pour le domaine du serveur Web.
 Le certificat est intégré dans le code source des microcontrôleurs au format .pem.
 Afin que le certificat ne prenne pas de place dans la mémoire RAM du microcontrôleur, il est inséré dans la mémoire flash du microcontrôleur - PROGMEM.
