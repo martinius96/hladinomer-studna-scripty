@@ -279,6 +279,7 @@ Sunt acceptate și microcontrolere WiFi de la Espressif Systems - ESP8266 și ES
 Microcontrolerele au mai multe moduri de operare: StandBy, StandBy + OTA cu posibilitatea de upload de la distanta a firmware-ului prin reteaua LAN si modul deep sleep pentru aplicatiile ULP - Deep Sleep.
 În modul de repaus pentru microcontrolerul ESP8266, este necesar să adăugați un jumper fizic între GPIO16 (WAKE) și RST - vezi diagrama de cablare.
 Microcontrolerele ESP permit, de asemenea, implementarea comunicării criptate cu serverul web prin protocolul HTTPS.
+ESP32 poate fi folosit și cu modulul PHY Ethernet LAN8720 prin interfața RMII, acceptă conexiunea HTTP și HTTPS.
 Atât platformele ESP8266, cât și ESP32 folosesc CA rădăcină, care a emis un certificat (Emitent) pentru domeniul serverului web.
 Certificatul este încorporat în codul sursă al microcontrolerelor în format .pem.
 Pentru ca certificatul să nu ocupe spațiu în memoria RAM a microcontrolerului, acesta este introdus în memoria flash a microcontrolerului - PROGMEM.
