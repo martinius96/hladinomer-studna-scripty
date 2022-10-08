@@ -255,6 +255,7 @@ Toetatud on ka WiFi mikrokontrollerid firmalt Espressif Systems – ESP8266 ja E
 Mikrokontrolleritel on mitu töörežiimi: StandBy, StandBy + OTA koos püsivara kaugüleslaadimise võimalusega LAN võrgu kaudu ja ULP rakenduste sügava une režiim – Deep Sleep.
 Puhkerežiimis ESP8266 jaoks on vaja lisada füüsiline hüppaja GPIO16 (WAKE) ja RST vahele – vaata juhtmestiku skeemi.
 ESP mikrokontrollerid võimaldavad ka HTTPS-i (krüpteeritud) ühenduse loomist veebiserveriga.
+ESP32 saab kasutada ka PHY Etherneti mooduliga LAN8720 RMII liidese kaudu, toetab HTTP ja HTTPS ühendust.
 Nii ESP8266 kui ka ESP32 platvormid kasutavad juur-CA-d, mis on veebiserveri domeeni jaoks väljastanud sertifikaadi (väljaandja).
 Sertifikaat on manustatud mikrokontrollerite lähtekoodi .pem-vormingus.
 Selleks, et sertifikaat ei võtaks ruumi mikrokontrolleri RAM-mälus, sisestatakse see mikrokontrolleri välkmällu - PROGMEM.
