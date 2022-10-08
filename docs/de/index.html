@@ -246,6 +246,7 @@ WiFi-Mikrocontroller von Espressif Systems - ESP8266 und ESP32 werden ebenfalls 
 Mikrocontroller haben mehrere Betriebsmodi: StandBy, StandBy + OTA mit der Möglichkeit des Remote-Firmware-Uploads über das LAN-Netzwerk und den Deep-Sleep-Modus für ULP-Anwendungen - Deep Sleep.
 Im Schlafmodus für ESP8266 ist es notwendig, einen physikalischen Jumper zwischen GPIO16 (WAKE) und RST hinzuzufügen - siehe Schaltplan.
 ESP-Mikrocontroller ermöglichen auch die Implementierung von HTTPS (verschlüsselt)-Konnektivität mit dem Webserver.
+ESP32 kann auch mit dem PHY-Ethernet-Modul LAN8720 über die RMII-Schnittstelle verwendet werden, unterstützt HTTP- und HTTPS-Verbindung.
 Sowohl die ESP8266- als auch die ESP32-Plattform verwenden die Root-CA, die ein Zertifikat (Aussteller) für die Webserverdomäne ausgestellt hat.
 Das Zertifikat ist im Quellcode der Mikrocontroller im .pem-Format eingebettet.
 Damit das Zertifikat keinen Platz im RAM-Speicher des Mikrocontrollers belegt, wird es in den Flash-Speicher des Mikrocontrollers - PROGMEM - eingefügt.
