@@ -262,6 +262,7 @@ Myös Espressif Systemsin WiFi-mikro-ohjaimet ESP8266 ja ESP32 ovat tuettuja.
 Mikro-ohjaimilla on useita toimintatiloja: StandBy, StandBy + OTA, jossa on mahdollisuus laiteohjelmiston etälataukseen LAN-verkon kautta ja syvä lepotila ULP-sovelluksille - Deep Sleep.
 ESP8266-mikro-ohjaimen lepotilassa on tarpeen lisätä fyysinen hyppyjohdin GPIO16:n (WAKE) ja RST:n välille - katso kytkentäkaavio.
 ESP-mikro-ohjaimet mahdollistavat myös salatun viestinnän toteuttamisen web-palvelimen kanssa HTTPS-protokollan kautta.
+ESP32:ta voidaan käyttää myös PHY Ethernet -moduulin LAN8720 kanssa RMII-liitännän kautta, tukee HTTP- ja HTTPS-yhteyttä.
 Sekä ESP8266- että ESP32-alustat käyttävät juuri CA:ta, joka on myöntänyt varmenteen (myöntäjä) verkkopalvelimen toimialueelle.
 Sertifikaatti on upotettu mikro-ohjainten lähdekoodiin .pem-muodossa.
 Jotta varmenne ei vie tilaa mikro-ohjaimen RAM-muistissa, se asetetaan mikro-ohjaimen - PROGMEM - flash-muistiin.
