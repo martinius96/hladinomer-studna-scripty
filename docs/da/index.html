@@ -255,6 +255,7 @@ WiFi mikrocontrollere fra Espressif Systems - ESP8266 og ESP32 er også underst�
 Mikrocontrollere har flere driftstilstande: StandBy, StandBy + OTA med mulighed for fjernopladning af firmware via LAN-netværk og dyb dvaletilstand for ULP-applikationer - Deep Sleep.
 I dvaletilstand for ESP8266 er det nødvendigt at tilføje en fysisk jumper mellem GPIO16 (WAKE) og RST - se ledningsdiagram.
 ESP-mikrocontrollere tillader også implementering af HTTPS (krypteret) forbindelse med webserveren.
+ESP32 kan også bruges med PHY Ethernet-modul LAN8720 via RMII-interface, understøtter HTTP- og HTTPS-forbindelse.
 Både ESP8266- og ESP32-platformene bruger Root CA, som har udstedt et certifikat (Issuer) for webserverdomænet.
 Certifikatet er indlejret i mikrocontrollernes kildekode i .pem-format.
 For at certifikatet ikke skal optage plads i mikrocontrollerens RAM-hukommelse, indsættes det i mikrocontrollerens flashhukommelse - PROGMEM.
