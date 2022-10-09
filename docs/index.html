@@ -3,7 +3,7 @@
 <html lang="sk-SK">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Hladinomer do kopanej studne - open-source hardvér - Arduino / ESP8266 / ESP32 / LoRaWAN</title>
+	<title>Hladinomer do kopanej studne - open-source hardvér - Arduino / ESP8266 / ESP32</title>
 	<meta name="description" content="Hladinomer - Monitor výšky hladiny vody postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi. Meranie výšky hladiny vody v studni, nádrži a žumpe.">
 	<meta name="keywords" content="hladinomer, hladinomer do studne, arduino, projekt, ethernet, wifi, esp8266, esp32, kopaná studňa, monitor, webové rozhranie, vizualizácia, vodomer, žumpa, hladina, výška, objem">
 	<meta name="news_keywords" content="hladinomer, hladinomer do studne, arduino, projekt, ethernet, wifi, esp8266, esp32, kopaná studňa, monitor, webové rozhranie, vizualizácia, vodomer, žumpa, hladina, výška, objem">	
@@ -11,14 +11,14 @@
 	<meta name="robots" content="index, follow">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/index.html">
-	<meta property="og:title" content="Hladinomer do kopanej studne - open-source hardvér - Arduino / ESP8266 / ESP32 / LoRaWAN">
+	<meta property="og:title" content="Hladinomer do kopanej studne - open-source hardvér - Arduino / ESP8266 / ESP32">
 	<meta property="og:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi. Meranie výšky hladiny vody v studni, žumpe.">
 	<meta property="og:image" content="">
 
 <!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/index.html">
-	<meta property="twitter:title" content="Hladinomer do kopanej studne - open-source hardvér - Arduino / ESP8266 / ESP32 / LoRaWAN">
+	<meta property="twitter:title" content="Hladinomer do kopanej studne - open-source hardvér - Arduino / ESP8266 / ESP32">
 	<meta property="twitter:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi. Meranie výšky hladiny vody v studni, žumpe.">
 	<meta property="twitter:image" content="">
 	
@@ -137,16 +137,18 @@
 </div>	
 <hr><center><h1>Hladinomer - monitor výšky hladiny vody v studni</h1></center><hr>
 <p style="text-align: justify;">
-Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním, ktoré slúži na zber dát zo senzorových uzlov a ich vizualizáciu používateľovi.
-Aktuálne dáta o výške hladiny vody sú reprezentované v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny.
+Projekt hladinomer (monitor výšky hladiny vody) je tvorený centrálnym webovým rozhraním.
+Webaplikácia umožňuje zaznamenávať údaje o výške hladiny vody v kopanej studni zo senzorového uzla - mikrokontroléra. 
+<b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
+Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ v aktuálnej programovej implementácii. 
+Senzorový uzol v každých 5 minút vykonáva 10 meraní ultrazvukovým senzorom, ktoré spriemeruje.
+Výsledná hodnota sa posiela serveru cez použité rozhranie (WiFi / Ethernet / IoT sieť). 
+Aktuálne dáta o výške hladiny vody sú reprezentované používateľovi v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny.
 Historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
 Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj SmartTV. 
-Webaplikácia využíva backend napísaný v jazyku PHP, ktorý dokáže spracovať prichádzajúce dáta zo senzorových uzlov (Arduino / ESP) a archivovať ich v MySQL databáze.
-Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, dokáže vypočítať aj objem vody v studni na základe známeho priemeru studne.
+Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne. 
+Dokáže vypočítať aj objem vody v studni na základe známeho priemeru studne.
 Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ na základe proporcií jeho studne.
-Dáta na webserver odosiela mikrokontróler podporovanou technológiou (Ethernet / WiFi / cez IoT sieť), pričom meranie sa vykonáva periodicky každých 5 minút. 
-<b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
-Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™. 
 </p>
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/">
 <center>
