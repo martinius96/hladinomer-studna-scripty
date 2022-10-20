@@ -13,7 +13,7 @@
 #include <ETH.h>
 #include <NewPingESP8266.h>
 
-const char* host = "hladinomer.000webhostapp.com"; //webhost
+const char* host = "waterwell-arduino.000webhostapp.com"; //webhost
 String url = "/data.php"; //URL address to PHP file
 
 boolean eth_state = false;
