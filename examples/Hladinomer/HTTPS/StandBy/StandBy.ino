@@ -20,7 +20,7 @@ const char * ssid = "WIFI_NAME"; //MENO WiFi SIETE
 const char * password = "WIFI_PASSWORD"; //HESLO WiFi SIETE
 
 //KONFIGURACNE UDAJE - webserver, WiFi adaptér, Root CA certifikát
-const char* host = "hladinomer.000webhostapp.com"; //adresa webservera (doména) na ktorú sa odosielajú dáta
+const char* host = "waterwell-arduino.000webhostapp.com"; //adresa webservera (doména) na ktorú sa odosielajú dáta
 String url = "/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
 
 //Root CA cert --> CERTIFIKÁT CERTIFIKAČNEJ AUTORITY, KTORÁ VYDALA CERTIFIKÁT VÁŠ WEBSERVER v .pem formáte
