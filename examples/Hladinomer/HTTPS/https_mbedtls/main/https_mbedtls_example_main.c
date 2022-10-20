@@ -46,7 +46,7 @@
 #define GPIO_ECHO	23
 // Webserver
 /* Constants that aren't configurable in menuconfig */
-#define WEB_SERVER "hladinomer.000webhostapp.com"
+#define WEB_SERVER "waterwell-arduino.000webhostapp.com"
 #define WEB_PORT "443"
 
 
