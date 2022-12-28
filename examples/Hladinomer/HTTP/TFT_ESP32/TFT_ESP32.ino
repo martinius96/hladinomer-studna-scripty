@@ -6,7 +6,7 @@
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en/          |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en |*/
 /*|Buy me coffee: paypal.me/chlebovec                                                 |*/
-/*|Revision: 25. December 2022                                                        |*/
+/*|Revision: 28. December 2022                                                        |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
@@ -16,6 +16,7 @@
 #include <ArduinoJson.h>
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
 String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+String url2 = "/studna_s_prekladom/json_output.php";
 
 #define pinTrigger    22
 #define pinEcho       21 //Changed from D23, it is used for SPI communication with TFT display
@@ -29,6 +30,7 @@ QueueHandle_t  q = NULL;
 WiFiClient client;
 WiFiClient client2;
 WiFiManager wm;
+int success_flag = 0;
 static void Task1code( void * parameter);
 static void Task2code( void * parameter);
 void setup() {
@@ -40,13 +42,13 @@ void setup() {
   tft.init();
   tft.setRotation(1);
   tft.setSwapBytes(true);
+  tft.setTextSize(2);
   uint16_t calData[5] = { 397, 3463, 297, 3548, 3 };
   tft.setTouch(calData);
   if (WiFi.status() != WL_CONNECTED) {
     tft.fillScreen(TFT_OLIVE);
     tft.fillRoundRect(20, 7, 280, 220, 21, TFT_BLACK);
     tft.drawRoundRect(30, 15, 260, 40, 10, TFT_ORANGE);
-    tft.setTextSize(2);
     tft.setTextColor(TFT_RED);
     tft.setCursor(42, 30);
     tft.print(" WIFI CONFIGURATION ");
@@ -65,6 +67,23 @@ void setup() {
     tft.print("4. Enjoy sensor node");
   }
   wm.autoConnect("Ultrasonic_node");
+  tft.fillScreen(TFT_GREENYELLOW);
+  tft.fillRoundRect(20, 7, 280, 220, 21, TFT_BLACK);
+  tft.drawRoundRect(30, 15, 260, 40, 10, TFT_ORANGE);
+  tft.setTextColor(TFT_RED);
+  tft.setCursor(42, 30);
+  tft.print("   WIFI CONNECTED   ");
+  tft.setTextColor(TFT_WHITE);
+  tft.setCursor(30, 70);
+  tft.print("DHCP IP address:");
+  tft.setCursor(80, 100);
+  tft.setTextColor(TFT_CYAN);
+  tft.print(WiFi.localIP());
+  tft.setTextColor(TFT_WHITE);
+  tft.setCursor(30, 130);
+  tft.print("Measuring...");
+  tft.setCursor(30, 160);
+  tft.print("Reading JSON payload");
   Serial.println(F("Wifi connected with IP:"));
   Serial.println(WiFi.localIP());
   q = xQueueCreate(20, sizeof(int));
@@ -152,7 +171,7 @@ static void Task2code( void * parameter) {
       client.println();
       client.println(data);
       Serial.println(F("Datas were sent to server successfully"));
-      xQueueReset(q); //EMPTY QUEUE, IF REQUEST WAS SUCCESSFUL, OTHERWISE RUN REQUEST AGAIN
+      success_flag++;
       while (client.connected()) {
         String line = client.readStringUntil('\n');
         if (line == "\r") {
@@ -162,11 +181,11 @@ static void Task2code( void * parameter) {
       String line = client.readStringUntil('\n');
     } else {
       Serial.println(F("Connection to webserver was NOT successful"));
+      success_flag = 0;
     }
-
+    vTaskDelay(1000 / portTICK_PERIOD_MS); //wait for a second
     //SECOND REQUEST - GET AND JSON PROCESSING
     client2.stop();
-    String url2 = "/studna_s_prekladom/json_output.php";
     if (client2.connect(host, 80)) {
       Serial.println(F("Connected to server successfully"));
       client2.print(String("GET ") + url2 + " HTTP/1.0\r\n" + "Host: " + host + "\r\n" + "User-Agent: ESP\r\n" + "Connection: close\r\n\r\n");
@@ -184,30 +203,42 @@ static void Task2code( void * parameter) {
       JsonObject obj = doc.as<JsonObject>();
       int vyska = obj[String("value")];
       float objem = obj[String("volume")];
-      Serial.print("Vyska hladiny: ");
-      Serial.print(vyska);
-      Serial.println(" cm");
-      Serial.print("Objem studne: ");
-      Serial.print(objem);
-      Serial.println(" litrov");
-      tft.fillScreen(TFT_DARKCYAN);
-      tft.fillRoundRect(20, 7, 280, 220, 21, TFT_BLACK);
-      tft.drawRoundRect(30, 15, 260, 40, 10, TFT_ORANGE);
-      tft.setTextSize(2);
-      tft.setTextColor(TFT_RED);
-      tft.setCursor(42, 30);
-      tft.print("     WATER LEVEL    ");
-      tft.setTextColor(TFT_WHITE);
-      tft.setCursor(30, 70);
-      tft.print("Height: ");
-      tft.print(vyska);
-      tft.print(" cm");
-      tft.setCursor(30, 130);
-      tft.print("Volume: ");
-      tft.print(objem);
-      tft.print(" L");
+      if (vyska > 0) {
+        Serial.print("Vyska hladiny: ");
+        Serial.print(vyska);
+        Serial.println(" cm");
+        Serial.print("Objem studne: ");
+        Serial.print(objem);
+        Serial.println(" litrov");
+        tft.fillScreen(TFT_DARKCYAN);
+        tft.fillRoundRect(20, 7, 280, 220, 21, TFT_BLACK);
+        tft.drawRoundRect(30, 15, 260, 40, 10, TFT_ORANGE);
+        tft.setTextColor(TFT_RED);
+        tft.setCursor(42, 30);
+        tft.print("     WATER LEVEL    ");
+        tft.setTextColor(TFT_WHITE);
+        tft.setCursor(30, 70);
+        tft.print("Height: ");
+        tft.setTextColor(TFT_CYAN);
+        tft.print(vyska);
+        tft.print(" cm");
+        tft.setTextColor(TFT_WHITE);
+        tft.setCursor(30, 130);
+        tft.print("Volume: ");
+        tft.setTextColor(TFT_CYAN);
+        tft.print(objem);
+        tft.print(" L");
+        tft.setTextColor(TFT_WHITE);
+        success_flag++;
+      }
+      if (success_flag == 2) { //both requests successful, JSON payload parsed successfully
+        xQueueReset(q); //EMPTY QUEUE, IF REQUEST WAS SUCCESSFUL, OTHERWISE RUN REQUEST AGAIN
+        Serial.println("Queue is empty");
+      }
+      success_flag = 0;
     } else {
       Serial.println(F("Connection to webserver was NOT successful"));
+      success_flag = 0;
     }
   }
 }
