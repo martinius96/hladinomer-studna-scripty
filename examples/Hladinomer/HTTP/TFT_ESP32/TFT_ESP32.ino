@@ -14,9 +14,9 @@
 #include <TFT_eSPI.h>
 #include <WiFiManager.h>
 #include <ArduinoJson.h>
-const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
-String url2 = "/studna_s_prekladom/json_output.php";
+const char* host = "arduino.clanweb.eu"; //webserver address (domain)
+String url = "/studna_s_prekladom/data.php"; //PHP file under domain host for storing data into MySQL
+String url2 = "/studna_s_prekladom/json_output.php"; //PHP file with JSON output under domain host
 
 #define pinTrigger    22
 #define pinEcho       21 //Changed from D23, it is used for SPI communication with TFT display
