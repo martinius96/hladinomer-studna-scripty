@@ -203,7 +203,7 @@ static void Task2code( void * parameter) {
       JsonObject obj = doc.as<JsonObject>();
       int vyska = obj[String("value")];
       float objem = obj[String("volume")];
-      if (vyska > 0) {
+      if (vyska > 0) { //If JSON is not parsed successfully, it will print 0 (that normally never happens as minimum measurement is 2 cm)
         Serial.print("Vyska hladiny: ");
         Serial.print(vyska);
         Serial.println(" cm");
