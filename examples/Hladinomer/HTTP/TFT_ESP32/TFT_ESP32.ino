@@ -4,7 +4,7 @@
 /*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en/          |*/
-/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en |*/
+/*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en          |*/
 /*|Buy me coffee: paypal.me/chlebovec                                                 |*/
 /*|Revision: 28. December 2022                                                        |*/
 /*|-----------------------------------------------------------------------------------|*/
