@@ -10,6 +10,7 @@
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
+#include <WiFiClientSecure.h>
 #include <NewPingESP8266.h>
 #include <TFT_eSPI.h>
 #include <WiFiManager.h>
@@ -27,8 +28,8 @@ TaskHandle_t Task1; //ULTRASONIC MEASUREMENT
 TaskHandle_t Task2; //WIFI HTTP SOCKET
 QueueHandle_t  q = NULL;
 
-WiFiClient client;
-WiFiClient client2;
+WiFiClientSecure client;
+WiFiClientSecure client2;
 WiFiManager wm;
 int success_flag = 0;
 static void Task1code( void * parameter);
