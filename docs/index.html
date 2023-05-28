@@ -4,22 +4,22 @@
 <head>
 	<!-- Primary Meta Tags -->
 	<title>IoT dashboard - Hladinomer - ESP32, Low Power</title>
-	<meta name="description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32.">
-	<meta name="keywords" content="hladinomer, hladinomer do studne, arduino, projekt, ethernet, wifi, esp8266, esp32, kopaná studňa, monitor, webové rozhranie, vizualizácia, vodomer, žumpa, hladina, výška, objem">
+	<meta name="description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32, ESP8266, Arduino.">
+	<meta name="keywords" content="hladinomer, studňa, studňa, žumpa, výška, hladina, voda, IoT, portál, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">
 	<meta name="news_keywords" content="hladinomer, hladinomer do studne, arduino, projekt, ethernet, wifi, esp8266, esp32, kopaná studňa, monitor, webové rozhranie, vizualizácia, vodomer, žumpa, hladina, výška, objem">	
 <!-- Open Graph / Facebook -->
 	<meta name="robots" content="index, follow">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/index.html">
 	<meta property="og:title" content="IoT dashboard - Hladinomer - ESP32, Low Power">
-	<meta property="og:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi. Meranie výšky hladiny vody v studni, žumpe.">
+	<meta property="og:description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32, ESP8266, Arduino.">
 	<meta property="og:image" content="">
 
 <!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/index.html">
 	<meta property="twitter:title" content="IoT dashboard - Hladinomer - ESP32, Low Power">
-	<meta property="twitter:description" content="Hladinomer postavený na platforme Arduino, ESP8266, ESP32. Meranie ultrazvukovým senzorom HC-SR04 / JSN-SR04T. Odosielanie dát cez Ethernet, WiFi. Meranie výšky hladiny vody v studni, žumpe.">
+	<meta property="twitter:description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32, ESP8266, Arduino.">
 	<meta property="twitter:image" content="">
 	
 	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
@@ -76,8 +76,8 @@
 </div>	
 <div class="alert alert-info">
 <strong>Vyskúšajte projekt Hladinomer zdarma s Vašim hardvérom - ON-LINE: </strong>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/" class="btn btn-danger" role="button">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a>
-<a href="https://waterwell-arduino.000webhostapp.com/" class="btn btn-success" role="button">HTTPS - ESP8266 / ESP32</a>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/" class="btn btn-danger" role="button">ESP32 / ESP8266 / Arduino IoT dashboard</a>
+<!---<a href="https://waterwell-arduino.000webhostapp.com/" class="btn btn-success" role="button">HTTPS - ESP8266 / ESP32</a>-->
 </div>	
 <div class="alert alert-danger">
 	<strong>Pri záujme o zdrojové kódy webaplikácie (.php scripty) kontaktujte autora projektu na: </strong>martinius96@gmail.com
@@ -96,6 +96,7 @@
 <span class="label label-danger">OTA</span>	
 <span class="label label-default">ULP</span>
 <span class="label label-primary">PHY Ethernet</span>	
+<span class="label label-info">LoRa</span>	
 <hr>
 <center> 
 	<h2>Riadiaci hardvér - kompatibilné mikrokontroléry AVR / ESP</h2>
@@ -142,12 +143,12 @@ Webaplikácia umožňuje zaznamenávať údaje o výške hladiny vody v kopanej 
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
 Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ v aktuálnej programovej implementácii. 
 Senzorový uzol v každých 5 minút vykonáva 10 meraní ultrazvukovým senzorom, ktoré spriemeruje.
-Výsledná hodnota sa posiela serveru cez použité rozhranie (WiFi / Ethernet / IoT sieť LoRaWAN / Sigfox / NB-IoT). 
+Výsledná hodnota sa posiela serveru cez použité rozhranie (WiFi / Ethernet / IoT sieť LoRaWAN / NB-IoT). 
 Aktuálne dáta o výške hladiny vody sú reprezentované používateľovi v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny.
 Historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
-Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj SmartTV. 
-Backend vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne. 
-Dokáže vypočítať aj objem vody v studni na základe známeho priemeru studne.
+Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj Smart TV. 
+Backend pri prijatí dát vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, keďže senzor zasiela len rozdielovú výšku hladiny vody. 
+Na základe reálnej výšky hladiny vody dokáže určiť aj objem studne v litroch.
 Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ na základe proporcií jeho studne.
 </p>
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/">
@@ -158,7 +159,7 @@ Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ
 <p style="text-align: justify;">
 Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10 μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
 Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na určenie vzdialenosti hladiny vody od senzora, ktorý je umiestnený na vrchu studne.
-Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C. Niektoré ultrazvukové senzory majú aj teplotný senzor, ktorý môže vykonať korekciu meraní.
+Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C. Niektoré ultrazvukové senzory majú aj teplotný senzor, ktorý môže vykonať korekciu meraní (napr. US-100 so zabudovaným termistorom).
 Dôležitým parametrom ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie vo vlhkých podmienkach studne. 
 Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu pre zníženie účinkov vlhkosti. 
