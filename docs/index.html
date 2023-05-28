@@ -162,7 +162,7 @@ Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijat
 Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C. Niektoré ultrazvukové senzory majú aj teplotný senzor, ktorý môže vykonať korekciu meraní (napr. US-100 so zabudovaným termistorom).
 Dôležitým parametrom ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie vo vlhkých podmienkach studne. 
-Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu pre zníženie účinkov vlhkosti. 
+Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu pre zníženie účinkov vlhkosti v danom prostredí. 
 Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60°, čo ho značne limituje a zamedzuje jeho použitiu v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko metrov (6 metrov priemer pri hĺbke studne 4,5 metra).
 Ultrazvukové senzory sú plne bezúdržbové. Senzor JSN-SR04T má riadiacu elektronickú dosku, ktorá nesmie byť vystavená vlhkosti a vode. 
 Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm na základe údajov z katalógových listov (datasheetov).
@@ -266,7 +266,7 @@ Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="htt
 <hr><center><h3>Princíp fungovania hladinomera - Bloková schéma</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
-Webové rozhranie využíva trigonometriu pre odhad merateľnej maximálnej hĺbky studne pri známom priemere studne (ďalší parameter pre výpočet objemu studne). 
+Webové rozhranie (IoT dashboard) využíva trigonometriu pre odhad merateľnej maximálnej hĺbky studne pri známom priemere studne (ďalší parameter pre výpočet objemu studne). 
 Používateľovi vie tak webové rozhranie dopočítať, do akej maximálnej hĺbky studne je každý zo senzorov vhodný na základe jeho charakteristiky. 
 Projekt je tak jednoduchý na použitie aj pre laikov, ktorí nevedia, ktorý senzor je pre aplikáciu v ich studni vhodnejší.
 Dôležitú úlohu v systéme zohráva aj použitý mikrokontróler. 
