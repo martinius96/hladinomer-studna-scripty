@@ -1,7 +1,7 @@
 //Water level monitor - ESP32 / ESP8266 / Arduino
-//LoRa node, can be used with Chirpstack, TTN
+//LoRa node for P2P communication
 //Adjustable frequency 868, 915 or 433 MHz
-//LoRaWAN server can transmit data to http://arduino.clanweb.eu/studna_s_prekladom
+//Receiver must do request to platform
 
 #include <LoRa.h>
 #include <NewPing.h>
