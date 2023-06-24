@@ -1,4 +1,4 @@
-//COMPATIBLE WITH TTN, APB method.
+//COMPATIBLE WITH TTN, APB method, LoRaWAN™ 1.0.3 Specification
 //Pinout in firmware is compatible with TTGO Lora32 board
 //Possible to use 868, 915, 923 MHz (and other) frequencies, can use more channels not just predefined
 //Pre-defined bandwidth set is 125 kHz, used LoRa frequency based on config file in LMIC library
