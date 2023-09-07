@@ -34,7 +34,7 @@ static osjob_t sendjob;
 const unsigned TX_INTERVAL = 300;
 
 // Pin mapping
-// Adapted for Feather M0 per p.10 of [feather]
+// Adapted for TTGO ESP32 (LoRa32) board with SX1276 onboard
 const lmic_pinmap lmic_pins = {
   .nss = 18, //Chip select pin
   .rxtx = LMIC_UNUSED_PIN,
