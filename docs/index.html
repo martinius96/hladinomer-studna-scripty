@@ -72,7 +72,7 @@
   </div>
 </nav>  
 <div class="alert alert-success">
-<strong>Ukážkové zdrojové kódy pre Arduino, ESP8266, ESP32 (Ethernet / WiFi / GSM / LoRa / Sigfox / NB-IoT): </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Repozitár projektu</a>
+<strong>Ukážkové zdrojové kódy pre Arduino, ESP8266, ESP32 (Ethernet / WiFi / LoRaWAN): </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Repozitár projektu</a>
 </div>	
 <div class="alert alert-info">
 <strong>IoT dashboard s vašim hardvérom je možné vyskúšať tu: </strong>
@@ -96,7 +96,7 @@
 <span class="label label-danger">OTA</span>	
 <span class="label label-default">ULP</span>
 <span class="label label-primary">PHY Ethernet</span>	
-<span class="label label-info">LoRa</span>	
+<span class="label label-info">LoRaWAN</span>	
 <hr>
 <center> 
 	<h2>Riadiaci hardvér - kompatibilné mikrokontroléry AVR / ESP</h2>
@@ -142,14 +142,13 @@ IoT Dashboard pre hladinomer pozostáva z webového rozhrania, ktoré je celým 
 Webaplikácia umožňuje zaznamenávať údaje o výške hladiny vody v kopanej studni zo senzorového uzla - mikrokontroléra. 
 <b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
 Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ v aktuálnej programovej implementácii. 
-Senzorový uzol v každých 5 minút vykonáva 10 meraní ultrazvukovým senzorom, ktoré spriemeruje.
+Senzorový uzol v rutine každých 5 minút vykonáva 10 priemerovaných meraní ultrazvukovým senzorom.
 Výsledná hodnota sa posiela serveru cez použité rozhranie (WiFi / Ethernet / IoT sieť LoRaWAN / NB-IoT). 
-Aktuálne dáta o výške hladiny vody sú reprezentované používateľovi v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny.
+Aktuálne dáta o výške hladiny vody sú reprezentované používateľovi v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny voči predchádzajúcemu meraniu.
 Historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
 Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj Smart TV. 
 Backend pri prijatí dát vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, keďže senzor zasiela len rozdielovú výšku hladiny vody. 
-Na základe reálnej výšky hladiny vody dokáže určiť aj objem studne v litroch.
-Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ na základe proporcií jeho studne.
+Na základe reálnej výšky hladiny vody a známeho priemeru studne dokáže web rozhranie určiť aj objem studne v litroch.
 </p>
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/">
 <center>
@@ -159,25 +158,25 @@ Hĺbku a priemer studne (konfiguračné dáta) do systému vkladá používateľ
 <p style="text-align: justify;">
 Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10 μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
 Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na určenie vzdialenosti hladiny vody od senzora, ktorý je umiestnený na vrchu studne.
-Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C. Niektoré ultrazvukové senzory majú aj teplotný senzor, ktorý môže vykonať korekciu meraní (napr. US-100 so zabudovaným termistorom).
+Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C..
 Dôležitým parametrom ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
 Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie vo vlhkých podmienkach studne. 
 Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu pre zníženie účinkov vlhkosti v danom prostredí. 
-Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60°, čo ho značne limituje a zamedzuje jeho použitiu v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko metrov (6 metrov priemer pri hĺbke studne 4,5 metra).
+Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60°, čo ho značne limituje a zamedzuje jeho použitiu v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko metrov (6 metrov priemer pri hĺbke studne 4,5 metra pre garanciu merania bez odrazov).
 Ultrazvukové senzory sú plne bezúdržbové. Senzor JSN-SR04T má riadiacu elektronickú dosku, ktorá nesmie byť vystavená vlhkosti a vode. 
 Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm na základe údajov z katalógových listov (datasheetov).
 </p>
 <div class="alert alert-info">
-  	<strong>Iné typy senzorov pre záznam výšky hladiny vody, ktoré je možné integrovať (nutné vytvoriť vlastný firmvér):</strong> 
- 	<li><b>Laserové (LiDAR)</b> - (Garmin LIDAR-Lite v3HP, TFMini ...)</li>
+  	<strong>Iné typy senzorov pre záznam výšky hladiny vody, ktoré je možné integrovať (nutné vytvoriť si vlastný firmvér):</strong> 
+ 	<li><b>Laserové (LiDAR)</b> - (DFRobot DTOF LD19 LIDAR, DFRobot ToF Laser ...)</li>
 	<li><b>Hydrostatické (ponorné)</b> - (LMK307, DPT200, PT20eco, HDL300 ...)</li>
-	<li><b>Elektrostatické (kapacitné / indukčné)</b></li>
+	<li><b>Elektrostatické (kapacitné / indukčné)</b> - XKC-Y25-NPN</li>
 	<li><b>Tlakové (diferenčné / s kompenzačným senzorom atmosférického tlaku)</b></li>
 	<li><b>Optické</b> - (GP2Y0A02YK0F, YD-02F, FS-IR02 ...)</li>
 	<li><b>Mechanické (plavák)</b></li>
 	<li><b>Magnetické (Hall)</b> - (VCL9, Sen-Hz41wa ...)</li>
 	<li><b>Mikrovlnné (radarové)</b> - (CS476, CS475A-L, SP69, WLR 8/15/30 ...)</li>
-	<li><b>Ultrazvukové</b> - iný typ výstupu (UART, RS-232, RS-485, prúdová slučka 4-20 mA, Modbus TCP / RTU, M-bus, PROFINET, CAN, DQ)</li>
+	<li><b>Ultrazvukové</b> - (A01NYUB, URM37), alebo iné, možnosť aj priemyselnej zbernice pre výstup (RS-485, prúdová slučka 4-20 mA, Modbus RTU, M-bus, PROFINET)</li>
 	<li><b>Poznámka:</b> Ak sa vykonáva prepočet výšky hladiny vody od dna na strane mikrokontroléra, je nutné na webovom rozhraní nastaviť hĺbku studne na 0 cm.</li>
 </div>
 <hr><center><h3>Video demonštrácia webového rozhrania - Hladinomer:</h3></center><hr>
