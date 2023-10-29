@@ -17,19 +17,15 @@
         let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video') });
 
         scanner.addListener('scan', function (content) {
-            if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
-                document.getElementById('qr-result').textContent = content;
-                fetchTableData(content);
-            } else {
-                document.getElementById('qr-result').textContent = "Invalid QR Code";
-            }
+            document.getElementById('qr-result').textContent = content;
+            fetchTableData(content);
         });
 
         Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 1) {
                 scanner.start(cameras[1]); // 1 ==> BACK camera, 0 ==> FRONT camera
             } else {
-                console.error('No cameras found.');
+                console.error('No rear camera found.');
             }
         }).catch(function (e) {
             console.error(e);
@@ -66,7 +62,7 @@
             for (let i = 0; i < rows.length; i++) {
                 let row = rows[i];
                 let columns = row.querySelectorAll('td');
-                if (columns.length === 2) {
+                if columns.length === 2 {
                     let rowData = {
                         name: columns[0].querySelector('h4').textContent,
                         value: columns[1].textContent.trim()
