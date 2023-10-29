@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>QR Scanner</title>
 </head>
-<body>
+<body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h1>QR Code Scanner</h1>
-    <video id="qr-video" width="300" height="300" autoplay></video>
+    <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <div id="table-data"></div>
@@ -22,8 +22,8 @@
         });
 
         Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-                scanner.start(cameras[1]); //1 ==> BACK camera, 0 ==> FRONT camera
+            if (cameras.length > 1) {
+                scanner.start(cameras[1]); // 1 ==> BACK camera, 0 ==> FRONT camera
             } else {
                 console.error('No cameras found.');
             }
