@@ -35,6 +35,13 @@
             console.error(e);
         });
 
+        // Function to periodically refresh the data
+        function refreshData(url) {
+            setInterval(function () {
+                fetchTableData(url);
+            }, 5000); // Refresh data every 5 seconds (adjust the interval as needed)
+        }
+
         // Načítanie údajov z URL a zobrazenie tabuľky
         function fetchTableData(url) {
             let xhr = new XMLHttpRequest();
@@ -50,6 +57,9 @@
             };
 
             xhr.send();
+
+            // Call the refresh function to fetch data periodically
+            refreshData(url);
         }
 
         // Analýza tabuľky z HTML
