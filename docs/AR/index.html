@@ -18,7 +18,6 @@
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
         let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
-        let loadingQR = false;
         let lastQRScanTime = 0;
 
         // Funkce pro zobrazení textu na obrazovce
@@ -41,16 +40,17 @@
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
-                if (!loadingQR) {
-                    loadingQR = true;
-                    fetchAndDisplayQRContent(content);
-                    showTextOverlay(); // Zobrazí text "HELLO WORLD"
-                }
                 updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
-                hideTextOverlay(); // Skryje text "HELLO WORLD" pro neplatný QR kód
             }
+
+            // Zobrazit text "HELLO WORLD" bez ohledu na stav načítání
+            showTextOverlay();
+
+            // Skrýt text po 5 sekundách od posledního skenování QR kódu
+            clearTimeout(window.textOverlayTimeout);
+            window.textOverlayTimeout = setTimeout(hideTextOverlay, 5000);
         });
 
         Instascan.Camera.getCameras().then(function (cameras) {
@@ -62,39 +62,6 @@
         }).catch(function (e) {
             console.error(e);
         });
-
-        function fetchAndDisplayQRContent(url) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    let tableData = parseTable(xhr.responseText);
-                    displayTable(tableData);
-                } else {
-                    console.error('Error loading data from URL');
-                    hideTextOverlay(); // Skryje text "HELLO WORLD" pro chybu načítání dat
-                }
-                loadingQR = false; // Nastavit loadingQR zpět na false po dokončení načítání
-            };
-
-            xhr.send();
-        }
-
-        function parseTable(html) {
-            // Rovnaký kód na analýzu tabuľky
-        }
-
-        function displayTable(data) {
-            // Rovnaký kód na zobrazenie tabuľky
-        }
-
-        // Kontrola na skrytí textu po 5 sekundách od posledního skenování QR kódu
-        setInterval(function() {
-            if (Date.now() - lastQRScanTime >= 5000) {
-                hideTextOverlay();
-            }
-        }, 1000); // Kontrola každou sekundu
     </script>
 </body>
 </html>
