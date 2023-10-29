@@ -1,104 +1,75 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>QR Scanner</title>
-</head>
-<body>
-    <h1>QR Code Scanner</h1>
-    <video id="qr-video" width="300" height="300" autoplay></video>
-    <canvas id="qr-canvas" style="display: none;"></canvas>
-    <div id="qr-result" style="margin-top: 20px;"></div>
-    <div id="table-data"></div>
+// Inicializácia QR scanneru
+let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video') });
 
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-    <script>
-        // Inicializácia QR scanneru
-        let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video') });
+scanner.addListener('scan', function (content) {
+    document.getElementById('qr-result').textContent = content;
+    fetchTableData(content);
+});
 
-        scanner.addListener('scan', function (content) {
-            document.getElementById('qr-result').textContent = content;
-            fetchTableData(content);
-        });
+Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+        scanner.start(cameras[1]);
+    } else {
+        console.error('No cameras found.');
+    }
+}).catch(function (e) {
+    console.error(e);
+});
 
-        Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-                scanner.start(cameras[1]);
-            } else {
-                console.error('No cameras found.');
-            }
-        }).catch(function (e) {
-            console.error(e);
-        });
+// Načítanie údajov z URL a zobrazenie tabuľky
+function fetchTableData(url) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
 
-        // Načítanie údajov z URL a zobrazenie tabuľky
-        function fetchTableData(url) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    let tableData = parseTable(xhr.responseText);
-                    displayTable(tableData);
-                } else {
-                    console.error('Error loading data from URL');
-                }
-            };
-
-            xhr.send();
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let tableData = parseTable(xhr.responseText);
+            displayTable(tableData);
+        } else {
+            console.error('Error loading data from URL');
         }
+    };
 
-        // Analýza tabuľky z HTML
-        function parseTable(html) {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(html, 'text/html');
-            let table = doc.querySelector('table');
-            if (!table) {
-                return [];
-            }
+    xhr.send();
+}
 
-            let data = [];
-            let rows = table.querySelectorAll('tr');
-            for (let i = 0; i < rows.length; i++) {
-                let row = rows[i];
-                let columns = row.querySelectorAll('td');
-                if (columns.length === 2) {
-                    let rowData = {
-                        name: columns[0].querySelector('h4').textContent,
-                        value: columns[1].textContent.trim()
-                    };
-                    data.push(rowData);
-                }
-            }
+// Analýza tabuľky z HTML
+function parseTable(html) {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(html, 'text/html');
+    let table = doc.querySelector('table');
+    if (!table) {
+        return [];
+    }
 
-            return data;
+    let data = [];
+    let rows = table.querySelectorAll('tr');
+    for (let i = 0; i < rows.length; i++) {
+        let row = rows[i];
+        let columns = row.querySelectorAll('td');
+        let rowData = [];
+        for (let j = 0; j < columns.length; j++) {
+            rowData.push(columns[j].textContent);
         }
+        data.push(rowData);
+    }
 
-        // Zobrazenie tabuľky používateľovi
-        function displayTable(data) {
-            let tableDataDiv = document.getElementById('table-data');
-            tableDataDiv.innerHTML = ''; // Vyprázdni predchádzajúci obsah
+    return data;
+}
 
-            let table = document.createElement('table');
-            table.className = 'table table-striped flat-table flat-table-3';
-            let thead = table.createTHead();
-            let headerRow = thead.insertRow(0);
-            let header1 = headerRow.insertCell(0);
-            let header2 = headerRow.insertCell(1);
-            header1.innerHTML = '<h4>Údaj</h4>';
-            header2.innerHTML = '<h4>Hodnota</h4';
+// Zobrazenie tabuľky používateľovi
+function displayTable(data) {
+    let tableDataDiv = document.getElementById('table-data');
+    tableDataDiv.innerHTML = ''; // Vyprázdni predchádzajúci obsah
 
-            let tbody = table.createTBody();
-            for (let i = 0; i < data.length; i++) {
-                let row = tbody.insertRow(i);
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                cell1.innerHTML = `<h4>${data[i].name}</h4>`;
-                cell2.innerHTML = data[i].value;
-            }
-
-            tableDataDiv.appendChild(table);
+    let table = document.createElement('table');
+    for (let i = 0; i < data.length; i++) {
+        let row = table.insertRow(i);
+        for (let j = 0; j < data[i].length; j++) {
+            let cell = row.insertCell(j);
+            cell.textContent = data[i][j];
         }
-    </script>
-</body>
-</html>
+    }
+
+    tableDataDiv.appendChild(table);
+}
