@@ -50,6 +50,7 @@
                 }
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
+                hideTextOverlay(); // Skryje text "HELLO WORLD" pro neplatný QR kód
             }
         });
 
@@ -83,6 +84,7 @@
                     }, 5000); // Po 5 sekundách zastavení zobrazování
                 } else {
                     console.error('Error loading data from URL');
+                    hideTextOverlay(); // Skryje text "HELLO WORLD" pro chybu načítání dat
                 }
             };
 
