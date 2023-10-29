@@ -34,10 +34,15 @@
             overlay.style.display = 'none';
         }
 
+        // Funkce pro aktualizaci času posledního skenování
+        function updateLastQRScanTime() {
+            lastQRScanTime = Date.now();
+        }
+
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
-                lastQRScanTime = Date.now(); // Uložíme čas posledního skenování QR kódu
+                updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
                 if (!loadingQR) {
                     loadingQR = true;
                     fetchAndDisplayQRContent(content);
@@ -66,7 +71,7 @@
                 if (xhr.status >= 200 && xhr.status < 300) {
                     let tableData = parseTable(xhr.responseText);
                     displayTable(tableData);
-                    // Zrušíme předchozí timeout pro skrytí textu
+                    // Zrušení předchozího timeoutu pro skrytí textu
                     clearTimeout(loadingTimeout);
                     loadingTimeout = setTimeout(function () {
                         // Pokud uplynulo více než 5 sekund od posledního skenování QR kódu, skryjeme text
@@ -75,7 +80,7 @@
                         }
                         loadingQR = false;
                         document.getElementById('table-data').innerHTML = '';
-                    }, 5000); // Po 5 sekundách zastaviť zobrazovanie
+                    }, 5000); // Po 5 sekundách zastavení zobrazování
                 } else {
                     console.error('Error loading data from URL');
                 }
