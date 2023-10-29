@@ -6,7 +6,7 @@
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h1>QR Code Scanner</h1>
-    <video id="qr-video" style="width: 100%; height: auto; transform: scaleX(-1);" autoplay></video>
+    <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <div id="table-data"></div>
@@ -14,7 +14,7 @@
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
         // Inicializácia QR scanneru
-        let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video') });
+        let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
 
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
