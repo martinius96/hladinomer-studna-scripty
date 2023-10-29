@@ -33,15 +33,20 @@
             overlay.style.display = 'none';
         }
 
+        // Funkce pro aktualizaci času posledního skenování
+        function updateLastQRScanTime() {
+            lastQRScanTime = Date.now();
+        }
+
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
-                lastQRScanTime = Date.now(); // Aktualizovat čas posledního skenování QR kódu
                 if (!loadingQR) {
                     loadingQR = true;
                     fetchAndDisplayQRContent(content);
                     showTextOverlay(); // Zobrazí text "HELLO WORLD"
                 }
+                updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
                 hideTextOverlay(); // Skryje text "HELLO WORLD" pro neplatný QR kód
@@ -70,6 +75,7 @@
                     console.error('Error loading data from URL');
                     hideTextOverlay(); // Skryje text "HELLO WORLD" pro chybu načítání dat
                 }
+                loadingQR = false; // Nastavit loadingQR zpět na false po dokončení načítání
             };
 
             xhr.send();
