@@ -33,18 +33,23 @@
             overlay.style.display = 'none';
         }
 
+        // Funkce pro aktualizaci času posledního skenování
+        function updateLastQRScanTime() {
+            lastQRScanTime = Date.now();
+        }
+
+        let isTextVisible = false;
+
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
-                lastQRScanTime = Date.now(); // Aktualizovat čas posledního skenování QR kódu
+                updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
                 showTextOverlay();
-
-                // Resetovat timeout pro skrytí textu
-                clearTimeout(textTimeout);
-                textTimeout = setTimeout(hideTextOverlay, 5000);
+                isTextVisible = true;
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
                 hideTextOverlay();
+                isTextVisible = false;
             }
         });
 
@@ -60,8 +65,9 @@
 
         // Kontrola na skrytí textu každou sekundu
         setInterval(function() {
-            if (Date.now() - lastQRScanTime >= 5000) {
+            if (isTextVisible && Date.now() - lastQRScanTime >= 5000) {
                 hideTextOverlay();
+                isTextVisible = false;
             }
         }, 1000);
     </script>
