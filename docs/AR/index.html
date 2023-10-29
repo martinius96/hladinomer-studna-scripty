@@ -12,7 +12,7 @@
     <div id="table-data"></div>
     <!-- Nový div pro zobrazení textu -->
     <div id="text-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
-        <div id="text-content" style="color: white; font-size: 16px;"></div>
+        <h1 id="text-content" style="color: white; font-size: 48px;"></h1>
     </div>
 
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
@@ -44,19 +44,9 @@
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
                 updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
+                showTextOverlay();
                 isTextVisible = true;
-
-                // Načtení obsahu ze stránky
-                const xhr = new XMLHttpRequest();
-                xhr.open("GET", content, true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Zobrazíme obsah na overlayi
-                        document.getElementById('text-content').innerHTML = xhr.responseText;
-                        showTextOverlay();
-                    }
-                };
-                xhr.send();
+                loadJSONData();
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
                 hideTextOverlay();
@@ -81,6 +71,20 @@
                 isTextVisible = false;
             }
         }, 1000);
+
+        // Funkce pro načítání JSON dat
+        function loadJSONData() {
+            fetch("https://arduino.clanweb.eu/studna_s_prekladom/json_output.php")
+                .then(response => response.json())
+                .then(data => {
+                    const valueInCm = data.value + " cm";
+                    const volumeInLiters = data.volume + " liters";
+                    document.getElementById('text-content').textContent = "Value: " + valueInCm + ", Volume: " + volumeInLiters;
+                })
+                .catch(error => {
+                    console.error("Error loading JSON data: " + error);
+                });
+        }
     </script>
 </body>
 </html>
