@@ -19,6 +19,7 @@
     <script>
         let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
         let lastQRScanTime = 0;
+        let textTimeout;
 
         // Funkce pro zobrazení textu na obrazovce
         function showTextOverlay() {
@@ -32,22 +33,15 @@
             overlay.style.display = 'none';
         }
 
-        // Funkce pro aktualizaci času posledního skenování
-        function updateLastQRScanTime() {
-            lastQRScanTime = Date.now();
-        }
-
-        let textOverlayTimeout;
-
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
-                updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
+                lastQRScanTime = Date.now(); // Aktualizovat čas posledního skenování QR kódu
                 showTextOverlay();
 
-                // Resetovat interval pro skrytí textu
-                clearTimeout(textOverlayTimeout);
-                textOverlayTimeout = setTimeout(hideTextOverlay, 5000);
+                // Resetovat timeout pro skrytí textu
+                clearTimeout(textTimeout);
+                textTimeout = setTimeout(hideTextOverlay, 5000);
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
                 hideTextOverlay();
@@ -63,6 +57,13 @@
         }).catch(function (e) {
             console.error(e);
         });
+
+        // Kontrola na skrytí textu každou sekundu
+        setInterval(function() {
+            if (Date.now() - lastQRScanTime >= 5000) {
+                hideTextOverlay();
+            }
+        }, 1000);
     </script>
 </body>
 </html>
