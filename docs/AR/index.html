@@ -6,7 +6,7 @@
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h1>QR Code Scanner</h1>
-    <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
+    <video id="qr-video" style="width: 100%; height: auto; transform: scaleX(-1);" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <div id="table-data"></div>
@@ -17,14 +17,17 @@
         let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video') });
 
         scanner.addListener('scan', function (content) {
-            document.getElementById('qr-result').textContent = content;
-            fetchTableData(content);
+            if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
+                document.getElementById('qr-result').textContent = content;
+                fetchTableData(content);
+            } else {
+                document.getElementById('qr-result').textContent = "Invalid QR Code";
+            }
         });
 
         Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 1) {
                 scanner.start(cameras[1]); // 1 ==> BACK camera, 0 ==> FRONT camera
-                document.getElementById('qr-video').style.transform = 'scaleX(-1)';
             } else {
                 console.error('No cameras found.');
             }
