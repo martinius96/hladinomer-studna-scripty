@@ -41,8 +41,8 @@
                 if (!loadingQR) {
                     loadingQR = true;
                     fetchAndDisplayQRContent(content);
+                    showTextOverlay(); // Zobrazí text "HELLO WORLD"
                 }
-                showTextOverlay(); // Zobrazí text "HELLO WORLD"
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
             }
@@ -66,6 +66,8 @@
                 if (xhr.status >= 200 && xhr.status < 300) {
                     let tableData = parseTable(xhr.responseText);
                     displayTable(tableData);
+                    // Zrušíme předchozí timeout pro skrytí textu
+                    clearTimeout(loadingTimeout);
                     loadingTimeout = setTimeout(function () {
                         // Pokud uplynulo více než 5 sekund od posledního skenování QR kódu, skryjeme text
                         if (Date.now() - lastQRScanTime >= 5000) {
