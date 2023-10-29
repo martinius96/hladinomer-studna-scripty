@@ -37,20 +37,21 @@
             lastQRScanTime = Date.now();
         }
 
+        let textOverlayTimeout;
+
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = content;
                 updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
+                showTextOverlay();
+
+                // Resetovat interval pro skrytí textu
+                clearTimeout(textOverlayTimeout);
+                textOverlayTimeout = setTimeout(hideTextOverlay, 5000);
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
+                hideTextOverlay();
             }
-
-            // Zobrazit text "HELLO WORLD" bez ohledu na stav načítání
-            showTextOverlay();
-
-            // Skrýt text po 5 sekundách od posledního skenování QR kódu
-            clearTimeout(window.textOverlayTimeout);
-            window.textOverlayTimeout = setTimeout(hideTextOverlay, 5000);
         });
 
         Instascan.Camera.getCameras().then(function (cameras) {
