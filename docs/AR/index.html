@@ -3,54 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>QR Scanner</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' https://martinius96.github.io;">
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <h1>QR Code Scanner</h1>
+    <h1>AR - Water level monitor</h1>
     <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
-    <div id="table-data"></div>
-    <!-- Nový div pro zobrazení textu -->
-    <div id="text-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
-        <h1 id="text-content" style="color: white; font-size: 48px;"></h1>
+    <!-- Nov? div pro zobrazen? tabulky -->
+    <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
+        <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse;">
+            <tr>
+                <th style="border: 2px solid white; padding: 10px;">Attribute</th>
+                <th style="border: 2px solid white; padding: 10px;">Value</th>
+            </tr>
+            <tr>
+                <td style="border: 2px solid white; padding: 10px;">Height:</td>
+                <td style="border: 2px solid white; padding: 10px;" id="height-value"></td>
+            </tr>
+            <tr>
+                <td style="border: 2px solid white; padding: 10px;">Volume:</td>
+                <td style="border: 2px solid white; padding: 10px;" id="volume-value"></td>
+            </tr>
+        </table>
     </div>
 
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
         let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
         let lastQRScanTime = 0;
-        let textTimeout;
+        let tableTimeout;
 
-        // Funkce pro zobrazení textu na obrazovce
-        function showTextOverlay() {
-            const overlay = document.getElementById('text-overlay');
+        // Funkce pro zobrazen? tabulky na obrazovce
+        function showTableOverlay() {
+            const overlay = document.getElementById('table-overlay');
             overlay.style.display = 'flex';
         }
 
-        // Funkce pro skrytí textu na obrazovce
-        function hideTextOverlay() {
-            const overlay = document.getElementById('text-overlay');
+        // Funkce pro skryt? tabulky na obrazovce
+        function hideTableOverlay() {
+            const overlay = document.getElementById('table-overlay');
             overlay.style.display = 'none';
         }
 
-        // Funkce pro aktualizaci času posledního skenování
+        // Funkce pro aktualizaci casu posledn?ho skenov?n?
         function updateLastQRScanTime() {
             lastQRScanTime = Date.now();
         }
 
-        let isTextVisible = false;
+        let isTableVisible = false;
 
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
-                updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
-                showTextOverlay();
-                isTextVisible = true;
+                updateLastQRScanTime(); // Aktualizovat cas posledn?ho skenov?n? QR k?du
+                showTableOverlay();
+                isTableVisible = true;
                 loadJSONData();
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
-                hideTextOverlay();
-                isTextVisible = false;
+                hideTableOverlay();
+                isTableVisible = false;
             }
         });
 
@@ -64,26 +77,26 @@
             console.error('Error accessing camera: ' + e);
         });
 
-        // Kontrola na skrytí textu každou sekundu
+        // Kontrola na skryt? tabulky ka?dou sekundu
         setInterval(function() {
-            if (isTextVisible && Date.now() - lastQRScanTime >= 5000) {
-                hideTextOverlay();
-                isTextVisible = false;
+            if (isTableVisible && Date.now() - lastQRScanTime >= 5000) {
+                hideTableOverlay();
+                isTableVisible = false;
             }
         }, 1000);
 
-        // Funkce pro načítání JSON dat
+        // Funkce pro nac?t?n? JSON dat a aktualizaci tabulky
         function loadJSONData() {
-            document.getElementById('text-content').textContent = "Loading JSON Data...";
             fetch("https://arduino.clanweb.eu/studna_s_prekladom/json_output.php")
                 .then(response => response.json())
                 .then(data => {
-                    const valueInCm = data.value + " cm";
+                    const valueInCm = data.value + " cm ";
                     const volumeInLiters = data.volume + " liters";
-                    document.getElementById('text-content').textContent = "Value: " + valueInCm + ", Volume: " + volumeInLiters;
+                    document.getElementById('height-value').textContent = valueInCm;
+                    document.getElementById('volume-value').textContent = volumeInLiters;
                 })
                 .catch(error => {
-                    document.getElementById('text-content').textContent = "Error loading JSON data: " + error;
+                    document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
                 });
         }
     </script>
