@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>QR Scanner - Water level monitor</title>
+    <title>QR Scanner</title>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h1>AR - Water level monitor</h1>
     <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
-    <!-- Nový div pre zobrazenie tabuľky -->
+    <!-- Nový div pro zobrazení tabulky -->
     <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
         <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse;">
             <tr>
@@ -33,19 +33,19 @@
         let lastQRScanTime = 0;
         let tableTimeout;
 
-        // Funkcia pre zobrazenie tabuľky na obrazovke
+        // Funkce pro zobrazení tabulky na obrazovce
         function showTableOverlay() {
             const overlay = document.getElementById('table-overlay');
             overlay.style.display = 'flex';
         }
 
-        // Funkcia pre skrytie tabuľky na obrazovke
+        // Funkce pro skrytí tabulky na obrazovce
         function hideTableOverlay() {
             const overlay = document.getElementById('table-overlay');
-            overlay.style.display = 'none';
+            overlay.style display = 'none';
         }
 
-        // Funkcia pre aktualizáciu času posledného skenovania
+        // Funkce pro aktualizaci času posledního skenování
         function updateLastQRScanTime() {
             lastQRScanTime = Date.now();
         }
@@ -55,10 +55,10 @@
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
-                updateLastQRScanTime(); // Aktualizovať čas posledného skenovania QR kódu
+                updateLastQRScanTime(); // Aktualizovat čas posledního skenování QR kódu
                 showTableOverlay();
                 isTableVisible = true;
-                loadJSONPData();
+                loadJSONData();
             } else {
                 document.getElementById('qr-result').textContent = "Invalid QR Code";
                 hideTableOverlay();
@@ -76,7 +76,7 @@
             console.error('Error accessing camera: ' + e);
         });
 
-        // Kontrola na skrytie tabuľky každú sekundu
+        // Kontrola na skrytí tabulky každou sekundu
         setInterval(function() {
             if (isTableVisible && Date.now() - lastQRScanTime >= 5000) {
                 hideTableOverlay();
@@ -84,19 +84,19 @@
             }
         }, 1000);
 
-        // Funkcia pre načítanie JSONP dát a aktualizáciu tabuľky
-        function loadJSONPData() {
-            const script = document.createElement('script');
-            script.src = "https://arduino.clanweb.eu/studna_s_prekladom/json_output.php?callback=updateTable";
-            document.body.appendChild(script);
-        }
-
-        // Callback funkcia pre spracovanie JSONP dát
-        function updateTable(data) {
-            const valueInCm = data.value + " cm ";
-            const volumeInLiters = data.volume + " liters";
-            document.getElementById('height-value').textContent = valueInCm;
-            document.getElementById('volume-value').textContent = volumeInLiters;
+        // Funkce pro načtení JSON dat a aktualizaci tabulky
+        function loadJSONData() {
+            fetch("https://arduino.clanweb.eu/studna_s_prekladom/json_output.php")
+                .then(response => response.json())
+                .then(data => {
+                    const valueInCm = data.value + " cm ";
+                    const volumeInLiters = data.volume + " liters";
+                    document.getElementById('height-value').textContent = valueInCm;
+                    document.getElementById('volume-value').textContent = volumeInLiters;
+                })
+                .catch(error => {
+                    document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
+                });
         }
     </script>
 </body>
