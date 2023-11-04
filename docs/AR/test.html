@@ -6,12 +6,11 @@
     <div id="result"></div>
 
     <script>
-        // Create a function to make a GET request using a CORS proxy
+        // Create a function to make a GET request using the corsproxy.io CORS proxy
         function fetchData() {
-            const apiUrl = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php'; // Replace with the desired API URL
-            const corsProxyUrl = 'https://corsproxy.io/'; // Use a CORS proxy
+            const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
 
-            fetch(corsProxyUrl + apiUrl)
+            fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     // Process the data from the external API
