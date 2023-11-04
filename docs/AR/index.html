@@ -54,7 +54,7 @@
         let isTableVisible = false;
 
         scanner.addListener('scan', function (content) {
-            if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
+            if (content.startsWith("Martin Chlebovec")) {
                 document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
                 updateLastQRScanTime(); // Aktualizovat cas posledn?ho skenov?n? QR k?du
                 showTableOverlay();
