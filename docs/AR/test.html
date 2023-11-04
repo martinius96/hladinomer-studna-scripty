@@ -6,49 +6,25 @@
     <div id="result"></div>
 
     <script>
-        fetch('/.netlify/functions/netlify-function')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(data => {
-                // Process the data from the serverless function
-                const jsonStartIndex = data.indexOf('{'); // Assuming JSON starts somewhere in the HTML
-                if (jsonStartIndex !== -1) {
-                    const jsonData = JSON.parse(data.substring(jsonStartIndex));
-                    console.log(jsonData);
-                    document.getElementById('result').textContent = JSON.stringify(jsonData);
-                } else {
-                    console.error('JSON data not found in the response.');
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+        // Create a function to make a GET request using a CORS proxy
+        function fetchData() {
+            const apiUrl = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php'; // Replace with the desired API URL
+            const corsProxyUrl = 'https://corsproxy.io/'; // Use a CORS proxy
 
-    <script>
-        // Netlify Function code here
-        async function fetchData() {
-            try {
-                const apiUrl = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php';
-                const response = await fetch(apiUrl);
-                const data = await response.text();
-                return data;
-            } catch (error) {
-                return { error: 'Failed to fetch data' };
-            }
+            fetch(corsProxyUrl + apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Process the data from the external API
+                    console.log(data);
+                    document.getElementById('result').textContent = JSON.stringify(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
 
-        const handler = async (event, context) => {
-            const data = await fetchData();
-            return {
-                statusCode: 200,
-                body: data,
-            };
-        };
+        // Call the fetchData function to make the GET request
+        fetchData();
     </script>
 </body>
 </html>
