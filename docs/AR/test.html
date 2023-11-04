@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div id="result"></div>
@@ -15,7 +14,13 @@
 
         // Create a script element and attach it to the document's body
         var script = document.createElement('script');
-        script.src = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php';
+        script.src = 'https://api.example.com/data?callback=handleResponse';
+
+        // Handle potential errors, although JSONP doesn't provide a good error-handling mechanism
+        script.onerror = function() {
+            console.error('Failed to load data from the external API.');
+        }
+
         document.body.appendChild(script);
     </script>
 </body>
