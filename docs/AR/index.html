@@ -9,7 +9,7 @@
     <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
-    <!-- New div for displaying the table -->
+    <!-- Nov? div pro zobrazen? tabulky -->
     <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
         <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse;">
             <tr>
@@ -33,19 +33,19 @@
         let lastQRScanTime = 0;
         let tableTimeout;
 
-        // Function to show the table on the screen
+        // Funkce pro zobrazen? tabulky na obrazovce
         function showTableOverlay() {
             const overlay = document.getElementById('table-overlay');
             overlay.style.display = 'flex';
         }
 
-        // Function to hide the table on the screen
+        // Funkce pro skryt? tabulky na obrazovce
         function hideTableOverlay() {
             const overlay = document.getElementById('table-overlay');
-            overlay.style.display = 'none';
+            overlay.style display = 'none';
         }
 
-        // Function to update the last QR scan time
+        // Funkce pro aktualizaci casu posledn?ho skenov?n?
         function updateLastQRScanTime() {
             lastQRScanTime = Date.now();
         }
@@ -55,7 +55,7 @@
         scanner.addListener('scan', function (content) {
             if (content.startsWith("https://arduino.clanweb.eu/studna_s_prekladom/full_vypis.php")) {
                 document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
-                updateLastQRScanTime();
+                updateLastQRScanTime(); // Aktualizovat cas posledn?ho skenov?n? QR k?du
                 showTableOverlay();
                 isTableVisible = true;
                 loadJSONData();
@@ -68,7 +68,7 @@
 
         Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 1) {
-                scanner.start(cameras[1]);
+                scanner.start(cameras[1]); // 1 ==> BACK camera, 0 ==> FRONT camera
             } else {
                 console.error('No cameras found.');
             }
@@ -76,7 +76,7 @@
             console.error('Error accessing camera: ' + e);
         });
 
-        // Check to hide the table every second
+        // Kontrola na skryt? tabulky ka?dou sekundu
         setInterval(function() {
             if (isTableVisible && Date.now() - lastQRScanTime >= 5000) {
                 hideTableOverlay();
@@ -84,9 +84,9 @@
             }
         }, 1000);
 
-        // Function to load JSON data and update the table
+        // Funkce pro nac?t?n? JSON dat a aktualizaci tabulky
         function loadJSONData() {
-            fetch("https://arduino.clanweb.eu/studna_s_prekladom/json_output.php")
+            fetch("https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php")
                 .then(response => response.json())
                 .then(data => {
                     const valueInCm = data.value + " cm ";
