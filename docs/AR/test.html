@@ -6,22 +6,38 @@
     <div id="result"></div>
 
     <script>
-        function handleResponse(data) {
-            // Process the data from the external API
-            console.log(data);
-            document.getElementById('result').textContent = JSON.stringify(data);
+        fetch('/.netlify/functions/netlify-function')
+            .then(response => response.json())
+            .then(data => {
+                // Process the data from the serverless function
+                console.log(data);
+                document.getElementById('result').textContent = JSON.stringify(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <script>
+        // Netlify Function code here
+        async function fetchData() {
+            try {
+                const apiUrl = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php';
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                return { error: 'Failed to fetch data' };
+            }
         }
 
-        // Create a script element and attach it to the document's body
-        var script = document.createElement('script');
-        script.src = 'https://api.example.com/data?callback=handleResponse';
-
-        // Handle potential errors, although JSONP doesn't provide a good error-handling mechanism
-        script.onerror = function() {
-            console.error('Failed to load data from the external API.');
-        }
-
-        document.body.appendChild(script);
+        const handler = async (event, context) => {
+            const data = await fetchData();
+            return {
+                statusCode: 200,
+                body: JSON.stringify(data),
+            };
+        };
     </script>
 </body>
 </html>
