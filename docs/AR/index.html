@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>QR Scanner</title>
+    <title>QR Scanner - Water level monitor</title>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h1>AR - Water level monitor</h1>
@@ -42,7 +43,7 @@
         // Funkce pro skryt? tabulky na obrazovce
         function hideTableOverlay() {
             const overlay = document.getElementById('table-overlay');
-            overlay.style display = 'none';
+            overlay.style.display = 'none';
         }
 
         // Funkce pro aktualizaci casu posledn?ho skenov?n?
@@ -86,9 +87,13 @@
 
         // Funkce pro nac?t?n? JSON dat a aktualizaci tabulky
         function loadJSONData() {
-            fetch("https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php")
+            const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
+
+            fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
+                    // Process the data from the external API
+                    console.log(data);
                     const valueInCm = data.value + " cm ";
                     const volumeInLiters = data.volume + " liters";
                     document.getElementById('height-value').textContent = valueInCm;
