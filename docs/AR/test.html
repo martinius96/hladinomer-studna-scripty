@@ -7,11 +7,22 @@
 
     <script>
         fetch('/.netlify/functions/netlify-function')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
             .then(data => {
                 // Process the data from the serverless function
-                console.log(data);
-                document.getElementById('result').textContent = JSON.stringify(data);
+                const jsonStartIndex = data.indexOf('{'); // Assuming JSON starts somewhere in the HTML
+                if (jsonStartIndex !== -1) {
+                    const jsonData = JSON.parse(data.substring(jsonStartIndex));
+                    console.log(jsonData);
+                    document.getElementById('result').textContent = JSON.stringify(jsonData);
+                } else {
+                    console.error('JSON data not found in the response.');
+                }
             })
             .catch(error => {
                 console.error(error);
@@ -24,7 +35,7 @@
             try {
                 const apiUrl = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php';
                 const response = await fetch(apiUrl);
-                const data = await response.json();
+                const data = await response.text();
                 return data;
             } catch (error) {
                 return { error: 'Failed to fetch data' };
@@ -35,7 +46,7 @@
             const data = await fetchData();
             return {
                 statusCode: 200,
-                body: JSON.stringify(data),
+                body: data,
             };
         };
     </script>
