@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="result"></div>
+
+    <script>
+        function handleResponse(data) {
+            // Process the data from the external API
+            console.log(data);
+            document.getElementById('result').textContent = JSON.stringify(data);
+        }
+
+        // Create a script element and attach it to the document's body
+        var script = document.createElement('script');
+        script.src = 'https://arduino.clanweb.eu/studna_s_prekladom/json_output.php';
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
