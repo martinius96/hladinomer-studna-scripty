@@ -3,23 +3,23 @@
 <html lang="fr">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Moniteur de niveau d'eau pour puits creusés - matériel open source - Arduino / ESP8266 / ESP32 / Sigfox</title>
-	<meta name="description" content="Indicateur de niveau - Moniteur de niveau d'eau construit sur la plate-forme Arduino, ESP8266, ESP32. Mesure avec capteur à ultrasons HC-SR04 / JSN-SR04T. Envoi de données via Ethernet, WiFi, Sigfox. Mesure du niveau d'eau dans un puits, puisard.">
-	<meta name="keywords" content="compteur de niveau, puits, puisard, fosse septique, hauteur, niveau, moniteur, mesure, ultrasons, flotteur, optique, hydrostatique, pression, immersion, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">
-	<meta name="news_keywords" content="compteur de niveau, puits, puisard, fosse septique, hauteur, niveau, moniteur, mesure, ultrasons, flotteur, optique, hydrostatique, pression, immersion, 20ma, 5V, ESP8266, WiFi, Arduino, Sigfox, IoT, Ethernet">	
+	<title>Tableau de bord IoT - Indicateur de niveau - ESP32, Low Power</title>
+	<meta name="description" content="Le tableau de bord IoT pour le Level Meter permet de recevoir des données à partir de nœuds de capteurs construits sur ESP32, ESP8266, Arduino.">
+	<meta name="keywords" content="jauge de niveau, puits, puisard, hauteur, niveau, eau, IoT, portail, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">
+	<meta name="news_keywords" content="jauge de niveau, puits, puisard, hauteur, niveau, eau, IoT, portail, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">	
 <!-- Open Graph / Facebook -->
 	<meta name="robots" content="index, follow">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/fr/index.html">
-	<meta property="og:title" content="Moniteur de niveau d'eau pour puits creusés - matériel open source - Arduino / ESP8266 / ESP32 / Sigfox">
-	<meta property="og:description" content="Indicateur de niveau - Moniteur de niveau d'eau construit sur la plate-forme Arduino, ESP8266, ESP32. Mesure avec capteur à ultrasons HC-SR04 / JSN-SR04T. Envoi de données via Ethernet, WiFi, Sigfox. Mesure du niveau d'eau dans un puits, puisard.">
+	<meta property="og:title" content="Tableau de bord IoT - Indicateur de niveau - ESP32, Low Power">
+	<meta property="og:description" content="Le tableau de bord IoT pour le Level Meter permet de recevoir des données à partir de nœuds de capteurs construits sur ESP32, ESP8266, Arduino.">
 	<meta property="og:image" content="">
 
 <!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/fr/index.html">
-	<meta property="twitter:title" content="Moniteur de niveau d'eau pour puits creusés - matériel open source - Arduino / ESP8266 / ESP32 / Sigfox">
-	<meta property="twitter:description" content="Indicateur de niveau - Moniteur de niveau d'eau construit sur la plate-forme Arduino, ESP8266, ESP32. Mesure avec capteur à ultrasons HC-SR04 / JSN-SR04T. Envoi de données via Ethernet, WiFi, Sigfox. Mesure du niveau d'eau dans un puits, puisard.">
+	<meta property="twitter:title" content="Tableau de bord IoT - Indicateur de niveau - ESP32, Low Power">
+	<meta property="twitter:description" content="Le tableau de bord IoT pour le Level Meter permet de recevoir des données à partir de nœuds de capteurs construits sur ESP32, ESP8266, Arduino.">
 	<meta property="twitter:image" content="">
 	
 	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
@@ -212,7 +212,7 @@ Après avoir téléchargé le micrologiciel et en supposant qu'ESP n'a pas stock
 ESP commencera à diffuser un réseau WiFi ouvert avec SSID en mode AP --> <b>Hladinomer_AP</b>. Après avoir connecté le client (Windows / Android / iOS) le portail captif démarrera sur 192.168.4.1 (le client doit être redirigé automatiquement).
 WiFiManager vous permet de sélectionner un réseau WiFi à portée dans l'interface Web, de définir un mot de passe.
 Après avoir connecté avec succès ESP au réseau WiFi spécifié et attribué IPv4 à partir de la plage donnée, le portail captif sera désactivé, ESP reste en mode STA-Station.
-Par la suite, le nœud de capteur commencera à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> Jauges de niveau </a>.
+Par la suite, le nœud de capteur commencera à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=fr"> Jauges de niveau </a>.
 <b> Au prochain démarrage du nœud de capteur, Captive Portal et WiFiManager ne démarreront plus, car la configuration du réseau WiFi est conservée en permanence. </b>
 Après avoir envoyé les données, le microcontrôleur passe en mode veille profonde. Le processeur principal Xtens est éteint en mode veille.
 L'ESP8266 est réveillé via la minuterie WAKE (cavalier entre GPIO16 et RST requis), ESP32 via la minuterie RTC.
@@ -231,7 +231,7 @@ Après avoir téléchargé le micrologiciel et en supposant qu'ESP n'a pas stock
 ESP commencera à diffuser un réseau WiFi ouvert avec SSID en mode AP --> <b>Hladinomer_AP</b>. Après avoir connecté le client (Windows / Android / iOS) le portail captif démarrera sur 192.168.4.1 (le client doit être redirigé automatiquement).
 WiFiManager vous permet de sélectionner un réseau WiFi à portée dans l'interface Web, de définir un mot de passe.
 Après avoir connecté avec succès ESP au réseau WiFi spécifié et attribué IPv4 à partir de la plage donnée, le portail captif sera désactivé, ESP reste en mode STA-Station.
-Par la suite, le nœud de capteur commence à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">Indicateur de niveau</a>.
+Par la suite, le nœud de capteur commence à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=fr">Indicateur de niveau</a>.
 <b>Au prochain démarrage du nœud de capteur, Captive Portal et WiFiManager ne démarreront plus, car la configuration du réseau WiFi est stockée de manière permanente.</b>
 </p>
 </td>
@@ -266,7 +266,7 @@ Les données sur le niveau d'eau actuel et le volume d'eau dans le puits sont di
 Le projet peut intégrer le projet Level meter via MQTT dans la domotique (Hassio, Domoticz, Loxone) pour afficher le niveau d'eau dans son propre tableau de bord, par ex. Grafana.
 </p>
 <div class="alert alert-info">
-	<strong>Implémentations de programmes pour Arduino, ESP8266, ESP32 (nécessite l'installation de la bibliothèque): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Disponible ici</a>
+	<strong>Implémentations de programmes pour Arduino, ESP8266, ESP32 (nécessite l'installation de la bibliothèque): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=fr">Disponible ici</a>
 </div>	
 <hr><center><h4>Bibliothèques disponibles pour les microcontrôleurs (Arduino / ESP)</h4></center><hr>
 <div class="alert alert-danger" style="word-wrap:break-word;">
@@ -371,7 +371,7 @@ Le rappel envoie une requête HTTP ou HTTPS au domaine où l'application Web s'e
 <center> 
      <h3>Captures d'écran de l'interface Web du projet de mesure de niveau</h3>
      <hr>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=fr">
     	<img src="https://i.imgur.com/nlxOPUn.png" style="display: block; max-width: 100%; height: auto;" alt="Moniteur de niveau WaterWell - webapp - page principale - Dernières valeurs mesurées avec rafraîchissement automatique - AJAX" title="Moniteur de niveau WaterWell - webapp - page principale - Dernières valeurs mesurées avec rafraîchissement automatique - AJAX">
     	<img src="https://i.imgur.com/jPiKnAf.png" style="display: block; max-width: 100%; height: auto;" alt="Moniteur de niveau de puits d'eau - application Web - Données mesurées historiques avec horodatage" title="Moniteur de niveau de puits d'eau - application Web - Données mesurées historiques avec horodatage"> 
 	<img src="https://i.imgur.com/f3PVlx4.png" style="display: block; max-width: 100%; height: auto;" alt="Moniteur de niveau de puits d'eau - Enregistrement, valeur minimale, maximale par jour, semaine, mois" title="Moniteur de niveau de puits d'eau - Enregistrement, valeur minimale, maximale par jour, semaine, mois"> 
