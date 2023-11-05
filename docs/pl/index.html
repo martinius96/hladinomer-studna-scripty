@@ -58,11 +58,11 @@
   </div>
 </nav>  
 <div class="alert alert-success">
-<strong>Kody źródłowe projektu Miernik poziomu dla mikrokontrolerów Arduino, ESP8266, ESP32, biblioteka NewPing, Ethernet2, Ethernet3, UIPEthernet: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Repozytorium projektu Github</a>
+<strong>Przykładowe kody źródłowe dla Arduino, ESP8266, ESP32 (Ethernet / WiFi / LoRaWAN): </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Repozytorium projektu Github</a>
 </div>	
 <div class="alert alert-info">
-<strong>Wypróbuj interfejs sieciowy projektu miernika poziomu za darmo ze swoim sprzętem - ON-LINE: </strong>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">Arduino + Ethernet / ESP8266 / ESP32</a>
+<strong>Pulpit nawigacyjny IoT ze sprzętem można wypróbować tutaj: </strong>
+<a href="https://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">Arduino + Ethernet / ESP8266 / ESP32</a>
 </div>	
 <div class="alert alert-danger">
 	<strong>Jeśli interesują Cię kody źródłowe aplikacji internetowej, skontaktuj się z autorem projektu w języku angielskim pod adresem: </strong>martinius96@gmail.com
@@ -134,17 +134,17 @@ Błąd całkowitej objętości odwiertu w tym przypadku będzie na poziomie ~12,
 Maksymalna mierzalna wysokość poziomu (poziom) przez czujniki wynosi około 400 do 450 cm (znane z karty katalogowej).
 </p>
 <div class="alert alert-info">
-  	<strong>Inne typy czujników poziomu wody, które można zintegrować (musisz stworzyć własne oprogramowanie):</strong> 
-<li> Laser (LiDAR) </li>
-<li> Hydrostatyczna (zanurzalna) </li>
-<li> Elektrostatyczne (pojemnościowe / indukcyjne) </li>
-<li> Ciśnienie (różnicowe / z kompensacyjnym czujnikiem ciśnienia atmosferycznego) </li>
-<li> Optyczne </li>
-<li> Mechaniczny (pływający) </li>
-<li> Magnetyczne (hala) </li>
-<li> Kuchenka mikrofalowa (radar) </li>
-<li> Ultradźwięki - inny typ wyjścia (UART, RS-232, pętla prądowa, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN) </li>
-<li> <b> Uwaga: </b> Jeśli poziom wody jest ponownie obliczany od dołu po stronie mikrokontrolera, w interfejsie internetowym należy ustawić głębokość studni na 0 cm. </li>
+<strong>Inne typy czujników rejestrujących poziom wody, które można zintegrować (niezbędne do stworzenia własnego oprogramowania sprzętowego):</strong>
+<li><b>Laser (LiDAR)</b> - (DFRobot DTOF LD19 LIDAR, DFRobot ToF Laser...)</li>
+<li><b>Hydrostatyczny (zanurzalny)</b> - (LMK307, DPT200, PT20eco, HDL300 ...)</li>
+<li><b>Elektrostatyczny (pojemnościowy / indukcyjny)</b> - XKC-Y25-NPN</li>
+<li><b>Ciśnienie (różnica / z czujnikiem kompensacji ciśnienia atmosferycznego)</b></li>
+<li><b>Optyczny</b> — (GP2Y0A02YK0F, YD-02F, FS-IR02 ...)</li>
+<li><b>Mechaniczny (pływak)</b></li>
+<li><b>Magnetyczne (sala)</b> - (VCL9, Sen-Hz41wa ...)</li>
+<li><b>Kuchenka mikrofalowa (radar)</b> - (CS476, CS475A-L, SP69, WLR 8/15/30 ...)</li>
+<li><b>Ultradźwiękowy</b> - (A01NYUB, URM37) lub inny, opcja magistrali przemysłowej na wyjściu (RS-485, pętla prądowa 4-20 mA, Modbus RTU, M-bus, PROFINET) </li>
+<li><b>Uwaga:</b> Jeżeli przeliczenie wysokości poziomu wody od dna odbywa się po stronie mikrokontrolera, konieczne jest ustawienie głębokości studni na 0 cm w interfejsie WWW. </li>
 </div>
 <hr><center><h3>Prezentacja wideo interfejsu internetowego - Miernik poziomu:</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
