@@ -141,17 +141,17 @@ Dans le cas d'un puits carré, le diamètre du cercle inscrit est entré dans la
 La hauteur de niveau maximale mesurable (niveau) par les capteurs est d'environ 400 à 450 cm (connue d'après la fiche technique).
 </p>
 <div class="alert alert-info">
-  	<strong>Autres types de capteurs de niveau d'eau pouvant être intégrés (vous devez créer votre propre firmware):</strong> 
-<li> Laser (LiDAR) </li>
-<li> Hydrostatique (submersible) </li>
-<li> Électrostatique (capacitif / inductif) </li>
-<li> Pression (différentielle / avec capteur de pression atmosphérique de compensation) </li>
-<li> Optique </li>
-<li> Mécanique (flotteur) </li>
-<li> Magnétique (Hall) </li>
-<li> Micro-ondes (radar) </li>
-<li> Ultrasons - autre type de sortie (UART, RS-232, boucle de courant, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN) </li>
-<li> <b>Remarque : </b> Si le niveau d'eau est recalculé depuis le bas côté microcontrôleur, vous devez définir la profondeur du puits à 0 cm dans l'interface Web. </li>
+<strong>Autres types de capteurs enregistreurs de niveau d'eau pouvant être intégrés (nécessaires pour créer votre propre firmware) :</strong>
+<li><b>Laser (LiDAR)</b> - (DFRobot DTOF LD19 LIDAR, DFRobot ToF Laser...)</li>
+<li><b>Hydrostatique (submersible)</b> - (LMK307, DPT200, PT20eco, HDL300...)</li>
+<li><b>Électrostatique (capacitif/inductif)</b> - XKC-Y25-NPN</li>
+<li><b>Pression (différentielle / avec capteur de compensation de pression atmosphérique)</b></li>
+<li><b>Optique</b> - (GP2Y0A02YK0F, YD-02F, FS-IR02 ...)</li>
+<li><b>Mécanique (flotteur)</b></li>
+<li><b>Magnétique (Hall)</b> - (VCL9, Sen-Hz41wa ...)</li>
+<li><b>Micro-ondes (radar)</b> - (CS476, CS475A-L, SP69, WLR 15/08/30 ...)</li>
+<li><b>Ultrasonique</b> - (A01NYUB, URM37), ou autre, option d'un bus industriel pour la sortie (RS-485, boucle de courant 4-20 mA, Modbus RTU, M-bus, PROFINET) </li>
+<li><b>Remarque :</b> Si le recalcul de la hauteur du niveau d'eau depuis le fond est effectué côté microcontrôleur, il est nécessaire de régler la profondeur du puits à 0 cm sur l'interface web. </li>
 </div>
 <hr><center><h3>Démonstration vidéo de l'interface Web - Indicateur de niveau :</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
