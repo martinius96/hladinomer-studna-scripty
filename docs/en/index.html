@@ -71,11 +71,11 @@
 					<strong>Source codes for Arduino, ESP8266, ESP32, (Ethernet / WiFi / LoRaWAN): </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github project repository</a>
 				</div>	
 <div class="alert alert-info">
-<strong>Try Web interface of Water Level Monitor project for free with your hardware - ON-LINE: </strong>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a>
+<strong>The IoT dashboard with your hardware can be tried here: </strong>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">ON-LINE IoT dashboard</a>
 </div>	
 				<div class="alert alert-danger">
-					<strong>For source codes of web interface or questions, contact author in ENGLISH language at: </strong>martinius96@gmail.com
+					<strong>For source codes of web interface or questions, contact author at: </strong>martinius96@gmail.com
 				</div>
 				
 <center><h1>Water level monitor project</h1></center>
@@ -127,32 +127,31 @@
 </center> 
 <hr>
 <p style = "text-align: justify;">
-Water level monitor project consists of a central web interface that serves to collect data from sensor nodes and visualize them to the user.
-Current data on the water level are represented in the dashboard together with the conversion to the volume of the well, historical data on the water level are also available to the user in tabular or graphical visualization with line graphs.
-Web interface is responsive, it can adapt to any screen and device resolution.
-Project's web interface uses a backend written in PHP that can process incoming data from the request using the HTTP POST method.
-Backend corrects the measured level to the actual one based on the known depth of the well, calculates the volume of water in the well from this parameter and the diameter of the well.
-Depth and diameter of the well are entered into the system by the user based on the proportions of his well.
-Data is sent to the web server by a microcontroller supported by technology (Ethernet / WiFi / IoT networks LoRaWAN / Sigfox / NB-IoT), which performs measurements every 300 seconds - i. 5 minutes.
-<b> Water level measurement is performed using ultrasonic sensors </b> - HC-SR04, or its waterproof variant JSN-SR04T.
-Other sensors with Trigger / Echo signals from the RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ series can also be used.
+The IoT Dashboard for the level meter consists of a web interface, which is the whole brain of the measurement visualization. 
+The web application allows you to record data about the height of the water level in a dug well from a sensor node - a microcontroller. 
+Water level measurement is carried out using ultrasonic sensors - HC-SR04, or its waterproof variant JSN-SR04T. 
+Other sensors with Trigger / Echo signals from the RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ series can also be used in the current program implementation. 
+The sensor node routinely performs 10 averaged measurements with the ultrasonic sensor every 5 minutes. The resulting value is sent to the server via the interface used (WiFi / Ethernet / IoT network LoRaWAN / NB-IoT / Sigfox). 
+Current data on the height of the water level is represented to the user in the dashboard together with the conversion to the volume of the well and the tendency of the level compared to the previous measurement. 
+Historical data on the height of the water level is also available to the user in tabular or graphical visualization with line graphs. 
+The web interface is responsive and can adapt to the screen of a smartphone, computer, tablet, and Smart TV. 
+When receiving data, the backend corrects the measured water level to the actual one based on the known depth of the well, since the sensor only sends the differential water level. 
+Based on the real height of the water level and the known diameter of the well, the web interface can also determine the volume of the well in liters.
 </p>
 <center>
 <img src="https://i.imgur.com/zP6sbc2.jpg" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery" title="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery">
 </center>
 <p style = "text-align: justify;">
-Principle of measuring ultrasonic sensors is to send a Trigger signal with a length of 10 μs (microseconds), which bounces off the water level and returns to the receiver - Echo.
-Time-of-Flight method is used to recalculate the time between sending and receiving the signal to determine the distance of the water level from the sensor, which is located at the top of the well.
-Conversion formula takes into account the speed of sound 343 m/s at a temperature of 20 °C.
-An important parameter for both ultrasonic sensors is the beam width, in other words the detection characteristic.
-HC-SR04 sensor has a 15° detection characteristic. The beam is relatively narrow and the sensor is also suitable for narrower wells and tanks, but it is not waterproof and has a high risk of corrosion (oxidation) due to the presence of moisture in the well.
-For this reason, it is advisable to place this ultrasonic sensor above the well.
-Waterproof sensor JSN-SR04T has a detection characteristic of 60°, which considerably limits it and prevents its use in narrow wells, as the beam widens with distance and requires a well with a diameter of several meters (6 meters diameter at a well depth of 4.5 meters) .
-Ultrasonic sensors are fully maintenance-free. The JSN-SR04T sensor has an electronic control board that must not be exposed to moisture and water.
-Standard communication shielded cable is 2.5 meters long, it is possible to connect counterparts of the same cable to extend the line.
-In the case of a square well, the diameter of the inscribed circle is entered into the average, which will form the reference value of the water cylinder for the calculation of the well volume.
-Error of the total well volume in this case will be at the level of ~12.5%.
-The maximum measurable level height (level) by the sensors is about 400 to 450 cm (known from the datasheet).
+The principle of measurement of ultrasonic sensors is to send a Trigger signal with a length of 10 μs (microseconds), which is reflected from the water surface and returns to the receiver - Echo. 
+The Time-of-Flight method is used to calculate the time between sending and receiving the signal to determine the distance of the water level from the sensor, which is located on top of the well. 
+The conversion formula calculates the speed of sound at 343 m/s at a temperature of 20 °C. An important parameter of ultrasonic sensors is the beam width, in other words, the detection characteristic. 
+The HC-SR04 sensor has a 15° detection characteristic. 
+The beam is relatively narrow and the sensor is therefore also suitable for narrower wells and tanks, but it is not waterproof and has a high risk of corrosion in wet well conditions. 
+For this reason, it is advisable to place this ultrasonic sensor above the well to reduce the effects of humidity in the given environment. 
+The waterproof sensor JSN-SR04T has a detection characteristic of 60°, which significantly limits it and prevents its use in narrow wells, as the beam widens with distance and a well with a diameter of several meters is needed (6 meters diameter at a well depth of 4.5 meters for guarantee of measurement without reflections). 
+Ultrasonic sensors are completely maintenance-free. 
+The JSN-SR04T sensor has a control electronic board that must not be exposed to moisture and water. 
+The maximum measurable height of the level (level) by the sensors is approx. 400 to 450 cm.
 </p>
 <div class = "alert alert-info">
  	<strong> Other types of water level sensors that can be integrated (you need to create your own firmware): </strong>
