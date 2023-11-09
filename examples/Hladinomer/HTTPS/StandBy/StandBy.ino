@@ -12,7 +12,7 @@
 /*|Pre Arduino + Ethernet HTTPS nie je podporované! Možno využiť len HTTP variant!     |*/
 /*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv     |*/
 /*|Licencia pouzitia: MIT                                                              |*/
-/*|Revízia: 24. Jun 2022                                                               |*/
+/*|Revízia: 9. Nov 2023                                                                |*/
 /*|------------------------------------------------------------------------------------|*/
 
 //WIFI CREDITENALS
