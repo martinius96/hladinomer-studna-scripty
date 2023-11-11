@@ -4,8 +4,8 @@
 /*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie HTTPS: https://hladinomer.000webhostapp.com/           |*/
-/*|Revízia: 20. Január 2022                                                           |*/
+/*|Testovacie webove rozhranie HTTPS: https://arduino.clanweb.eu/studna_s_prekladom/  |*/
+/*|Revízia: 9. Nov 2023                                                               |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <string.h>
@@ -46,7 +46,7 @@
 #define GPIO_ECHO	23
 // Webserver
 /* Constants that aren't configurable in menuconfig */
-#define WEB_SERVER "waterwell-arduino.000webhostapp.com"
+#define WEB_SERVER "arduino.clanweb.eu"
 #define WEB_PORT "443"
 
 
@@ -191,7 +191,7 @@ static void https_get_task(void *pvParameters)
   char REQUEST [1000];
 	 char values [250];
 	 sprintf(values, "hodnota=%d&token=123456789", distance);
-    sprintf (REQUEST, "POST /data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values); 
+    sprintf (REQUEST, "POST /studna_s_prekladom/data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values); 
         mbedtls_net_init(&server_fd);
 
         ESP_LOGI(TAG, "Connecting to %s:%s...", WEB_SERVER, WEB_PORT);
