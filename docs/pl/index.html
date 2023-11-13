@@ -3,10 +3,10 @@
 <html lang="pl">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Poziom kopania studni - sprzęt open-source - Arduino / ESP8266 / ESP32 / Sigfox</title>
-	<meta name="description" content="Miernik poziomu - Monitor poziomu wody zbudowany na platformie Arduino, ESP8266, ESP32. Pomiar czujnikiem ultradźwiękowym HC-SR04 / JSN-SR04T. Wysyłanie danych przez Ethernet, WiFi, Sigfox. Pomiar poziomu wody w studni, studzienka.">
-	<meta name="keywords" content="miernik poziomu, miernik poziomu studni, projekt arduino, sigfox, lpwan iot sigfox, projekt ethernet i wifi, mikrokontrolery Arduino ESP8266 ESP32, studnia piłkarska, monitor, interfejs WWW, wizualizacja">
-	<meta name="news_keywords" content="miernik poziomu, miernik poziomu studni, projekt arduino, sigfox, lpwan iot sigfox, projekt ethernet i wifi, mikrokontrolery Arduino ESP8266 ESP32, studnia piłkarska, monitor, interfejs WWW, wizualizacja">	
+	<title>Deska rozdzielcza IoT – Miernik poziomu – ESP32, Low Power</title>
+	<meta name="description" content="Panel IoT dla miernika poziomu umożliwia odbiór danych z węzłów sensorowych zbudowanych na ESP32, ESP8266, Arduino.">
+	<meta name="keywords" content="wskaźnik poziomu, studnia, studnia, miska olejowa, wysokość, poziom, woda, IoT, portal, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">
+	<meta name="news_keywords" content="wskaźnik poziomu, studnia, studnia, miska olejowa, wysokość, poziom, woda, IoT, portal, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">	
 <!-- Open Graph / Facebook -->
 	<meta name="robots" content="index, follow">
 	
@@ -106,32 +106,32 @@
 </div>					
 <hr><center><h1>Miernik poziomu - monitor poziomu wody w studni</h1></center><hr>
 <p style="text-align: justify;">
-Projekt miernika poziomu (monitor poziomu wody) składa się z centralnego interfejsu internetowego, który służy do zbierania danych z węzłów czujników i wizualizacji ich użytkownikowi.
-Aktualne dane o stanie wody prezentowane są na desce rozdzielczej wraz z przeliczeniem na objętość studni, dane historyczne o stanie wody są również dostępne dla użytkownika w formie tabelarycznej lub graficznej wizualizacji z wykresami liniowymi.
-Interfejs sieciowy jest responsywny, może dostosować się do dowolnej rozdzielczości ekranu i urządzenia.
-Interfejs sieciowy projektu wykorzystuje backend napisany w PHP, który może przetwarzać dane przychodzące z żądania za pomocą metody HTTP POST.
-Backend koryguje zmierzony poziom do rzeczywistego na podstawie znanej głębokości odwiertu, oblicza objętość wody w odwiercie z tego parametru i średnicę odwiertu.
-Głębokość i średnicę studni wprowadza do systemu użytkownik na podstawie proporcji swojej studni.
-Dane przesyłane są do serwera WWW przez mikrokontroler wspierany przez technologię (Ethernet / WiFi / LoRaWAN / Sigfox / NB-IoT), który wykonuje pomiary co 300 sekund – m.in. 5 minut lub w przypadku transmisji przez sieć LPWAN IoT Sigfox dane przesyłane są co 11 minut, ponieważ modem jest ograniczony przez sieć do transmisji maksymalnie 140 wiadomości dziennie.
-<b> Pomiar poziomu wody odbywa się za pomocą czujników ultradźwiękowych </b> - HC-SR04 lub jego wodoodpornej odmiany JSN-SR04T.
-Można również zastosować inne czujniki z sygnałami Trigger / Echo z serii RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+Panel IoT Dashboard dla miernika poziomu składa się z interfejsu sieciowego, który jest całym mózgiem wizualizacji pomiarów.
+Aplikacja internetowa umożliwia rejestrację danych o wysokości poziomu wody w studni kopanej z węzła czujnikowego – mikrokontrolera.
+<b>Pomiar wysokości poziomu wody realizowany jest za pomocą czujników ultradźwiękowych</b> - HC-SR04 lub jego wodoodpornej wersji JSN-SR04T.
+W bieżącej realizacji programu można zastosować także inne czujniki z sygnałami Trigger/Echo z serii RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+Węzeł czujnika rutynowo wykonuje 10 uśrednionych pomiarów za pomocą czujnika ultradźwiękowego co 5 minut.
+Wynikowa wartość przesyłana jest do serwera poprzez wykorzystywany interfejs (sieć WiFi / Ethernet / IoT LoRaWAN / NB-IoT).
+Aktualne dane dotyczące wysokości poziomu wody prezentowane są użytkownikowi na desce rozdzielczej wraz z przeliczeniem na objętość studni i tendencją poziomu w porównaniu z poprzednim pomiarem.
+Dane historyczne dotyczące wysokości poziomu wody dostępne są dla użytkownika również w formie wizualizacji tabelarycznej lub graficznej z wykresami liniowymi.
+Interfejs sieciowy jest responsywny i dopasowuje się do ekranu smartfona, komputera, tabletu oraz Smart TV.
+Po otrzymaniu danych backend koryguje zmierzony poziom wody do rzeczywistego na podstawie znanej głębokości studni, ponieważ czujnik wysyła tylko różnicę poziomu wody.
+Na podstawie rzeczywistej wysokości poziomu wody i znanej średnicy studni interfejs sieciowy może również określić objętość studni w litrach.
 </p>
 <center>
 	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Miernik poziomu - dashboard - automatyczne odzyskiwanie aktualnie mierzonych danych przez jQuery" title="Miernik poziomu - dashboard - automatyczne odzyskiwanie aktualnie mierzonych danych przez jQuery">
 </center>
 <p style="text-align: justify;">
-Zasada pomiaru czujników ultradźwiękowych polega na przesłaniu sygnału Trigger o długości 10 μs (mikrosekund), który odbija się od poziomu wody i wraca do odbiornika – Echo.
-Metoda Time-of-Flight służy do przeliczania czasu między wysłaniem a odebraniem sygnału w celu określenia odległości poziomu wody od czujnika, który znajduje się na szczycie studni.
-Wzór konwersji uwzględnia prędkość dźwięku 343 m/s w temperaturze 20 °C.
-Ważnym parametrem dla obu czujników ultradźwiękowych jest szerokość wiązki, czyli charakterystyka detekcji.
-Czujnik HC-SR04 ma charakterystykę detekcji 15°. Wiązka jest stosunkowo wąska i czujnik nadaje się również do węższych studni i zbiorników, ale nie jest wodoszczelny i ma duże ryzyko korozji (utleniania) ze względu na obecność wilgoci w studni.
-Z tego powodu wskazane jest umieszczenie czujnika ultradźwiękowego nad studnią.
-Wodoodporny czujnik JSN-SR04T ma charakterystykę detekcji 60°, co znacznie ją ogranicza i uniemożliwia zastosowanie w wąskich studniach, ponieważ wiązka rozszerza się wraz z odległością i wymaga studni o średnicy kilku metrów (średnica 6 metrów na głębokości studni 4,5 metra).
-Czujniki ultradźwiękowe są w pełni bezobsługowe. Czujnik JSN-SR04T ma elektroniczną płytkę sterującą, która nie może być narażona na działanie wilgoci i wody.
-Standardowy ekranowany kabel komunikacyjny ma długość 2,5 metra, istnieje możliwość podłączenia odpowiedników tego samego kabla w celu przedłużenia linii.
-W przypadku studni kwadratowej do średniej wprowadza się średnicę koła wpisanego, która stanowi wartość odniesienia cylindra wodnego do obliczenia objętości studni.
-Błąd całkowitej objętości odwiertu w tym przypadku będzie na poziomie ~12,5%.
-Maksymalna mierzalna wysokość poziomu (poziom) przez czujniki wynosi około 400 do 450 cm (znane z karty katalogowej).
+Zasada pomiaru czujników ultradźwiękowych polega na przesłaniu sygnału wyzwalającego o długości 10 μs (mikrosekund), który odbija się od powierzchni wody i wraca do odbiornika – Echa. 
+Metoda Time-of-Flight służy do obliczenia czasu pomiędzy wysłaniem a odebraniem sygnału w celu określenia odległości poziomu wody od czujnika, który znajduje się na szczycie studni. 
+Ze wzoru przeliczeniowego wynika, że ​​prędkość dźwięku wynosi 343 m/s w temperaturze 20°C. Ważnym parametrem czujników ultradźwiękowych jest szerokość wiązki, czyli inaczej charakterystyka detekcji. 
+Czujnik HC-SR04 ma charakterystykę detekcji 15°. 
+Wiązka jest stosunkowo wąska i dlatego czujnik nadaje się również do węższych studni i zbiorników, ale nie jest wodoodporny i stwarza wysokie ryzyko korozji w wilgotnych warunkach. 
+Z tego powodu zaleca się umieszczenie tego czujnika ultradźwiękowego nad studnią, aby zmniejszyć wpływ wilgoci w danym środowisku. 
+Wodoodporny czujnik JSN-SR04T posiada charakterystykę detekcji 60°, co znacznie go ogranicza i uniemożliwia jego zastosowanie w wąskich studniach, gdyż wiązka poszerza się wraz z odległością i potrzebna jest studnia o średnicy kilku metrów (średnica studni 6 metrów głębokość 4,5 metra dla gwarancji pomiaru bez odbić). 
+Czujniki ultradźwiękowe są całkowicie bezobsługowe. 
+Czujnik JSN-SR04T posiada płytkę elektroniki sterującej, która nie może być narażona na działanie wilgoci i wody. 
+Maksymalna mierzalna wysokość powierzchni (poziomu) przez czujniki wynosi ok. 400 do 450 cm.
 </p>
 <div class="alert alert-info">
 <strong>Inne typy czujników rejestrujących poziom wody, które można zintegrować (niezbędne do stworzenia własnego oprogramowania sprzętowego):</strong>
