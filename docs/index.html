@@ -128,17 +128,11 @@
 </div>	
 <hr><center><h1>Hladinomer - monitor výšky hladiny vody v studni</h1></center><hr>
 <p style="text-align: justify;">
-IoT Dashboard pre hladinomer pozostáva z webového rozhrania, ktoré je celým mozgom vizualizácie meraní.
-Webaplikácia umožňuje zaznamenávať údaje o výške hladiny vody v kopanej studni zo senzorového uzla - mikrokontroléra. 
-<b>Meranie výšky hladiny vody sa realizuje s využitím ultrazvukových senzorov</b> - HC-SR04, alebo jeho vodotesnej varianty JSN-SR04T.
-Možno využiť aj iné senzory so signálmi Trigger / Echo z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ v aktuálnej programovej implementácii. 
-Senzorový uzol v rutine každých 5 minút vykonáva 10 priemerovaných meraní ultrazvukovým senzorom.
-Výsledná hodnota sa posiela serveru cez použité rozhranie (WiFi / Ethernet / IoT sieť LoRaWAN / NB-IoT). 
-Aktuálne dáta o výške hladiny vody sú reprezentované používateľovi v dashboarde spolu s prepočtom na objem studne a tendenciou hladiny voči predchádzajúcemu meraniu.
-Historické dáta o výške hladiny vody má používateľ k dispozícii aj v tabuľkovej, alebo grafickej vizualizácii čiarovými grafmi.
-Webové rozhranie je responzíve a dokáže sa prispôsobiť obrazovke smartfónu, počítaču, tabletu, aj Smart TV. 
-Backend pri prijatí dát vykonáva korekciu nameranej výšky hladiny na skutočnú na základe známej hĺbky studne, keďže senzor zasiela len rozdielovú výšku hladiny vody. 
-Na základe reálnej výšky hladiny vody a známeho priemeru studne dokáže web rozhranie určiť aj objem studne v litroch.
+IoT Dashboard pre monitorovanie hladiny vody v kopanej studni ponúka webové rozhranie ako centrálny nástroj pre vizualizáciu meraní. Táto webaplikácia umožňuje presné zaznamenávanie údajov o výške hladiny pomocou ultrazvukových senzorov, ako napríklad HC-SR04 alebo jeho vodotesnej varianty JSN-SR04T.
+Okrem vyššie uvedených senzorov je možné integrovať aj ďalšie z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™, v závislosti na konkrétnej implementácii. Senzorový uzol vykonáva každých 5 minút 10 priemerovaných meraní ultrazvukovým senzorom.
+Namerané hodnoty sa následne odosielajú serveru prostredníctvom dostupného rozhrania (WiFi / Ethernet / IoT sieť LoRaWAN / NB-IoT). Aktuálne údaje o výške hladiny sú názorne prezentované v dashboardi spolu s prepočtom na objem studne a trendom voči predchádzajúcim meraniam.
+Pre používateľa je k dispozícii nielen aktuálny stav, ale aj historické dáta o výške hladiny, ktoré môže zobrazovať prostredníctvom tabuliek alebo grafickej vizualizácie pomocou čiarových grafov. Webové rozhranie je plne responzívne a prispôsobuje sa rôznym typom zariadení, vrátane smartfónov, počítačov, tabletov a Smart TV.
+Pri prijatí údajov backend vykonáva korekciu nameranej výšky hladiny na reálnu hodnotu na základe známej hĺbky studne, keďže senzor poskytuje len rozdielovú výšku hladiny. Na základe tejto korekcie a známeho priemeru studne dokáže webové rozhranie určiť aj objem studne v litroch.
 </p>
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/">
 <center>
