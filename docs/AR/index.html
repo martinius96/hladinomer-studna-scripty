@@ -4,33 +4,20 @@
     <meta charset="UTF-8">
     <title>QR Scanner - Water level monitor</title>
     <script type="text/javascript">
-        window.smartlook||(function(d) {
-            var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
-            var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
-            c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
-        })(document);
-        smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
-    </script>    
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h3>Scan QR code on Water level monitor's web interface</h3>
     <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
-    
-    <!-- Pridané tlačidlo pre prepínanie fotoaparátov -->
-    <button onclick="toggleCamera()">Toggle Camera</button>
-
-    <!-- Nový div pre zmenu fotoaparátu -->
-    <div id="camera-selection" style="margin-top: 10px;">
-        <label for="camera-select">Select Camera:</label>
-        <select id="camera-select" onchange="changeCamera()">
-            <option value="0">Front Camera</option>
-            <option value="1">Back Camera</option>
-        </select>
-    </div>
-
-    <!-- Nový div pre zobrazenie tabuľky -->
+    <!-- Nov? div pro zobrazen? tabulky -->
     <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
         <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse;">
             <tr>
@@ -50,68 +37,54 @@
 
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
-        let scanner;
+        let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
         let lastQRScanTime = 0;
         let tableTimeout;
-        let selectedCameraIndex = 1; // Default back camera
 
-        function toggleCamera() {
-            if (scanner) {
-                scanner.stop();
-            }
-            selectedCameraIndex = 1 - selectedCameraIndex; // Toggle between 0 and 1
-            startScanner();
-        }
-
-        function changeCamera() {
-            if (scanner) {
-                scanner.stop();
-            }
-            selectedCameraIndex = document.getElementById('camera-select').value;
-            startScanner();
-        }
-
-        function startScanner() {
-            scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
-            scanner.addListener('scan', function (content) {
-                if (content.startsWith("Martin Chlebovec")) {
-                    document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
-                    updateLastQRScanTime();
-                    showTableOverlay();
-                    loadJSONData();
-                } else {
-                    document.getElementById('qr-result').textContent = "Invalid QR Code";
-                    hideTableOverlay();
-                }
-            });
-
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    scanner.start(cameras[selectedCameraIndex]);
-                } else {
-                    console.error('No cameras found.');
-                }
-            }).catch(function (e) {
-                console.error('Error accessing camera: ' + e);
-            });
-        }
-
+        // Funkce pro zobrazen? tabulky na obrazovce
         function showTableOverlay() {
             const overlay = document.getElementById('table-overlay');
             overlay.style.display = 'flex';
         }
 
+        // Funkce pro skryt? tabulky na obrazovce
         function hideTableOverlay() {
             const overlay = document.getElementById('table-overlay');
             overlay.style.display = 'none';
         }
 
+        // Funkce pro aktualizaci casu posledn?ho skenov?n?
         function updateLastQRScanTime() {
             lastQRScanTime = Date.now();
         }
 
         let isTableVisible = false;
 
+        scanner.addListener('scan', function (content) {
+            if (content.startsWith("Martin Chlebovec")) {
+                document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
+                updateLastQRScanTime(); // Aktualizovat cas posledn?ho skenov?n? QR k?du
+                showTableOverlay();
+                isTableVisible = true;
+                loadJSONData();
+            } else {
+                document.getElementById('qr-result').textContent = "Invalid QR Code";
+                hideTableOverlay();
+                isTableVisible = false;
+            }
+        });
+
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 1) {
+                scanner.start(cameras[1]); // 1 ==> BACK camera, 0 ==> FRONT camera
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function (e) {
+            console.error('Error accessing camera: ' + e);
+        });
+
+        // Kontrola na skryt? tabulky ka?dou sekundu
         setInterval(function() {
             if (isTableVisible && Date.now() - lastQRScanTime >= 5000) {
                 hideTableOverlay();
@@ -119,12 +92,15 @@
             }
         }, 1000);
 
+        // Funkce pro nac?t?n? JSON dat a aktualizaci tabulky
         function loadJSONData() {
             const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
 
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
+                    // Process the data from the external API
+                    console.log(data);
                     const valueInCm = data.value + " cm ";
                     const volumeInLiters = data.volume + " liters";
                     document.getElementById('height-value').textContent = valueInCm;
@@ -134,9 +110,6 @@
                     document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
                 });
         }
-
-        // Initial scanner start
-        startScanner();
     </script>
 </body>
 </html>
