@@ -3,8 +3,8 @@
 <html lang="ro">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Nivel de săpat puț - hardware open-source - Arduino / ESP8266 / ESP32 / Sigfox</title>
-	<meta name="description" content="Contor de nivel - Monitor de nivel al apei construit pe platforma Arduino, ESP8266, ESP32. Măsurare cu senzor ultrasonic HC-SR04 / JSN-SR04T. Trimiterea datelor prin Ethernet, WiFi, Sigfox. Măsurarea nivelului apei într-o fântână, bazin.">
+	<title>Nivel de săpat puț - Soluții hardware open-source cu Arduino, ESP8266, ESP32 și Sigfox pentru proiecte de excavații</title>
+	<meta name="description" content="Contor de nivel - Monitor de nivel al apei construit pe platforma Arduino, ESP8266 și ESP32, utilizând senzori ultrasonici HC-SR04 / JSN-SR04T. Transmite datele prin Ethernet, WiFi și Sigfox pentru monitorizarea și măsurarea nivelului apei în fântâni și bazine.">
 	<meta name="keywords" content="contor de nivel, puț, proiect arduino, sigfox, lpwan iot sigfox, proiect ethernet și wifi, microcontrolere Arduino ESP8266 ESP32, puț de fotbal, monitor, interfață web, vizualizare">
 	<meta name="news_keywords" content="contor de nivel, puț, proiect arduino, sigfox, lpwan iot sigfox, proiect ethernet și wifi, microcontrolere Arduino ESP8266 ESP32, puț de fotbal, monitor, interfață web, vizualizare">	
 <!-- Open Graph / Facebook -->
@@ -61,7 +61,7 @@
 </div>	
 <div class="alert alert-info">
 <strong>Tabloul de bord IoT cu hardware-ul dvs. poate fi încercat aici: </strong>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">abloul de bord IoT ONLINE</a>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">Abloul de bord IoT ONLINE</a>
 </div>	
 <div class="alert alert-danger">
 	<strong>Dacă sunteți interesat de codurile sursă ale aplicației web, contactați autorul proiectului în limba engleză la adresa: </strong>martinius96@gmail.com
@@ -130,68 +130,66 @@
 </div>
 <hr><center><h1>Contor de nivel - monitor de nivel al apei în puț</h1></center><hr>
 <p style="text-align: justify;">
-Proiectul contorului de nivel (monitor al nivelului apei) constă într-o interfață web centrală care servește la colectarea datelor de la nodurile senzorilor și la vizualizarea acestora către utilizator.
-Datele curente ale nivelului apei sunt reprezentate în tabloul de bord împreună cu conversia în volumul puțului, datele istorice ale nivelului apei sunt de asemenea disponibile utilizatorului în vizualizare tabelară sau grafică cu grafice liniare.
-Interfața web este receptivă, se poate adapta la orice rezoluție de ecran și dispozitiv.
-Interfața web a proiectului folosește un backend scris în PHP care poate procesa datele primite de la cerere folosind metoda HTTP POST.
-Backend-ul corectează nivelul măsurat la cel real pe baza adâncimii cunoscute a puțului, calculează volumul de apă din puț din acest parametru și diametrul puțului.
-Adâncimea și diametrul puțului sunt introduse în sistem de către utilizator pe baza proporțiilor puțului său.
-Datele sunt trimise către serverul web de către un microcontroler suportat de tehnologie (Ethernet / WiFi / LPWAN IoT Sigfox), care efectuează măsurători la fiecare 300 de secunde - i. 5 minute, sau în cazul transmiterii prin rețeaua LPWAN IoT Sigfox, datele sunt trimise la fiecare 11 minute, deoarece modemul este limitat de rețea să transmită maximum 140 de mesaje pe zi.
-<b> Măsurarea nivelului apei se realizează cu ajutorul senzorilor ultrasonici </b> - HC-SR04 sau varianta sa impermeabilă JSN-SR04T.
-Pot fi utilizați și alți senzori cu semnale Trigger / Echo din seria RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+Proiectul contorului de nivel (monitor al nivelului apei) cuprinde o interfață web centrală dedicată colectării datelor de la nodurile senzorilor și prezentării acestora utilizatorului.
+Nivelul curent al apei este afișat în tabloul de bord, inclusiv conversia în volumul puțului. De asemenea, utilizatorul are acces la date istorice ale nivelului apei, prezentate în mod tabelar sau sub formă grafică, utilizând diagrame liniare.
+Interfața web este receptivă, adaptându-se la orice rezoluție de ecran și dispozitiv. Backend-ul proiectului este implementat în PHP și procesează datele primite de la cerere prin metoda HTTP POST.
+Backend-ul ajustează nivelul măsurat la nivelul real, bazându-se pe adâncimea cunoscută a puțului, calculează volumul de apă din puț în funcție de acest parametru și diametrul puțului. Utilizatorul introduce adâncimea și diametrul puțului în sistem, bazându-se pe caracteristicile proprii ale puțului său.
+Datele sunt transmise către serverul web de către un microcontroler susținut de tehnologii precum Ethernet, WiFi sau LPWAN IoT Sigfox. Măsurătorile sunt efectuate la fiecare 300 de secunde (adică la fiecare 5 minute), sau în cazul transmiterii prin rețeaua LPWAN IoT Sigfox, datele sunt trimise la fiecare 11 minute, deoarece modemul este limitat să transmită maxim 140 de mesaje pe zi.
+Măsurarea nivelului apei se realizează cu ajutorul senzorilor ultrasonici HC-SR04 sau varianta lor impermeabilă JSN-SR04T. Alternativ, pot fi utilizați și alți senzori cu semnale Trigger/Echo din serii precum RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX sau Parallax PING)))™.
 </p>
 <center>
 	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Contor de nivel - tablou de bord - recuperare automată a datelor măsurate curent prin jQuery" title="Contor de nivel - tablou de bord - recuperare automată a datelor măsurate curent prin jQuery">
 </center>
 <p style="text-align: justify;">
-Principiul măsurării senzorilor cu ultrasunete este de a trimite un semnal de declanșare cu o lungime de 10 μs (microsecunde), care sări de pe nivelul apei și revine la receptor - Echo.
-Metoda Time-of-Flight este folosită pentru a recalcula timpul dintre trimiterea și primirea semnalului pentru a determina distanța nivelului apei față de senzor, care se află în partea de sus a puțului.
-Formula de conversie ia în considerare viteza sunetului 343 m/s la o temperatură de 20 °C.
-Un parametru important pentru ambii senzori ultrasonici este lățimea fasciculului, cu alte cuvinte caracteristica de detecție.
-Senzorul HC-SR04 are o caracteristică de detecție de 15°. Fasciculul este relativ îngust și senzorul este potrivit și pentru puțuri și rezervoare mai înguste, dar nu este impermeabil și prezintă un risc mare de coroziune (oxidare) datorită prezenței umidității în puț.
-Din acest motiv, este indicat să plasați acest senzor cu ultrasunete deasupra puțului.
-Senzorul impermeabil JSN-SR04T are o caracteristică de detecție de 60°, ceea ce îl limitează considerabil și împiedică utilizarea lui în puțuri înguste, deoarece fasciculul se lărgește cu distanța și necesită o sondă cu diametrul de câțiva metri (6 metri diametru la adâncimea sondei). de 4,5 metri).
-Senzorii cu ultrasunete nu necesită întreținere. Senzorul JSN-SR04T are o placă electronică de control care nu trebuie expusă la umiditate și apă.
-Cablul standard de comunicație ecranat are 2,5 metri lungime, este posibil să se conecteze omologii aceluiași cablu pentru a extinde linia.
-În cazul unei puțuri pătrate, în medie se trece diametrul cercului înscris, care va forma valoarea de referință a cilindrului de apă pentru calculul volumului puțului.
-Eroarea volumului total al sondei în acest caz va fi la nivelul de ~ 12,5%.
-Înălțimea (nivelul) maximă măsurabilă de către senzori este de aproximativ 400 până la 450 cm (cunoscută din fișa de date).
+Principiul de măsurare al senzorilor cu ultrasunete constă în trimiterea unui semnal de declanșare cu o lungime de 10 μs (microsecunde), care se reflectă de nivelul apei și revine la receptor, denumit Echo. Se utilizează metoda Time-of-Flight pentru a calcula timpul dintre trimiterea și primirea semnalului, determinând astfel distanța dintre nivelul apei și senzor, plasat în partea superioară a puțului. Formula de conversie ține cont de viteza sunetului de 343 m/s la o temperatură de 20 °C.
+Un aspect crucial pentru ambii senzori ultrasonici este lățimea fasciculului, adică caracteristica de detecție. Senzorul HC-SR04 are o caracteristică de detecție de 15°, fiind potrivit pentru puțuri și rezervoare mai înguste. Cu toate acestea, nu este impermeabil și prezintă un risc crescut de coroziune datorită umidității din puț, motiv pentru care se recomandă plasarea sa deasupra puțului.
+Senzorul impermeabil JSN-SR04T are o caracteristică de detecție de 60°, limitându-l în utilizarea în puțuri înguste, din cauza lărgirii fasciculului odată cu distanța și necesității unei sonde cu diametrul de câțiva metri.
+Senzorii cu ultrasunete nu necesită întreținere. JSN-SR04T dispune de o placă electronică de control protejată împotriva umezelii și a apei. Cablul standard de comunicație ecranat are 2,5 metri lungime, permitând conectarea altor cabluri similare pentru a extinde linia.
+În cazul unui puț pătrat, se folosește diametrul cercului înscris pentru a stabili valoarea de referință a cilindrului de apă pentru calculul volumului puțului. Eroarea volumului total al sondei în acest caz se situează la aproximativ ~12,5%.
+Înălțimea (nivelul) maxim măsurabil de către senzori este de aproximativ 400 până la 450 cm, conform specificațiilor din fișa tehnică.
 </p>
 <div class="alert alert-info">
-  	<strong>Alte tipuri de senzori de nivel al apei care pot fi integrați (trebuie să vă creați propriul firmware):</strong> 
- 	<li> Laser (LiDAR) </li>
-<li> Hidrostatic (submersibil) </li>
-<li> Electrostatic (capacitiv/inductiv) </li>
-<li> Presiune (diferențială / cu senzor de presiune atmosferică compensatoare) </li>
-<li> Optică </li>
-<li> Mecanic (plutitor) </li>
-<li> Magnetic (Sală) </li>
-<li> Cuptor cu microunde (radar) </li>
-<li> Ultrasunete - un alt tip de ieșire (UART, RS-232, bucla curentă, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN) </li>
-<li> <b> Notă: </b> Dacă nivelul apei este recalculat din partea de jos pe partea microcontrolerului, trebuie să setați adâncimea puțului la 0 cm în interfața web. </li>
+<strong>Alte tipuri de senzori de nivel al apei care pot fi integrați (necesită dezvoltarea propriului firmware):</strong>
+<ul>
+  <li> Laser (LiDAR) </li>
+  <li> Hidrostatic (submersibil) </li>
+  <li> Electrostatic (capacitiv/inductiv) </li>
+  <li> Presiune (diferențială / cu senzor de presiune atmosferică compensatoare) </li>
+  <li> Optică </li>
+  <li> Mecanic (plutitor) </li>
+  <li> Magnetic (Sală) </li>
+  <li> Cuptor cu microunde (radar) </li>
+  <li> Ultrasunete - alt tip de ieșire (UART, RS-232, buclă curentă, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN) </li>
+  <li> <strong> Notă: </strong> Dacă nivelul apei este recalculat din partea de jos către microcontroler, trebuie să setați adâncimea puțului la 0 cm în interfața web. </li>
+</ul>
 </div>
 <hr><center><h3>Demonstrație video a interfeței web - Contor de nivel:</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
-<hr><center><h4>Senzorii cu ultrasunete sunt potriviti pentru:</h4></center><hr>
+
+<hr><center><h4>Senzorii cu ultrasunete sunt potriviți pentru:</h4></center><hr>
 <div class="alert alert-success">
-<li> Fântâni săpate </li>
-<li> Septice și gropi </li>
-<li> Pârâuri și lacuri </li>
-<li> Rezervoare de plastic pentru apă de ploaie </li>
-<li> Rezistență (măsurarea umplerii în vrac) </li>
-<li> Containere (monitorizarea deșeurilor, umplerea containerelor de colectare) </li>
-<li> Cazane (monitorizarea lemnului, peleților, cărbunelui, așchiilor de lemn) </li>
-<li> Puțuri și pivnițe (monitorizarea apelor subterane) </li>
-<li> Producția (detecția produselor, înălțimea și numărul acestora, înălțimea materialului plăgii) </li>
-<li>Parcări (detecția locurilor de parcare libere și ocupate) </li>
+  <ul>
+    <li> Fântâni săpate </li>
+    <li> Septice și gropi </li>
+    <li> Pârâuri și lacuri </li>
+    <li> Rezervoare de plastic pentru apă de ploaie </li>
+    <li> Rezistență (măsurarea umplerii în vrac) </li>
+    <li> Containere (monitorizarea deșeurilor, umplerea containerelor de colectare) </li>
+    <li> Cazane (monitorizarea lemnului, peleților, cărbunelui, așchiilor de lemn) </li>
+    <li> Puțuri și pivnițe (monitorizarea apelor subterane) </li>
+    <li> Producție (detecția produselor, înălțimea și numărul acestora, înălțimea materialului plăgii) </li>
+    <li> Parcări (detecția locurilor de parcare libere și ocupate) </li>
+  </ul>
 </div>
-<hr><center><h3>Senzorii cu ultrasunete nu sunt potriviti pentru:</h3></center><hr>
+<hr><center><h3>Senzorii cu ultrasunete nu sunt potriviți pentru:</h3></center><hr>
 <div class="alert alert-danger">
-<li> Sonde forate (datorită caracteristicilor de detectare - fascicul larg) </li>
-<li> Țevi și țevi (datorită caracteristicilor de detectare - fascicul larg) </li>
-<li> La sondele cu afluent (suprafața turbulentă atenuează ultrasunetele, măsurarea este imposibilă/în trepte) </li>
-<li> În locurile cu o schimbare bruscă a temperaturii (temperatura afectează timpul de propagare a sunetului, astfel încât chiar și nivelul staționar pare să fluctueze) </li>
-<li> Rezervoare de vid (măsurarea nu este posibilă) </li>
+  <ul>
+    <li> Sonde forate (datorită caracteristicilor de detectare - fascicul larg) </li>
+    <li> Țevi și conducte (datorită caracteristicilor de detectare - fascicul larg) </li>
+    <li> La sondele cu afluent (suprafața turbulentă atenuează ultrasunetele, măsurarea este imposibilă/în trepte) </li>
+    <li> În locurile cu o schimbare bruscă a temperaturii (temperatura afectează timpul de propagare a sunetului, astfel încât chiar și nivelul staționar pare să fluctueze) </li>
+    <li> Rezervoare de vid (măsurarea nu este posibilă) </li>
+  </ul>
 </div>
 <div class="alert alert-info">
 	<strong>Caracteristicile de detectare ale senzorilor ultrasonici de distanță - scripturi MATLAB pentru vizualizare:</strong>
@@ -254,27 +252,12 @@ Ulterior, nodul senzor va începe să transmită date către interfața web <a h
 <hr><center><h3>Principiul funcționării contorului de nivel - Schema bloc</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Contor de nivel pentru fosă, fosă septică, puț, principiu de măsurare - senzor ultrasonic de distanță" title="Contor de nivel pentru fosă, fosă septică, puț, principiu de măsurare - senzor ultrasonic de distanță"></center>
 <p style="text-align: justify;">
-Interfața web folosește trigonometria pentru a estima adâncimea maximă măsurabilă a unei sonde la un diametru cunoscut al sondei (un alt parametru pentru calcularea volumului sondei).
-Interfața web permite utilizatorului să calculeze la ce adâncime maximă a puțului este potrivită fiecare dintre senzori în funcție de caracteristicile sale.
-Proiectul este atât de ușor de utilizat chiar și pentru profanii care nu știu ce senzor este mai potrivit pentru aplicarea în puțul lor.
-Microcontrolerul folosit joacă, de asemenea, un rol important în sistem.
-Pentru proiect, este posibilă utilizarea platformei Arduino (Uno / Mega) în versiunea R3 cu un pinout identic, care poate fi conectat la un scut Ethernet care comunică prin interfața ICSP.
-De asemenea, este posibil să utilizați module Ethernet și să le conectați direct la pinii SPI hardware ai microcontrolerului.
-Sunt acceptate modulele Ethernet de la Wiznet W5100, W5500, USR-ES1.
-Modulul Ethernet ENC28J60 este suportat de MicroChip.
-Toate modulele Ethernet oferă conectivitate HTTP cu serverul web.
-Sunt acceptate și microcontrolere WiFi de la Espressif Systems - ESP8266 și ESP32.
-Microcontrolerele au mai multe moduri de operare: StandBy, StandBy + OTA cu posibilitatea de upload de la distanta a firmware-ului prin reteaua LAN si modul deep sleep pentru aplicatiile ULP - Deep Sleep.
-În modul de repaus pentru microcontrolerul ESP8266, este necesar să adăugați un jumper fizic între GPIO16 (WAKE) și RST - vezi diagrama de cablare.
-Microcontrolerele ESP permit, de asemenea, implementarea comunicării criptate cu serverul web prin protocolul HTTPS.
-ESP32 poate fi folosit și cu modulul PHY Ethernet LAN8720 prin interfața RMII, acceptă conexiunea HTTP și HTTPS.
-Atât platformele ESP8266, cât și ESP32 folosesc CA rădăcină, care a emis un certificat (Emitent) pentru domeniul serverului web.
-Certificatul este încorporat în codul sursă al microcontrolerelor în format .pem.
-Pentru ca certificatul să nu ocupe spațiu în memoria RAM a microcontrolerului, acesta este introdus în memoria flash a microcontrolerului - PROGMEM.
-Certificatul autorității de certificare este valabil între 10 și 20 de ani, deci nu necesită reînnoirea frecventă a certificatului.
-Datele despre nivelul curent al apei și volumul apei din puț sunt disponibile în format JSON din interfața web.
-Proiectul contorului de nivel poate fi integrat prin MQTT în automatizarea locuinței (Hassio, Domoticz, Loxone) pentru a afișa nivelul apei în propriul tablou de bord, de ex. Grafana.
-Ulterior, este posibil să se efectueze controlul periferic în subsistem (irigare, udare, activare a rețelei de apă menajeră) pe baza datelor privind nivelul apei din puț din interfața web.
+Interfața web utilizează trigonometria pentru a estima adâncimea maximă măsurabilă a unei sonde la un diametru cunoscut al sondei, furnizând astfel un alt parametru esențial pentru calculul volumului sondei.
+Utilizatorul are posibilitatea să calculeze adâncimea maximă a puțului potrivită pentru fiecare senzor în funcție de caracteristicile sale, făcând proiectul ușor de utilizat chiar și pentru cei care nu au cunoștințe avansate despre senzori.
+Microcontrolerul joacă un rol crucial în sistem, permitând utilizarea platformei Arduino (Uno / Mega) în versiunea R3 cu un pinout identic. Acesta poate fi conectat la un scut Ethernet care comunică prin interfața ICSP sau prin utilizarea directă a modulelor Ethernet conectate la pinii SPI hardware ai microcontrolerului. Modulele Ethernet acceptate includ cele de la Wiznet (W5100, W5500, USR-ES1) și MicroChip (ENC28J60).
+Sunt acceptate și microcontrolere WiFi de la Espressif Systems, cum ar fi ESP8266 și ESP32. Acestea oferă moduri de operare variate, inclusiv StandBy, StandBy + OTA cu încărcare de firmware de la distanță prin rețeaua LAN și mod deep sleep pentru aplicații ULP - Deep Sleep. Pentru ESP8266, în modul de repaus, este necesar să se adauge un jumper fizic între GPIO16 (WAKE) și RST, conform diagramei de cablare.
+Ambele platforme ESP8266 și ESP32 permit implementarea comunicării criptate cu serverul web prin protocolul HTTPS. ESP32 poate fi utilizat și cu modulul PHY Ethernet LAN8720 prin interfața RMII, acceptând conexiunea HTTP și HTTPS. Certificatul rădăcină și certificatul emitent al serverului web sunt încorporate în codul sursă al microcontrolerelor în format .pem, fiind stocate în memoria flash a microcontrolerului - PROGMEM.
+Datele despre nivelul curent al apei și volumul apei din puț sunt disponibile în format JSON din interfața web, iar proiectul contorului de nivel poate fi integrat prin MQTT în sistemele de automatizare a locuinței precum Hassio, Domoticz sau Loxone. Aceasta permite afișarea nivelului apei în tablourile de bord, cum ar fi Grafana, și controlul periferic în subsistem (irigare, udare, activare a rețelei de apă menajeră) bazat pe datele privind nivelul apei din puțul monitorizat prin interfața web.
 </p>
 <div class="alert alert-info">
 	<strong>Implementări de programe pentru Arduino, ESP8266, ESP32 (necesită să fie instalate biblioteci): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Disponibil aici</a>
@@ -348,18 +331,11 @@ Permite comunicarea cu modulul Ethernet ENC28J60 de la Microchip prin interfața
 	</div>
 <hr>
 <p style="text-align: justify;">
-Pentru domenii unde nu există o acoperire de internet fixă, este posibil să se utilizeze și rețeaua LPWAN IoT Sigfox RC1, care acoperă anumite părți ale ariei geografice a României. Acoperirea este disponibilă în orașele mai mari și în împrejurimi, precum și în zonele de graniță cu Ungaria.
-Această tehnologie vă permite să transmiteți volume mici de mesaje de până la 12B în dimensiune.
-În cazul proiectului Level meter, este trimisă valoarea 4B a nivelului apei (UINT_32).
-Pentru un proiect extins cu un pluviometru se trimite valoarea 8B, care este formată din înălțimea nivelului apei și creșterea precipitațiilor.
-Deoarece Sigfox permite transmiterea a maximum 140 de mesaje pe zi, intervalul de transmisie a datelor este extins la 11 minute.
-În ambele cazuri, mesajul nu conține întreaga lungime utilizabilă a încărcăturii utile.
-Mesajele de sarcină utilă pot fi completate și cu diverse informații de sistem, de exemplu: date GEO (longitudine/latitudine) bazate pe date de la serviciul GPS Sigfox Atlas, RSSI (Received Signal Strength), numărul mesajului și altele.
-Modulul de comunicare care a fost folosit pentru proiect este un modem Sigfox WISOL 868MHz (RC1) UART LPWAN.
-Acest modem comunică prin comenzi AT prin interfața UART, care este un software emulat pe microcontrolere.
-Comunicarea va prelua la o viteză de 9600 baud/s. Modemul WISOL este echipat cu un conector u.FL integrat pe modulul PCB pentru conectarea antenei, ceea ce reduce semnificativ acoperirea chiar si in interior/exterior umbrit.
-Pentru transmisia de date cu succes, este necesară acoperirea cu două, de preferință trei sau mai multe stații BTS pentru transmiterea cu succes a datelor. BTS trimite informațiile transmise către backend-ul Sigfox, unde este necesar să se efectueze un callback, care va începe după primirea datelor.
-Callback-ul efectuează o solicitare HTTP sau HTTPS către domeniul în care rulează aplicația web cu metoda POST și o sarcină utilă codificată corespunzător la care backend-ul aplicației web se așteaptă.
+Pentru regiunile unde nu există o acoperire stabilă de internet fix, se poate utiliza rețeaua LPWAN IoT Sigfox RC1, care acoperă anumite părți ale ariei geografice a României, inclusiv orașele mai mari și zonele limitrofe, precum și zonele de frontieră cu Ungaria.
+Tehnologia Sigfox permite transmiterea unor volume mici de mesaje, până la 12B în dimensiune. În proiectul Level Meter, este transmisă valoarea de 4B a nivelului apei (UINT_32). Într-un proiect extins cu un pluviometru, se transmite o valoare de 8B, formată din înălțimea nivelului apei și creșterea precipitațiilor. Datorită limitării la maximum 140 de mesaje pe zi în rețeaua Sigfox, intervalul de transmitere a datelor este extins la 11 minute.
+Mesajele nu utilizează întreaga lungime a încărcăturii utile și pot include diverse informații de sistem, cum ar fi datele GEO (longitudine/latitudine) bazate pe serviciul GPS Sigfox Atlas, RSSI (Received Signal Strength), numărul mesajului și altele.
+Pentru acest proiect, s-a utilizat un modem Sigfox WISOL 868MHz (RC1) UART LPWAN, care comunica prin comenzi AT prin interfața UART, emulată software pe microcontrolere, cu o viteză de 9600 baud/s. Modemul WISOL dispune de un conector u.FL integrat pe modulul PCB pentru conectarea antenei, totuși, acoperirea poate fi afectată în interior sau în zone umbrite.
+Pentru a asigura o transmisie de date reușită, este necesară acoperirea cu două, preferabil trei sau mai multe stații BTS (Base Transceiver Station). Aceste stații BTS transmit datele către backend-ul Sigfox, unde se efectuează un callback după primirea datelor. Callback-ul inițiază o solicitare HTTP sau HTTPS către domeniul în care rulează aplicația web, folosind metoda POST și o sarcină utilă codificată corespunzător, la care backend-ul aplicației web se așteaptă.
 </p>
 <hr><center><h4>Acoperirea României prin rețeaua LPWAN IoT Sigfox:</h4></center><hr>
 <center>
