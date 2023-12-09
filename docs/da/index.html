@@ -55,12 +55,11 @@
   </div>
 </nav>  
 <div class="alert alert-success">
-<strong>Kildekoder til Arduino, ESP8266, ESP32, NewPing bibliotek: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-projektlager</a>
+<strong>Eksempel på kildekoder til Arduino, ESP8266, ESP32 (Ethernet / WiFi / LoRaWAN): </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-projektlager</a>
 </div>	
 <div class="alert alert-info">
-<strong>Prøv niveaumålerprojektets webgrænseflade gratis med din hardware - ON-LINE: </strong>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a>
-<a href="https://waterwell-arduino.000webhostapp.com/?lang=en" class="btn btn-success" role="button">HTTPS - ESP8266 / ESP32</a>
+<strong>IoT-dashboardet med din hardware kan prøves her: </strong>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">ONLINE IoT instrumentbræt</a>
 </div>	
 <div class="alert alert-danger">
 	<strong>Hvis du er interesseret i kildekoderne til webapplikationen, så kontakt forfatteren af projektet på ENGELSK på: </strong>martinius96@gmail.com
@@ -118,32 +117,27 @@
 </div>					
 <hr><center><h1>Niveaumåler - vandstandsmåler i brønden</h1></center><hr>
 <p style="text-align: justify;">
-Niveaumålerprojektet (vandstandsmonitor) består af en central webgrænseflade, der tjener til at indsamle data fra sensorknudepunkter og visualisere dem for brugeren.
-Aktuelle vandstandsdata er repræsenteret i dashboardet sammen med konverteringen til brøndvolumen, historiske vandstandsdata er også tilgængelige for brugeren i tabel- eller grafisk visualisering med linjegrafer.
-Webgrænsefladen er responsiv, den kan tilpasse sig enhver skærm- og enhedsopløsning.
-Projektets webgrænseflade bruger en backend skrevet i PHP, der kan behandle indgående data fra anmodningen ved hjælp af HTTP POST-metoden.
-Backend korrigerer det målte niveau til det faktiske baseret på den kendte dybde af brønden, beregner mængden af vand i brønden ud fra denne parameter og brøndens diameter.
-Brøndens dybde og diameter indtastes i systemet af brugeren baseret på proportionerne af hans brønd.
-Dataene sendes til webserveren af en mikrocontroller understøttet af teknologi (Ethernet / WiFi / LPWAN Sigfox), som udfører målinger hvert 300. sekund - dvs. 5 minutter, eller ved transmission via LPWAN IoT netværk Sigfox sendes data hvert 11. minut, da modemmet er begrænset af netværket til maksimalt at transmittere 140 beskeder pr.
-<b> Vandstandsmåling udføres ved hjælp af ultralydssensorer </b> - HC-SR04, eller dens vandtætte variant JSN-SR04T, andre sensorer med trigger/ekko-signaler fra RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+Niveaumålerprojektet (vandstandsmonitor) består af en central webgrænseflade, der indsamler data fra sensorknudepunkter og visualiserer dem for brugeren.
+Aktuelle vandstandsdata vises i dashboardet sammen med konverteringen til brøndvolumen. Historiske vandstandsdata er også tilgængelige for brugeren i tabel- eller grafisk visualisering ved hjælp af linjegrafer.
+Webgrænsefladen er responsiv og tilpasser sig enhver skærm- og enhedsopløsning.
+Projektets webgrænseflade anvender en backend skrevet i PHP, der kan behandle indgående data fra anmodningen ved hjælp af HTTP POST-metoden.
+Backend korrigerer det målte niveau til det faktiske niveau baseret på den kendte dybde af brønden, beregner vandmængden i brønden ud fra denne parameter og brøndens diameter.
+Brugerne indtaster brøndens dybde og diameter i systemet baseret på proportionerne af deres egen brønd.
+Dataene sendes til webserveren af en mikrocontroller understøttet af teknologi (Ethernet / WiFi / LPWAN Sigfox), som udfører målinger hvert 300. sekund - dvs. 5 minutter. Ved transmission via LPWAN IoT netværket Sigfox sendes data hvert 11. minut, da modemmet er begrænset af netværket til maksimalt at transmittere 140 beskeder pr. dag.
+<b> Vandstandsmåling udføres ved hjælp af ultralydssensorer </b> - HC-SR04 eller dens vandtætte variant JSN-SR04T. Andre sensorer med trigger/ekko-signaler inkluderer RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX og Parallax PING)))™.
 </p>
 <center>
 <img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery" title="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery">
 </center>
 <p style="text-align: justify;">
-Princippet for måling af ultralydssensorer er at sende et Trigger-signal med en længde på 10 μs (mikrosekunder), som hopper af vandstanden og vender tilbage til modtageren - Echo.
-Time-of-Flight-metoden bruges til at konvertere tiden mellem afsendelse og modtagelse af signalet til den differentielle vandstand fra sensoren.
-En vigtig parameter for begge ultralydssensorer er strålebredden, med andre ord detektionskarakteristikken.
-HC-SR04-sensoren har en 15° detektionskarakteristik. Strålen er forholdsvis smal og sensoren er også velegnet til smallere brønde og tanke, men den er ikke vandtæt og har stor risiko for korrosion (oxidation) på grund af tilstedeværelsen af fugt i brønden.
-Af denne grund er det tilrådeligt at placere denne ultralydssensor over brønden.
-Den vandtætte sensor JSN-SR04T har en detektionskarakteristik på 60°, hvilket begrænser den betydeligt og forhindrer dens brug i smalle brønde, da strålen udvides med afstanden og kræver en brønd med en diameter på flere meter (6 meter i diameter i en brønddybde) på 4,5 meter).
-Ultralydssensorer er fuldstændig vedligeholdelsesfrie.
-I tilfælde af en firkantet brønd indtastes diameteren af den indskrevne cirkel i gennemsnittet, som vil danne referenceværdien for vandcylinderen og brøndens volumen.
-Den maksimale målbare niveauhøjde (niveau) af sensorerne er omkring 400 til 450 cm (kendt fra databladet).
+Princippet for måling med ultralydssensorer er at sende et Trigger-signal med en længde på 10 μs (mikrosekunder), der reflekterer fra vandoverfladen og vender tilbage til sensoren som Echo. Time-of-Flight-metoden bruges til at konvertere tiden mellem afsendelse og modtagelse af signalet til den differentielle vandstand målt af sensoren.
+En vigtig parameter for begge ultralydssensorer er strålebredden, eller detektionsområdet. HC-SR04-sensoren har en detektionsområde på 15°, hvilket gør den velegnet til mindre brønde og beholdere, men den er ikke vandtæt og har en betydelig risiko for korrosion (oxidation) på grund af fugtigheden i brønden. Derfor anbefales det at placere denne ultralydssensor over brønden.
+Den vandtætte sensor JSN-SR04T har en detektionsområde på 60°, hvilket begrænser dens anvendelse betydeligt og forhindrer brugen i smalle og små brønde (f.eks., brønde med en diameter på 4,5 meter). Ultralydssensorerne kræver minimal vedligeholdelse.
+Selv i tilfælde af en firkantet brønd indtastes diameteren som den indskrevne cirkels gennemsnit, der danner referenceværdien for vandcylinderen og brøndens volumen. Den maksimale målbare niveauhøjde (niveau) for sensorerne er omkring 400 til 450 cm (kendt fra databladet).
 </p>
 <div class="alert alert-info">
-  	<strong>Andre typer vandstandssensorer, der kan integreres (du skal oprette din egen firmware):</strong> 
- 	<li> Laser (LiDAR) </li>
+  	<strong>Andre typer vandstandssensorer, der kan integreres (du skal oprette din egen firmware):</strong>
+<li> Laser (LiDAR) </li>
 <li> Hydrostatisk </li>
 <li> Elektrostatisk (kapacitiv / induktiv) </li>
 <li> Tryk (differens / med kompenserende atmosfærisk tryksensor) </li>
@@ -152,29 +146,29 @@ Den maksimale målbare niveauhøjde (niveau) af sensorerne er omkring 400 til 45
 <li> Magnetisk (Hall) </li>
 <li> Mikrobølgeovn (radar) </li>
 <li> Ultralyd - en anden type output (UART, RS-232, strømsløjfe, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN) </li>
-<li> <b> Bemærk: </b> Hvis vandstanden genberegnes fra bunden på mikrocontrollersiden, skal du indstille brønddybden til 0 cm i webgrænsefladen. </li>
+<li> <b> Bemærk: </b> Hvis vandstanden genberegnes fra bunden på mikrocontrollerens side, skal du indstille brønddybden til 0 cm i webgrænsefladen. </li>
 </div>
 <hr><center><h3>Webgrænseflade videodemonstration - niveaumåler:</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 <hr><center><h4>Ultralydssensorer er velegnede til:</h4></center><hr>
 <div class="alert alert-success">
 <li> Gravede brønde </li>
-<li> Septik og afløbsbrønde </li>
+<li> Septiktanke og afløbsbrønde </li>
 <li> Vandløb og søer </li>
-<li> Regnvandsbeholdere i plast </li>
-<li> Styrke (måling af bulkfyldning) </li>
-<li> Containere (affaldsovervågning, påfyldning af indsamlingsbeholdere) </li>
-<li> Kedler (overvågning af træ, piller, kul, træflis) </li>
-<li> Skakte og kældre (oversvømmelse / grundvandsovervågning) </li>
-<li> Produktion (påvisning af produkter, deres højde og mængde, højde af sårmateriale) </li>
-<li> Parkeringspladser (registrering af ledige og besatte parkeringspladser) </li>
+<li> Plastregnvandsbeholdere </li>
+<li> Bulkfyldningsmåling (f.eks., materialer i store mængder) </li>
+<li> Containere (overvågning af affald, påfyldning af opsamlingsbeholdere) </li>
+<li> Kedler (overvågning af træ, pellets, kul, træflis) </li>
+<li> Skakte og kældre (oversvømmelses- og grundvandsovervågning) </li>
+<li> Produktion (detektion af produkter, deres højde og antal, højden af ​​sårmateriale) </li>
+<li> Parkeringspladser (registrering af ledige og optagede parkeringspladser) </li>
 </div>
 <hr><center><h3>Ultralydssensorer er ikke egnede til:</h3></center><hr>
 <div class="alert alert-danger">
 <li> Borede brønde (på grund af detektionskarakteristika - bred stråle) </li>
 <li> Rør og rør (på grund af detektionskarakteristika - bred stråle) </li>
-<li> Til brønde med biflod (kruset overflade dæmper ultralyd, måling er umulig / trinvis) </li>
-<li> På steder med en pludselig ændring i temperatur (temperaturen påvirker tidspunktet for lydudbredelse, så selv det stationære niveau ser ud til at svinge) </li>
+<li> Brønde med biflod (virvlet overflade dæmper ultralyd, måling er umulig / trinvis) </li>
+<li> Steder med pludselige temperaturændringer (temperaturen påvirker lydens udbredelse, så selv et stationært niveau kan synes at svinge) </li>
 <li> Vakuumtanke (måling ikke mulig) </li>
 </div>
 <div class="alert alert-info">
@@ -246,12 +240,12 @@ Webgrænsefladen bruger trigonometri til at estimere den målbare maksimale dybd
 Webgrænsefladen giver brugeren mulighed for at beregne, til hvilken maksimal dybde af brønden hver af sensorerne er egnet baseret på dens egenskaber.
 Projektet er så nemt at bruge selv for lægmænd, der ikke ved, hvilken sensor der er bedst egnet til anvendelse i deres brønd.
 Den anvendte mikrocontroller spiller også en vigtig rolle i systemet.
-Til projektet er det muligt at bruge Arduino platformen (Uno / Mega) i revision R3 med en identisk pinout, som kan tilsluttes et Ethernet skjold, der kommunikerer via ICSP interfacet.
+Til projektet er det muligt at bruge Arduino-platformen (Uno / Mega) i revision R3 med en identisk pinout, som kan tilsluttes et Ethernet-skjold, der kommunikerer via ICSP-interfacet.
 Det er også muligt at bruge Ethernet-moduler og forbinde dem direkte til hardware-SPI-benene på mikrocontrolleren.
 Ethernet-moduler fra Wiznet W5100, W5500, USR-ES1 understøttes.
 Ethernet-modulet ENC28J60 understøttes af MicroChip.
 Alle Ethernet-moduler giver HTTP-forbindelse til webserveren.
-WiFi mikrocontrollere fra Espressif Systems - ESP8266 og ESP32 er også understøttet.
+WiFi-mikrocontrollere fra Espressif Systems - ESP8266 og ESP32 er også understøttet.
 Mikrocontrollere har flere driftstilstande: StandBy, StandBy + OTA med mulighed for fjernopladning af firmware via LAN-netværk og dyb dvaletilstand for ULP-applikationer - Deep Sleep.
 I dvaletilstand for ESP8266 er det nødvendigt at tilføje en fysisk jumper mellem GPIO16 (WAKE) og RST - se ledningsdiagram.
 ESP-mikrocontrollere tillader også implementering af HTTPS (krypteret) forbindelse med webserveren.
@@ -335,18 +329,10 @@ Det muliggør kommunikation med Ethernet-modulet ENC28J60 fra Microchip via SPI-
 	</div>
 <hr>
 <p style="text-align: justify;">
-For sider, hvor der ikke er fast internetdækning, er det også muligt at bruge LPWAN IoT-netværket Sigfox, som allerede dækker stort set hele Danmarks territorium.
-Denne teknologi giver dig mulighed for at transmittere små mængder beskeder op til 12B i størrelse.
-Ved niveaumålerprojektet sendes 4B vandstandsværdien (UINT_32).
-For et projekt udvidet med en regnmåler sendes værdien 8B værdi, som er dannet af vandstandens højde og stigningen i nedbør.
-Da Sigfox tillader, at der maksimalt kan transmitteres 140 beskeder om dagen, forlænges datatransmissionsintervallet til 11 minutter.
-I begge tilfælde indeholder meddelelsen ikke den fulde brugbare længde af nyttelasten.
-Nyttelastbeskeder kan også suppleres med forskellige systemoplysninger, for eksempel: GEO-data (længde/breddegrad) baseret på data fra GPS-tjenesten Sigfox Atlas, RSSI (Received Signal Strength), meddelelsesnummer m.fl.
-Kommunikationsmodulet, der blev brugt til projektet, er et Sigfox WISOL 868MHz UART LPWAN-modem.
-Dette modem kommunikerer via AT-kommandoer via UART-interfacet, som er software emuleret på mikrocontrollere.
-Kommunikationen vil tage over med en hastighed på 9600 baud/s. WISOL-modemet er udstyret med et integreret u.FL-stik på PCB-modulet til antennetilslutning, hvilket reducerer dækningen markant selv indendørs / skyggefuld udendørs.
-For vellykket datatransmission kræves dækning af to, fortrinsvis tre eller flere BTS-stationer for vellykket datatransmission. BTS'en sender den transmitterede information til Sigfox-backend'en, hvor det er nødvendigt at foretage et tilbagekald, som starter efter modtagelse af dataene.
-Tilbagekaldet foretager en HTTP- eller HTTPS-anmodning til det domæne, hvor webapplikationen kører med POST-metoden og en passende kodet nyttelast, som webapplikationens backend forventer.
+For sider, hvor der ikke er fast internetdækning, er det også muligt at bruge LPWAN IoT-netværket Sigfox, som allerede dækker stort set hele Danmarks territorium. Denne teknologi giver dig mulighed for at transmittere små mængder beskeder op til 12B i størrelse. Ved niveaumålerprojektet sendes 4B vandstandsværdien (UINT_32). For et projekt udvidet med en regnmåler sendes værdien 8B værdi, som er dannet af vandstandens højde og stigningen i nedbør.
+Da Sigfox tillader, at der maksimalt kan transmitteres 140 beskeder om dagen, forlænges datatransmissionsintervallet til 11 minutter. I begge tilfælde indeholder meddelelsen ikke den fulde brugbare længde af nyttelasten. Nyttelastbeskeder kan også suppleres med forskellige systemoplysninger, for eksempel: GEO-data (længde/breddegrad) baseret på data fra GPS-tjenesten Sigfox Atlas, RSSI (Received Signal Strength), meddelelsesnummer m.fl.
+Kommunikationsmodulet, der blev brugt til projektet, er et Sigfox WISOL 868MHz UART LPWAN-modem. Dette modem kommunikerer via AT-kommandoer via UART-interfacet, som er software emuleret på mikrocontrollere. Kommunikationen vil tage over med en hastighed på 9600 baud/s. WISOL-modemet er udstyret med et integreret u.FL-stik på PCB-modulet til antennetilslutning, hvilket reducerer dækningen markant selv indendørs / skyggefuld udendørs.
+For vellykket datatransmission kræves dækning af to, fortrinsvis tre eller flere BTS-stationer for vellykket datatransmission. BTS'en sender den transmitterede information til Sigfox-backend'en, hvor det er nødvendigt at foretage et tilbagekald, som starter efter modtagelse af dataene. Tilbagekaldet foretager en HTTP- eller HTTPS-anmodning til det domæne, hvor webapplikationen kører med POST-metoden og en passende kodet nyttelast, som webapplikationens backend forventer.
 </p>
 <hr><center><h4>Dækning af Danmark af LPWAN IoT Sigfox-netværket:</h4></center><hr>
 <center>
