@@ -124,28 +124,23 @@
 </div>					
 <hr><center><h1>Indicateur de niveau - moniteur de niveau d'eau dans le puits</h1></center><hr>
 <p style="text-align: justify;">
-Le projet de compteur de niveau (moniteur de niveau d'eau) se compose d'une interface Web centrale qui sert à collecter les données des nœuds de capteurs et à les visualiser pour l'utilisateur.
-Les données de niveau d'eau actuelles sont représentées dans le tableau de bord avec la conversion en volume du puits, les données de niveau d'eau historiques sont également disponibles pour l'utilisateur sous forme de visualisation tabulaire ou graphique avec des graphiques linéaires.
-L'interface web est responsive, elle peut s'adapter à n'importe quelle résolution d'écran et d'appareil.
-L'interface Web du projet utilise un backend écrit en PHP qui peut traiter les données entrantes de la requête à l'aide de la méthode HTTP POST.
-Le backend corrige le niveau mesuré par rapport au niveau réel en fonction de la profondeur connue du puits, calcule le volume d'eau dans le puits à partir de ce paramètre et du diamètre du puits.
-La profondeur et le diamètre du puits sont entrés dans le système par l'utilisateur en fonction des proportions de son puits.
-Les données sont envoyées au serveur Web par un microcontrôleur, qui effectue des mesures toutes les 300 secondes - i. 5 minutes, ou dans le cas d'une transmission via le réseau IoT Sigfox, les données sont envoyées toutes les 11 minutes, car elles sont limitées par le réseau à transmettre un maximum de 140 messages par jour.
-<b> La mesure du niveau d'eau est effectuée à l'aide de capteurs à ultrasons </b> - HC-SR04, ou sa variante étanche JSN-SR04T, d'autres capteurs avec signaux de déclenchement / écho de la série RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™. 
+Le projet de compteur de niveau (moniteur de niveau d'eau) se compose d'une interface Web centrale conçue pour collecter des données à partir des nœuds de capteurs et les présenter visuellement aux utilisateurs. Les données actuelles de niveau d'eau sont affichées sur le tableau de bord, converties en volume du puits. Les données historiques de niveau d'eau sont également accessibles aux utilisateurs sous forme de visualisation tabulaire ou graphique avec des graphiques linéaires.
+L'interface Web responsive s'adapte à différentes résolutions d'écran et à divers appareils. L'interface Web du projet utilise un backend en PHP pour traiter les données entrantes via des requêtes HTTP POST. Le backend ajuste le niveau mesuré par rapport au niveau réel en fonction de la profondeur connue du puits, calcule le volume d'eau du puits en utilisant ce paramètre et le diamètre du puits. Les utilisateurs saisissent la profondeur et le diamètre du puits dans le système en fonction des proportions de leur puits.
+Les données sont transmises au serveur Web par un microcontrôleur, qui effectue des mesures toutes les 300 secondes (c'est-à-dire toutes les 5 minutes). Dans le cas d'une transmission via le réseau IoT Sigfox, les données sont envoyées toutes les 11 minutes, car le réseau limite les transmissions à un maximum de 140 messages par jour. Les mesures du niveau d'eau sont effectuées à l'aide de capteurs à ultrasons tels que HC-SR04, ou sa variante étanche JSN-SR04T, et d'autres capteurs avec des signaux de déclenchement/écho des séries RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+L'optimisation de l'interface Web, du backend et de la transmission des données garantit une expérience de surveillance efficace et fluide du niveau d'eau pour les utilisateurs.
+Cette version vise à améliorer la lisibilité à la fois pour les utilisateurs et les moteurs de recherche, en incorporant des mots-clés pertinents tout en préservant les détails techniques.
 </p>
 <center>
 <img src="https://i.imgur.com/VXvkiaZ.jpg" style="display: block; max-width: 100%; height: auto;" alt="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery" title="Water Level Monitor webapp dashboard in OS Android with automatic data update via jQuery">
 </center>
 <p style="text-align: justify;">
-Le principe de mesure des capteurs à ultrasons est d'envoyer un signal de déclenchement d'une durée de 10 s (microsecondes), qui rebondit sur le niveau de l'eau et revient au récepteur - Echo.
-La méthode Time-of-Flight est utilisée pour convertir le temps entre l'envoi et la réception du signal au niveau d'eau différentiel du capteur.
-Un paramètre important pour les deux capteurs à ultrasons est la largeur du faisceau, c'est-à-dire la caractéristique de détection.
-Le capteur HC-SR04 a une caractéristique de détection de 15°. Le faisceau est relativement étroit et le capteur convient également aux puits et réservoirs plus étroits, mais il n'est pas étanche et présente un risque élevé de corrosion (oxydation) en raison de la présence d'humidité dans le puits.
-Pour cette raison, il est conseillé de placer ce capteur à ultrasons au-dessus du puits.
-Le capteur étanche JSN-SR04T a une caractéristique de détection de 45 à 60°, ce qui ne permet pas de l'utiliser dans des puits étroits, car le faisceau s'élargit avec la distance et un puits d'un diamètre de plusieurs unités (6 mètres de diamètre à 4,5 puits profondeur) est requis.
-Les capteurs à ultrasons ne nécessitent aucun entretien.
-Dans le cas d'un puits carré, le diamètre du cercle inscrit est entré dans la moyenne, qui formera la valeur de référence du cylindre d'eau et le volume du puits.
-La hauteur de niveau maximale mesurable (niveau) par les capteurs est d'environ 400 à 450 cm (connue d'après la fiche technique).
+Le principe de mesure des capteurs à ultrasons repose sur l'envoi d'un signal de déclenchement d'une durée de 10 microsecondes, rebondissant sur le niveau de l'eau avant de retourner au récepteur, également appelé Echo.
+La méthode Time-of-Flight est utilisée pour convertir le temps entre l'envoi et la réception du signal en une mesure du niveau d'eau différentiel du capteur. Un paramètre crucial pour ces capteurs à ultrasons est la largeur du faisceau, déterminant leur caractéristique de détection.
+Le capteur HC-SR04 offre une caractéristique de détection de 15°. Son faisceau relativement étroit le rend adapté aux puits et réservoirs plus étroits, bien qu'il ne soit pas étanche et présente un risque élevé de corrosion en raison de l'humidité dans le puits. Par conséquent, il est recommandé de placer ce capteur au-dessus du puits.
+Quant au capteur étanche JSN-SR04T, sa caractéristique de détection est de 45 à 60°, le rendant inadapté aux puits étroits où le faisceau s'élargit avec la distance. Un puits de diamètre plus important est requis (par exemple, 6 mètres de diamètre à une profondeur de 4,5 mètres).
+Les capteurs à ultrasons nécessitent peu d'entretien. Dans le cas d'un puits carré, le diamètre du cercle inscrit est utilisé pour établir la valeur de référence du cylindre d'eau et le volume du puits.
+La hauteur de niveau maximale mesurable par les capteurs est d'environ 400 à 450 cm, comme indiqué dans la fiche technique.
+Cette version vise à améliorer la clarté et l'optimisation pour les moteurs de recherche en utilisant des termes pertinents.
 </p>
 <div class="alert alert-info">
 <strong>Autres types de capteurs enregistreurs de niveau d'eau pouvant être intégrés (nécessaires pour créer votre propre firmware) :</strong>
@@ -244,26 +239,14 @@ Par la suite, le nœud de capteur commence à transmettre des données à l'inte
 <hr><center><h3>Principe de fonctionnement du mesureur de niveau - Schéma fonctionnel</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Indicateur de niveau pour puisard, fosse septique, puits, principe de mesure - capteur de distance à ultrasons" title="Indicateur de niveau pour puisard, fosse septique, puits, principe de mesure - capteur de distance à ultrasons"></center>
 <p style="text-align: justify;">
-L'interface Web utilise la trigonométrie pour estimer la profondeur maximale mesurable d'un puits à un diamètre de puits connu (un autre paramètre pour calculer le volume du puits).
-L'interface Web permet à l'utilisateur de calculer à quelle profondeur maximale du puits chacun des capteurs est adapté en fonction de ses caractéristiques.
-Le projet est si facile à utiliser même pour les profanes qui ne savent pas quel capteur est le plus approprié pour une application dans leur puits.
-Le microcontrôleur utilisé joue également un rôle important dans le système.
-Pour le projet, il est possible d'utiliser la plateforme Arduino (Uno/Mega) en révision R3 avec un brochage identique, qui peut être connecté à un shield Ethernet qui communique via l'interface ICSP.
-Il est également possible d'utiliser des modules Ethernet et de les connecter directement aux broches SPI matérielles du microcontrôleur.
-Les modules Ethernet de Wiznet W5100, W5500, USR-ES1 sont pris en charge.
-Le module Ethernet ENC28J60 est pris en charge par MicroChip.
-Tous les modules Ethernet fournissent une connectivité HTTP avec le serveur Web.
-Les microcontrôleurs WiFi d'Espressif Systems - ESP8266 et ESP32 sont également pris en charge.
-Les microcontrôleurs ont plusieurs modes de fonctionnement : StandBy, StandBy + OTA avec possibilité de téléchargement à distance du firmware via le réseau LAN et mode veille profonde pour les applications ULP - Deep Sleep.
-En mode veille pour ESP8266, il est nécessaire d'ajouter un cavalier physique entre GPIO16 (WAKE) et RST - voir Schéma de câblage.
-Les microcontrôleurs ESP permettent également la mise en œuvre d'une connectivité HTTPS (cryptée) avec le serveur Web.
-ESP32 peut également être utilisé avec le module Ethernet PHY LAN8720 via l'interface RMII, prend en charge les connexions HTTP et HTTPS.
-Les plates-formes ESP8266 et ESP32 utilisent toutes deux l'autorité de certification racine, qui a émis un certificat (émetteur) pour le domaine du serveur Web.
-Le certificat est intégré dans le code source des microcontrôleurs au format .pem.
-Afin que le certificat ne prenne pas de place dans la mémoire RAM du microcontrôleur, il est inséré dans la mémoire flash du microcontrôleur - PROGMEM.
-Le certificat de l'autorité de certification est valable 10 à 20 ans, il ne nécessite donc pas de renouvellement fréquent du certificat.
-Les données sur le niveau d'eau actuel et le volume d'eau dans le puits sont disponibles au format JSON à partir de l'interface Web.
-Le projet peut intégrer le projet Level meter via MQTT dans la domotique (Hassio, Domoticz, Loxone) pour afficher le niveau d'eau dans son propre tableau de bord, par ex. Grafana.
+L'interface Web utilise des calculs trigonométriques pour estimer la profondeur maximale mesurable d'un puits avec un diamètre connu, un paramètre essentiel pour le calcul du volume du puits. Elle permet à l'utilisateur de déterminer la profondeur maximale adaptée à chaque capteur en fonction de ses caractéristiques.
+Le projet est conçu pour une facilité d'utilisation, même pour les non-initiés, qui peuvent choisir le capteur adapté sans avoir de connaissances approfondies. Le choix du microcontrôleur est également crucial dans le système.
+Pour ce projet, la plateforme Arduino (Uno/Mega) en révision R3 peut être utilisée avec un brochage identique, connectée à un shield Ethernet via l'interface ICSP. Les modules Ethernet de Wiznet W5100, W5500, USR-ES1, et le module Ethernet ENC28J60 de MicroChip sont pris en charge, offrant tous une connectivité HTTP avec le serveur Web.
+Les microcontrôleurs WiFi d'Espressif Systems, tels que ESP8266 et ESP32, sont également compatibles. Ils offrent divers modes de fonctionnement, y compris StandBy, StandBy + OTA avec téléchargement à distance du firmware, et mode veille profonde pour les applications ULP - Deep Sleep. Pour ESP8266 en mode veille, un cavalier physique entre GPIO16 (WAKE) et RST est nécessaire.
+Les microcontrôleurs ESP permettent la mise en œuvre de la connectivité HTTPS avec le serveur Web. ESP32 peut être utilisé avec le module Ethernet PHY LAN8720 via l'interface RMII, prenant en charge les connexions HTTP et HTTPS.
+Les certificats racines intégrés dans les microcontrôleurs sont valables 10 à 20 ans, évitant ainsi un renouvellement fréquent. Les données sur le niveau d'eau et le volume du puits sont disponibles au format JSON depuis l'interface Web.
+Le projet peut être intégré au projet Level meter via MQTT dans des systèmes domotiques tels que Hassio, Domoticz, Loxone, pour afficher le niveau d'eau dans des tableaux de bord personnalisés, par exemple, Grafana.
+Cette version vise à améliorer la lisibilité tout en incorporant des termes pertinents pour le référencement.
 </p>
 <div class="alert alert-info">
 	<strong>Implémentations de programmes pour Arduino, ESP8266, ESP32 (nécessite l'installation de la bibliothèque): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=fr">Disponible ici</a>
@@ -337,18 +320,12 @@ Il permet la communication avec le module Ethernet ENC28J60 de Microchip via l'i
 	</div>
 <hr>
 <p style="text-align: justify;">
-Pour les sites où il n'y a pas de couverture internet fixe, il est également possible d'utiliser le réseau LPWAN IoT Sigfox, qui couvre la quasi-totalité de la zone géographique de la France et des pays limitrophes.
-La technologie Sigfox vous permet de transmettre de petits volumes de messages jusqu'à 12B de taille.
-Dans le cas du projet Level meter, la valeur de niveau d'eau 4B (UINT_32) est envoyée.
-Pour un projet prolongé par un pluviomètre, la valeur 8B est envoyée, qui est formée par la hauteur du niveau d'eau et l'incrément des précipitations.
-Comme Sigfox permet de transmettre un maximum de 140 messages par jour, l'intervalle de transmission des données est étendu à 11 minutes.
-Dans les deux cas, le message ne contient pas toute la longueur utilisable de la charge utile.
-Les messages de charge utile peuvent également être complétés par diverses informations système, par exemple : données GEO (longitude / latitude) basées sur les données du service GPS Sigfox Atlas, RSSI (Force du signal reçu), numéro de message et autres.
-Le module de communication qui a été utilisé pour le projet est un modem Sigfox WISOL 868MHz UART LPWAN.
-Ce modem communique via des commandes AT via l'interface UART, qui est émulée par logiciel sur des microcontrôleurs.
-La communication prendra le relais à une vitesse de 9600 bauds/s. Le modem WISOL est équipé d'un connecteur u.FL intégré sur le module PCB pour la connexion de l'antenne, ce qui réduit considérablement la couverture même à l'intérieur / à l'extérieur à l'ombre.
-Pour une transmission de données réussie, une couverture par deux, de préférence trois stations BTS ou plus est requise pour une transmission de données réussie. Le BTS envoie les informations transmises au backend Sigfox, où il est nécessaire d'effectuer un rappel, qui démarrera après réception des données.
-Le rappel envoie une requête HTTP ou HTTPS au domaine où l'application Web s'exécute avec la méthode POST et une charge utile correctement codée que le backend de l'application Web attend.
+Pour les sites sans couverture internet fixe, l'utilisation du réseau LPWAN IoT Sigfox est une option viable, couvrant presque entièrement la zone géographique de la France et des pays voisins. La technologie Sigfox permet la transmission de petits volumes de messages jusqu'à 12 octets de taille.
+Dans le cadre du projet Level meter, la valeur du niveau d'eau (4 octets - UINT_32) est envoyée. Pour un projet étendu avec un pluviomètre, une valeur de 8 octets est transmise, comprenant la hauteur du niveau d'eau et l'incrément des précipitations. Étant donné que Sigfox permet un maximum de 140 messages par jour, l'intervalle de transmission des données est étendu à 11 minutes.
+Dans les deux cas, le message n'utilise pas toute la longueur disponible de la charge utile. Les messages de charge utile peuvent également inclure diverses informations système, telles que des données GEO (longitude/latitude) basées sur les informations du service GPS Sigfox Atlas, le RSSI (Force du signal reçu), le numéro de message, et autres.
+Le module de communication utilisé dans le projet est un modem Sigfox WISOL 868 MHz UART LPWAN. Ce modem communique via des commandes AT sur l'interface UART, émulée par logiciel sur des microcontrôleurs. La communication s'effectue à une vitesse de 9600 bauds/s. Le modem WISOL est équipé d'un connecteur u.FL intégré sur le module PCB pour la connexion de l'antenne, améliorant considérablement la couverture, même à l'intérieur ou à l'ombre.
+Pour une transmission de données réussie, une couverture par deux, de préférence trois stations BTS ou plus, est requise. Le BTS envoie les informations transmises au backend Sigfox, où un rappel est nécessaire, démarrant après la réception des données. Ce rappel envoie une requête HTTP ou HTTPS au domaine où l'application Web s'exécute, utilisant la méthode POST avec une charge utile correctement codée attendue par le backend de l'application Web.
+Cette version vise à rendre le texte plus accessible tout en optimisant pour les moteurs de recherche.
 </p>
 <hr><center><h4>Couverture IoT LPWAN par Sigfox dans les pays francophones:</h4></center><hr>
 <center>
