@@ -114,30 +114,15 @@
 </div>					
 <hr><center><h1>Pegelmesser - Wasserstandswächter im Brunnen</h1></center><hr>
 <p style="text-align: justify;">
-Das IoT-Dashboard für den Füllstandmesser besteht aus einer Weboberfläche, die das gesamte Gehirn der Messvisualisierung darstellt. 
-Mit der Webanwendung können Sie Daten über die Höhe des Wasserspiegels in einem gegrabenen Brunnen von einem Sensorknoten – einem Mikrocontroller – aufzeichnen. 
-Die Wasserstandsmessung erfolgt mit Ultraschallsensoren – HC-SR04 oder der wasserdichten Variante JSN-SR04T. 
-Auch andere Sensoren mit Trigger-/Echosignalen der Serien RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ können in der aktuellen Programmumsetzung verwendet werden. 
-Der Sensorknoten führt routinemäßig alle 5 Minuten 10 gemittelte Messungen mit dem Ultraschallsensor durch. 
-Der resultierende Wert wird über die verwendete Schnittstelle (WiFi / Ethernet / IoT-Netzwerk LoRaWAN / NB-IoT / Sigfox) an den Server gesendet. 
-Aktuelle Daten zur Höhe des Wasserspiegels werden dem Nutzer im Dashboard zusammen mit der Umrechnung auf das Brunnenvolumen und der Tendenz des Pegels im Vergleich zur vorherigen Messung dargestellt. 
-Historische Daten zur Höhe des Wasserspiegels stehen dem Nutzer auch in tabellarischer oder grafischer Visualisierung mit Liniendiagrammen zur Verfügung. 
-Die Weboberfläche ist responsive und kann sich an den Bildschirm eines Smartphones, Computers, Tablets und Smart TVs anpassen. 
-Beim Empfang der Daten korrigiert das Backend den gemessenen Wasserstand anhand der bekannten Tiefe des Brunnens auf den tatsächlichen Wert, da der Sensor nur den Differenzwasserstand sendet. 
-Basierend auf der tatsächlichen Höhe des Wasserspiegels und dem bekannten Durchmesser des Brunnens kann die Webschnittstelle auch das Volumen des Brunnens in Litern ermitteln.
+Das IoT-Dashboard für den Füllstandmesser bietet eine benutzerfreundliche Weboberfläche als zentrales Steuerungselement für die Visualisierung von Messdaten. Über diese Webanwendung können präzise Informationen zum Wasserspiegel in einem Brunnen gesammelt werden, indem ein Sensorknoten (Mikrocontroller) mit Ultraschallsensoren wie HC-SR04 oder der wasserdichten Variante JSN-SR04T eingesetzt wird. Die aktuelle Programmumsetzung ermöglicht auch die Verwendung anderer Sensoren wie RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ mit Trigger-/Echosignalen.
+Der Sensorknoten führt alle 5 Minuten 10 Messungen mit dem Ultraschallsensor durch und sendet den gemittelten Wert über verschiedene Schnittstellen wie WiFi, Ethernet, IoT-Netzwerk (LoRaWAN, NB-IoT, Sigfox) an den Server. Das Dashboard zeigt dem Nutzer aktuelle Wasserspiegelinformationen inklusive Umrechnung auf das Brunnenvolumen und die Tendenz im Vergleich zur vorherigen Messung. Historische Daten zur Wasserspiegelhöhe sind in tabellarischer oder grafischer Form mit Liniendiagrammen verfügbar.
+Die responsive Weboberfläche passt sich flexibel an verschiedene Bildschirme wie Smartphones, Computer, Tablets und Smart TVs an. Im Backend werden die empfangenen Daten korrigiert, um den gemessenen Wasserstand an die tatsächliche Brunnen tiefe anzupassen, da der Sensor nur den Differenzwasserstand übermittelt. Basierend auf der tatsächlichen Wasserspiegelhöhe und dem Brunnen-Durchmesser kann die Webschnittstelle auch das Brunnenvolumen in Litern berechnen.
 </p>
 <hr>
 <p style="text-align: justify;">
-Das Messprinzip von Ultraschallsensoren besteht darin, ein Triggersignal mit einer Länge von 10 μs (Mikrosekunden) zu senden, das von der Wasseroberfläche reflektiert wird und zum Empfänger – Echo – zurückkehrt. 
-Mit der Time-of-Flight-Methode wird die Zeit zwischen dem Senden und Empfangen des Signals berechnet, um die Entfernung des Wasserstands vom Sensor zu bestimmen, der sich oben auf dem Brunnen befindet. 
-Die Umrechnungsformel berechnet die Schallgeschwindigkeit bei 343 m/s bei einer Temperatur von 20 °C. Ein wichtiger Parameter von Ultraschallsensoren ist die Strahlbreite, also die Detektionscharakteristik.
-Der HC-SR04-Sensor verfügt über eine 15°-Erkennungscharakteristik. 
-Der Strahl ist relativ schmal und der Sensor eignet sich daher auch für schmalere Brunnen und Tanks, ist jedoch nicht wasserdicht und birgt bei nassen Brunnenbedingungen ein hohes Korrosionsrisiko. 
-Aus diesem Grund empfiehlt es sich, diesen Ultraschallsensor oberhalb des Brunnens zu platzieren, um die Auswirkungen der Luftfeuchtigkeit in der jeweiligen Umgebung zu reduzieren. 
-Der wasserdichte Sensor JSN-SR04T hat eine Erfassungscharakteristik von 60°, was ihn stark einschränkt und den Einsatz in engen Brunnen verhindert, da der Strahl mit der Entfernung breiter wird und ein Brunnen mit einem Durchmesser von mehreren Metern benötigt wird (6 Meter Durchmesser bei einem Brunnen). 
-Tiefe von 4,5 Metern zur Gewährleistung einer reflexionsfreien Messung). Ultraschallsensoren sind völlig wartungsfrei. 
-Der JSN-SR04T-Sensor verfügt über eine Steuerelektronikplatine, die keiner Feuchtigkeit und Wasser ausgesetzt werden darf. 
-Die von den Sensoren maximal messbare Höhe der Oberfläche (Niveau) beträgt ca. 400 bis 450 cm.
+Das Funktionsprinzip von Ultraschallsensoren basiert darauf, ein Triggersignal mit einer Dauer von 10 μs (Mikrosekunden) auszusenden, das von der Wasseroberfläche reflektiert wird und als Echo zum Empfänger zurückkehrt. Durch die Time-of-Flight-Methode wird die Zeit zwischen dem Aussenden und Empfangen des Signals berechnet, um die Entfernung des Wasserstands vom oben auf dem Brunnen platzierten Sensor zu ermitteln. Die Umrechnungsformel berücksichtigt eine Schallgeschwindigkeit von 343 m/s bei einer Temperatur von 20 °C.
+Ein entscheidender Parameter für Ultraschallsensoren ist die Strahlbreite, welche die Detektionscharakteristik beeinflusst. Der HC-SR04-Sensor weist eine 15°-Erkennungscharakteristik auf und eignet sich daher auch für schmalere Brunnen und Tanks. Allerdings ist dieser Sensor nicht wasserdicht und birgt bei feuchten Bedingungen im Brunnen ein erhöhtes Korrosionsrisiko. Daher wird empfohlen, den HC-SR04-Sensor oberhalb des Brunnens zu platzieren, um die Auswirkungen der Luftfeuchtigkeit zu minimieren.
+Im Gegensatz dazu hat der wasserdichte Sensor JSN-SR04T eine Erfassungscharakteristik von 60°, was seine Verwendung in engen Brunnen einschränkt. Die Breite des Strahls nimmt mit zunehmender Entfernung zu, wodurch ein Brunnen mit einem Durchmesser von mehreren Metern erforderlich ist (z. B., 6 Meter Durchmesser bei einer Brunnen tiefe von 4,5 Metern für eine reflexionsfreie Messung). Ultraschallsensoren erfordern keine regelmäßige Wartung. Beachten Sie jedoch, dass der JSN-SR04T-Sensor eine Steuerelektronikplatine enthält, die nicht Feuchtigkeit und Wasser ausgesetzt werden sollte. Die maximale messbare Höhe der Wasseroberfläche (Niveau) beträgt etwa 400 bis 450 cm für diese Sensoren.
 </p>
 <div class="alert alert-info">
 <strong>Andere Arten von Wasserstandsaufzeichnungssensoren, die integriert werden können (erforderlich, um eine eigene Firmware zu erstellen):</strong>
@@ -231,26 +216,11 @@ Anschließend beginnt der Sensorknoten mit der Übertragung von Daten an das Web
 <hr><center><h3>Funktionsprinzip des Füllstandsmessers - Blockschaltbild</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
-Das Webinterface verwendet Trigonometrie, um die messbare maximale Tiefe eines Bohrlochs bei einem bekannten Bohrlochdurchmesser abzuschätzen (ein weiterer Parameter zur Berechnung des Bohrlochvolumens).
-Über das Webinterface kann der Benutzer berechnen, bis zu welcher maximalen Tiefe des Bohrlochs jeder der Sensoren aufgrund seiner Eigenschaften geeignet ist.
-Das Projekt ist auch für Laien, die nicht wissen, welcher Sensor für den Einsatz in ihrem Brunnen besser geeignet ist, so einfach zu handhaben.
-Auch der verwendete Mikrocontroller spielt eine wichtige Rolle im System.
-Für das Projekt ist es möglich, die Arduino-Plattform (Uno / Mega) in der Revision R3 mit identischer Pinbelegung zu verwenden, die an ein Ethernet-Shield angeschlossen werden kann, das über die ICSP-Schnittstelle kommuniziert.
-Es ist auch möglich, Ethernet-Module zu verwenden und diese direkt mit den Hardware-SPI-Pins des Mikrocontrollers zu verbinden.
-Ethernet-Module von Wiznet W5100, W5500, USR-ES1 werden unterstützt.
-Das Ethernet-Modul ENC28J60 wird von MicroChip unterstützt.
-Alle Ethernet-Module bieten HTTP-Konnektivität mit dem Webserver.
-WiFi-Mikrocontroller von Espressif Systems - ESP8266 und ESP32 werden ebenfalls unterstützt.
-Mikrocontroller haben mehrere Betriebsmodi: StandBy, StandBy + OTA mit der Möglichkeit des Remote-Firmware-Uploads über das LAN-Netzwerk und den Deep-Sleep-Modus für ULP-Anwendungen - Deep Sleep.
-Im Schlafmodus für ESP8266 ist es notwendig, einen physikalischen Jumper zwischen GPIO16 (WAKE) und RST hinzuzufügen - siehe Schaltplan.
-ESP-Mikrocontroller ermöglichen auch die Implementierung von HTTPS (verschlüsselt)-Konnektivität mit dem Webserver.
-ESP32 kann auch mit dem PHY-Ethernet-Modul LAN8720 über die RMII-Schnittstelle verwendet werden, unterstützt HTTP- und HTTPS-Verbindung.
-Sowohl die ESP8266- als auch die ESP32-Plattform verwenden die Root-CA, die ein Zertifikat (Aussteller) für die Webserverdomäne ausgestellt hat.
-Das Zertifikat ist im Quellcode der Mikrocontroller im .pem-Format eingebettet.
-Damit das Zertifikat keinen Platz im RAM-Speicher des Mikrocontrollers belegt, wird es in den Flash-Speicher des Mikrocontrollers - PROGMEM - eingefügt.
-Das Zertifikat der Zertifizierungsstelle ist 10 bis 20 Jahre gültig, erfordert also keine häufige Erneuerung des Zertifikats.
-Daten zum aktuellen Wasserstand und Wasservolumen im Brunnen stehen im JSON-Format über das Webinterface zur Verfügung.
-Das Projekt kann das Level-Meter-Projekt über MQTT in die Hausautomation (Hassio, Domoticz, Loxone) integrieren, um den Wasserstand in einem eigenen Dashboard anzuzeigen, z.B. Grafana.
+Das Webinterface nutzt Trigonometrie, um die maximal messbare Tiefe eines Bohrlochs bei bekanntem Durchmesser abzuschätzen, was einen weiteren Parameter zur Berechnung des Bohrlochvolumens darstellt. Benutzer können mithilfe des Webinterfaces berechnen, bis zu welcher maximalen Tiefe jedes Sensors aufgrund seiner Eigenschaften geeignet ist. Das Projekt ist benutzerfreundlich, auch für Laien, die möglicherweise nicht wissen, welcher Sensor für ihren Brunnen am besten geeignet ist.
+Der Mikrocontroller spielt eine entscheidende Rolle im System. Das Projekt unterstützt die Verwendung der Arduino-Plattform (Uno/Mega) in der Revision R3 mit identischer Pinbelegung, die über ein Ethernet-Shield kommunizieren kann. Es besteht auch die Möglichkeit, Ethernet-Module direkt mit den Hardware-SPI-Pins des Mikrocontrollers zu verbinden. Unterstützte Ethernet-Module umfassen Wiznet W5100, W5500, USR-ES1 und ENC28J60 von MicroChip. Alle Ethernet-Module bieten HTTP-Konnektivität mit dem Webserver.
+WiFi-Mikrocontroller von Espressif Systems, wie ESP8266 und ESP32, werden ebenfalls unterstützt. Die Mikrocontroller bieten verschiedene Betriebsmodi, darunter StandBy, StandBy + OTA mit der Möglichkeit des Remote-Firmware-Uploads über das LAN-Netzwerk und den Deep-Sleep-Modus für ULP-Anwendungen. Der Schlafmodus erfordert beim ESP8266 einen physischen Jumper zwischen GPIO16 (WAKE) und RST, wie im Schaltplan dargestellt.
+ESP-Mikrocontroller ermöglichen auch die Implementierung von HTTPS (verschlüsselt)-Konnektivität mit dem Webserver. Der ESP32 kann mit dem PHY-Ethernet-Modul LAN8720 über die RMII-Schnittstelle verwendet werden und unterstützt HTTP- und HTTPS-Verbindungen. Beide Plattformen verwenden die Root-CA, die ein Zertifikat für die Webserverdomäne ausgestellt hat. Das Zertifikat ist im Flash-Speicher des Mikrocontrollers (PROGMEM) eingebettet, um den RAM-Speicher nicht zu belasten.
+Das Zertifikat der Zertifizierungsstelle hat eine Gültigkeitsdauer von 10 bis 20 Jahren, erfordert also keine häufige Erneuerung. Informationen zum aktuellen Wasserstand und Wasservolumen im Brunnen stehen im JSON-Format über das Webinterface zur Verfügung. Das Projekt kann das Level-Meter-Projekt über MQTT in die Hausautomation (Hassio, Domoticz, Loxone) integrieren, um den Wasserstand in einem eigenen Dashboard, z.B. Grafana, anzuzeigen.
 </p>
 <div class="alert alert-info">
 	<strong>Softwareimplementierungen für Arduino, ESP8266, ESP32 (erfordert Bibliotheksinstallation): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=de">Hier verfügbar</a>
@@ -323,29 +293,6 @@ Es ermöglicht die Kommunikation mit dem Ethernet-Modul ENC28J60 von Microchip �
 </table>
 	</div>
 <hr>
-<p style="text-align: justify;">
-Das Webinterface (IoT-Dashboard) schätzt mithilfe der Trigonometrie die messbare maximale Bohrlochtiefe bei bekanntem Bohrlochdurchmesser (ein weiterer Parameter zur Berechnung des Bohrlochvolumens). 
-Das Webinterface kann so für den Nutzer berechnen, für welche maximale Bohrlochtiefe jeder der Sensoren aufgrund seiner Eigenschaften geeignet ist. 
-Das Projekt ist so einfach zu bedienen, auch für Laien, die nicht wissen, welcher Sensor für die Anwendung in ihrem Brunnen besser geeignet ist. 
-Auch der verwendete Mikrocontroller spielt im System eine wichtige Rolle. 
-Für das Projekt besteht die Möglichkeit, die Arduino-Plattform (Uno/Mega) in der Revision R3 mit identischer Pinbelegung zu verwenden, die an ein Ethernet-Shield angeschlossen werden kann, das über die ICSP-Schnittstelle kommuniziert. 
-Es ist auch möglich, Ethernet-Module zu verwenden und diese direkt an die Hardware-SPI-Pins des Mikrocontrollers anzuschließen. 
-Unterstützt werden Ethernet-Module des Herstellers Wiznet W5100, W5500, USR-ES1. 
-Unterstützt wird das Ethernet-Modul ENC28J60 von MicroChip. 
-Alle Ethernet-Module stellen die HTTP-Konnektivität mit dem Webserver sicher. 
-WiFi-Mikrocontroller von Espressif Systems – ESP8266 und ESP32 werden ebenfalls unterstützt. 
-Mikrocontroller verfügen über mehrere Betriebsmodi: StandBy, StandBy + OTA mit der Möglichkeit des Remote-Firmware-Uploads über LAN-Netzwerk und Tiefschlafmodus für ULP-Anwendungen – Deep Sleep. 
-Im Schlafmodus des ESP8266-Mikrocontrollers muss eine physische Brücke zwischen GPIO16 (WAKE) und RST hinzugefügt werden – siehe Schaltplan. 
-ESP-Mikrocontroller ermöglichen zudem die Umsetzung einer verschlüsselten Kommunikation mit dem Webserver über das HTTPS-Protokoll. 
-Der ESP32 kann auch mit dem PHY-Ethernet-Modul LAN8720 verwendet werden, es unterstützt sowohl HTTP- als auch HTTPS-Verbindungen. 
-Die Plattformen ESP8266 und ESP32 verwenden das Zertifikat der Stammzertifizierungsstelle (Root CA), die das Zertifikat (Aussteller) für die Webserverdomäne ausgestellt hat. 
-Das Zertifikat ist im .pem-Format in den Quellcode von Mikrocontrollern eingebettet. 
-Damit das Zertifikat keinen Platz im RAM-Speicher des Mikrocontrollers belegt, wird es in den Flash-Speicher des Mikrocontrollers eingefügt – PROGMEM. 
-Das Zertifikat der Zertifizierungsstelle ist 10 bis 20 Jahre gültig und erfordert daher keine häufige Erneuerung des Zertifikats. 
-Daten über die aktuelle Höhe des Wasserspiegels und die Wassermenge im Brunnen sind über die Weboberfläche im JSON-Format verfügbar. 
-Das Hladinometer-Projekt kann über MQTT in die Hausautomation (Hassio, Domoticz, Loxone) integriert werden, um den Wasserstand im eigenen Dashboard anzuzeigen, z.B. Grafana. 
-Anschließend ist es auch möglich, die Peripherie im Subsystem (Bewässerung, Bewässerung, Aktivierung der Hauswasseranlage) basierend auf Daten über den Wasserstand im Brunnen aus der Weboberfläche zu steuern.
-</p>
 <hr><center><h4>Abdeckung Deutschlands durch das LPWAN IoT Sigfox Netzwerk:</h4></center><hr>
 <center>
 <img src="https://i.imgur.com/MoJ9fIb.png" style="display: block; max-width: 100%; height: auto;" alt="Abdeckung von Deutschland IoT LPWAN durch Sigfox-Netzwerk - Füllstandsmesser zum Brunnen" title="Abdeckung von Deutschland IoT LPWAN durch Sigfox-Netzwerk - Füllstandsmesser zum Brunnen">
