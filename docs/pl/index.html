@@ -3,8 +3,8 @@
 <html lang="pl">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Deska rozdzielcza IoT – Miernik poziomu – ESP32, Low Power</title>
-	<meta name="description" content="Panel IoT dla miernika poziomu umożliwia odbiór danych z węzłów sensorowych zbudowanych na ESP32, ESP8266, Arduino.">
+	<title>Deska rozdzielcza IoT z miernikiem poziomu oparta na ESP32 i niskim poborem energii</title>
+	<meta name="description" content="Panel IoT do odbierania danych z miernika poziomu z węzłów sensorowych opartych na ESP32, ESP8266 i Arduino.">
 	<meta name="keywords" content="wskaźnik poziomu, studnia, studnia, miska olejowa, wysokość, poziom, woda, IoT, portal, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">
 	<meta name="news_keywords" content="wskaźnik poziomu, studnia, studnia, miska olejowa, wysokość, poziom, woda, IoT, portal, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">	
 <!-- Open Graph / Facebook -->
@@ -106,32 +106,22 @@
 </div>					
 <hr><center><h1>Miernik poziomu - monitor poziomu wody w studni</h1></center><hr>
 <p style="text-align: justify;">
-Panel IoT Dashboard dla miernika poziomu składa się z interfejsu sieciowego, który jest całym mózgiem wizualizacji pomiarów.
-Aplikacja internetowa umożliwia rejestrację danych o wysokości poziomu wody w studni kopanej z węzła czujnikowego – mikrokontrolera.
-<b>Pomiar wysokości poziomu wody realizowany jest za pomocą czujników ultradźwiękowych</b> - HC-SR04 lub jego wodoodpornej wersji JSN-SR04T.
-W bieżącej realizacji programu można zastosować także inne czujniki z sygnałami Trigger/Echo z serii RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
-Węzeł czujnika rutynowo wykonuje 10 uśrednionych pomiarów za pomocą czujnika ultradźwiękowego co 5 minut.
-Wynikowa wartość przesyłana jest do serwera poprzez wykorzystywany interfejs (sieć WiFi / Ethernet / IoT LoRaWAN / NB-IoT).
-Aktualne dane dotyczące wysokości poziomu wody prezentowane są użytkownikowi na desce rozdzielczej wraz z przeliczeniem na objętość studni i tendencją poziomu w porównaniu z poprzednim pomiarem.
-Dane historyczne dotyczące wysokości poziomu wody dostępne są dla użytkownika również w formie wizualizacji tabelarycznej lub graficznej z wykresami liniowymi.
-Interfejs sieciowy jest responsywny i dopasowuje się do ekranu smartfona, komputera, tabletu oraz Smart TV.
-Po otrzymaniu danych backend koryguje zmierzony poziom wody do rzeczywistego na podstawie znanej głębokości studni, ponieważ czujnik wysyła tylko różnicę poziomu wody.
-Na podstawie rzeczywistej wysokości poziomu wody i znanej średnicy studni interfejs sieciowy może również określić objętość studni w litrach.
+IoT Dashboard dla Miernika Poziomu z Interfejsem Sieciowym i Czujnikami Ultradźwiękowymi
+Nasz IoT Dashboard to zaawansowane narzędzie umożliwiające odbiór danych z miernika poziomu, działającego na węzłach sensorowych opartych na ESP32, ESP8266 i Arduino. Nasza aplikacja internetowa umożliwia rejestrację danych o wysokości poziomu wody w studni kopanej przy użyciu czujników ultradźwiękowych, takich jak HC-SR04 lub jego wodoodpornej wersji JSN-SR04T.
+W trakcie pomiarów, węzeł czujnikowy rutynowo wykonuje 10 uśrednionych pomiarów za pomocą czujnika ultradźwiękowego co 5 minut. Wyniki są następnie przesyłane do serwera poprzez interfejs sieciowy, obsługujący sieć WiFi, Ethernet, IoT LoRaWAN lub NB-IoT.
+Nasze rozwiązanie oferuje pełną transparentność danych, prezentując aktualne informacje dotyczące wysokości poziomu wody na responsywnym interfejsie sieciowym. Interfejs ten dostosowuje się do różnych urządzeń, w tym smartfonów, komputerów, tabletów i Smart TV.
+Dodatkowo, nasz backend koryguje zmierzone poziomy wody do rzeczywistych wartości na podstawie znanej głębokości studni, a także prezentuje dane historyczne w formie czytelnych tabel i wykresów liniowych.
+Warto również zaznaczyć, że nasza aplikacja umożliwia precyzyjne określenie objętości studni w litrach na podstawie rzeczywistej wysokości poziomu wody i średnicy studni. Dzięki temu użytkownik zyskuje kompleksowe narzędzie do monitorowania i zarządzania poziomem wody w studni.
 </p>
 <center>
 	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Miernik poziomu - dashboard - automatyczne odzyskiwanie aktualnie mierzonych danych przez jQuery" title="Miernik poziomu - dashboard - automatyczne odzyskiwanie aktualnie mierzonych danych przez jQuery">
 </center>
 <p style="text-align: justify;">
-Zasada pomiaru czujników ultradźwiękowych polega na przesłaniu sygnału wyzwalającego o długości 10 μs (mikrosekund), który odbija się od powierzchni wody i wraca do odbiornika – Echa. 
-Metoda Time-of-Flight służy do obliczenia czasu pomiędzy wysłaniem a odebraniem sygnału w celu określenia odległości poziomu wody od czujnika, który znajduje się na szczycie studni. 
-Ze wzoru przeliczeniowego wynika, że ​​prędkość dźwięku wynosi 343 m/s w temperaturze 20°C. Ważnym parametrem czujników ultradźwiękowych jest szerokość wiązki, czyli inaczej charakterystyka detekcji. 
-Czujnik HC-SR04 ma charakterystykę detekcji 15°. 
-Wiązka jest stosunkowo wąska i dlatego czujnik nadaje się również do węższych studni i zbiorników, ale nie jest wodoodporny i stwarza wysokie ryzyko korozji w wilgotnych warunkach. 
-Z tego powodu zaleca się umieszczenie tego czujnika ultradźwiękowego nad studnią, aby zmniejszyć wpływ wilgoci w danym środowisku. 
-Wodoodporny czujnik JSN-SR04T posiada charakterystykę detekcji 60°, co znacznie go ogranicza i uniemożliwia jego zastosowanie w wąskich studniach, gdyż wiązka poszerza się wraz z odległością i potrzebna jest studnia o średnicy kilku metrów (średnica studni 6 metrów głębokość 4,5 metra dla gwarancji pomiaru bez odbić). 
-Czujniki ultradźwiękowe są całkowicie bezobsługowe. 
-Czujnik JSN-SR04T posiada płytkę elektroniki sterującej, która nie może być narażona na działanie wilgoci i wody. 
-Maksymalna mierzalna wysokość powierzchni (poziomu) przez czujniki wynosi ok. 400 do 450 cm.
+Zasada działania czujników ultradźwiękowych w pomiarze poziomu wody
+
+Pomiar czujników ultradźwiękowych opiera się na przesłaniu sygnału wyzwalającego o długości 10 μs (mikrosekund), który odbija się od powierzchni wody, a następnie wraca do odbiornika jako Echo. Metoda Time-of-Flight jest używana do obliczenia czasu pomiędzy wysłaniem a odebraniem sygnału, co pozwala określić odległość poziomu wody od czujnika umieszczonego na szczycie studni.
+Prędkość dźwięku, kluczowy parametr tej metody, wynosi 343 m/s w temperaturze 20°C. Szerokość wiązki, określająca charakterystykę detekcji, jest istotnym parametrem czujników ultradźwiękowych. Czujnik HC-SR04 posiada wąską wiązkę o kącie detekcji 15°, co sprawia, że jest odpowiedni do węższych studni, choć nie jest wodoodporny i może ulegać korozji w wilgotnych warunkach. Zaleca się jego umieszczenie nad studnią, aby zminimalizować wpływ wilgoci na działanie.
+Wodoodporny czujnik JSN-SR04T charakteryzuje się szerszą wiązką detekcji wynoszącą 60°. Ogranicza to jego zastosowanie w wąskich studniach, gdzie średnica studni musi być większa, aby zapewnić dokładne pomiary bez odbić. Czujniki ultradźwiękowe, w tym JSN-SR04T, są całkowicie bezobsługowe i posiadają płytkę elektroniki sterującej, odporne na wilgoć i wodę. Maksymalna mierzalna wysokość powierzchni (poziomu) przez te czujniki wynosi około 400 do 450 cm.
 </p>
 <div class="alert alert-info">
 <strong>Inne typy czujników rejestrujących poziom wody, które można zintegrować (niezbędne do stworzenia własnego oprogramowania sprzętowego):</strong>
@@ -230,27 +220,12 @@ Następnie węzeł czujnika rozpocznie transmisję danych do interfejsu sieciowe
 <hr><center><h3>Zasada działania miernika poziomu - Schemat blokowy</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Miernik poziomu do szamba, szamba, studni, zasada pomiaru - ultradźwiękowy czujnik odległości" title="Miernik poziomu do szamba, szamba, studni, zasada pomiaru - ultradźwiękowy czujnik odległości"></center>
 <p style="text-align: justify;">
-Interfejs sieciowy wykorzystuje trygonometrię do oszacowania mierzalnej maksymalnej głębokości odwiertu przy znanej średnicy odwiertu (inny parametr do obliczania objętości odwiertu).
-Interfejs sieciowy pozwala zatem użytkownikowi obliczyć, do jakiej maksymalnej głębokości odwiertu każdy z czujników jest odpowiedni na podstawie jego właściwości.
-Projekt jest tak łatwy w obsłudze nawet dla laików, którzy nie wiedzą, który czujnik bardziej nadaje się do zastosowania w ich studni.
-Istotną rolę w systemie odgrywa również zastosowany mikrokontroler.
-Do projektu możliwe jest wykorzystanie platformy Arduino (Uno/Mega) w rewizji R3 z identycznym pinoutem, którą można podłączyć do nakładki Ethernet komunikującej się poprzez interfejs ICSP.
-Możliwe jest również wykorzystanie modułów Ethernet i podłączenie ich bezpośrednio do sprzętowych pinów SPI mikrokontrolera.
-Obsługiwane są moduły Ethernet z Wiznet W5100, W5500, USR-ES1.
-Moduł Ethernet ENC28J60 jest obsługiwany przez MicroChip.
-Wszystkie moduły Ethernet zapewniają łączność HTTP z serwerem WWW.
-Obsługiwane są również mikrokontrolery WiFi firmy Espressif Systems - ESP8266 i ESP32.
-Mikrokontrolery posiadają kilka trybów pracy: StandBy, StandBy + OTA z możliwością zdalnego wgrywania firmware przez sieć LAN oraz tryb głębokiego uśpienia dla aplikacji ULP - Deep Sleep.
-W trybie uśpienia dla mikrokontrolera ESP8266 konieczne jest dodanie fizycznej zworki pomiędzy GPIO16 (WAKE) a RST - patrz Schemat połączeń.
-Mikrokontrolery ESP pozwalają również na realizację szyfrowanej komunikacji z serwerem WWW za pomocą protokołu HTTPS.
-ESP32 może być również używany z modułem PHY Ethernet LAN8720 przez interfejs RMII, obsługuje połączenie HTTP i HTTPS.
-Zarówno platformy ESP8266, jak i ESP32 korzystają z głównego urzędu certyfikacji, który wystawił certyfikat (wystawcę) dla domeny serwera WWW.
-Certyfikat jest osadzony w kodzie źródłowym mikrokontrolerów w formacie .pem.
-Aby certyfikat nie zajmował miejsca w pamięci RAM mikrokontrolera, umieszczany jest w pamięci flash mikrokontrolera - PROGMEM.
-Certyfikat urzędu certyfikacji jest ważny od 10 do 20 lat, więc nie wymaga częstego odnawiania certyfikatu.
-Dane o aktualnym stanie wody i objętości wody w studni są dostępne w formacie JSON z interfejsu WWW.
-Projekt miernika poziomu można zintegrować za pośrednictwem MQTT z automatyką domową (Hassio, Domoticz, Loxone), aby wyświetlać poziom wody na własnym pulpicie, np. Grafana.
-W dalszej kolejności możliwe jest wykonanie sterowania peryferyjnego w podsystemie (nawadnianie, podlewanie, uruchamianie wodociągów domowych) na podstawie danych o stanie wody w studni z interfejsu webowego.
+Zaawansowany System Pomiaru Poziomu Wody z Inteligentnym Interfejsem Sieciowym.
+Nasz system pomiaru poziomu wody wykorzystuje zaawansowany interfejs sieciowy, który opiera się na zastosowaniu trygonometrii do oszacowania mierzalnej maksymalnej głębokości odwiertu przy znanej średnicy. Ten innowacyjny projekt umożliwia użytkownikowi łatwe obliczenie, do jakiej głębokości każdy z czujników jest odpowiedni na podstawie ich charakterystyk.
+Interfejs sieciowy obsługuje różne mikrokontrolery, w tym platformy Arduino (Uno/Mega), ESP8266 i ESP32. Dzięki temu użytkownicy mają szeroki wybór rozwiązań, a projekt jest prosty w obsłudze nawet dla osób nieobeznanych z technologią.
+Mikrokontrolery ESP8266 i ESP32 oferują dodatkowe funkcje, takie jak tryb głębokiego uśpienia, zdalne wgrywanie firmware przez sieć LAN oraz szyfrowana komunikacja HTTPS z serwerem WWW. System umożliwia integrację z automatyką domową za pośrednictwem protokołu MQTT, co pozwala na monitorowanie poziomu wody na pulpicie czy platformach takich jak Hassio, Domoticz czy Loxone.
+Dodatkowo, projekt zapewnia bezpieczne połączenie z serwerem WWW poprzez certyfikat osadzony w pamięci flash mikrokontrolera, eliminując konieczność częstego odnawiania certyfikatu. Dane o stanie wody są dostępne w formie JSON z interfejsu WWW, umożliwiając integrację z różnymi systemami i sterowanie peryferiami na podstawie danych o stanie wody w studni.
+To kompleksowe rozwiązanie, które łączy precyzyjny pomiar poziomu wody z zaawansowanymi funkcjami interfejsu sieciowego, dostosowanymi do różnych potrzeb użytkowników.
 </p>
 <div class="alert alert-info">
 	<strong>Implementacje oprogramowania dla Arduino, ESP8266, ESP32 (wymaga instalacji biblioteki): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Dostępny tutaj</a>
@@ -324,20 +299,13 @@ Umożliwia komunikację z modułem Ethernet ENC28J60 firmy Microchip poprzez int
 	</div>
 <hr>
 <p style="text-align: justify;">
-W przypadku lokalizacji, w których nie ma stałego zasięgu Internetu, możliwe jest również skorzystanie z sieci LPWAN IoT Sigfox, która obejmuje swoim zasięgiem różne obszary Polski. 
-Uwzględnione są miasta i ich najbliższe otoczenie: Łódź, Warszawa, Olsztyn, Poznań, Zielona Góra, Szczecin, Gdańsk, Gliwice. 
-Uwzględniono również obszary przygraniczne z Republiką Czeską i Słowacją.
-Technologia ta pozwala na przesyłanie niewielkich ilości wiadomości o rozmiarze do 12B.
-W przypadku projektu Miernik poziomu wysyłana jest wartość poziomu wody 4B (UINT_32).
-W przypadku projektu rozszerzonego o deszczomierz wysyłana jest wartość 8B, która jest utworzona przez wysokość lustra wody i przyrost opadów.
-Ponieważ Sigfox pozwala na przesłanie maksymalnie 140 wiadomości dziennie, interwał transmisji danych został wydłużony do 11 minut.
-W obu przypadkach wiadomość nie zawiera pełnej długości użytecznej ładunku.
-Wiadomości Payload mogą być również uzupełniane różnymi informacjami systemowymi, na przykład: dane GEO (długość/szerokość geograficzna) na podstawie danych z usługi GPS Sigfox Atlas, RSSI (Received Signal Strength), numer wiadomości i inne.
-Moduł komunikacyjny, który został wykorzystany w projekcie to modem Sigfox WISOL 868MHz UART LPWAN.
-Modem ten komunikuje się za pomocą poleceń AT za pośrednictwem interfejsu UART, który jest oprogramowaniem emulowanym na mikrokontrolerach.
-Komunikacja przejmie prędkość 9600 bodów/s. Modem WISOL jest wyposażony w zintegrowane złącze u.FL na module PCB do podłączenia anteny, co znacznie zmniejsza zasięg nawet w pomieszczeniach / na zewnątrz zacienionych.
-Do pomyślnej transmisji danych wymagane jest pokrycie przez dwie, najlepiej trzy lub więcej stacji BTS do pomyślnej transmisji danych. BTS przesyła przesyłane informacje do backendu Sigfox, gdzie konieczne jest wykonanie callbacku, który rozpocznie się po otrzymaniu danych.
-Wywołanie zwrotne wysyła żądanie HTTP lub HTTPS do domeny, w której działa aplikacja internetowa, z metodą POST i odpowiednio zakodowanym ładunkiem, którego oczekuje backend aplikacji internetowej.
+Bezprzewodowa Transmisja Danych w Projektach Sigfox IoT
+W obszarach, gdzie stały dostęp do Internetu jest niedostępny, nasz projekt Miernika Poziomu oferuje alternatywę dzięki technologii LPWAN IoT Sigfox. Obejmując różne regiony Polski, w tym miasta takie jak Łódź, Warszawa, Olsztyn, Poznań, Zielona Góra, Szczecin, Gdańsk, Gliwice, oraz obszary przygraniczne z Republiką Czeską i Słowacją, Sigfox umożliwia przesyłanie niewielkich ilości danych o rozmiarze do 12B.
+W przypadku Miernika Poziomu, wartość poziomu wody (4B - UINT_32) jest przesyłana, natomiast w projekcie rozszerzonym o deszczomierz, przesyłana jest wartość 8B, zawierająca informacje o wysokości lustra wody i przyroście opadów. Z uwagi na limit 140 wiadomości dziennie, interwał transmisji danych został dostosowany do 11 minut.
+Wiadomości Payload mogą być rozszerzane o dodatkowe informacje systemowe, takie jak dane GEO (długość/szerokość geograficzna) z usługi GPS Sigfox Atlas, RSSI (Received Signal Strength), numer wiadomości i inne.
+Projekt wykorzystuje modem Sigfox WISOL 868MHz UART LPWAN, komunikujący się za pomocą poleceń AT poprzez interfejs UART. Prędkość komunikacji wynosi 9600 bodów/s. Modem WISOL posiada zintegrowane złącze u.FL na module PCB do podłączenia anteny, co poprawia zasięg, nawet w trudnych warunkach środowiskowych.
+Dla sukcesywnej transmisji danych, wymagane jest pokrycie przez dwie, najlepiej trzy lub więcej stacji BTS (Base Transceiver Station). Informacje przesyłane są do backendu Sigfox, a następnie wywoływane jest HTTP lub HTTPS callback, inicjujący przekazanie danych do aplikacji internetowej za pomocą metody POST z odpowiednio zakodowanym ładunkiem.
+Dzięki temu rozwiązaniu, nasz projekt Sigfox IoT umożliwia efektywną bezprzewodową komunikację danych nawet w obszarach pozbawionych stałego dostępu do Internetu.
 </p>
 <hr><center><h4>Zasięg Polski przez sieć LPWAN IoT Sigfox:</h4></center><hr>
 <center>
