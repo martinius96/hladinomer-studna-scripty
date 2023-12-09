@@ -3,8 +3,8 @@
 <html lang="fi">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Kaivokaivon tasolla - avoimen lähdekoodin laitteisto - Arduino / ESP8266 / ESP32 / Sigfox</title>
-	<meta name="description" content="Tasomittari - Arduino-alustalle rakennettu vesitasomittari, ESP8266, ESP32. Mittaus ultraäänianturilla HC-SR04 / JSN-SR04T. Tietojen lähettäminen Ethernetin, WiFin, Sigfoxin kautta. Vedenpinnan mittaus kaivossa, kaivo.">
+	<title>Kaivokaivon tason avoimen lähdekoodin laitteisto: Arduino, ESP8266, ESP32 ja Sigfox</title>
+	<meta name="description" content="Tasomittari - Arduino-alustalle rakennettu vesitasomittari ESP8266:lla ja ESP32:lla. Mittaus suoritetaan ultraääniantureilla HC-SR04 tai JSN-SR04T. Tiedot voidaan lähettää Ethernetin, WiFin ja Sigfoxin kautta. Soveltuu erinomaisesti vedenpinnan mittaukseen kaivossa ja kaivossa.">
 	<meta name="keywords" content="tasomittari, freertos, kaivon tasomittari, arduino-projekti, sigfox, lpwan iot sigfox, ethernet- ja wifi-projekti, Arduino-mikroohjaimet ESP8266 ESP32, jalkapallokaivo, näyttö, verkkokäyttöliittymä, visualisointi">
 	<meta name="news_keywords" content="tasomittari, freertos, kaivon tasomittari, arduino-projekti, sigfox, lpwan iot sigfox, ethernet- ja wifi-projekti, Arduino-mikroohjaimet ESP8266 ESP32, jalkapallokaivo, näyttö, verkkokäyttöliittymä, visualisointi">	
 <!-- Open Graph / Facebook -->
@@ -58,12 +58,11 @@
   </div>
 </nav>  
 <div class="alert alert-success">
-<strong>Tasomittariprojektin lähdekoodit Arduino-mikrokontrollereille, ESP8266, ESP32, NewPing-kirjasto, Ethernet2, Ethernet3, UIPEthernet: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-projektin arkisto</a>
+<strong>Esimerkki lähdekoodeista Arduinolle, ESP8266:lle, ESP32:lle (Ethernet / WiFi / LoRaWAN): </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github-projektin arkisto</a>
 </div>	
 <div class="alert alert-info">
-<strong>Kokeile tasomittariprojektin verkkokäyttöliittymää ilmaiseksi laitteistollasi - ON-LINE: </strong>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">HTTP - Arduino + Ethernet / ESP8266 / ESP32</a>
-<a href="https://waterwell-arduino.000webhostapp.com/?lang=en" class="btn btn-success" role="button">HTTPS - ESP8266 / ESP32</a>
+<strong>Voit kokeilla IoT-kojelautaa laitteistosi kanssa täällä: </strong>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en" class="btn btn-danger" role="button">ON-LINE IoT-hallintapaneeli</a>
 </div>		
 <div class="alert alert-danger">
 	<strong>Jos olet kiinnostunut verkkosovelluksen lähdekoodeista, ota yhteyttä projektin tekijään englanniksi osoitteessa: </strong>martinius96@gmail.com
@@ -121,36 +120,23 @@
 </div>					
 <hr><center><h1>Tasomittari - vedenpinnan valvonta kaivossa</h1></center><hr>
 <p style="text-align: justify;">
-Tasomittariprojekti (vesitasomonitori) koostuu keskitetystä verkkoliittymästä, jonka avulla kerätään tietoja anturisolmuista ja visualisoidaan ne käyttäjälle.
-Tämänhetkinen vedenkorkeustiedot esitetään kojelaudassa yhdessä kaivon tilavuuteen muuntamisen kanssa, historialliset vedenkorkeustiedot ovat myös käyttäjän käytettävissä taulukkomuodossa tai graafisessa visualisoinnissa viivakaavioilla.
-Verkkokäyttöliittymä on responsiivinen, se voi mukautua mihin tahansa näytön ja laitteen resoluutioon.
-Projektin verkkokäyttöliittymä käyttää PHP:llä kirjoitettua taustaohjelmaa, joka pystyy käsittelemään pyynnöstä saapuvat tiedot HTTP POST -menetelmällä.
-Taustaosa korjaa mitatun tason todelliseen kaivon tunnetun syvyyden perusteella, laskee tästä parametrista kaivon vesitilavuuden ja kaivon halkaisijan.
-Käyttäjä syöttää järjestelmään kaivon syvyyden ja halkaisijan kaivon mittasuhteiden perusteella.
-Tiedot lähetetään web-palvelimelle teknologian (Ethernet / WiFi / LPWAN IoT Sigfox) tukeman mikro-ohjaimen avulla, joka suorittaa mittauksia 300 sekunnin välein - ts. 5 minuuttia tai LPWAN IoT -verkon Sigfox kautta lähetettäessä dataa lähetetään 11 minuutin välein, koska verkko rajoittaa modeemin lähettämään enintään 140 viestiä päivässä.
-<b> Vedenpinnan mittaus suoritetaan ultraääniantureilla </b> - HC-SR04 tai sen vedenpitävä versio JSN-SR04T.
-Voidaan käyttää myös muita antureita, joissa on trigger / Echo-signaalit sarjoista RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+Tasomittariprojekti (vesitasomonitori) koostuu keskitetystä verkkoliittymästä, joka kerää tietoja anturisolmuista ja visualisoi ne käyttäjälle. Nykyinen vedenkorkeustieto näkyy kojelaudassa yhdessä kaivon tilavuuteen muuntamisen kanssa, ja käyttäjä voi tarkastella historiallisia vedenkorkeustietoja taulukkomuodossa tai graafisessa visualisoinnissa viivakaavioilla.
+Responsiivinen verkkokäyttöliittymä mukautuu mihin tahansa näytön ja laitteen resoluutioon. Projektin verkkokäyttöliittymä käyttää PHP:llä kirjoitettua taustaohjelmaa, joka käsittelee HTTP POST -menetelmällä saapuvat tiedot. Taustaosa korjaa mitatun tason todelliseen kaivon tunnetun syvyyden perusteella, laskien kaivon vesitilavuuden ja kaivon halkaisijan.
+Käyttäjä syöttää järjestelmään kaivon syvyyden ja halkaisijan kaivon mittasuhteiden perusteella. Tiedot lähetetään web-palvelimelle mikro-ohjaimen avulla, joka suorittaa mittauksia 300 sekunnin välein (5 minuuttia) tai LPWAN IoT -verkon Sigfoxin kautta 11 minuutin välein. Sigfoxin käyttö rajoittuu 140 viestiin päivässä.
+<b>Vedenpinnan mittaus suoritetaan ultraääniantureilla</b> - HC-SR04 tai sen vedenpitävä versio JSN-SR04T. Lisäksi voidaan käyttää muita antureita, joissa on trigger-/Echo-signaalit, kuten RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
 </p>
 <center>
 	<img src="https://i.imgur.com/5HbKpp1.gif" style="display: block; max-width: 100%; height: auto;" alt="Tasomittari - kojelauta - tällä hetkellä mitattujen tietojen automaattinen palautus jQueryn kautta" title="Tasomittari - kojelauta - tällä hetkellä mitattujen tietojen automaattinen palautus jQueryn kautta">
 </center>
 <p style="text-align: justify;">
-Ultraääniantureiden mittauksen periaate on lähettää Trigger-signaali, jonka pituus on 10 μs (mikrosekuntia), joka pomppii vedenpinnasta ja palaa vastaanottimeen - Echo.
-Lentoaikamenetelmällä lasketaan uudelleen signaalin lähettämisen ja vastaanottamisen välinen aika, jotta voidaan määrittää vedenpinnan etäisyys kaivon yläosassa sijaitsevasta anturista.
-Muunnoskaava ottaa huomioon äänen nopeuden 343 m/s lämpötilassa 20 °C.
-Tärkeä parametri molemmille ultraääniantureille on säteen leveys, toisin sanoen havaitsemisominaisuus.
-HC-SR04-anturin tunnistusominaisuus on 15°. Säde on suhteellisen kapea ja anturi soveltuu myös kapeammille kaivoille ja säiliöille, mutta se ei ole vesitiivis ja sillä on suuri korroosion (hapettumisen) riski kaivossa olevan kosteuden vuoksi.
-Tästä syystä on suositeltavaa sijoittaa tämä ultraäänianturi kaivon yläpuolelle.
-Vesitiiviin anturin JSN-SR04T tunnistusominaisuus on 60°, mikä rajoittaa sitä huomattavasti ja estää sen käytön kapeissa kaivoissa, koska säde levenee etäisyyden myötä ja vaatii halkaisijaltaan usean metrin kaivon (kaivon syvyydessä halkaisija 6 metriä). 4,5 metriä).
-Ultraäänianturit ovat täysin huoltovapaita. JSN-SR04T-anturissa on elektroninen ohjauskortti, jota ei saa altistaa kosteudelle ja vedelle.
-Vakioviestintäsuojattu kaapeli on 2,5 metriä pitkä, on mahdollista kytkeä saman kaapelin vastineita linjan jatkamiseksi.
-Neliömäisen kaivon tapauksessa sisäänkirjoitetun ympyrän halkaisija syötetään keskiarvoon, joka muodostaa vesisylinterin viitearvon kaivon tilavuuden laskemiseksi.
-Kaivon kokonaistilavuuden virhe on tässä tapauksessa ~12,5 %.
-Antureilla mitattava maksimikorkeus (taso) on noin 400 - 450 cm (tunnettu tietolomakkeesta).
+Ultraääniantureiden mittausperiaate perustuu Trigger-signaalin lähettämiseen, jonka pituus on 10 mikrosekuntia (μs). Signaali heijastuu vedenpinnasta ja palaa vastaanottimeen, joka tunnetaan nimellä Echo. Lentoaikamenetelmällä lasketaan aika, joka kuluu signaalin lähettämisen ja vastaanottamisen välillä, mikä mahdollistaa vedenpinnan etäisyyden määrittämisen anturista kaivon yläosaan.
+Muunnoskaava ottaa huomioon äänen nopeuden 343 m/s lämpötilassa 20 °C. Tärkeä parametri on ultraääniantureiden säteen leveys eli havaintoalue. HC-SR04-anturin havaintoalue on 15°, mikä sopii kapeampiin kaivoihin ja säiliöihin, mutta anturi ei ole vesitiivis ja altistuu korroosiolle kaivon kosteuden takia. Siksi suositellaan sijoittamaan HC-SR04-anturi kaivon yläpuolelle.
+Vesitiiviin anturin JSN-SR04T havaintoalue on 60°, mikä tekee siitä sopivan laajempaan kaivoon. Kuitenkin säteen leveys laajenee etäisyyden myötä, ja se vaatii suuremman kaivon, kuten halkaisijaltaan 6 metrin kaivon. JSN-SR04T-anturi on huoltovapaa, mutta sen elektronista ohjauskorttia ei saa altistaa kosteudelle. Anturissa on vakioviestintäsuojattu 2,5 metrin kaapeli, ja useita kaapeleita voi kytkeä yhteen jatkamiseksi.
+Neliömäisen kaivon tapauksessa syötetään sisäänkirjoitetun ympyrän halkaisija keskiarvona, ja tämä muodostaa vesisylinterin viitearvon kaivon tilavuuden laskemiseksi. Virhe kaivon kokonaistilavuudessa on noin 12,5 %. Antureilla mitattava maksimikorkeus (taso) on noin 400–450 cm (tietolomakkeesta saatu tieto).
 </p>
 <div class="alert alert-info">
-  	<strong>Muita integroitavia vedenkorkeusantureita (sinun on luotava oma laiteohjelmisto):</strong> 
- 	<li> Laser (LiDAR) </li>
+  	<strong>Muita integroitavia vedenkorkeusantureita (sinun on luotava oma laiteohjelmisto):</strong>
+<li> Laser (LiDAR) </li>
 <li> Hydrostaattinen (upotettava) </li>
 <li> Sähköstaattinen (kapasitiivinen / induktiivinen) </li>
 <li> Paine (ero / kompensoivalla ilmanpaineanturilla) </li>
@@ -159,30 +145,34 @@ Antureilla mitattava maksimikorkeus (taso) on noin 400 - 450 cm (tunnettu tietol
 <li> Magneettinen (halli) </li>
 <li> Mikroaaltouuni (tutka) </li>
 <li> Ultraääni – toinen lähtötyyppi (UART, RS-232, virtasilmukka, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN) </li>
-<li> <b> Huomautus: </b> Jos vedenkorkeus lasketaan uudelleen mikro-ohjaimen puolelta, sinun on asetettava kaivon syvyydeksi 0 cm verkkoliittymässä. </li>
+<li> <b>Huomautus:</b> Jos vedenkorkeus lasketaan uudelleen mikro-ohjaimen puolelta, sinun on asetettava kaivon syvyydeksi 0 cm verkkoliittymässä. </li>
 </div>
 <hr><center><h3>Web-käyttöliittymän esittelyvideo - Tasomittari:</h3></center><hr>
 <center><iframe width="75%" height="315" src="https://www.youtube.com/embed/RBksATd0-60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 <hr><center><h4>Ultraäänianturit sopivat mm:</h4></center><hr>
 <div class="alert alert-success">
-<li> Kaivetut kaivot </li>
-<li> Septikot ja jätealtaat </li>
-<li> Purot ja järvet </li>
-<li> Muoviset sadevesisäiliöt </li>
-<li> Lujuus (massatäyttömittaus) </li>
-<li> Säiliöt (jätevalvonta, keräysastioiden täyttö) </li>
-<li> Kattilat (puun, pellettien, hiilen, puuhakkeen valvonta) </li>
-<li> Kaivot ja kellarit (tulva-/pohjavesivalvonta) </li>
-<li> Tuotanto (tuotteiden havaitseminen, niiden korkeus ja lukumäärä, haavamateriaalin korkeus) </li>
-<li> Pysäköintipaikat (vapaiden ja varattujen pysäköintipaikkojen havaitseminen) </li>
+  <ul>
+    <li> Kaivetut kaivot </li>
+    <li> Septikot ja jätealtaat </li>
+    <li> Purot ja järvet </li>
+    <li> Muoviset sadevesisäiliöt </li>
+    <li> Lujuus (massatäyttömittaus) </li>
+    <li> Säiliöt (jätevalvonta, keräysastioiden täyttö) </li>
+    <li> Kattilat (puun, pellettien, hiilen, puuhakkeen valvonta) </li>
+    <li> Kaivot ja kellarit (tulva-/pohjavesivalvonta) </li>
+    <li> Tuotanto (tuotteiden havaitseminen, niiden korkeus ja lukumäärä, haavamateriaalin korkeus) </li>
+    <li> Pysäköintipaikat (vapaiden ja varattujen pysäköintipaikkojen havaitseminen) </li>
+  </ul>
 </div>
 <hr><center><h3>Ultraäänianturit eivät sovellu:</h3></center><hr>
 <div class="alert alert-danger">
-<li> Poratut kaivot (havaitsemisominaisuuksien vuoksi - leveä säde) </li>
-<li> Putket ja putket (ilmaisuominaisuuksien vuoksi - laaja säde) </li>
-<li> Kaivoihin, joissa on sivujoki (pyörteinen pinta vaimentaa ultraääntä, mittaus on mahdotonta / portaittain) </li>
-<li> Paikoissa, joissa lämpötila muuttuu äkillisesti (lämpötila vaikuttaa äänen etenemisaikaan, joten jopa paikallaan oleva taso näyttää vaihtelevan) </li>
-<li> Tyhjiösäiliöt (mittaus ei mahdollista) </li>
+  <ul>
+    <li> Poratut kaivot (havaitsemisominaisuuksien vuoksi - leveä säde) </li>
+    <li> Putket ja putket (ilmaisuominaisuuksien vuoksi - laaja säde) </li>
+    <li> Kaivoihin, joissa on sivujoki (pyörteinen pinta vaimentaa ultraääntä, mittaus on mahdotonta / portaittain) </li>
+    <li> Paikoissa, joissa lämpötila muuttuu äkillisesti (lämpötila vaikuttaa äänen etenemisaikaan, joten jopa paikallaan oleva taso näyttää vaihtelevan) </li>
+    <li> Tyhjiösäiliöt (mittaus ei mahdollista) </li>
+  </ul>
 </div>
 <div class="alert alert-info">
 	<strong>Ultraäänietäisyysantureiden tunnistusominaisuudet - MATLAB-skriptit visualisointia varten:</strong>
@@ -245,27 +235,11 @@ Sen jälkeen anturisolmu alkaa lähettää tietoja verkkoliittymän <a href="htt
 <hr><center><h3>Tasomittarin toimintaperiaate - Lohkokaavio</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
-Verkkokäyttöliittymä käyttää trigonometriaa kaivon mitattavissa olevan maksimisyvyyden arvioimiseen tunnetulla kaivon halkaisijalla (toinen parametri kaivon tilavuuden laskemiseen).
-Verkkokäyttöliittymän avulla käyttäjä voi laskea, mihin kaivon maksimisyvyyteen kukin anturi sopii ominaisuuksiensa perusteella.
-Projekti on niin helppokäyttöinen jopa maallikoille, jotka eivät tiedä mikä anturi sopii paremmin käytettäväksi kaivossaan.
-Myös käytetyllä mikro-ohjaimella on tärkeä rooli järjestelmässä.
-Projektissa on mahdollista käyttää Arduino-alustaa (Uno / Mega) versiossa R3 identtisellä liittimellä, joka voidaan liittää ICSP-liitännän kautta kommunikoivaan Ethernet-suojaan.
-On myös mahdollista käyttää Ethernet-moduuleja ja liittää ne suoraan mikro-ohjaimen laitteiston SPI-nastoihin.
-Wiznet W5100, W5500, USR-ES1 Ethernet-moduuleja tuetaan.
-MicroChip tukee Ethernet-moduulia ENC28J60.
-Kaikki Ethernet-moduulit tarjoavat HTTP-yhteyden web-palvelimeen.
-Myös Espressif Systemsin WiFi-mikro-ohjaimet ESP8266 ja ESP32 ovat tuettuja.
-Mikro-ohjaimilla on useita toimintatiloja: StandBy, StandBy + OTA, jossa on mahdollisuus laiteohjelmiston etälataukseen LAN-verkon kautta ja syvä lepotila ULP-sovelluksille - Deep Sleep.
-ESP8266-mikro-ohjaimen lepotilassa on tarpeen lisätä fyysinen hyppyjohdin GPIO16:n (WAKE) ja RST:n välille - katso kytkentäkaavio.
-ESP-mikro-ohjaimet mahdollistavat myös salatun viestinnän toteuttamisen web-palvelimen kanssa HTTPS-protokollan kautta.
-ESP32:ta voidaan käyttää myös PHY Ethernet -moduulin LAN8720 kanssa RMII-liitännän kautta, tukee HTTP- ja HTTPS-yhteyttä.
-Sekä ESP8266- että ESP32-alustat käyttävät juuri CA:ta, joka on myöntänyt varmenteen (myöntäjä) verkkopalvelimen toimialueelle.
-Sertifikaatti on upotettu mikro-ohjainten lähdekoodiin .pem-muodossa.
-Jotta varmenne ei vie tilaa mikro-ohjaimen RAM-muistissa, se asetetaan mikro-ohjaimen - PROGMEM - flash-muistiin.
-Varmenneviranomaisen sertifikaatti on voimassa 10-20 vuotta, joten se ei vaadi varmenteen toistuvaa uusimista.
-Tiedot kaivon nykyisestä vedenkorkeudesta ja vesimäärästä ovat saatavilla JSON-muodossa verkkoliittymästä.
-Tasomittariprojekti voidaan integroida MQTT:n kautta kotiautomaatioon (Hassio, Domoticz, Loxone) näyttämään vedenpinnan omassa kojelautassaan, esim. Grafana.
-Tämän jälkeen on mahdollista suorittaa osajärjestelmän oheisohjaus (kastelu, kastelu, kotitalousvesilaitoksen aktivointi) verkkorajapinnasta saatavan kaivon vedenkorkeustietojen perusteella.
+Verkkokäyttöliittymä käyttää trigonometriaa kaivon mitattavissa olevan maksimisyvyyden arvioimiseen tunnetulla kaivon halkaisijalla (toinen parametri kaivon tilavuuden laskemiseen). Käyttäjä voi verkkokäyttöliittymän avulla laskea, mihin kaivon maksimisyvyyteen kukin anturi sopii ominaisuuksiensa perusteella. Projekti on suunniteltu erittäin helppokäyttöiseksi, jopa maallikoille, jotka eivät tiedä, mikä anturi sopii parhaiten heidän kaivoonsa.
+Käytetyllä mikro-ohjaimella on keskeinen rooli järjestelmässä. Projektissa on mahdollista käyttää Arduino-alustaa (Uno / Mega) versiossa R3 identtisellä liittimellä, joka voidaan liittää ICSP-liitännän kautta kommunikoivaan Ethernet-suojaan. Lisäksi on mahdollista käyttää Ethernet-moduuleja ja liittää ne suoraan mikro-ohjaimen laitteiston SPI-nastoihin. Tuetut Ethernet-moduulit ovat Wiznet W5100, W5500, USR-ES1 ja MicroChip ENC28J60. Kaikki nämä tarjoavat HTTP-yhteyden web-palvelimeen.
+Lisäksi Espressif Systemsin WiFi-mikro-ohjaimet ESP8266 ja ESP32 ovat tuettuja. Mikro-ohjaimilla on useita toimintatiloja, kuten StandBy, StandBy + OTA (laitteisto-ohjelmiston etälataus LAN-verkon kautta) ja syvä lepotila ULP-sovelluksille - Deep Sleep. ESP8266:n lepotilassa vaaditaan fyysinen hyppyjohdin GPIO16:n ja RST:n välille - katso kytkentäkaavio. Molemmat ESP-alustat mahdollistavat salatun viestinnän web-palvelimen kanssa HTTPS-protokollan kautta.
+ESP32 voidaan käyttää myös PHY Ethernet -moduulin LAN8720 kanssa RMII-liitännän kautta, ja se tukee HTTP- ja HTTPS-yhteyttä. Molemmat ESP-alustat käyttävät upotettua varmenteen myöntäjää (CA) verkkopalvelimen toimialueelle. Varmenne on upotettu mikro-ohjainten lähdekoodiin .pem-muodossa, jotta se ei vie tilaa RAM-muistissa. Varmenne on voimassa 10-20 vuotta, mikä eliminoi tarpeen sen toistuvalle uusimiselle.
+Kaivon nykyiset vedenkorkeus- ja vesimäärätiedot ovat saatavilla JSON-muodossa verkkoliittymästä. Tasomittariprojekti voidaan integroida MQTT:n kautta kotiautomaatiojärjestelmiin kuten Hassio, Domoticz ja Loxone, näyttämään vedenpinta omassa kojelaudassa esimerkiksi Grafanassa. Tämän jälkeen on mahdollista suorittaa osajärjestelmän ohjausta (kastelu, kotitalousvesilaitoksen aktivointi) verkkorajapinnasta saatavien kaivon vedenkorkeustietojen perusteella.
 </p>
 <div class="alert alert-info">
 	<strong>Ohjelmistototeutukset Arduinolle, ESP8266:lle, ESP32:lle (vaatii kirjaston asennuksen): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=en">Saatavilla täältä</a>
@@ -339,16 +313,11 @@ Se mahdollistaa tiedonsiirron Microchipin Ethernet-moduulin ENC28J60 kanssa SPI-
 	</div>
 <hr>
 <p style="text-align: justify;">
-Sivustoille, joilla ei ole kiinteää Internet-peittoa, on mahdollista käyttää myös LPWAN IoT -verkkoa Sigfox. Tällä hetkellä tämä esineiden internet -verkko kattaa suurimman osan Etelä-Suomesta. Kantavuus laajenee lähivuosina koko Suomeen.
-Tämän tekniikan avulla voit lähettää pieniä määriä jopa 12B kokoisia viestejä.
-Tasomittariprojektissa lähetetään 4B vedenkorkeusarvo (UINT_32).
-Koska Sigfox sallii enintään 140 viestin lähettämisen päivässä, tiedonsiirtoväli on pidennetty 11 minuuttiin.
-Hyötykuormasanomia voidaan täydentää myös erilaisilla järjestelmätiedoilla, esimerkiksi: GEO-tiedot (pituusaste / leveysaste) GPS-palvelun Sigfox Atlas -tietoihin perustuen, RSSI (Received Signal Strength), viestin numero ja muut.
-Projektissa käytetty viestintämoduuli on Sigfox WISOL 868MHz UART LPWAN -modeemi.
-Tämä modeemi kommunikoi AT-komentojen kautta UART-liitännän kautta, joka on mikro-ohjaimiin emuloitu ohjelmisto.
-Tietoliikenne siirtyy nopeudella 9600 baud/s. WISOL-modeemissa on integroitu u.FL-liitin PCB-moduuliin antenniliitäntää varten, mikä vähentää merkittävästi peittoa jopa sisällä / varjossa ulkona.
-Onnistunut tiedonsiirto edellyttää kahden, edullisesti kolmen tai useamman BTS-aseman peittoa. BTS lähettää lähetetyt tiedot Sigfox-taustajärjestelmään, jossa on tarpeen tehdä takaisinsoitto, joka alkaa tiedon vastaanottamisen jälkeen.
-Takaisinsoitto tekee HTTP- tai HTTPS-pyynnön toimialueelle, jossa verkkosovellus on käynnissä, käyttäen POST-menetelmää ja sopivasti koodattua hyötykuormaa, jota verkkosovelluksen taustaohjelma odottaa.
+Sivustoille, joilla ei ole kiinteää Internet-peittoa, on mahdollista hyödyntää LPWAN IoT -verkkoa, kuten Sigfox. Tällä hetkellä tämä esineiden internet -verkko kattaa suurimman osan Etelä-Suomesta, ja sen kantavuus laajenee lähivuosina koko Suomeen.
+Sigfox-teknologian avulla voit lähettää pieniä määriä jopa 12 tavun kokoisia viestejä. Tasomittariprojektissa lähetetään 4 tavun vedenkorkeusarvo (UINT_32). Koska Sigfox sallii enintään 140 viestin lähettämisen päivässä, tiedonsiirtoväli on pidennetty 11 minuuttiin.
+Hyötykuormasanomia voidaan täydentää erilaisilla järjestelmätiedoilla, kuten GEO-tiedot (pituusaste / leveysaste) GPS-palvelun Sigfox Atlas -tietoihin perustuen, RSSI (Received Signal Strength), viestin numero ja muut.
+Projektissa käytetty viestintämoduuli on Sigfox WISOL 868MHz UART LPWAN -modeemi. Tämä modeemi kommunikoi AT-komentojen kautta UART-liitännän kautta, joka on emuloitu mikro-ohjaimissa ohjelmistolla. Tietoliikenne siirtyy nopeudella 9600 baud/s. WISOL-modeemissa on integroitu u.FL-liitin PCB-moduuliin antenniliitäntää varten, mikä vähentää merkittävästi peittoa jopa sisällä tai varjossa ulkona.
+Onnistunut tiedonsiirto edellyttää kahden, edullisesti kolmen tai useamman BTS-aseman peittoa. BTS lähettää lähetetyt tiedot Sigfox-taustajärjestelmään, jossa tehdään tarvittava takaisinsoitto tiedon vastaanottamisen jälkeen. Takaisinsoitto tekee HTTP- tai HTTPS-pyynnön toimialueelle, jossa verkkosovellus on käynnissä, käyttäen POST-menetelmää ja sopivasti koodattua hyötykuormaa, jota verkkosovelluksen taustaohjelma odottaa.
 </p>
 <hr><center><h4>Suomen kattavuus LPWAN IoT Sigfox -verkon kautta:</h4></center><hr>
 <center>
