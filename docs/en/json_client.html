@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  	<meta property="og:title" content="JSON client - Level meter - MQTT Publish, ArduinoJson, deserialization, data parsing with Arduino microcontrollers, ESP8266 and ESP32" />
+  	<meta property="og:title" content="JSON Client for Water Level Meter: MQTT Publish with Arduino Microcontrollers (ESP8266, ESP32)" />
   	<meta property="og:locale" content="en_US" /> 
 	<meta name="robots" content="index, follow">   	
 	<meta name="robots" content="index, follow">
 	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
     	<meta name='revisit-after' content='2 days'>
-    	<title>JSON client - Level meter - MQTT Publish, ArduinoJson, deserialization, data parsing with Arduino microcontrollers, ESP8266 and ESP32</title>
+    	<title>JSON Client for Water Level Meter: MQTT Publish with Arduino Microcontrollers (ESP8266, ESP32)</title>
     	<meta property='fb:admins' content='100001242570317'>
     	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,16 +79,16 @@
 </div>	
 <hr><center><h2>JSON Clients - Water Level Monitor project</h2></center><hr>
 <p style="text-align: justify;">
-JSON client built on the Arduino platform, ESP8266, ESP32 allows connection via a websocket to a web server (web interface of the Level Meter).
-<b> The client performs a cyclic HTTP GET request every 60 seconds to retrieve the content of the <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php">/json_output.php</a> subpage, where the webserver distributes JSON data on water level (in centimeters), well volume (in liters) based on the currently set depth and diameter well. </b>
-The loaded JSON payload can parse the JSON client from the HTTP response and then deserialize this string.
-After deserialization, it is possible to access the individual keys to which the values are assigned and obtain them -> parse.
-The matched data is written to the UART - Serial line - 115200 baud / s.
-In the user application, which can be added to the existing source codes of JSON clients, it is possible to control entities based on these values, for example: automated irrigation after reaching a certain water level, water pumping, pump start, darling.
-<b> Part of the firmware marked as MQTT or MQTTS (encrypted MQTT) is an extended JSON client with the ability to send - Publish data to MQTT Broker IoT Industries Slovakia - Slovak free MQTT Broker designed for developers. </b>
-Both the MQTT and MQTTS variants use a socket, which is also used for HTTP requests to obtain JSON payloads.
-The existing MQTT server can be replaced in your source code by yours, so you can also make the data from the level meter available in home automation systems (Hassio, Mosquitto MQTT, Domoticz, Loxone and others ...).
-In the current software implementation, the microcontroller (JSON client) sends the obtained data to the MQTT Broker in the topic level meter, while the individual temperatures are differentiated in subtopics.
+A JSON client, compatible with the Arduino platform, ESP8266, and ESP32, enables seamless connection via a websocket to a web server, specifically the web interface of the Water Level Meter. <b>The client executes a periodic HTTP GET request every 60 seconds to fetch the content of the
+subpage: <a href="http://arduino.clanweb.eu/studna_s_prekladom/json_output.php">/json_output.php</a>. Where the webserver distributes JSON data on water level (in centimeters) and well volume (in liters) based on the currently set depth and diameter of the well. </b>
+The loaded JSON payload can be parsed by the JSON client from the HTTP response and subsequently deserialized.
+After deserialization, it is possible to access individual keys to which values are assigned and retrieve them -> parse.
+The parsed data is then written to UART - Serial line - 115200 baud / s.
+In the user application, which can be seamlessly integrated into existing JSON client source codes, it becomes possible to control entities based on these values. For instance: automated irrigation upon reaching a specific water level, water pumping, pump activation, and more.
+<b> Part of the firmware, identified as MQTT or MQTTS (encrypted MQTT), features an extended JSON client capable of sending - publishing data to the MQTT Broker IoT Industries Slovakia - a Slovak free MQTT Broker designed for developers. </b>
+Both MQTT and MQTTS variants utilize a socket, which is also employed for HTTP requests to obtain JSON payloads.
+The existing MQTT server can be substituted in your source code with your own, allowing you to make data from the level meter accessible in various home automation systems (Hassio, Mosquitto MQTT, Domoticz, Loxone, and others ...).
+In the current software implementation, the microcontroller (JSON client) transmits the obtained data to the MQTT Broker under the topic 'level meter,' with individual temperatures distinguished in subtopics.
 </p> 
 <div class="alert alert-success">
 	<strong>Example source codes for JSON Clients are available: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/JSON_Hladinomer">HERE</a>
@@ -131,10 +131,9 @@ It allows you to deserialize a string in a JSON structure, it can parse the valu
 </table>
 	</div>
 <div class="alert alert-info">
-<strong> MQTTS implementation is available for ESP8266, ESP32 microcontrollers. </strong>
-ESP8266 and ESP32 use a Root CA certificate for encrypted connection to the MQTT server. <b> The encrypted port of the MQTT server is 8883 by default, unencrypted 1883. </b>
-To obtain a Root CA certificate for a specific MQTT server (domain), it is possible to use the OpenSSL tool, which allows easy retrieval and display of the information in question.
-The individual certificates are listed in Chain-of-Trust order, i. from Root CA to Intermediate.
+<strong>MQTTS implementation is readily available for ESP8266 and ESP32 microcontrollers.</strong> Both microcontrollers utilize a Root CA certificate for secure connections to the MQTT server. <b>The default encrypted port for the MQTT server is 8883, while the unencrypted port is set to 1883.</b>
+To acquire a Root CA certificate for a specific MQTT server (domain), you can employ the OpenSSL tool, which facilitates the straightforward retrieval and display of pertinent information.
+The individual certificates are presented in the Chain-of-Trust order, i.e., from Root CA to Intermediate.
 <br> <b> Command to obtain the Root CA certificate that issued the certificate for the MQTT server (Issuer): </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>
@@ -155,11 +154,10 @@ The individual certificates are listed in Chain-of-Trust order, i. from Root CA 
 <hr>
 <li><b>hladinomer/#</b> - takes all subtopics below the main hladinomer/ topic, ie volume, height</li>
 <p style="text-align: justify;">
-<b>The MQTT client has a subscribed subscription to the main topic level meter and all its subtopics.
-It can also verify whether the information has been successfully published on MQTT Broker - it will write it back on the UART.</b>
-<b><font color="red">WARNING: MQTT Broker IoT Industries Slovakia, which is used in the sample implementation, is public and so the data can be changed, overwritten, read by any user!</font></b>
-If any other user uploads the JSON client firmware to their microcontroller without change, the data in the predefined topic will be overwritten by you, as well as by him.
-It is therefore advisable to choose another topic where the data will be sent during the implementation.
+<b>The MQTT client subscribes to the main topic 'level meter' and all of its subtopics, allowing it to confirm the successful publication of information on the MQTT Broker - subsequently logging this on the UART.</b>
+<b><font color="red">WARNING: The MQTT Broker IoT Industries Slovakia, utilized in this example, is public, exposing data to potential changes, overwrites, and reads by any user!</font></b>
+If another user uploads the JSON client firmware to their microcontroller without modification, the data in the predefined topic may be overwritten both by them and by you.
+Hence, it is strongly recommended to opt for a unique topic during implementation to prevent unintended data overwrites.
 </p>
 <hr>    
 <hr>    
