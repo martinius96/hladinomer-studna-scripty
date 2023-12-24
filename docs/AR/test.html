@@ -98,24 +98,31 @@ table,thead,tbody,tfoot,tr, td,th{
   margin: 5rem auto;
 }
     @media (max-width: 768px) {
-            table, thead, tbody, tfoot, tr, td, th {
-                width: 100%;
-                display: block;
-            }
-
-            .td, .th {
-                display: block;
-                width: 100%;
-            }
-
-            .th, .td {
-                font-size: 0.8rem;
-            }
-
-            .table {
-                overflow-x: auto;
-            }
+        .table, .thead, .tbody, .tfoot, .tr, .td, .th {
+            width: 100%;
+            display: block;
         }
+
+        .td, .th {
+            display: block;
+            width: 100%;
+        }
+
+        .th, .td {
+            font-size: 0.8rem;
+        }
+
+        .table {
+            overflow-x: auto;
+        }
+
+        .table, .thead, .tbody, .tfoot, .tr, .td, .th {
+            text-align: center;
+            margin: auto;
+            border: 1px solid #dedede;
+            padding: 0.5rem; /* Adjust the padding for better spacing on smaller screens */
+        }
+    }
   </style>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
