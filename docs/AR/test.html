@@ -36,6 +36,10 @@
                 <td style="border: 2px solid white; padding: 10px;" id="volume-value"></td>
             </tr>
             <tr>
+                <td style="border: 2px solid white; padding: 10px;">Time:</td>
+                <td style="border: 2px solid white; padding: 10px;" id="time-value"></td>
+            </tr>
+            <tr>
 <td colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
     <button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button>
     <button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button>
@@ -73,11 +77,24 @@ function loadJSONData() {
         .then(response => response.json())
         .then(data => {
             // Process the data from the external API
+                        var currentDate = new Date();
+
+// Format the date and time in the desired format
+var formattedDate = currentDate.toLocaleString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+});
+
+// Set the formatted date and time to the element with id 'time-value'
             console.log(data);
             const valueInCm = data.value + " cm ";
             const volumeInLiters = data.volume + " liters";
             document.getElementById('height-value').textContent = valueInCm;
             document.getElementById('volume-value').textContent = volumeInLiters;
+            document.getElementById('time-value').textContent = formattedDate;
         })
         .catch(error => {
             document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
