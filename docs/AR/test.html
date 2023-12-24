@@ -97,7 +97,25 @@ table,thead,tbody,tfoot,tr, td,th{
   font: 100 1.2rem/2 Roboto;
   margin: 5rem auto;
 }
-    
+    @media (max-width: 768px) {
+            table, thead, tbody, tfoot, tr, td, th {
+                width: 100%;
+                display: block;
+            }
+
+            .td, .th {
+                display: block;
+                width: 100%;
+            }
+
+            .th, .td {
+                font-size: 0.8rem;
+            }
+
+            .table {
+                overflow-x: auto;
+            }
+        }
   </style>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
