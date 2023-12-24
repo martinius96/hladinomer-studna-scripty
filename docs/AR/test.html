@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>QR Scanner - Water level monitor</title>
     <script type="text/javascript">
         window.smartlook||(function(d) {
@@ -11,21 +10,21 @@
             c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
         })(document);
         smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
-    </script>
+    </script>    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </head>
-<body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow-x: hidden;">
+<body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <!-- New div to show the table -->
-    <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
-        <table id="table-data" style="color: white; font-size: 18px; border: 2px solid white; border-collapse: collapse; width: 90%; max-width: 600px;">
-            <th colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
-                Data from waterwell received:
-            </th>
+<div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
+    <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse; width: 80%; height: 80%;"><!-- Adjusted width and height properties -->
+    <th colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
+        Data from waterwell received:
+    </th>
             <tr>
                 <th style="border: 2px solid white; padding: 10px;">Attribute</th>
                 <th style="border: 2px solid white; padding: 10px;">Value</th>
@@ -43,10 +42,10 @@
                 <td style="border: 2px solid white; padding: 10px;" id="time-value"></td>
             </tr>
             <tr>
-                <td colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
-                    <button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button>
-                    <button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button>
-                </td>
+<td colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
+    <button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button>
+    <button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button>
+</td>
             </tr>
         </table>
     </div>
@@ -69,36 +68,49 @@
         }
 
         // Function to load JSON data and update the table
-        function loadJSONData() {
-            const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
+function loadJSONData() {
+    const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
 
-            // Append timestamp to the API URL to prevent caching
-            const timestamp = new Date().getTime();
-            const apiUrlWithTimestamp = apiUrl + `?timestamp=${timestamp}`;
+    // Append timestamp to the API URL to prevent caching
+    const timestamp = new Date().getTime();
+    const apiUrlWithTimestamp = apiUrl + `?timestamp=${timestamp}`;
 
-            return fetch(apiUrlWithTimestamp)
-                .then(response => response.json())
-                .then(data => {
-                    // Process the data from the external API
-                    var currentDate = new Date();
-                    var monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                    var day = currentDate.getDate();
-                    var month = monthAbbreviations[currentDate.getMonth()];
-                    var year = currentDate.getFullYear();
-                    var hours = currentDate.getHours();
-                    var minutes = currentDate.getMinutes();
-                    day = day < 10 ? '0' + day : day;
-                    hours = hours < 10 ? '0' + hours : hours;
-                    minutes = minutes < 10 ? '0' + minutes : minutes;
-                    var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minutes;
-                    document.getElementById('height-value').textContent = data.value + " cm ";
-                    document.getElementById('volume-value').textContent = data.volume + " liters";
-                    document.getElementById('time-value').textContent = formattedDate;
-                })
-                .catch(error => {
-                    document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
-                });
-        }
+    return fetch(apiUrlWithTimestamp)
+        .then(response => response.json())
+        .then(data => {
+            // Process the data from the external API
+var currentDate = new Date();
+
+// Define an array of month abbreviations
+var monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Format the date and time in the desired custom format
+var day = currentDate.getDate();
+var month = monthAbbreviations[currentDate.getMonth()];
+var year = currentDate.getFullYear();
+var hours = currentDate.getHours();
+var minutes = currentDate.getMinutes();
+
+// Ensure two-digit format for day, hours, and minutes
+day = day < 10 ? '0' + day : day;
+hours = hours < 10 ? '0' + hours : hours;
+minutes = minutes < 10 ? '0' + minutes : minutes;
+
+// Construct the custom formatted date string
+var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minutes;
+
+// Set the formatted date and time to the element with id 'time-value'
+            console.log(data);
+            const valueInCm = data.value + " cm ";
+            const volumeInLiters = data.volume + " liters";
+            document.getElementById('height-value').textContent = valueInCm;
+            document.getElementById('volume-value').textContent = volumeInLiters;
+            document.getElementById('time-value').textContent = formattedDate;
+        })
+        .catch(error => {
+            document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
+        });
+}
 
         // Event listener for QR code scan
         scanner.addListener('scan', function (content) {
@@ -107,6 +119,7 @@
                 showTableOverlay();
                 isTableVisible = true;
                 loadJSONData().then(() => {
+                    // Pause scanning until the user clicks "New Scan"
                     scanner.pause();
                 });
             } else {
@@ -123,7 +136,7 @@
             } else {
                 console.error('No cameras found.');
             }
-            .catch(function (e) {
+        }).catch(function (e) {
             console.error('Error accessing camera: ' + e);
         });
 
@@ -137,6 +150,7 @@
         // Function to refresh data when "Refresh Data" button is clicked
         function refreshData() {
             loadJSONData().then(() => {
+                // Update the table with the new data
                 showTableOverlay();
             });
         }
