@@ -16,13 +16,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <h3>Scan QR code on Water level monitor's web interface</h3>
     <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <!-- New div to show the table -->
     <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
-        <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse;">
+<h3><font color="white">Scan QR code on Water level monitor's web interface</font></h3>        
+<table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse;">
             <tr>
                 <th style="border: 2px solid white; padding: 10px;">Attribute</th>
                 <th style="border: 2px solid white; padding: 10px;">Value</th>
@@ -77,11 +77,14 @@ function loadJSONData() {
         .then(response => response.json())
         .then(data => {
             // Process the data from the external API
-                       var currentDate = new Date();
+var currentDate = new Date();
+
+// Define an array of month abbreviations
+var monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Format the date and time in the desired custom format
 var day = currentDate.getDate();
-var month = currentDate.toLocaleString('default', { month: 'short' });
+var month = monthAbbreviations[currentDate.getMonth()];
 var year = currentDate.getFullYear();
 var hours = currentDate.getHours();
 var minutes = currentDate.getMinutes();
@@ -92,7 +95,7 @@ hours = hours < 10 ? '0' + hours : hours;
 minutes = minutes < 10 ? '0' + minutes : minutes;
 
 // Construct the custom formatted date string
-var formattedDate = day + '. ' + month + ' ' + year + ' ' + hours + ':' + minutes;
+var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minutes;
 
 // Set the formatted date and time to the element with id 'time-value'
             console.log(data);
