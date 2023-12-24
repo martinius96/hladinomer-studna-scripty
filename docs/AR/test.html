@@ -97,16 +97,11 @@ table,thead,tbody,tfoot,tr, td,th{
   font: 100 1.2rem/2 Roboto;
   margin: 5rem auto;
 }
-    @media (max-width: 768px) {
-        .table, .thead, .tbody, .tfoot, .tr, .td, .th {
-            width: 100%;
-            display: block;
-        }
-
-        .td, .th {
+@media (max-width: 768px) {
+        .td {
             display: block;
             width: 100%;
-            font-size: 1.2rem; /* Adjust the font size for better readability */
+            font-size: 3rem; /* Adjust the font size for better readability */
         }
 
         .table {
@@ -114,11 +109,11 @@ table,thead,tbody,tfoot,tr, td,th{
             height: 300px; /* Adjust the height of the table as needed */
         }
 
-        .table, .thead, .tbody, .tfoot, .tr, .td, .th {
+        .table, .thead, .tbody, .tfoot, .tr, .th {
             text-align: center;
             margin: auto;
             border: 1px solid #dedede;
-            padding: 1rem; /* Adjust the padding for better spacing on smaller screens */
+            padding: 2rem; /* Adjust the padding for better spacing on smaller screens */
         }
     }
   </style>
