@@ -77,7 +77,7 @@
         function startCamera() {
             Instascan.Camera.getCameras().then(function (cameras) {
                 if (cameras.length > 0) {
-                    scanner.start(cameras[0]); // Use the first available camera
+                    scanner.start(cameras[1]); // Use the first available camera
                 } else {
                     console.error('No cameras found.');
                 }
