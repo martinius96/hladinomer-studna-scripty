@@ -22,29 +22,29 @@
     <!-- New div to show the table -->
 <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
     <table id="table-data" style="color: white; font-size: 24px; border: 2px solid white; border-collapse: collapse; width: 80%; height: 80%;"><!-- Adjusted width and height properties -->
-    <th colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
+    <th colspan="2" style="border: 2px solid white; padding: 10px; text-align: center; font-size: 2rem;">
         Data from waterwell received:
     </th>
             <tr>
-                <th style="border: 2px solid white; padding: 10px;">Attribute</th>
-                <th style="border: 2px solid white; padding: 10px;">Value</th>
+                <th style="border: 2px solid white; padding: 10px; font-size: 1.8rem;">Attribute</th>
+                <th style="border: 2px solid white; padding: 10px; font-size: 1.8rem;">Value</th>
             </tr>
             <tr>
-                <td style="border: 2px solid white; padding: 10px;">Height:</td>
-                <td style="border: 2px solid white; padding: 10px;" id="height-value"></td>
+                <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;">Height:</td>
+                <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;" id="height-value"></td>
             </tr>
             <tr>
-                <td style="border: 2px solid white; padding: 10px;">Volume:</td>
-                <td style="border: 2px solid white; padding: 10px;" id="volume-value"></td>
+                <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;">Volume:</td>
+                <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;" id="volume-value"></td>
             </tr>
             <tr>
-                <td style="border: 2px solid white; padding: 10px;">Time:</td>
-                <td style="border: 2px solid white; padding: 10px;" id="time-value"></td>
+                <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;">Time:</td>
+                <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;" id="time-value"></td>
             </tr>
             <tr>
 <td colspan="2" style="border: 2px solid white; padding: 10px; text-align: center;">
-    <button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button>
-    <button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button>
+    <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;"><button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button></td>
+    <td style="border: 2px solid white; padding: 10px; font-size: 1.8rem;"><button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button></td>
 </td>
             </tr>
         </table>
