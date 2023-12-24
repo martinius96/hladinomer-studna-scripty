@@ -77,16 +77,22 @@ function loadJSONData() {
         .then(response => response.json())
         .then(data => {
             // Process the data from the external API
-                        var currentDate = new Date();
+                       var currentDate = new Date();
 
-// Format the date and time in the desired format
-var formattedDate = currentDate.toLocaleString('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-});
+// Format the date and time in the desired custom format
+var day = currentDate.getDate();
+var month = currentDate.toLocaleString('default', { month: 'short' });
+var year = currentDate.getFullYear();
+var hours = currentDate.getHours();
+var minutes = currentDate.getMinutes();
+
+// Ensure two-digit format for day, hours, and minutes
+day = day < 10 ? '0' + day : day;
+hours = hours < 10 ? '0' + hours : hours;
+minutes = minutes < 10 ? '0' + minutes : minutes;
+
+// Construct the custom formatted date string
+var formattedDate = day + '. ' + month + ' ' + year + ' ' + hours + ':' + minutes;
 
 // Set the formatted date and time to the element with id 'time-value'
             console.log(data);
