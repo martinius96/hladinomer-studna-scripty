@@ -93,23 +93,27 @@
         }, 1000);
 
         // Funkce pro nac?t?n? JSON dat a aktualizaci tabulky
-        function loadJSONData() {
-            const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
+function loadJSONData() {
+    const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    // Process the data from the external API
-                    console.log(data);
-                    const valueInCm = data.value + " cm ";
-                    const volumeInLiters = data.volume + " liters";
-                    document.getElementById('height-value').textContent = valueInCm;
-                    document.getElementById('volume-value').textContent = volumeInLiters;
-                })
-                .catch(error => {
-                    document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
-                });
-        }
+    // Append timestamp to the API URL to prevent caching
+    const timestamp = new Date().getTime();
+    const apiUrlWithTimestamp = apiUrl + `?timestamp=${timestamp}`;
+
+    return fetch(apiUrlWithTimestamp)
+        .then(response => response.json())
+        .then(data => {
+            // Process the data from the external API
+            console.log(data);
+            const valueInCm = data.value + " cm ";
+            const volumeInLiters = data.volume + " liters";
+            document.getElementById('height-value').textContent = valueInCm;
+            document.getElementById('volume-value').textContent = volumeInLiters;
+        })
+        .catch(error => {
+            document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
+        });
+}
     </script>
 </body>
 </html>
