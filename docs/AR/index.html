@@ -206,7 +206,7 @@ var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minut
                     scanner.pause();
                 });
             } else {
-                document.getElementById('qr-result').textContent = "Invalid QR Code";
+                document.getElementById('qr-result').textContent = "Invalid QR Code - " + content;
                 hideTableOverlay();
                 isTableVisible = false;
             }
