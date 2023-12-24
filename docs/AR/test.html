@@ -97,25 +97,6 @@ table,thead,tbody,tfoot,tr, td,th{
   font: 100 1.2rem/2 Roboto;
   margin: 5rem auto;
 }
-@media (max-width: 768px) {
-        .td {
-            display: block;
-            width: 100%;
-            font-size: 3rem; /* Adjust the font size for better readability */
-        }
-
-        .table {
-            overflow-x: auto;
-            height: 300px; /* Adjust the height of the table as needed */
-        }
-
-        .table, .thead, .tbody, .tfoot, .tr, .th {
-            text-align: center;
-            margin: auto;
-            border: 1px solid #dedede;
-            padding: 2rem; /* Adjust the padding for better spacing on smaller screens */
-        }
-    }
   </style>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
@@ -123,7 +104,7 @@ table,thead,tbody,tfoot,tr, td,th{
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <!-- New div to show the table -->
-<div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
+<div id="table-overlay">
     
     
    <table style="width: 100%;" border="1" class="table table-striped flat-table flat-table-3">
