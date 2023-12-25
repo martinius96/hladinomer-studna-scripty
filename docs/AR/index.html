@@ -40,6 +40,7 @@ function updateScanner(cameraIndex) {
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
             if (scanner) {
+                scanner.removeAllListeners(); // Remove existing listeners
                 scanner.stop(); // Stop the current scanner
             }
 
