@@ -14,7 +14,7 @@
     </script>    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
  <style>
 
 .aa_h2{
@@ -102,15 +102,14 @@ table,thead,tbody,tfoot,tr, td,th{
   </style>
 </head>
 <body style="margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
+<div id="camera-buttons"></div> <!-- Container for camera buttons -->   
+ <video id="qr-video" style="width: 100%; height: auto;" autoplay></video>
     <canvas id="qr-canvas" style="display: none;"></canvas>
     <div id="qr-result" style="margin-top: 20px;"></div>
     <!-- New div to show the table -->
-<div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
-    
-    
-   <table style="width: 100%;" border="1" class="table table-striped flat-table flat-table-3">        
-<tr>
+    <div id="table-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); z-index: 999;">
+        <table style="width: 100%;" border="1" class="table table-striped flat-table flat-table-3">        
+            <tr>
                 <td><b>Attribute</b></th>
                 <td><b>Value</b></th>
             </tr>
@@ -127,8 +126,8 @@ table,thead,tbody,tfoot,tr, td,th{
                 <td id="time-value"></td>
             </tr>
             <tr>
-    <td><button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button></td>
-    <td><button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button></td>
+                <td><button type="button" class="btn btn-primary" onclick="resumeScanning()">New Scan</button></td>
+                <td><button type="button" class="btn btn-success" onclick="refreshData()">Refresh Data</button></td>
             </tr>
         </table>
     </div>
@@ -137,6 +136,7 @@ table,thead,tbody,tfoot,tr, td,th{
     <script>
         let scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
         let isTableVisible = false;
+        let cameras = []; // Array to store available cameras
 
         // Function to show the table overlay
         function showTableOverlay() {
@@ -150,50 +150,69 @@ table,thead,tbody,tfoot,tr, td,th{
             overlay.style.display = 'none';
         }
 
+        // Function to dynamically create camera buttons
+        function createCameraButtons(cameras) {
+            const buttonsContainer = document.getElementById('camera-buttons');
+
+            cameras.forEach((camera, index) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'btn btn-secondary';
+                button.textContent = `Camera ${index + 1}`;
+                button.onclick = function () {
+                    switchCamera(index);
+                };
+
+                buttonsContainer.appendChild(button);
+            });
+        }
+
+        // Function to switch between cameras
+        function switchCamera(cameraIndex) {
+            scanner.stop(); // Stop the current scanner
+
+            // Start the scanner with the selected camera
+            scanner.start(cameras[cameraIndex]);
+        }
+
         // Function to load JSON data and update the table
-function loadJSONData() {
-    const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
+        function loadJSONData() {
+            const apiUrl = 'https://corsproxy.io/?https%3A%2F%2Farduino.clanweb.eu%2Fstudna_s_prekladom%2Fjson_output.php';
 
-    // Append timestamp to the API URL to prevent caching
-    const timestamp = new Date().getTime();
-    const apiUrlWithTimestamp = apiUrl + `?timestamp=${timestamp}`;
+            // Append timestamp to the API URL to prevent caching
+            const timestamp = new Date().getTime();
+            const apiUrlWithTimestamp = apiUrl + `?timestamp=${timestamp}`;
 
-    return fetch(apiUrlWithTimestamp)
-        .then(response => response.json())
-        .then(data => {
-            // Process the data from the external API
-var currentDate = new Date();
+            return fetch(apiUrlWithTimestamp)
+                .then(response => response.json())
+                .then(data => {
+                    // Process the data from the external API
+                    var currentDate = new Date();
+                    var monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// Define an array of month abbreviations
-var monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    var day = currentDate.getDate();
+                    var month = monthAbbreviations[currentDate.getMonth()];
+                    var year = currentDate.getFullYear();
+                    var hours = currentDate.getHours();
+                    var minutes = currentDate.getMinutes();
 
-// Format the date and time in the desired custom format
-var day = currentDate.getDate();
-var month = monthAbbreviations[currentDate.getMonth()];
-var year = currentDate.getFullYear();
-var hours = currentDate.getHours();
-var minutes = currentDate.getMinutes();
+                    day = day < 10 ? '0' + day : day;
+                    hours = hours < 10 ? '0' + hours : hours;
+                    minutes = minutes < 10 ? '0' + minutes : minutes;
 
-// Ensure two-digit format for day, hours, and minutes
-day = day < 10 ? '0' + day : day;
-hours = hours < 10 ? '0' + hours : hours;
-minutes = minutes < 10 ? '0' + minutes : minutes;
+                    var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minutes;
 
-// Construct the custom formatted date string
-var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minutes;
-
-// Set the formatted date and time to the element with id 'time-value'
-            console.log(data);
-            const valueInCm = data.value + " cm ";
-            const volumeInLiters = data.volume + " liters";
-            document.getElementById('height-value').textContent = valueInCm;
-            document.getElementById('volume-value').textContent = volumeInLiters;
-            document.getElementById('time-value').textContent = formattedDate;
-        })
-        .catch(error => {
-            document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
-        });
-}
+                    console.log(data);
+                    const valueInCm = data.value + " cm ";
+                    const volumeInLiters = data.volume + " liters";
+                    document.getElementById('height-value').textContent = valueInCm;
+                    document.getElementById('volume-value').textContent = volumeInLiters;
+                    document.getElementById('time-value').textContent = formattedDate;
+                })
+                .catch(error => {
+                    document.getElementById('qr-result').textContent = "Error loading JSON data: " + error;
+                });
+        }
 
         // Event listener for QR code scan
         scanner.addListener('scan', function (content) {
@@ -202,7 +221,6 @@ var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minut
                 showTableOverlay();
                 isTableVisible = true;
                 loadJSONData().then(() => {
-                    // Pause scanning until the user clicks "New Scan"
                     scanner.pause();
                 });
             } else {
@@ -212,41 +230,21 @@ var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minut
             }
         });
 
-// Get available cameras and start scanning
-Instascan.Camera.getCameras().then(function (cameras) {
+        // Get available cameras and start scanning
+        Instascan.Camera.getCameras().then(function (detectedCameras) {
+            cameras = detectedCameras;
     if (cameras.length > 0) {
-        // Determine which camera to use based on the number of detected cameras
-        var cameraIndex = 0; // Default to the first camera
+                // Create camera buttons dynamically
+                createCameraButtons(cameras);
 
-        if (cameras.length === 1) {
-            cameraIndex = 0; // Use the only available camera
-        } else if (cameras.length === 2) {
-            cameraIndex = 1; // Use the second camera if there are two cameras (should be rear camera)
-        } else {
-            cameraIndex = cameras.length - 1; // Use the last camera if there are more than two cameras (should be rear camera without macro / wide-angle camera zoom)
-        }
-
-        // Start the scanner with the selected camera
-        scanner.start(cameras[cameraIndex]);
-    } else {
-        console.error('No cameras found.');
-    }
-}).catch(function (e) {
-    console.error('Error accessing camera: ' + e);
-});
-/*
-//Older that is using camera that is on index [cameras.length - 1]
-Instascan.Camera.getCameras().then(function (cameras) {
-    if (cameras.length > 0) {
-        // Use the last camera found
-        scanner.start(cameras[cameras.length - 1]);
-    } else {
-        console.error('No cameras found.');
-    }
-}).catch(function (e) {
-    console.error('Error accessing camera: ' + e);
-});
-*/
+                // Start the scanner with the default camera (first camera)
+                scanner.start(cameras[cameras.length - 1]);
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function (e) {
+            console.error('Error accessing camera: ' + e);
+        });
 
         // Function to resume scanning when "New Scan" button is clicked
         function resumeScanning() {
