@@ -212,16 +212,17 @@ var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minut
             }
         });
 
-        // Get available cameras and start scanning
-        Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 1) {
-                scanner.start(cameras[0]);
-            } else {
-                console.error('No cameras found.');
-            }
-        }).catch(function (e) {
-            console.error('Error accessing camera: ' + e);
-        });
+// Get available cameras and start scanning
+Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+        // Use the last camera found
+        scanner.start(cameras[cameras.length - 1]);
+    } else {
+        console.error('No cameras found.');
+    }
+}).catch(function (e) {
+    console.error('Error accessing camera: ' + e);
+});
 
         // Function to resume scanning when "New Scan" button is clicked
         function resumeScanning() {
