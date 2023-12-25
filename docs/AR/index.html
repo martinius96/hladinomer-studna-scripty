@@ -215,6 +215,29 @@ var formattedDate = day + '. ' + month + '. ' + year + ' ' + hours + ':' + minut
 // Get available cameras and start scanning
 Instascan.Camera.getCameras().then(function (cameras) {
     if (cameras.length > 0) {
+        // Determine which camera to use based on the number of detected cameras
+        var cameraIndex = 0; // Default to the first camera
+
+        if (cameras.length === 1) {
+            cameraIndex = 0; // Use the only available camera
+        } else if (cameras.length === 2) {
+            cameraIndex = 1; // Use the second camera if there are two cameras (should be rear camera)
+        } else {
+            cameraIndex = cameras.length - 1; // Use the last camera if there are more than two cameras (should be rear camera without macro / wide-angle camera zoom)
+        }
+
+        // Start the scanner with the selected camera
+        scanner.start(cameras[cameraIndex]);
+    } else {
+        console.error('No cameras found.');
+    }
+}).catch(function (e) {
+    console.error('Error accessing camera: ' + e);
+});
+/*
+//Older that is using camera that is on index [cameras.length - 1]
+Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
         // Use the last camera found
         scanner.start(cameras[cameras.length - 1]);
     } else {
@@ -223,6 +246,7 @@ Instascan.Camera.getCameras().then(function (cameras) {
 }).catch(function (e) {
     console.error('Error accessing camera: ' + e);
 });
+*/
 
         // Function to resume scanning when "New Scan" button is clicked
         function resumeScanning() {
