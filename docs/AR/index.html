@@ -36,22 +36,25 @@
         let scanner;
         let isTableVisible = false;
 
-        function updateScanner(cameraIndex) {
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    scanner.stop(); // Stop the current scanner
-                    scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
-                    scanner.addListener('scan', function (content) {
-                        // Your existing scan event listener code
-                    });
-                    scanner.start(cameras[cameraIndex]);
-                } else {
-                    console.error('No cameras found.');
-                }
-            }).catch(function (e) {
-                console.error('Error accessing camera: ' + e);
+function updateScanner(cameraIndex) {
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            if (scanner) {
+                scanner.stop(); // Stop the current scanner
+            }
+
+            scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
+            scanner.addListener('scan', function (content) {
+                // Your existing scan event listener code
             });
+            scanner.start(cameras[cameraIndex]);
+        } else {
+            console.error('No cameras found.');
         }
+    }).catch(function (e) {
+        console.error('Error accessing camera: ' + e);
+    });
+}
 
         // Function to show the table overlay
         function showTableOverlay() {
