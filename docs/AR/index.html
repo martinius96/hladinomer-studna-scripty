@@ -40,11 +40,21 @@ function updateScanner(cameraIndex) {
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
             if (scanner) {
-                scanner.removeAllListeners(); // Remove existing listeners
                 scanner.stop(); // Stop the current scanner
             }
 
-            scanner = new Instascan.Scanner({ video: document.getElementById('qr-video'), mirror: false });
+            // Remove existing video element
+            const videoElement = document.getElementById('qr-video');
+            videoElement.parentNode.removeChild(videoElement);
+
+            // Create a new video element
+            const newVideoElement = document.createElement('video');
+            newVideoElement.id = 'qr-video';
+            newVideoElement.style = 'width: 100%; height: auto;';
+            document.body.appendChild(newVideoElement);
+
+            // Recreate the scanner with the new video element
+            scanner = new Instascan.Scanner({ video: newVideoElement, mirror: false });
             scanner.addListener('scan', function (content) {
                 // Your existing scan event listener code
             });
