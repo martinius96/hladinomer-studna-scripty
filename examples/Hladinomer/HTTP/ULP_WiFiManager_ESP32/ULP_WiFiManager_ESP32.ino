@@ -1,7 +1,7 @@
 /*|-----------------------------------------------------------------------------------|*/
 /*|Projekt: Hladinomer - HTTP - ULP - DEEP SLEEP - HC-SR04 / JSN-SR04T / HY-SRF05     |*/
 /*|ESP32 (DevKit, Generic)                                                            |*/
-/*|Autor: Bc. Martin Chlebovec (martinius96)                                          |*/
+/*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
@@ -11,7 +11,7 @@
 /*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
 /*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
 /*|Licencia pouzitia: MIT                                                             |*/
-/*|Revízia: 22. Marec 2021                                                            |*/
+/*|Revízia: 22. Február 2024                                                          |*/
 /*|-----------------------------------------------------------------------------------|*/
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
 String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
@@ -33,7 +33,13 @@ WiFiClient client;
 void setup() {
   Serial.begin(115200);
   WiFiManager wifiManager;
+  wifiManager.setConfigPortalTimeout(60);
   wifiManager.autoConnect("Hladinomer_AP"); //SSID --> no password
+    if (WiFi.status() != WL_CONNECTED) {
+    esp_sleep_enable_timer_wakeup(1 * uS_TO_S_FACTOR);
+    esp_deep_sleep_start();
+    delay(1000);
+  }else{
   Serial.println(F(""));
   Serial.println(F("Wifi pripojene s IP:"));
   Serial.println(WiFi.localIP());
@@ -79,7 +85,9 @@ void setup() {
   client.stop();
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) + " Seconds");
+  delay(100);
   esp_deep_sleep_start();
+     }
 }
 
 void loop() {
