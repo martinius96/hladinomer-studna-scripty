@@ -5,6 +5,7 @@
 //Data sent to TTN using Spreading factor 7, for receiving used SF 9. 
 //Channels allows you to use Factors SF12 up to SF7. SF12 = lowest data rate, longest distance, SF7 = highest data rate, lowest distance
 //You can use also your own LoRaWAN gateway built on Chirpstack or any other software
+//Decoder for the TTN: https://github.com/martinius96/hladinomer-studna-scripty/blob/master/TTN/Decoder.js
 
 #include <lmic.h>
 #include <hal/hal.h>
