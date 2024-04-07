@@ -1,4 +1,4 @@
-//COMPATIBLE WITH TTN, APB method, LoRaWAN™ 1.0.3 Specification
+//COMPATIBLE WITH TTN, APB method, LoRaWAN™ 1.0.2 Specification
 //Pinout in firmware is compatible with TTGO Lora32 board
 //Possible to use 868, 915, 923 MHz (and other) frequencies, can use more channels not just predefined
 //Pre-defined bandwidth set is 125 kHz, used LoRa frequency based on config file in LMIC library
@@ -6,6 +6,7 @@
 //Channels allows you to use Factors SF12 up to SF7. SF12 = lowest data rate, longest distance, SF7 = highest data rate, lowest distance
 //You can use also your own LoRaWAN gateway built on Chirpstack or any other software
 //Decoder for the TTN: https://github.com/martinius96/hladinomer-studna-scripty/blob/master/TTN/Decoder.js
+//Created by: martinius96
 
 #include <lmic.h>
 #include <hal/hal.h>
