@@ -1,7 +1,7 @@
 //Water level monitor - ESP32 / ESP8266 / Arduino
-//LoRa node for P2P communication
+//LoRa node for P2P communication RFM9X (Semtech SX127X)
 //Adjustable frequency 868, 915 or 433 MHz
-//Receiver must do request to platform
+//Receiver must parse packet and do request to the IoT platform via HTTP/HTTPS POST
 
 #include <LoRa.h>
 #include <NewPing.h>
