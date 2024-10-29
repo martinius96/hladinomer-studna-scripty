@@ -13,8 +13,8 @@
 #include <ETH.h>
 #include <NewPingESP8266.h>
 
-const char* host = "arduino.clanweb.eu"; //webhost
-String url = "/studna_s_prekladom/data.php"; //URL address to PHP file
+const char* host = "hladinomer.eu"; //webhost
+String url = "/data.php"; //URL address to PHP file
 
 boolean eth_state = false;
 #define pinTrigger    4
