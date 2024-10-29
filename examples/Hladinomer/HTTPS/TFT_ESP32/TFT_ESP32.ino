@@ -16,9 +16,9 @@
 #include <WiFiManager.h>
 #include <ArduinoJson.h>
 
-const char* host = "arduino.clanweb.eu"; //webserver address (domain)
-String url = "/studna_s_prekladom/data.php"; //PHP file under domain host for storing data into MySQL
-String url2 = "/studna_s_prekladom/json_output.php"; //PHP file with JSON output under domain host
+const char* host = "hladinomer.eu"; //webhost
+String url = "/data.php"; //URL address to PHP file
+String url2 = "/json_output.php"; //PHP file with JSON output under domain host
 
 #define pinTrigger    22
 #define pinEcho       21 //Changed from D23, it is used for SPI communication with TFT display
