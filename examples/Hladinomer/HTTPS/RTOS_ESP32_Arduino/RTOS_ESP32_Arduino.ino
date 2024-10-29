@@ -16,8 +16,8 @@
 const char * ssid = "MY_WIFI"; //WiFi SSID name
 const char * password = "MY_WIFI_PASSWORD"; //WiFi password
 
-const char* host = "arduino.clanweb.eu"; //webserver address (domain)
-String url = "/studna_s_prekladom/data.php"; //PHP file under domain host
+const char* host = "hladinomer.eu"; //webhost
+String url = "/data.php"; //URL address to PHP file
 
 #define pinTrigger    22
 #define pinEcho       23
