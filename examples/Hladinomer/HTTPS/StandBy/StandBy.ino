@@ -20,8 +20,8 @@ const char * ssid = "WIFI_NAME"; //MENO WiFi SIETE
 const char * password = "WIFI_PASSWORD"; //HESLO WiFi SIETE
 
 //KONFIGURACNE UDAJE - webserver, WiFi adaptér, Root CA certifikát
-const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+const char* host = "hladinomer.eu"; //webhost
+String url = "/data.php"; //URL address to PHP file
 
 //Root CA cert - ISRG Root X1
 const static char* test_root_ca PROGMEM = \
