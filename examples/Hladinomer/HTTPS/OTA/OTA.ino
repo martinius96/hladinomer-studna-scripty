@@ -20,8 +20,8 @@
 #include <WiFiClientSecure.h>
 
 //KONFIGURACNE UDAJE - webserver, WiFi adaptér, Root CA certifikát
-const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+const char* host = "hladinomer.eu"; //webhost
+String url = "/data.php"; //URL address to PHP file
 const char * ssid = "WIFI_NAME"; //MENO WiFi SIETE
 const char * password = "WIFI_PASSWORD"; //HESLO WiFi SIETE
 
