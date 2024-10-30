@@ -1,11 +1,11 @@
 /*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTPS - HC-SR04 / JSN-SR04T / HY-SRF05                       |*/
-/*|ESP32 (DevKit, Generic) - ESP-IDF v4.3.X                                           |*/
-/*|Autor: Martin Chlebovec (martinius96)                                              |*/
+/*|Project: Water Level Monitor - HTTPS - ESP32 + HC-SR04 / JSN-SR04T / HY-SRF05      |*/
+/*|ESP32 (DevKit, Generic) - ESP-IDF v4.3.X (tested for that version only)            |*/
+/*|Author: Martin Chlebovec (martinius96)                                             |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie HTTPS: https://arduino.clanweb.eu/studna_s_prekladom/  |*/
-/*|Revízia: 9. Nov 2023                                                               |*/
+/*|More info: https://martinius96.github.io/hladinomer-studna-scripty/en              |*/
+/*|Test web interface for HTTPS protocol: https://hladinomer.eu/                      |*/
+/*|Revision: 30. Oct 2024                                                             |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <string.h>
@@ -42,16 +42,17 @@
 /* Constants that aren't configurable in menuconfig */
 
 #define MAX_DISTANCE_CM 450 // 5m max
-#define GPIO_TRIGGER	22
-#define GPIO_ECHO	23
+#define GPIO_TRIGGER	22 //wire to Trigger pin of HC-SR04
+#define GPIO_ECHO	23 //wire to Echo pin of HC-SR04
+
 // Webserver
 /* Constants that aren't configurable in menuconfig */
-#define WEB_SERVER "arduino.clanweb.eu"
+#define WEB_SERVER "hladinomer.eu"
 #define WEB_PORT "443"
 
 
-static const char *TAG = "https_request";
-static const char *TAG2 = "ultrasonic_measurement";
+static const char *TAG = "https_request"; //prints from HTTPS task
+static const char *TAG2 = "ultrasonic_measurement"; //prints from ultrasonic measurement task
 
 QueueHandle_t  q=NULL;
 static void ultrasonic(void *pvParamters)
@@ -99,7 +100,7 @@ static void ultrasonic(void *pvParamters)
       distance  = avg_distance;
       xQueueSend(q,(void *)&distance,(TickType_t )0); // add the value to the queue
     }
-            for(int countdown = 300; countdown >= 0; countdown--) {
+            for(int countdown = 300; countdown >= 0; countdown--) { //300s countdown before sending again
             ESP_LOGI(TAG2, "%d... ", countdown);
             vTaskDelay(1000 / portTICK_PERIOD_MS);
         }
@@ -187,28 +188,21 @@ static void https_get_task(void *pvParameters)
     }
 
     while(1) {
-  xQueueReceive(q,&distance,portMAX_DELAY); 
-  char REQUEST [1000];
-	 char values [250];
-	 sprintf(values, "hodnota=%d&token=123456789", distance);
-    sprintf (REQUEST, "POST /studna_s_prekladom/data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values); 
+  	xQueueReceive(q,&distance,portMAX_DELAY); //CODE BELOW WILL EXECUTE ONLY WHEN DATA ARRIVE TO QUEUE, UNTIL THAT IT WAITS, MAXIMUM portMAX_DELAY = ALMOST 50 DAYS (never happen as ultrasonic measurement adds value each 300 seconds)
+  	char REQUEST [1000];
+  	char values [250];
+	sprintf(values, "hodnota=%d&token=123456789", distance);
+    	sprintf (REQUEST, "POST /data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values); 
         mbedtls_net_init(&server_fd);
-
         ESP_LOGI(TAG, "Connecting to %s:%s...", WEB_SERVER, WEB_PORT);
-
-        if ((ret = mbedtls_net_connect(&server_fd, WEB_SERVER,
-                                      WEB_PORT, MBEDTLS_NET_PROTO_TCP)) != 0)
+        if ((ret = mbedtls_net_connect(&server_fd, WEB_SERVER, WEB_PORT, MBEDTLS_NET_PROTO_TCP)) != 0)
         {
             ESP_LOGE(TAG, "mbedtls_net_connect returned -%x", -ret);
             goto exit;
         }
-
         ESP_LOGI(TAG, "Connected.");
-
         mbedtls_ssl_set_bio(&ssl, &server_fd, mbedtls_net_send, mbedtls_net_recv, NULL);
-
         ESP_LOGI(TAG, "Performing the SSL/TLS handshake...");
-
         while ((ret = mbedtls_ssl_handshake(&ssl)) != 0)
         {
             if (ret != MBEDTLS_ERR_SSL_WANT_READ && ret != MBEDTLS_ERR_SSL_WANT_WRITE)
@@ -317,7 +311,7 @@ void app_main(void)
      * examples/protocols/README.md for more information about this function.
      */
     ESP_ERROR_CHECK(example_connect());
-     q=xQueueCreate(20,sizeof(unsigned long));
+     q=xQueueCreate(20, sizeof(unsigned long)); //Create queue with 20 values of unsigned long size
     if(q != NULL){
         printf("Queue is created\n");
         vTaskDelay(1000/portTICK_PERIOD_MS); //wait for a second
@@ -328,5 +322,4 @@ void app_main(void)
     }else{
         printf("Queue creation failed");
     }  
-
 }
