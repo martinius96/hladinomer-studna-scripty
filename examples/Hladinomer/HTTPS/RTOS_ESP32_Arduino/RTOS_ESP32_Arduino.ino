@@ -6,7 +6,7 @@
 /*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en/      |*/
 /*|Test web interface: https://hladinomer.eu/?lang=en                             |*/
 /*|Buy me coffee: https://paypal.me/chlebovec                                     |*/
-/*|Revision: 9. Nov 2023                                                          |*/
+/*|Revision: 31. Oct. 2024                                                        |*/
 /*|-------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
