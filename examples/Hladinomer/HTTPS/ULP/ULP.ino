@@ -1,23 +1,21 @@
-/*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTPS - ULP - DEEP SLEEP - HC-SR04 / JSN-SR04T / HY-SRF05    |*/
-/*|ESP8266 (NodeMCU, Wemos D1 Mini, Generic), ESP32 (DevKit, Generic)                 |*/
-/*|Autor: Martin Chlebovec (martinius96)                                              |*/
-/*|E-mail: martinius96@gmail.com                                                      |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Test web rozhranie: https://arduino.clanweb.eu/studna_s_prekladom/?lang=en          |*/
-/*|Knižnica ESP8266NewPing je dostupná v Github repozitári:                           |*/
-/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stiahnuť a rozbaliť    |*/
-/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
-/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
-/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
-/*|Licencia pouzitia: MIT                                                             |*/
-/*|Revízia: 9. Nov. 2023                                                              |*/
-/*|-----------------------------------------------------------------------------------|*/
+/*|-------------------------------------------------------------------------------|*/
+/*|Project: Water level monitor - HTTPS - ULP                                     |*/
+/*|ESP8266 (NodeMCU, Wemos D1 Mini, Generic), ESP32 (DevKit, Generic)             |*/
+/*|Author: Martin Chlebovec (martinius96)                                         |*/
+/*|E-mail: martinius96@gmail.com                                                  |*/
+/*|Info, schematics: https://martinius96.github.io/hladinomer-studna-scripty/en/  |*/
+/*|Test web interface: https://hladinomer.eu/?lang=en                             |*/
+/*|Revision: 31. Oct. 2024                                                        |*/
+/*|-------------------------------------------------------------------------------|*/
 
-const char * ssid = "WIFI_NAME"; //MENO WiFi SIETE
-const char * password = "WIFI_PASSWORD"; //HESLO WiFi SIETE
+//Note: ULP Timer is not that precise on ESP8266
+//It can wake up faster / later by maximum of 15 seconds depends on operation
+//For ESP32 it is precise and it will wakeup in set time correctly each time
 
-//KONFIGURACNE UDAJE - webserver, Root CA certifikát
+const char * ssid = "WIFI_NAME"; //WiFi SSID
+const char * password = "WIFI_PASSWORD"; //WiFi PASS
+
+//HOST
 const char* host = "hladinomer.eu"; //webhost
 String url = "/data.php"; //URL address to PHP file
 
@@ -87,7 +85,7 @@ void setup() {
     Serial.print(F("."));
   }
   Serial.println(F(""));
-  Serial.println(F("Wifi pripojene s IP:"));
+  Serial.println(F("WiFi connected, IP:"));
   Serial.println(WiFi.localIP());
 #if defined(ESP32)
   client.setCACert(test_root_ca);
@@ -119,7 +117,7 @@ void setup() {
       delay(50);
     }
     vzdialenost = vzdialenost / 10;
-    Serial.print(F("Vzdialenost medzi senzorom a predmetom je: "));
+    Serial.print(F("Distance is: "));
     Serial.print(vzdialenost);
     Serial.println(F(" cm."));
     String data = "hodnota=" + String(vzdialenost) + "&token=123456789";
@@ -134,7 +132,7 @@ void setup() {
       client.println(data.length());
       client.println();
       client.println(data);
-      Serial.println(F("Data uspesne odoslane na web"));
+      Serial.println(F("Data successfully sent"));
         while (client.connected()) {
           String line = client.readStringUntil('\n');
           if (line == "\r") {
@@ -143,11 +141,11 @@ void setup() {
         }
         String line = client.readStringUntil('\n');
     } else {
-      Serial.println(F("Pripojenie zlyhalo..."));
+      Serial.println(F("Connection wasnt performed..."));
     }
   }
   else {
-    Serial.println(F("Vzdialenost medzi predmetom a senzorom je mimo rozsah."));
+    Serial.println(F("Distance between ultrasonic sensor and water level is out of range."));
   }
   client.stop();
 #if defined(ESP32)
