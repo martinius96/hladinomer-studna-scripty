@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Monitor de nivel de agua IoT - Arduino / ESP8266 / ESP32 / LoRaWAN</title>
+	<meta name="description" content="Medidor de nivel construido sobre plataforma Arduino, ESP8266, ESP32. Medición con sensor ultrasónico HC-SR04 / JSN-SR04T. Envío de datos vía Ethernet, WiFi. Medición de nivel de agua en pozo, sumidero.">
+	<meta name="robots" content="index, follow">	
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>    
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li class="active"><a href="index.html">Monitor de nivel de agua</a></li>
+	<li><a href="zapojenie.html">Alambrado</a></li>      
+<li><a href="json_client.html">JSON Cliente</a></li>    
+      	<li><a href="kontakt.html">Contacto</a></li>
+<li><a href="../QR/index.html">QR scanner</a></li>
+<a href="../index.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../de/index.html"><img src="https://i.imgur.com/kY5DFH5.png" alt="German.png, 2,2kB" title="German" height="32" width="32"></a>  
+<a href="../ro/index.html"><img src="https://i.imgur.com/yCHCmMZ.png" alt="Romanian.png, 2,2kB" title="Romanian" height="32" width="32"></a>
+<a href="../da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
+<a href="../fi/index.html"><img src="https://i.imgur.com/dDFaJqs.png" alt="Finnish.png, 2,2kB" title="Finnish" height="32" width="32"></a>
+<a href="../pl/index.html"><img src="https://i.imgur.com/OteBe4t.png" alt="Polish.png, 2,2kB" title="Polish" height="32" width="32"></a>
+<a href="../ru/index.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+<a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer" class="btn btn-info" role="button">Firmware</a>
+<!---<a href="th/zapojenie.html"><img src="https://i.imgur.com/9jqINRw.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>-->
+ </ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+    <strong>Explora los códigos fuente de Arduino, ESP8266, ESP32, (Ethernet / WiFi / LoRaWAN): </strong>
+    <a href="https://github.com/martinius96/hladinomer-studna-scripty/" target="_blank">Repositorio del proyecto en GitHub</a>
+</div>
+
+<div class="alert alert-info">
+    <strong>Sumérgete en nuestro panel de IoT con tu hardware: </strong>
+<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=es" class="btn btn-danger" role="button">HTTP IoT Dashboard</a>
+<a href="https://hladinomer.eu/?lang=es" class="btn btn-success" role="button">HTTPS IoT Dashboard</a>
+</div>
+
+<div class="alert alert-danger">
+    <strong>Para obtener los códigos fuente de la interfaz web o cualquier consulta, comuníquese con el autor (en inglés) en: </strong>
+    <a href="mailto:martinius96@gmail.com">martinius96@gmail.com</a>
+</div>
+
+<center><h1>Proyecto de monitoreo del nivel del agua</h1></center>
+
+<div class="alert alert-success">
+    <strong>Soporte de escáner QR para visualización de datos de sensores</strong>
+</div>
+<a href="https://martinius96.github.io/hladinomer-studna-scripty/QR/">
+<center>
+<img src="https://i.imgur.com/peGLcYr.jpg" style="display: block; max-width: 100%; height: auto;" alt="Augmented reality - webapp for Android, iOS, IoT dashboard data" title="Augmented reality - webapp for Android, iOS, IoT dashboard data">
+</center>	
+</a>	
+<hr>
+<center> 
+	<h2>Microcontroladores compatibles con el monitor de nivel de agua - AVR / ESP</h2>
+</center>	
+     <hr>				
+<div class="row">
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/wtnzKqO.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino UNO" title="Control microcontroller Arduino UNO"><br><b><a href="https://www.ebay.com/itm/254532156570">Arduino UNO</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/XHC8DBe.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Nano" title="Control microcontroller Arduino Nano"><br><b><a href="https://www.ebay.com/itm/252742123829">Arduino Nano</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/fPxr64q.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Arduino Mega 1280/25" title="Control microcontroller Arduino Mega 1280/2560"><br><b><a href="https://www.ebay.com/itm/304122418040">Arduino Mega 1280/2560</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU 0.9 / 1.0</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 Mini</a></b></center></div>
+	<div class="col-sm-2"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div>
+</div>	
+<hr>	
+<center> 
+	<h2>Módulos de tecnología de transmisión - Ethernet</h2>
+</center>
+<hr>
+<div class="row">
+<div class="col-sm-3"><center><img src="https://i.imgur.com/aaS35X2.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet shield Wiznet W5100" title="Ethernet shield Wiznet W5100"><br><b><a href="https://www.ebay.com/itm/185017231005">Ethernet shield Wiznet W5100</a></b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/mz4dhRA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul Wiznet W5500" title="Ethernet modul Wiznet W5500"><br><b><a href="https://www.ebay.com/itm/263116282333">Ethernet module Wiznet W5500</a></b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/ppyXzMM.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul LAN 8720 PHY Ethernet" title="Ethernet modul LAN 8720 PHY Ethernet"><br><b><a href="https://www.ebay.com/itm/112102912664">Ethernet module PHY LAN8720</a></b></center></div>
+<div class="col-sm-3"><center><img src="https://i.imgur.com/yIZEKct.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ethernet modul MicroChip ENC28J60" title="Ethernet modul MicroChip ENC28J60"><br><b><a href="https://www.ebay.com/itm/252798986559">Ethernet module ENC28J60</a></b></center></div>
+</div>
+<hr>
+<center> 
+	<h2>Sensores de proximidad ultrasónicos compatibles</h2>
+</center>	
+     <hr>				
+<div class="row">
+<div class="col-sm-2"><center><img src="https://i.imgur.com/t4HDpjA.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic proximity sensor - HC-SR04" title="Ultrasonic proximity sensor - HC-SR04"><br><b><a href="https://www.ebay.com/itm/191841217528">HC-SR04</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/MuTRnZu.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic proximity sensor - HY-SRF05" title="Ultrasonic proximity sensor - HY-SRF05"><br><b><a href="https://www.ebay.com/itm/252083407959">HY-SRF05</a></b></center></div>
+<div class="col-sm-4"><center><img src="https://i.imgur.com/I7O3IGQ.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic proximity sensor - JSN-SR04T" title="Ultrasonic proximity sensor - JSN-SR04T"><br><b><a href="https://www.ebay.com/itm/321714364470">JSN-SR04T</a></b></center></div>		
+<div class="col-sm-2"><center><img src="https://i.imgur.com/mKqoqgT.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic proximity sensor - Parallax PING)))™" title="Ultrasonic proximity sensor - Parallax PING)))™"><br><b><a href="https://www.parallax.com/product/ping-ultrasonic-distance-sensor/">Parallax PING)))™</a></b></center></div>
+<div class="col-sm-2"><center><img src="https://i.imgur.com/8Dogp3S.png" width="128px" height="128px" style="border-radius: 50%;" alt="Ultrasonic proximity sensor - DYP-ME007" title="Ultrasonic proximity sensor - DYP-ME007"><br><b><a href="https://www.ebay.com/itm/154713159645">DYP-ME007</a></b></center></div>	
+</div>									
+<hr>
+<center> 
+	<h2> Monitor de nivel de agua - Arduino / ESP8266 / ESP32 </h2> 
+</center> 
+<hr>
+<p style = "text-align: justify;">
+Descubra el poder de la monitorización del nivel de agua con nuestro panel de IoT, que cuenta con una interfaz web dinámica que funciona como centro neurálgico para visualizar mediciones precisas. Nuestro sistema utiliza sensores ultrasónicos, incluidos modelos populares como HC-SR04 y su variante resistente al agua JSN-SR04T, para registrar datos sobre el nivel de agua en pozos excavados a través de un nodo sensor equipado con un microcontrolador. Además de HC-SR04 y JSN-SR04T, nuestro programa admite varios sensores con señales Trigger/Echo, como RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX y la serie Parallax PING)))™, lo que proporciona flexibilidad en la implementación. El nodo sensor realiza rutinariamente 10 mediciones promediadas con el sensor ultrasónico cada 5 minutos. Luego, los valores registrados se transmiten al servidor a través de múltiples opciones de interfaz, que incluyen WiFi, Ethernet, red IoT LoRaWAN, NB-IoT o Sigfox. Experimente la representación de datos en tiempo real en el tablero, que muestra el nivel de agua actual junto con la conversión de volumen para el pozo y un análisis de tendencias en comparación con la medición anterior. Profundice en los datos históricos a través de representaciones tabulares o gráficas con gráficos de líneas, lo que permite a los usuarios realizar un seguimiento de las tendencias del nivel de agua a lo largo del tiempo. Nuestra interfaz web es responsiva y se adapta perfectamente a las pantallas de teléfonos inteligentes, computadoras, tabletas y televisores inteligentes para una experiencia fácil de usar. Al recibir los datos, nuestro backend corrige el nivel de agua medido a la profundidad real del pozo, compensando la transmisión del sensor de niveles de agua diferenciales. Utilizando la altura real del nivel de agua y el diámetro conocido del pozo, nuestra interfaz web calcula el volumen del pozo en litros, lo que proporciona información valiosa para una gestión eficaz del pozo. Optimice el monitoreo del nivel de agua con nuestro tablero de IoT: precisión, flexibilidad y conectividad a su alcance.
+</p>
+<center>
+<img src="https://i.imgur.com/zP6sbc2.jpg" style="display: block; max-width: 100%; height: auto;" alt="Panel de control de la aplicación web de monitorización del nivel de agua en el sistema operativo Android con actualización automática de datos a través de jQuery" title="Panel de control de la aplicación web de monitorización del nivel de agua en el sistema operativo Android con actualización automática de datos a través de jQuery">
+</center>
+<p style = "text-align: justify;">
+Los sensores ultrasónicos funcionan enviando una señal de activación con una duración de 10 μs, que se refleja en la superficie del agua y regresa como eco. El método de tiempo de vuelo calcula el tiempo entre la transmisión y la recepción para determinar la distancia del nivel del agua al sensor. La velocidad del sonido se calcula en 343 m/s a una temperatura de 20 °C, lo que forma la base para una medición precisa de la distancia. Un parámetro esencial es el ancho del haz, que representa la característica de detección. El sensor HC-SR04 presenta una característica de detección estrecha de 15°, lo que lo hace adecuado para pozos y tanques más estrechos. Si bien el HC-SR04 es ideal para entornos más estrechos, no es impermeable y tiene un mayor riesgo de corrosión en condiciones húmedas. Por lo tanto, se recomienda colocarlo sobre el pozo para minimizar el impacto de la humedad. El JSN-SR04T, un sensor impermeable, tiene una característica de detección más amplia de 60°. Sin embargo, esto limita su uso en pozos estrechos, ya que el haz se ensancha con la distancia. Se requiere un diámetro de pozo mayor (por ejemplo, 6 metros de diámetro para una profundidad de pozo de 4,5 metros) para garantizar mediciones precisas sin reflejos. Los sensores ultrasónicos, en general, no requieren mantenimiento. Sin embargo, el sensor JSN-SR04T tiene una placa electrónica de control que no debe exponerse a la humedad ni al agua. Los sensores, incluido el JSN-SR04T, pueden medir una altura máxima de aproximadamente 400 a 450 cm, lo que proporciona un rango versátil para varias profundidades de pozo. Comprender las complejidades de los sensores ultrasónicos de nivel de agua permite un monitoreo efectivo, lo que garantiza precisión y confiabilidad en diversas condiciones ambientales. Explore las estrategias de colocación y las características de HC-SR04 y JSN-SR04T para obtener resultados óptimos en su sistema de medición de nivel de agua.
+</p>
+<div class = "alert alert-info">
+Integrate various water level sensors into your system by creating customized firmware. Each sensor type brings unique capabilities, ensuring flexibility and adaptability to different monitoring scenarios.
+ 	<strong>Otros tipos de sensores de nivel de agua que se pueden integrar (es necesario crear su propio firmware): </strong>
+<li> <b>Láser (LiDAR)</b> - (DFRobot DTOF LD19 LIDAR, DFRobot ToF Laser ...)</li>
+<li> <b>Hidrostático</b> - (LMK307, DPT200, PT20eco, HDL300 ...) </li>
+<li> <b>Electrostático</b> (capacitivo / inductivo) - XKC-Y25-NPN</li>
+<li> <b>Presión</b> (diferencial / con sensor de presión atmosférica compensador) </li>
+<li> <b>Óptico</b> - (GP2Y0A02YK0F, YD-02F, FS-IR02 ...)</li>
+<li> <b>Mecánico (flotador / bobber)</b> </li>
+<li> <b>Magnético (Hall)</b> - (VCL9, Sen-Hz41wa ...)</li>
+<li> <b>Microondas (radar)</b> - (CS476, CS475A-L, SP69, WLR 8/15/30 ...)</li>
+<li> <b>Ultrasónico</b> - (A01NYUB, URM37), otro tipo de salida (RS-485, 4-20 mA, Modbus RTU, M-bus, PROFINET) </li>
+<li> <b>Nota:</b> Si el nivel de agua desde el fondo del pozo se recalcula en el lado del microcontrolador, el parámetro - Profundidad del pozo en la interfaz web debe configurarse en 0 cm. </li>
+</div>
+<hr><center><h4>Demostración en video de la interfaz web - Monitor de nivel de agua:</h4></center><hr>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+          width="560" height="315" src="https://www.youtube.com/embed/RBksATd0-60?si=z9aQTxVxVR1-WSkj" 
+          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+  </iframe>
+</div>
+<hr><center><h4>Los sensores ultrasónicos son adecuados para:</h4></center><hr>
+<div class="alert alert-success">
+<li> Pozos de agua excavados </li>
+<li> Pozos sépticos y pozos negros </li>
+<li> Arroyos y lagos </li>
+<li> Tanques de agua de lluvia de plástico </li>
+<li> Silos (medición de llenado a granel) </li>
+<li> Contenedores (monitoreo de residuos, nivel de llenado) </li>
+<li> Salas de calderas (monitoreo de materiales de madera, pellets, carbón, astillas de madera) </li>
+<li> Pozos y sótanos (inundaciones, monitoreo de la altura del agua subterránea) </li>
+</div>
+<hr><center><h4>Los sensores ultrasónicos NO son adecuados para:</h4></center><hr>
+<div class="alert alert-danger">
+<li> Pozos de agua perforados (debido a las características de detección: haz ancho) </li>
+<li> Tuberías y tubos (debido a las características de detección: haz ancho) </li>
+<li> A pozos de agua con un afluente con gradiente (la superficie ondulada del agua atenúa el ultrasonido, la medición es imposible) </li>
+<li> En lugares con un cambio repentino de temperatura (la temperatura afecta el tiempo de propagación del sonido, por lo que incluso el nivel estacionario parece fluctuar) </li>
+<li> Tanques de vacío (la medición no es posible) </li>
+</div>
+<div class="alert alert-info">
+	<strong>Características de detección de sensores de proximidad ultrasónicos - Scripts de MATLAB:</strong>
+	<li><a href="../MATLAB/HCSR04.m" class="btn btn-success" role="button">HC-SR04.m Download</a></li>
+	<li><a href="../MATLAB/JSN04T.m" class="btn btn-primary" role="button">JSN-SR04T.m Download</a></li>
+</div>
+<hr><center><h4>Firmware Plug and Play: consumo ultrabajo / modo de espera</h4></center><hr>
+<div class="alert alert-success">
+  <strong>Firmware compilado disponible para carga inmediata al microcontrolador (no se requieren bibliotecas)!</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Nombre del firmware</th>
+<th style="width: 50%">Función del firmware</th>
+<th style="width: 12.50%">ESP8266</th>
+<th style="width: 12.50%">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Ultra Low Power</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Firmware para aplicaciones ULP con bajo consumo de corriente. El firmware se carga automáticamente a través de la herramienta ESPTOOL incluida, que se ejecuta con un script .bat (en el script es necesario cambiar el puerto COM de su placa ESP).
+Después de cargar el firmware y suponiendo que ESP no tiene almacenados el SSID y la contraseña del proyecto anterior, se iniciará WiFiManager, que se utiliza para configurar la red WiFi existente.
+ESP comenzará a transmitir una red WiFi abierta con SSID -> <b> Hladinomer_AP </b> en modo AP. Después de conectar el cliente (Windows / Android / iOS), el portal cautivo se iniciará en 192.168.4.1 (el cliente debe ser redirigido automáticamente).
+WiFiManager le permite seleccionar una red WiFi dentro del alcance en la interfaz web, establecer una contraseña.
+Después de conectar con éxito ESP a la red WiFi especificada y asignar IPv4 del rango dado, Captive Portal se apagará, ESP permanece en modo STA-Station.
+Posteriormente, el nodo sensor comenzará a transmitir datos a la interfaz web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> Monitor de nivel de agua </a>.
+<b>La próxima vez que se inicie el nodo sensor, Captive Portal y WiFiManager ya no se iniciarán, ya que la configuración de la red WiFi se conserva de forma permanente. </b>
+Después de enviar los datos al servidor, el microcontrolador ESP cambiará al modo de suspensión profunda. Apagará el procesador principal Xtensa.
+El ESP8266 se activa a través del temporizador WAKE (se requiere un puente entre GPIO16 y RST; consulte el diagrama de cableado), el ESP32 se activa a través del temporizador RTC.
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_ULP" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
+<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_ULP" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>StandBy</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+FFirmware para el modo StandBy del microcontrolador, que envía a intervalos regulares (5 min) mediciones del nivel de agua al servidor web y al mismo tiempo mantiene la conectividad con el AP en la red LAN.
+El firmware se carga a través de la herramienta ESPTOOL incluida automáticamente, que se ejecuta con un script .bat (en el script es necesario cambiar el puerto COM de su placa ESP).
+Después de cargar el firmware y suponiendo que ESP no tiene almacenados el SSID y la contraseña del proyecto anterior, se iniciará WiFiManager, que se utiliza para configurar la red WiFi existente.
+ESP comenzará a transmitir una red WiFi abierta con SSID en modo AP --> <b>Hladinomer_AP</b>. Después de conectar el cliente (Windows / Android / iOS), el portal cautivo se iniciará en 192.168.4.1 (el cliente debe ser redirigido automáticamente).
+WiFiManager le permite seleccionar una red WiFi dentro del alcance en la interfaz web, establecer una contraseña.
+Después de conectar con éxito el ESP a la red WiFi especificada y asignarle el IPv4 del rango indicado, el Portal Captivo se apagará y el ESP permanecerá en modo STA-Station.
+Posteriormente, el nodo sensor comienza a transmitir datos a la interfaz web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">Monitor de nivel de agua</a>.
+<b>La próxima vez que se inicie el nodo del sensor, Captive Portal y WiFiManager ya no se iniciarán, ya que la configuración de la red WiFi se almacena de forma permanente.</b>
+</p>
+</td>
+<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_StandBy" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
+<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_StandBy" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr><center><h3>Principio de medición del nivel del agua y transmisión de datos - Diagrama de bloques</h3></center><hr>
+<center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic proximity sensor" title="Level meter for cesspool, septic tank, well, measuring principle - ultrasonic proximity sensor"></center>
+<p style = "text-align: justify;">
+Mejore su experiencia de monitoreo de pozos con nuestra interfaz web avanzada, respaldada por un potente backend que aprovecha la trigonometría para estimar la profundidad máxima de su pozo. Esta solución innovadora está diseñada para calcular la profundidad óptima para cada sensor, en función de sus características únicas, lo que la hace accesible incluso para aquellos que no están familiarizados con la selección de sensores.
+El proyecto se integra perfectamente con microcontroladores, con la opción de utilizar la plataforma Arduino (Uno/Mega) ampliamente conocida en la revisión R3. Esta compatibilidad se extiende a los escudos Ethernet que se comunican a través de la interfaz ICSP. Alternativamente, los módulos Ethernet como Wiznet W5100, W5500 y USR-ES1, así como ENC28J60 de MicroChip con pila TCP de software, son totalmente compatibles, lo que permite la conectividad HTTP en el puerto 80.
+Explore la versatilidad de los microcontroladores WiFi, incluidos ESP8266 y ESP32 de Espressif Systems, que ofrecen varios modos operativos como StandBy, StandBy + OTA para actualizaciones de firmware remotas y modo de suspensión profunda para aplicaciones de consumo de energía ultrabaja.
+Los microcontroladores ESP se distinguen por ofrecer una comunicación cifrada a través del protocolo HTTPS. ESP32 va un paso más allá, permitiendo el uso de Ethernet PHY con la interfaz RMII LAN8720, soportando tanto conexiones HTTP como HTTPS.
+La seguridad es una prioridad con la incorporación de certificados Root CA en formato .pem directamente en el código fuente de los microcontroladores, almacenados en memoria flash (PROGMEM) para optimizar el uso de RAM. Estos certificados, emitidos por 10 a 20 años, eliminan la necesidad de renovaciones frecuentes.
+Acceda sin esfuerzo a datos en tiempo real sobre el nivel y el volumen del agua en formato JSON a través de la interfaz web. Lleve el monitoreo de su pozo al siguiente nivel integrando nuestro proyecto de monitorización del nivel de agua a través de MQTT en plataformas de automatización del hogar populares como Hassio, Domoticz y Loxone. Visualice datos en paneles dedicados como Grafana, Ubidots, Thingsboard o Cayenne.
+Potencie sus capacidades de control periférico utilizando datos de la interfaz web para gestionar el riego, el riego y las obras hidráulicas domésticas. Mejore su experiencia de monitoreo de pozos con nuestra solución fácil de usar y tecnológicamente avanzada, dirigida tanto a expertos como a principiantes.
+</p>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>Modo de funcionamiento</th>
+<th>En espera</th>
+<th>En espera + por aire (OTA)</th>
+<th>Consumo ultrabaja (ULP)</th>
+<th>FreeRTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Microcontrolador</strong></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Arduino + Ethernet</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP8266</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ESP32</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>				
+</div>
+<div class = "alert alert-info">
+<strong>Códigos fuente para Arduino, ESP8266, ESP32 (requiere instalación de librerías): </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=es">Disponible aquí</a>
+</div>
+<hr><center><h4>Bibliotecas disponibles para microcontroladores (Arduino / ESP)</h4></center><hr>
+<div class="alert alert-danger" style="word-wrap:break-word;">
+Extraiga el archivo de la biblioteca (.zip) en <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Nombre de la biblioteca</th>
+<th style="width: 50%">Función de biblioteca</th>
+<th style="width: 25%">Descargar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>NewPing</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Librería para microcontroladores AVR (ATmega) Arduino Uno / Nano / Mega.
+Permite realizar mediciones con sensores de distancia ultrasónicos RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FNewPing" class="btn btn-success" role="button">Descargar</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>NewPingESP8266</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Librería para microcontroladores ESP8266 y ESP32.
+Permite realizar mediciones con sensores de distancia ultrasónicos RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™.
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FNewPingESP8266" class="btn btn-success" role="button">Descargar</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet2</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Librería para microcontroladores AVR (ATmega) Arduino Uno / Nano / Mega.
+Permite la comunicación con el módulo Ethernet Wiznet W5200 a W5500 a través de la interfaz SPI.
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FEthernet2" class="btn btn-success" role="button">Descargar</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>Ethernet3</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Librería para microcontroladores AVR (ATmega) Arduino Uno / Nano / Mega.
+Permite la comunicación con el módulo Ethernet Wiznet W5500 V2 - USR-ES1 vía interfaz SPI.
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FEthernet3" class="btn btn-success" role="button">Descargar</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
+<hr>
+<center> 
+     <h3>Capturas de pantalla de la aplicación web de monitorización del nivel del agua</h3>
+     <hr>
+	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=es">
+    	<img src="https://i.imgur.com/NsrPN7k.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX" title="WaterWell Level monitor - webapp - main page - Last measured values with automatic refresh - AJAX">
+    	<img src="https://i.imgur.com/YrL0DG1.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - webapp - Historical measured datas with timestamp" title="WaterWell Level monitor - webapp - Historical measured datas with timestamp"> 
+	<img src="https://i.imgur.com/FqqGV8o.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - Record, minimal, maximal value per day, week, month" title="WaterWell Level monitor - Record, minimal, maximal value per day, week, month"> 
+	<img src="https://i.imgur.com/3ynXOBb.png" style="display: block; max-width: 100%; height: auto;" alt="WaterWell Level monitor - graph of water level in time - week / year" title="WaterWell Level monitor - graph of water level in time - week / year">
+	</a>
+	<hr><center><h4>Salida UART de nodos de sensores - FreeRTOS - ESP32:</h4></center><hr>	
+	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=es">	
+	<img src="https://i.imgur.com/62K3i3T.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTP, POST transfer method" title="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTP, POST transfer method"> 	
+	<img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTPS, POST transfer method" title="ESP32 - FreeRTOS - ESP-IDF - ultrasonic sensor measurement and data transfer to webserver via HTTPS, POST transfer method"> 
+	<img src="https://i.imgur.com/KFZANfa.jpg" style="display: block; max-width: 100%; height: auto;" alt="Supported hardware for well level project - Arduino - Ethernet and WiFi connectivity - ESP8266 - ESP32" title="Supported hardware for well level project - Arduino - Ethernet and WiFi connectivity - ESP8266 - ESP32">   
+<img src="https://i.imgur.com/xLaYlmK.jpg" style="display: block; max-width: 100%; height: auto;" alt="Sensor node ESP32 with PHY Ethernet module LAN7820 and ultrasonic sensor JSN-SR04T" title="Sensor node ESP32 with PHY Ethernet module LAN7820 and ultrasonic sensor JSN-SR04T"> 	
+<img src="https://i.imgur.com/du39Nwp.jpg" style="display: block; max-width: 100%; height: auto;" alt="IoT ultrasonic sensors suitable for solar power, LoRaWAN, WiFi support" title="IoT ultrasonic sensors suitable for solar power, LoRaWAN, WiFi support"> 	
+<img src="https://i.imgur.com/wSRR2Y5.jpg" style="display: block; max-width: 100%; height: auto;" alt="QR code scanner - AR for ultrasonic sensor" title="QR code scanner - AR for ultrasonic sensor"> 	
+</a>
+		</center>					
+ </div>
+		</div>
+</div>
+</body>
+</html>
