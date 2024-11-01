@@ -3,24 +3,10 @@
 <html lang="sk-SK">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>IoT dashboard - Hladinomer - ESP32, Low Power</title>
-	<meta name="description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32, ESP8266, Arduino.">
-	<meta name="keywords" content="hladinomer, studňa, studňa, žumpa, výška, hladina, voda, IoT, portál, ESP32, ESP8266, Arduino, WiFi, NB-IoT, GSM, Ethernet, Low Power, LoRa">
-	<meta name="news_keywords" content="hladinomer, hladinomer do studne, arduino, projekt, ethernet, wifi, esp8266, esp32, kopaná studňa, monitor, webové rozhranie, vizualizácia, vodomer, žumpa, hladina, výška, objem">	
-<!-- Open Graph / Facebook -->
-	<meta name="robots" content="index, follow">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://martinius96.github.io/hladinomer-studna-scripty/index.html">
-	<meta property="og:title" content="IoT dashboard - Hladinomer - ESP32, Low Power">
-	<meta property="og:description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32, ESP8266, Arduino.">
-	<meta property="og:image" content="">
-
-<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image">
-	<meta property="twitter:url" content="https://martinius96.github.io/hladinomer-studna-scripty/index.html">
-	<meta property="twitter:title" content="IoT dashboard - Hladinomer - ESP32, Low Power">
-	<meta property="twitter:description" content="IoT dashboard pre Hladinomer umožňuje príjem dát zo senzorových uzlov postavených na ESP32, ESP8266, Arduino.">
-	<meta property="twitter:image" content="">
+	<title>ESP32 monitor studne - IoT Dashboard pre efektívnu správu vody</title>
+	<meta name="description" content="IoT riešenie pre monitorovanie hladiny vody v studni s použitím ESP32 / Arduino. Skripty a návody na efektívne riadenie spotreby vody a kontrolu hĺbky v reálnom čase.">
+	<meta name="keywords" content="IoT, monitoring studne, senzor hladiny vody, ESP32, low-power IoT, monitorovanie hĺbky studne, DIY script monitoringu, manažment vody, vzdialený tracking studne, IoT projekty, ESP32 senzorové dáta, dáta v reálnom čase">
+	<meta name="news_keywords" content="IoT, monitoring studne, senzor hladiny vody, ESP32, low-power IoT, monitorovanie hĺbky studne, DIY script monitoringu, manažment vody, vzdialený tracking studne, IoT projekty, ESP32 senzorové dáta, dáta v reálnom čase">	
 	
 	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
@@ -30,15 +16,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-    		window.smartlook||(function(d) {
-    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
-    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
-    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
-    		})(document);
-    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
-	</script>    
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  
 	<style>
 		table, th, td {
   			border: 1px solid black;
@@ -54,17 +32,12 @@
     <ul class="nav navbar-nav">
       	<li class="active"><a href="index.html">Hladinomer</a></li>
 	<li><a href="zapojenie.html">Zapojenie</a></li>   
-	<li class=""><a href="json_client.html">JSON client</a></li>   
-      	<li><a href="kontakt.html">Kontakt</a></li>
 	<li><a href="QR/index.html">QR skener</a></li>
 	<a href="en/index.html"><img src="https://i2.wp.com/facsusa.com/wp-content/uploads/2017/05/Flag-of-England.png?ssl=1" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
 <a href="fr/index.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
 <a href="de/index.html"><img src="https://i.imgur.com/kY5DFH5.png" alt="German.png, 2,2kB" title="German" height="32" width="32"></a>
-<a href="ro/index.html"><img src="https://i.imgur.com/yCHCmMZ.png" alt="Romanian.png, 2,2kB" title="Romanian" height="32" width="32"></a>
-<a href="da/index.html"><img src="https://i.imgur.com/BOi815w.png" alt="Danish.png, 2,2kB" title="Danish" height="32" width="32"></a>
-<a href="fi/index.html"><img src="https://i.imgur.com/dDFaJqs.png" alt="Finnish.png, 2,2kB" title="Finnish" height="32" width="32"></a>
-<a href="pl/index.html"><img src="https://i.imgur.com/OteBe4t.png" alt="Polish.png, 2,2kB" title="Polish" height="32" width="32"></a>
 <a href="ru/index.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+<a href="es/index.html"><img src="https://i.imgur.com/cIOW0G7.png" alt="Spanish.png, 2,2kB" title="Spanish" height="32" width="32"></a>
 	<a href="https://github.com/martinius96/hladinomer-studna-scripty/tree/master/examples/Hladinomer" class="btn btn-info" role="button">Firmware</a>
 <!---<a href="th/zapojenie.html"><img src="https://i.imgur.com/9jqINRw.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>-->
 </ul>
