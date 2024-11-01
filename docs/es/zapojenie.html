@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<!-- Primary Meta Tags -->
+<!-- Title -->
+<title>Guía de Cableado: Arduino, ESP8266, ESP32 para Monitoreo de Nivel de Agua IoT</title>
+
+<!-- Meta Description -->
+<meta name="description" content="Guía de cableado para monitoreo de nivel de agua IoT usando Arduino, ESP8266 y ESP32. Instrucciones incluyen sensores ultrasónicos, modos de bajo consumo y compatibilidad con Sigfox para monitoreo remoto.">
+
+<!-- Meta Robots -->
+<meta name="robots" content="index, follow">
+
+<!-- Meta Keywords -->
+<meta name="keywords" content="monitor IoT nivel de agua, cableado Arduino, cableado ESP32, cableado ESP8266, sensor ultrasónico, IoT bajo consumo, Sigfox, diagrama de cableado, monitoreo remoto de agua, proyectos DIY IoT">
+
+	<link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>   
+<style>
+
+.aa_h2{
+  font:100 5rem/1 Roboto;
+  text-transform: uppercase;
+}
+table{
+   background: #fff;
+}
+table,thead,tbody,tfoot,tr, td,th{
+  text-align: center;
+  margin: auto;
+  border:1px solid #dedede;
+  padding: 1rem;
+  width: 50%;
+}
+.table    { display: table; width: 100%; }
+.tr       { display: table-row;  }
+.thead    { display: table-header-group }
+.tbody    { display: table-row-group }
+.tfoot    { display: table-footer-group }
+.col      { display: table-column }
+.colgroup { display: table-column-group }
+.td, .th   { display: table-cell; width: 50%; }
+.caption  { display: table-caption }
+
+.table,
+.thead,
+.tbody,
+.tfoot,
+.tr,
+.td,
+.th{
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+}
+.table{
+  background: #fff;
+  margin: auto;
+  border:none;
+  padding: 0;
+  margin-bottom: 5rem;
+}
+
+.th{
+  font-weight: 700;
+  border:1px solid #dedede;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+.td{
+  font-weight: 300;
+  border:1px solid #dedede;
+  border-top:none;
+  &:nth-child(odd){
+    border-right:none;
+  }
+}
+
+.aa_htmlTable{
+  background: tomato;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+.aa_css{
+  background: skyblue;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+
+.aa_ahmadawais{
+  display: table;
+  width: 100%;
+  font: 100 1.2rem/2 Roboto;
+  margin: 5rem auto;
+}
+    
+  </style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Monitor de nivel de agua</a></li>
+	<li class="active"><a href="zapojenie.html">Alambrado</a></li>    
+<a href="../zapojenie.html"><img src="https://futbalovysen.sk/wp-content/uploads/slovakia.png" alt="Slovak flag.png, 2,2kB" title="Slovakia" height="32" width="32"></a>
+<a href="../fr/zapojenie.html"><img src="https://i.imgur.com/vX7NaZ7.png" alt="French.png, 2,2kB" title="French" height="32" width="32"></a> 
+<a href="../de/zapojenie.html"><img src="https://i.imgur.com/kY5DFH5.png" alt="German.png, 2,2kB" title="German" height="32" width="32"></a>
+<a href="../ru/zapojenie.html"><img src="https://i.imgur.com/3R5jVrX.png" alt="Russian.png, 2,2kB" title="Russian" height="32" width="32"></a>
+<a href="../es/zapojenie.html"><img src="https://i.imgur.com/cIOW0G7.png" alt="Spanish.png, 2,2kB" title="Spanish" height="32" width="32"></a>
+<!---<a href="th/zapojenie.html"><img src="https://i.imgur.com/9jqINRw.png" alt="Thai.png, 2,2kB" title="Thai" height="32" width="32"></a>-->
+    </ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+	<strong>Proyecto Medidor de nivel de agua - Github: </strong><a href="https://github.com/martinius96/hladinomer-studna-scripty/">Github repositorio</a>
+</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">ESP8266</span>
+<span class="label label-warning">ESP32</span>
+<span class="label label-danger">Ultrasonic</span>
+<span class="label label-default">HC-SR04</span>
+<span class="label label-primary">JSN-SR04T</span>
+<span class="label label-success">Sigfox</span>				
+ <center><h2>Diagrama de cableado para medidor de nivel (Arduino, ESP8266, ESP32)</h2></center>
+  <div class="alert alert-success">
+  <strong>Diagrama de cableado para microcontroladores compatibles y sensores de distancia ultrasónicos HC-SR04 / JSN-SR04T (impermeables)</strong>
+  <hr>
+<strong>Las revisiones del medidor de nivel desde junio de 2020 han traído:</strong>
+<li>Representación gráfica de los datos medidos en el desarrollo del tiempo ampliada a representaciones de 30 días, 365 días</li>
+<li>Modos ULP añadidos - Ultra low power - Deep sleep para plataformas ESP8266 (usa la fuente de activación de interrupción externa WAKE), ESP32 (usa la fuente de activación del temporizador RTC)</li>
+<li>Diagrama de cableado ampliado con divisor de tensión para plataformas ESP8266 y ESP32 con lógica de funcionamiento 3V3 para conexión a un sensor ultrasónico con lógica de funcionamiento 5V</li>
+<li>Se ha añadido la posibilidad de utilizar la actualización OTA en modo StandBy para plataformas ESP8266 y ESP32 en red LAN a través del cargador Python desde Arduino IDE - OTA básico</li>
+<li>Para zonas sin internet fijo, la posibilidad de utilizar la red IoT Sigfox para la transmisión de datos desde el pozo. Utilización de un módem UART Sigfox WISOL SFM10R1 compatible controlado mediante comandos AT mediante una interfaz UART emulada por software, posibilidad de su suspensión en modo Light/Deep Sleep</li>
+<li>Información del proyecto con descripción del hardware compatible, descripción de la funcionalidad de los sensores ultrasónicos, implementación de la conexión HTTPS para ESP32, ESP8266. Configuración de un backend Sigfox para la entrada de datos de devolución de llamada en la interfaz web</li>
+</div><center><img src="https://i.imgur.com/8OJ9TQC.png" style="display: block; max-width: 100%; height: auto;" title="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T - Podpora Ultra low power" alt="Schéma zapojenia pre hladinomer - Arduino, ESP32, ESP8266 - HC-SR04 / JSN-SR04T"></center>
+ <div class="alert alert-info">
+ <strong>Al utilizar el módulo Ethernet Wiznet W5200 a W5500 con el archivo de encabezado Ethernet2.h, es necesario conectar el terminal D2 de Arduino con el terminal INT (INIT) del módulo Ethernet.</strong></div> 
+<table class="table table-striped flat-table flat-table-1" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>Arduino + Ethernet (W5100 / W5500)</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>Echo</td>
+</tr>
+</table>
+<hr>
+  <div class="alert alert-info">
+     <strong>Al alimentar el NodeMCU a través de USB, conecte el sensor de distancia ultrasónico al terminal VUSB (VU), al alimentar a través del kit base mediante el adaptador, conecte el sensor al VIN (5V)</strong></div> 
+<table class="table table-striped flat-table flat-table-2" style="color: black; max-width: 100%;">
+<thead>
+<tr>                  
+<th style="width: 50%;"><strong>ESP8266</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D1 (GPIO 5)</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D2 (GPIO 4)</td>
+<td>Echo <font color="red"><b><a href="https://i.imgur.com/u27Uf0t.png">(3V3)</a></b></font></td>
+</tr>
+</table>
+<hr>
+<table class="table table-striped flat-table flat-table-3" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>ESP32</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>Echo <font color="red"><b><a href="https://i.imgur.com/u27Uf0t.png">(3V3)</a></b></font></td>
+</tr>
+</table>
+<hr>
+<table class="table table-striped flat-table flat-table-1" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>Arduino</strong></th>
+<th style="width: 50%;"><strong>Sigfox UART Modem 868 MHz</strong></th>
+</tr>
+<tr>
+<td>3V3</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D7 (TX)</td>
+<td>RX <font color="red"><b><a href="https://i.imgur.com/u27Uf0t.png">(3V3)</a></b></font></td>
+</tr>
+<tr>
+<td>D8 (RX)</td>
+<td>TX</td>
+</tr>
+</table>
+<hr>
+<table class="table table-striped flat-table flat-table-2" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>ESP32 + PHY Ethernet LAN8720</strong></th>
+<th style="width: 50%;"><strong>HC-SR04 / HY-SRF05 / JSN-SR04T</strong></th>
+</tr>
+<tr>
+<td>5V</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>Echo <font color="red"><b><a href="https://i.imgur.com/u27Uf0t.png">(3V3)</a></b></font></td>
+</tr>
+</table>
+<table class="table table-striped flat-table flat-table-3" style="color: black; max-width: 100%;">
+<thead>
+<tr>
+<th style="width: 50%;"><strong>ESP32</strong></th>
+<th style="width: 50%;"><strong>PHY Ethernet LAN8720</strong></th>
+</tr>
+<tr>
+<td>3V3</td>
+<td>Vcc</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND / RBIAS</td>
+</tr>
+<tr>
+<td>D18</td>
+<td>MDIO</td>
+</tr>
+<tr>
+<td>D19</td>
+<td>TXD0</td>
+</tr>
+<tr>
+<td>D21</td>
+<td>TXEN</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>TXD1</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>MDC</td>
+</tr>
+<tr>
+<td>D25</td>
+<td>RXD0</td>
+</tr>
+<tr>
+<td>D26</td>
+<td>RXD1</td>
+</tr>
+<tr>
+<td>D27</td>
+<td>CRS_DV</td>
+</tr>
+</table>
+<center> 
+<hr>
+<h4>Característica de detección del sensor - HC-SR04</h4>
+     <hr>
+    <img src="https://i.imgur.com/ySEAjWi.png" style="display: block; max-width: 100%; height: auto;" alt="Medidor de nivel - Característica de detección HC-SR04 - Sensor de distancia ultrasónico" title="Medidor de nivel - Característica de detección HC-SR04 - Sensor de distancia ultrasónico">
+    <hr>
+     <h4>Característica de detección del sensor - JSN-SR04T - impermeable</h4>
+     <hr>
+    <img src="https://i.imgur.com/qCSLUjw.png" style="display: block; max-width: 100%; height: auto;" alt="Medidor de nivel - Característica de detección JSN-SR04T - Sensor de distancia ultrasónico" title="Medidor de nivel - Característica de detección JSN-SR04T - Sensor de distancia ultrasónico"> 
+ </center>
+ </div>
+		</div>
+</div>
+</body>
+</html>
