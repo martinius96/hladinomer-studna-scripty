@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "4531848a-82a8-406d-b648-c0b58e65fbe0",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39345124"
+	},
+	"item": [
+		{
+			"name": "Hladinomer.eu WRITE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "hodnota",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://hladinomer.eu/data.php",
+					"protocol": "https",
+					"host": [
+						"hladinomer",
+						"eu"
+					],
+					"path": [
+						"data.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "arduino.clanweb.eu WRITE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "hodnota",
+							"value": "38",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://arduino.clanweb.eu/studna_s_prekladom/data.php",
+					"protocol": "http",
+					"host": [
+						"arduino",
+						"clanweb",
+						"eu"
+					],
+					"path": [
+						"studna_s_prekladom",
+						"data.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "arduino.clanweb.eu JSON",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://arduino.clanweb.eu/studna_s_prekladom/json_output.php",
+					"protocol": "http",
+					"host": [
+						"arduino",
+						"clanweb",
+						"eu"
+					],
+					"path": [
+						"studna_s_prekladom",
+						"json_output.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hladinomer.eu JSON",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://hladinomer.eu/json_output.php",
+					"protocol": "https",
+					"host": [
+						"hladinomer",
+						"eu"
+					],
+					"path": [
+						"json_output.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
