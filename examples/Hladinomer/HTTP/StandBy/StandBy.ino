@@ -1,21 +1,16 @@
 /*|-----------------------------------------------------------------------------------|*/
 /*|Projekt: Hladinomer - HTTP - Compact - HC-SR04 / JSN-SR04T / HY-SRF05              |*/
 /*|Arduino + Ethernet (W5100 / W5500, ENC28J60), ESP8266 (NodeMCU), ESP32 (DevKit)    |*/
-/*|Autor: Martin Chlebovec (martinius96)                                              |*/
+/*|Author: Martin Chlebovec (martinius96)                                             |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
-/*|Knižnice NewPing, ESP8266NewPing a Ethernet2 je dostupná v Github repozitári:      |*/
-/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stiahnuť a rozbaliť    |*/
-/*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
-/*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
-/*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
-/*|DONATE: paypal.me/chlebovec                                                        |*/
 /*|Revízia: 24. Jun 2022                                                              |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+String url = "/studna_s_prekladom/data.php"; //URL adresa
+
 //Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
 #define maxVzdialenost 450
 unsigned long timer2 = 0;
@@ -23,11 +18,12 @@ unsigned long timer2 = 0;
 //HLAVICKOVE SUBORY PRE ARDUINO A ETHERNET SHIELD + watchdog
 #include <avr\wdt.h>
 #include <SPI.h>
+#include <NewPing.h>
 #include <Ethernet.h> //Ethernet shield Wiznet W5100 - zakomentovat ak sa nepouziva
 //#include <Ethernet2.h> //Ethernet modul Wiznet W5500 - zakomentovat ak sa nepouziva
 //#include <Ethernet3.h> //Ethernet modul WIZ850io / USR-ES1 (Wiznet W5500 V2) - zakomentovat ak sa nepouziva
 //#include <UIPEthernet.h> //Ethernet modul ENC28J60 - zakomentovat ak sa nepouziva
-#include <NewPing.h>
+
 #define pinTrigger    5
 #define pinEcho       6
 NewPing sonar(pinTrigger, pinEcho, maxVzdialenost);
@@ -40,8 +36,13 @@ EthernetClient client;
 #endif
 #if defined(ESP32) || defined(ESP8266)
 #include <NewPingESP8266.h>
-const char * ssid = "WIFI_MENO_SIETE"; //MENO WiFi SIETE
-const char * password = "WIFI_HESLO_SIETE"; //HESLO WiFi SIETE
+
+
+const char * ssid = "SSID"; //MENO WiFi SIETE
+const char * password = "PASS"; //HESLO WiFi SIETE
+
+
+
 #endif
 #if defined(ESP8266)
 #include <ESP8266WiFi.h>
@@ -94,10 +95,10 @@ void setup() {
 #if defined(ESP8266)
   ESP.wdtEnable(30000); //30s SW watchdog
 #elif defined(ESP32)
-  timer = timerBegin(0, 80, true);                  //timer 0, div 80
-  timerAttachInterrupt(timer, &resetModule, true);  //attach callback
-  timerAlarmWrite(timer, wdtTimeout * 1000, false); //set time in us
-  timerAlarmEnable(timer);                          //enable interrupt
+  timer = timerBegin(1000);                  //timer 0, div 80
+  timerAttachInterrupt(timer, &resetModule);
+  timerWrite(timer, wdtTimeout * 1000);             // Nastaví časovač na hodnotu
+  timerStart(timer);                                // Spustí časovač
 #endif
 }
 
