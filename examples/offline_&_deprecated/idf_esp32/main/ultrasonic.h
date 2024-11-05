@@ -11,7 +11,7 @@
 #define __ULTRASONIC_H__
 
 #include <driver/gpio.h>
-#include <driver/dac.h>
+#include "driver/dac_oneshot.h"
 
 #ifdef __cplusplus
 extern "C" {

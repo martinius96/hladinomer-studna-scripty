@@ -4,13 +4,11 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/gpio.h"
 #include "esp_err.h"
 #include "esp_log.h"
 #include "esp_system.h"
 
 #include "ultrasonic.h"
-#include "driver/dac.h"
 
 #define MAX_DISTANCE_CM 450 // 5m max
 
@@ -45,7 +43,7 @@ void ultrasonic(void *pvParamters)
 					printf("%d\n", res);
 			}
 		} else {
-			printf("Distance: %d cm, %.02f m\n", distance, distance / 100.0);
+			printf("Distance: %ld cm, %.02f m\n", distance, distance / 100.0);
 		}
 		vTaskDelay(5000 / portTICK_PERIOD_MS);
 	}

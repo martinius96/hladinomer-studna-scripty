@@ -32,11 +32,8 @@ static inline uint32_t get_time_us()
 
 void ultrasonic_init(const ultrasonic_sensor_t *dev)
 {
-    gpio_pad_select_gpio( dev->trigger_pin );
-    gpio_pad_select_gpio( dev->echo_pin );
-    gpio_set_direction(dev->trigger_pin, GPIO_MODE_OUTPUT);
-    gpio_set_direction(dev->echo_pin, GPIO_MODE_INPUT);
-
+gpio_set_direction(dev->trigger_pin, GPIO_MODE_OUTPUT);
+gpio_set_direction(dev->echo_pin, GPIO_MODE_INPUT);
     gpio_set_level(dev->trigger_pin, 0);
 }
 
@@ -49,9 +46,9 @@ esp_err_t ultrasonic_measure_cm(const ultrasonic_sensor_t *dev, uint32_t max_dis
 
     // Ping: Low for 2..4 us, then high 10 us
     gpio_set_level(dev->trigger_pin, 0);
-    ets_delay_us(TRIGGER_LOW_DELAY);
+    esp_rom_delay_us(TRIGGER_LOW_DELAY);
     gpio_set_level(dev->trigger_pin, 1);
-    ets_delay_us(TRIGGER_HIGH_DELAY);
+    esp_rom_delay_us(TRIGGER_HIGH_DELAY);
     gpio_set_level(dev->trigger_pin, 0);
 
     // Previous ping isn't ended
