@@ -1,15 +1,16 @@
 /*|-----------------------------------------------------------------------------------|*/
 /*|Project: Water Level Monitor - HTTPS - ESP32 + HC-SR04 / JSN-SR04T / HY-SRF05      |*/
-/*|ESP32 (DevKit, Generic) - ESP-IDF v4.3.X (tested for that version only)            |*/
+/*|ESP32 (DevKit, Generic) - ESP-IDF v5.2                                             |*/
 /*|Author: Martin Chlebovec (martinius96)                                             |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|More info: https://martinius96.github.io/hladinomer-studna-scripty/en              |*/
-/*|Test web interface for HTTPS protocol: https://hladinomer.eu/                      |*/
-/*|Revision: 30. Oct 2024                                                             |*/
+/*|Test web interface for HTTPS protocol: https://hladinomer.eu/?lang=en              |*/
+/*|Revision: 5th Nov 2024                                                             |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <string.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_wifi.h"
@@ -33,11 +34,12 @@
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
 #include "mbedtls/error.h"
-#include "mbedtls/certs.h"
+#ifdef CONFIG_MBEDTLS_SSL_PROTO_TLS1_3
+#include "psa/crypto.h"
+#endif
 #include "esp_crt_bundle.h"
 
 #include "ultrasonic.h"
-#include "driver/dac.h"
 
 /* Constants that aren't configurable in menuconfig */
 
@@ -89,7 +91,7 @@ static void ultrasonic(void *pvParamters)
 					printf("%d\n", res);
 			}
 		} else {
-			printf("Measurement %d: %d cm\n", index_loop, distance);
+			printf("Measurement %d: %ld cm\n", index_loop, distance);
        avg_distance +=  distance;
       index_loop++;
 		}
@@ -124,6 +126,14 @@ static void https_get_task(void *pvParameters)
     mbedtls_ssl_config conf;
     mbedtls_net_context server_fd;
 
+#ifdef CONFIG_MBEDTLS_SSL_PROTO_TLS1_3
+    psa_status_t status = psa_crypto_init();
+    if (status != PSA_SUCCESS) {
+        ESP_LOGE(TAG, "Failed to initialize PSA crypto, returned %d", (int) status);
+        return;
+    }
+#endif
+
     mbedtls_ssl_init(&ssl);
     mbedtls_x509_crt_init(&cacert);
     mbedtls_ctr_drbg_init(&ctr_drbg);
@@ -145,7 +155,7 @@ static void https_get_task(void *pvParameters)
 
     if(ret < 0)
     {
-        ESP_LOGE(TAG, "esp_crt_bundle_attach returned -0x%x\n\n", -ret);
+        ESP_LOGE(TAG, "esp_crt_bundle_attach returned -0x%x", -ret);
         abort();
     }
 
@@ -169,12 +179,7 @@ static void https_get_task(void *pvParameters)
         goto exit;
     }
 
-    /* MBEDTLS_SSL_VERIFY_OPTIONAL is bad for security, in this example it will print
-       a warning if CA verification fails but it will continue to connect.
-
-       You should consider using MBEDTLS_SSL_VERIFY_REQUIRED in your own code.
-    */
-    mbedtls_ssl_conf_authmode(&conf, MBEDTLS_SSL_VERIFY_OPTIONAL);
+    mbedtls_ssl_conf_authmode(&conf, MBEDTLS_SSL_VERIFY_REQUIRED);
     mbedtls_ssl_conf_ca_chain(&conf, &cacert, NULL);
     mbedtls_ssl_conf_rng(&conf, mbedtls_ctr_drbg_random, &ctr_drbg);
 #ifdef CONFIG_MBEDTLS_DEBUG
@@ -183,7 +188,7 @@ static void https_get_task(void *pvParameters)
 
     if ((ret = mbedtls_ssl_setup(&ssl, &conf)) != 0)
     {
-        ESP_LOGE(TAG, "mbedtls_ssl_setup returned -0x%x\n\n", -ret);
+        ESP_LOGE(TAG, "mbedtls_ssl_setup returned -0x%x", -ret);
         goto exit;
     }
 
@@ -191,7 +196,7 @@ static void https_get_task(void *pvParameters)
   	xQueueReceive(q,&distance,portMAX_DELAY); //CODE BELOW WILL EXECUTE ONLY WHEN DATA ARRIVE TO QUEUE, UNTIL THAT IT WAITS, MAXIMUM portMAX_DELAY = ALMOST 50 DAYS (never happen as ultrasonic measurement adds value each 300 seconds)
   	char REQUEST [1000];
   	char values [250];
-	sprintf(values, "hodnota=%d&token=123456789", distance);
+	sprintf(values, "hodnota=%ld&token=123456789", distance);
     	sprintf (REQUEST, "POST /data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values); 
         mbedtls_net_init(&server_fd);
         ESP_LOGI(TAG, "Connecting to %s:%s...", WEB_SERVER, WEB_PORT);
@@ -251,7 +256,12 @@ static void https_get_task(void *pvParameters)
             len = sizeof(buf) - 1;
             bzero(buf, sizeof(buf));
             ret = mbedtls_ssl_read(&ssl, (unsigned char *)buf, len);
-
+#if CONFIG_MBEDTLS_SSL_PROTO_TLS1_3 && CONFIG_MBEDTLS_CLIENT_SSL_SESSION_TICKETS
+            if (ret == MBEDTLS_ERR_SSL_RECEIVED_NEW_SESSION_TICKET) {
+                ESP_LOGD(TAG, "got session ticket in TLS 1.3 connection, retry read");
+                continue;
+            }
+#endif // CONFIG_MBEDTLS_SSL_PROTO_TLS1_3 && CONFIG_MBEDTLS_CLIENT_SSL_SESSION_TICKETS
             if(ret == MBEDTLS_ERR_SSL_WANT_READ || ret == MBEDTLS_ERR_SSL_WANT_WRITE)
                 continue;
 
