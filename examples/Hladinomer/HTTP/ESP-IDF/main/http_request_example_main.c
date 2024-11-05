@@ -1,21 +1,13 @@
 /*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTP - HC-SR04 / JSN-SR04T / HY-SRF05                        |*/
-/*|ESP32 (DevKit, Generic) - ESP-IDF v4.2 (4.0 compatible)                            |*/
+/*|Project: Water level monitor - HTTP - HC-SR04 / JSN-SR04T / HY-SRF05               |*/
+/*|ESP32 (DevKit, Generic) - ESP-IDF v5.2                                             |*/
 /*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
-/*|Revízia: 4. Jun 2021                                                               |*/
+/*|Proejct info: https://martinius96.github.io/hladinomer-studna-scripty/en/          |*/
+/*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en          |*/
+/*|Revision: 5th Nov 2024                                                             |*/
 /*|-----------------------------------------------------------------------------------|*/
 
-/* HTTP GET Example using plain POSIX sockets
-
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -34,7 +26,6 @@
 #include "lwip/dns.h"
 
 #include "ultrasonic.h"
-#include "driver/dac.h"
 
 /* Constants that aren't configurable in menuconfig */
 
@@ -84,7 +75,7 @@ static void ultrasonic(void *pvParamters)
 					printf("%d\n", res);
 			}
 		} else {
-			printf("Measurement %d: %d cm\n", index_loop, distance);
+			printf("Measurement %d: %ld cm\n", index_loop, distance);
        avg_distance +=  distance;
       index_loop++;
 		}
@@ -118,7 +109,7 @@ static void http_get_task(void *pvParameters)
     xQueueReceive(q,&distance,portMAX_DELAY); 
     char REQUEST [1000];
 	  char values [250];
-	  sprintf(values, "hodnota=%d&token=123456789", distance);
+	  sprintf(values, "hodnota=%ld&token=123456789", distance);
     sprintf (REQUEST, "POST /studna_s_prekladom/data.php HTTP/1.0\r\nHost: "WEB_SERVER"\r\nUser-Agent: ESP32\r\nConnection: close\r\nContent-Type: application/x-www-form-urlencoded;\r\nContent-Length:%d\r\n\r\n%s\r\n",strlen(values),values);
         int err = getaddrinfo(WEB_SERVER, WEB_PORT, &hints, &res);
 
