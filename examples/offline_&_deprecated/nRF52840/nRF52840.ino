@@ -1,4 +1,4 @@
-//nRF52840 (also Sense version compatible)
+//Seeed Studio XIAO nRF52840 (Sense version compatible)
 //Measurement of water level height (distance) using proximity ultrasonic sensor HC-SR04
 
 #include <Adafruit_TinyUSB.h>
