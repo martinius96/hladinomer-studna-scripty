@@ -1,21 +1,23 @@
+
 /*|-----------------------------------------------------------------------------------|*/
-/*|Projekt: Hladinomer - HTTP - FreeRTOS - HC-SR04 / JSN-SR04T / HY-SRF05             |*/
+/*|Project: Water level monitor - HTTP - FreeRTOS - HC-SR04 / JSN-SR04T / HY-SRF05    |*/
 /*|ESP32 (DevKit, Generic)                                                            |*/
 /*|Autor: Martin Chlebovec (martinius96)                                              |*/
 /*|E-mail: martinius96@gmail.com                                                      |*/
-/*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
-/*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
+/*|Project info: https://martinius96.github.io/hladinomer-studna-scripty/en/          |*/
+/*|Test web interface: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en          |*/
 /*|Buy me coffee: paypal.me/chlebovec                                                 |*/
-/*|Revízia: 11. September 2022                                                        |*/
+/*|Revision: 11th September 2022                                                      |*/
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
 #include <NewPingESP8266.h>
 
-const char * ssid = "MY_WIFI"; //MENO WiFi SIETE
-const char * password = "MY_WIFI_PASSWORD"; //HESLO WiFi SIETE
-const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú sa odosielajú dáta
-String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
+const char * ssid = "MY_WIFI"; //WiFi SSID name
+const char * password = "MY_WIFI_PASSWORD"; //WiFi password
+
+const char* host = "arduino.clanweb.eu"; //host (server)
+String url = "/studna_s_prekladom/data.php"; //URL address to to target PHP file
 
 #define pinTrigger    22
 #define pinEcho       23
