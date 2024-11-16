@@ -12,8 +12,8 @@
 #include <ETH.h>
 #include <NewPingESP8266.h>
 
-const char* host = "arduino.clanweb.eu"; //webhost
-String url = "/studna_s_prekladom/data.php"; //URL address to target PHP file
+const char* host = "arduino.clanweb.eu"; //host (server)
+String url = "/studna_s_prekladom/data.php"; //URL address to to target PHP file
 
 boolean eth_state = false;
 #define pinTrigger    4 //CONNECT TO TRIGGER PIN OF ULTRASONIC SENSOR
