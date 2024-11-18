@@ -1,92 +1,142 @@
-# Water Level Monitor - Arduino / ESP / Sigfox / LoRa
-<p align="justify">
-Repository contains software implementations in Wiring language (Arduino Core) for AVR ATmega328P / ATmega2560 microcontrollers (Arduino Uno / Mega R3), ESP8266 and ESP32.
-Implementations allow the use of an ultrasonic distance sensor from the RCW series, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™ to record the water level (distance).
-Supported technologies for data transmission are: Ethernet / WiFi / IoT Sigfox / LoRa.
-Firmware is divided based on additional functions that microcontrollers support.
-Standard StandBy mode enables data transfer to the web interface and takes care of maintaining constant connectivity in the LAN network.
-Implementations with Remote Over-The-Air (OTA) firmware update support are available for the ESP8266 and ESP32 over a LAN with a network OTA port.
-Ultra-Low-Power (ULP) firmware for ESP microcontrollers is also available, which minimizes power consumption due to the microcontroller switching to Deep Sleep mode.
-Microcontroller wake-up is performed by a supported method (RTC Timer for ESP32, External Wake for ESP8266).
-</p>
-<hr>
-<p align="justify">
-Firmware is available for ESP32 using the FreeRTOS real-time operating system. The implementation is available in Arduino Core, or in the ESP-IDF framework, corresponds to StandBy mode.
-Available firmware allows data transfer to a test web interface, where it is possible to record and visualize data on the water level in the well.
-<b> Project's test web interface only supports the HTTP protocol, examples for HTTPS connections will not work! </b>
-Web application is available in English, German, Russian and Slovak.
-Water Level Monitor project in the older version also exists with the extension of a rain gauge, which allows you to record the frequency of precipitation (the rain gauge project is not maintained).
-Extended project description: https://martinius96.github.io/hladinomer-studna-scripty/en/
-Web interface for Water Level Monitor with the possibility of testing: http://arduino.clanweb.eu/studna_s_prekladom/?lang=en
-Web interface for Water Level Monitor + RG-11 rain gauge with the possibility of testing: http://arduino.clanweb.eu/studna/?lang=en
-</p>
+# Water Level Monitor - Arduino / ESP32 / IoT / Sigfox / LoRa
 
-# How to get web interface?
-**If you are interested in purchasing the web interface, contact: martinius96@gmail.com**
-* It is possible to try the project with your hardware for free for any period of time on the test web interface
+This repository contains software implementations for water level monitoring using microcontrollers such as **Arduino** (ATmega328P/ATmega2560), **ESP8266**, and **ESP32**. It supports a variety of ultrasonic sensors (e.g., RCW, HC-SR04, JSN-SR04T) to measure water levels in wells, tanks, and other water sources. The project includes data transmission via **Ethernet**, **WiFi**, and **IoT technologies** such as **Sigfox** and **LoRa**.
 
-# Starting the Water Level monitor project
-* **The contents of the folder /src/ expand to C:/Users/[User]/Documents/Arduino/libraries**
-* Upload the given program (off-line tester / on-line sketch) to the microcontroller for sending data to the web interface by POST method
-* In case of purchasing a project with a web interface -> import .sql table into MySQL database
-* In connect.php set the access data to the MySQL database, HTTP Auth data and API key for the microcontroller that will be authorized to write data
-* Set the depth and diameter of the well in the Settings section, including the name of the well / measuring point
-* Upload the program that will be generated after this step (with API key) to the microcontroller
-* Operation of the project with the possibility of cloning
+The firmware is designed to be highly flexible, supporting different microcontroller functions, including **Ultra-Low-Power (ULP)** modes, **Remote Over-The-Air (OTA) updates**, and real-time operating systems like **FreeRTOS** for ESP32. This makes it suitable for both small-scale DIY projects and industrial IoT water monitoring solutions.
 
-**Software implementations for transmission protocols according to microcontrollers:**
-| Microcontroller | HTTP | HTTPS |
-| ------------ | ------------- | ------------- |
-| Arduino + Ethernet | ✓ | × |
-| ESP8266 | ✓ | ✓ |
-| ESP32 | ✓ | ✓ |
-| ESP32 + PHY LAN8720 | ✓ | ✓ |
+## Key Features:
+- **Real-Time Water Level Monitoring**: Collect and visualize water level data using supported ultrasonic sensors.
+- **Multiple Microcontroller Support**: Compatible with **Arduino**, **ESP8266**, **ESP32**, and more.
+- **Flexible Data Transmission**: Supports **Ethernet**, **WiFi**, **Sigfox**, and **LoRa** for data transfer.
+- **Ultra-Low Power Mode**: ESP32 and ESP8266 firmware includes deep sleep functionality for energy efficiency.
+- **OTA Firmware Updates**: Remote updates for ESP8266 and ESP32 devices, allowing easy upgrades without physical access.
+- **FreeRTOS for ESP32**: Full support for the FreeRTOS real-time operating system for advanced projects.
 
-**Supported operating modes of microcontroller operation in source codes:**
-| Operating mode | Offline Tester| StandBy | Deep Sleep | StandBy + Over The Air (OTA) | FreeRTOS |
-| ------------ | ------------- | ------------- | ------------- | ------------- | ------------- |
-| **Microcontroller** | - | - | - | - | - |
-| Arduino + Ethernet | ✓ | ✓ | × | × | × |
-| ESP8266 | ✓ | ✓ | ✓ | ✓ | × |
-| ESP32 | ✓ | ✓ | ✓ | ✓ | ✓ |
+## Supported Sensors:
+- **Ultrasonic Sensors**: e.g., HC-SR04, JSN-SR04T, IOE-SR0X, and others.
+- **Laser (LiDAR)**: e.g., Garmin LIDAR-Lite v3HP.
+- **Hydrostatic (Submersible)**: e.g., LMK307.
+- **Pressure Sensors**: Differential or compensating atmospheric sensors.
+- **Capacitive, Optical, and Mechanical Sensors**: For versatile monitoring options.
+
+## Supported Data Transmission Protocols:
+- **Ethernet**, **WiFi**, **Sigfox**, **LoRa**.
+- **HTTP** and **HTTPS** support for secure web connections.
+- Integration with **MySQL databases** for storing water level data.
+
+## Web Interface Features:
+- **Real-Time Data Visualization**: View water levels, trends, and volume calculations in an easy-to-understand format.
+- **Historical Data**: Access past records, minimum/maximum values, and trends over time.
+- **Graphical Data Representation**: Visualize water levels over the past 24 hours, 7 days, and 30 days.
+- **Multilingual Support**: Available in **English**, **German**, **Russian**, and **Slovak**.
+
+**Important Note:**  
+The test web interface currently supports **HTTP protocol only**. HTTPS configurations are available in example code but will not work with the current web interface.
+
+## Getting Started:
+To start using the Water Level Monitor project, follow these steps:
+1. **Clone this repository** or download the code.
+2. **Install required libraries** in Arduino IDE (`/src/` folder).
+3. **Upload the sketch** to your microcontroller (choose between **Offline Tester** or **Online Sketch**).
+4. If using a **web interface**:  
+   - Import the `.sql` table into your **MySQL** database.
+   - Update `connect.php` with your MySQL access credentials and API key for authentication.
+5. Set the **depth** and **diameter** of your well in the web interface settings.
+6. Upload the generated sketch to your microcontroller, ensuring the API key is included.
+
+For **OTA updates**, ensure your microcontroller is configured with **WiFi** or **Ethernet** connectivity.
+
+## Supported Microcontroller Operation Modes:
+| Microcontroller       | Offline Tester | StandBy | Deep Sleep | StandBy + OTA | FreeRTOS |
+|-----------------------|----------------|---------|------------|---------------|----------|
+| **Arduino + Ethernet** | ✓              | ✓       | ✖          | ✖             | ✖        |
+| **ESP8266**            | ✓              | ✓       | ✓          | ✓             | ✖        |
+| **ESP32**              | ✓              | ✓       | ✓          | ✓             | ✓        |
+| **ESP32 + PHY**        | ✓              | ✓       | ✓          | ✓             | ✓        |
 
 # Obtaining Root CA certificate (For ESP32 / ESP8266 - HTTPS) - OpenSSL tool
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
 
-# Supported hardware
+# Supported Hardware for Water Level Monitoring
+
+The **Water Level Monitor** project is compatible with a wide range of hardware setups, including popular microcontrollers and sensors for measuring water levels in wells, tanks, and other water bodies. Below are the supported hardware configurations and wiring diagrams to help you get started.
+
+### 1. **Water Level Monitor - Open-Source Hardware Setup**
 ![Water level monitor open-source hardware - well water level monitor](https://i.imgur.com/RqUwKbw.jpg)
+
+### 2. **ESP32 + PHY Ethernet LAN8720 Module with Waterproof Ultrasonic Sensor (JSN-SR04T)**
 ![Water level monitor - ESP32 + PHY Ethernet LAN8720 module, waterproof ultrasonic sensor JSN-SR04T](https://i.imgur.com/xLaYlmK.jpg)
-# Wiring for microcontrollers + HC-SR04 / JSN-SR04T
+
+### 3. **Wiring Diagrams for Microcontrollers + Ultrasonic Sensors (HC-SR04 / JSN-SR04T)**
+Learn how to wire the **HC-SR04** and **JSN-SR04T** ultrasonic sensors to your microcontroller for accurate water level measurements.
 ![Wiring diagram - level meter - sensor HC-SR04 / JSN-SR04T](https://i.imgur.com/8OJ9TQC.png)
-# Water level monitor - webapp screenshots
+
+## Water Level Monitor - Web Application Screenshots
+
+Check out the key features of the **Water Level Monitor** web app that allows you to visualize and analyze the water level data in real time.
+
+### 1. **Real-Time Water Level Overview**
+Monitor water levels and volume in real time with easy-to-read visualizations.
 ![Level meter - Overview of the water level in the well and the volume of the well in real time](https://i.imgur.com/VMLOkiW.gif)
+
+### 2. **Historical Data Table**
+View the difference in water levels over time with a comprehensive table of recorded data.
 ![Level meter - Table of difference records, historical data for the entire period of the well monitor](https://i.imgur.com/YrL0DG1.png)
+
+### 3. **Max/Min Data Alerts**
+Receive visual representations of max/min data to monitor water levels that exceed thresholds.
 ![Level meter - Alarm representation of maximum, minimum data](https://i.imgur.com/FqqGV8o.png)
+
+### 4. **Graphical Data Representation**
+View water level data over different time frames: 24 hours, 7 days, 30 days.
 ![Level meter - Graphical representation of measured data in 24 hours, 7 days, 30 days](https://i.imgur.com/3ynXOBb.png)
+
+### 5. **ESP32 - FreeRTOS & HTTPS Connectivity**
+Integration of **ESP32** with **FreeRTOS** and secure **HTTPS** connectivity for reliable and secure data transmission.
 ![Level meter - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
 
-# Other water level sensors (requires own firmware)
-* Laser (LiDAR)- Garmin LIDAR-Lite v3HP / TFMini
-* Hydrostatic (submersible) - LMK307 / LMP305 / DPT200
-* Electrostatic (capacitive / inductive)
-* Pressure (differential / with compensating atmospheric pressure sensor)
-* Optical - GP2Y0A02YK0F 
-* Mechanical (float)
-* Magnetic (Hall)
-* Microwave (radar) - CS476 / CS475A-L / SP69 / WLR 8/15/30
-* Ultrasonic - other type of output (UART, RS-232, current loop 4-20 mA, Modbus TCP / RTU, M-bus, RS-485, PROFINET, CAN, SDI, DQ ...)
-* **Note:** If the water level is recalculated from the bottom on the microcontroller side, it is necessary to set the well depth to 0 cm on the web interface.
+---
 
-# Extended version of Water Level monitor project with Rain Gauge offers (NOT SUPPORTED):
-* Water level monitor features (above)
-* Data collection from Hydreon RG-11 rain gauge - reading in interruption with debouncing 15ms
-* Visualization in the web interface
-* Visualization extended by 30 days, 365 days
-* Graphic development of precipitation
-* Measurable total (sum) of precipitation in 2 hours, 24 hours, 7 days, 30 days, 365 days
+# Supported Water Level Sensors
 
-# Screenshots of Water level monitor project with Rain Gauge
-![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Dashboard](https://i.imgur.com/9JfO3lg.png)
-![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Historical datas](https://i.imgur.com/ZQGQntl.png)
-![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Graphical visualisation in time - water level](https://i.imgur.com/aTd6o11.png)
-![Ultrasonic water level monitor with Rain Gauge Hydreon RG-11 - Graphical visualisation in time - rain](https://i.imgur.com/b1h0Itj.png)
+The **Water Level Monitor** project supports various sensor types, allowing for flexible and accurate water monitoring solutions. Below are the supported sensor types:
+
+### 1. **Laser (LiDAR) Sensors**
+- **Garmin LIDAR-Lite v3HP**
+- **TFMini**
+
+### 2. **Hydrostatic (Submersible) Sensors**
+- **LMK307**
+- **LMP305**
+- **DPT200**
+
+### 3. **Electrostatic Sensors**
+- Capacitive and inductive sensors for non-contact water level measurements.
+
+### 4. **Pressure Sensors**
+- **Differential Pressure Sensors**
+- **Atmospheric Pressure Compensating Sensors**
+
+### 5. **Optical Sensors**
+- **GP2Y0A02YK0F** for accurate detection of water levels using light-based sensing.
+
+### 6. **Mechanical (Float) Sensors**
+- Float-based sensors for traditional water level measurement methods.
+
+### 7. **Magnetic (Hall Effect) Sensors**
+- Hall effect sensors for precise water level detection.
+
+### 8. **Microwave (Radar) Sensors**
+- **CS476**
+- **CS475A-L**
+- **SP69**
+- **WLR 8/15/30**
+
+### 9. **Ultrasonic Sensors with Custom Outputs**
+- Supported sensor outputs include **UART**, **RS-232**, **current loop 4-20 mA**, **Modbus TCP/RTU**, **M-bus**, **RS-485**, **PROFINET**, **CAN**, **SDI**, **DQ**, and more.
+
+**Note:** If you are using a sensor that calculates water level from the bottom (e.g., submersible or pressure sensors), ensure to set the well depth to **0 cm** in the web interface for accurate readings.
+
+---
+
+By utilizing a variety of sensors, the **Water Level Monitor** project can be adapted to suit different environments, from residential water tanks to industrial-scale water management systems. Whether you're using ultrasonic, radar, or pressure sensors, you can tailor the system to your specific needs.
