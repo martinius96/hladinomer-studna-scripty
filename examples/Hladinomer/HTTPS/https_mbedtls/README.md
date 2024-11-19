@@ -7,6 +7,6 @@
 * Ultrasonic task is doing measurement via Trigger, Echo method once per 5 minutes
 * If measurement performed, data is sent to the Queue
 * HTTPS request task is waiting until any data are in the Queue
-* If data present in Queue, HTTPS request will do HTTPS request with that data (data will be removed, so Queue is again empty)
+* If data present in Queue, HTTPS task will do HTTPS request with that data (data will be removed, so Queue is again empty)
 * Maximum waiting time for HTTPS request task for data is portMAX_DELAY (almost 50 days)
 * Program is using Root CA cert from bundle (test webserver was using ISRG Root X1)
