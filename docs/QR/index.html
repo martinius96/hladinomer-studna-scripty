@@ -74,8 +74,12 @@
                 <td><b>Attribute</b></td>
                 <td><b>Value</b></td>
             </tr>
+                        <tr>
+                <td>Name:</td>
+                <td id="name-value"></td>
+            </tr>
             <tr>
-                <td>Water height:</td>
+                <td>Water level:</td>
                 <td id="height-value"></td>
             </tr>
             <tr>
@@ -149,9 +153,11 @@
                 .then(data => {
 
                     console.log(data);
+                    const waterwellName = data.name;
                     const valueInCm = data.value + " cm ";
                     const volumeInLiters = data.volume + " liters";
                     const formattedDate = data.time;
+                    document.getElementById('name-value').textContent = waterwellName;
                     document.getElementById('height-value').textContent = valueInCm;
                     document.getElementById('volume-value').textContent = volumeInLiters;
                     document.getElementById('time-value').textContent = formattedDate;
@@ -210,7 +216,7 @@
     </script>
     <footer>
         <div class="alert alert-success" role="alert">
-            <p style="text-align: justify;">Scan QR code from: https://arduino.clanweb.eu/studna_s_prekladom/?lang=en</p>
+            <p style="text-align: justify;">Scan QR code from: https://hladinomer.eu/?lang=en</p>
             <p style="text-align: justify;">&copy; 2024 Martin Chlebovec. All rights reserved.</p>
         </div>
     </footer>
