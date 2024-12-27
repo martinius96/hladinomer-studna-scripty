@@ -102,7 +102,7 @@
 </div>	
 <hr><center><h1>Hladinomer - monitor výšky hladiny vody v studni</h1></center><hr>
 <p style="text-align: justify;">
-IoT Dashboard pre monitorovanie hladiny vody v kopanej studni ponúka webové rozhranie ako centrálny nástroj pre vizualizáciu meraní. Táto webaplikácia umožňuje presné zaznamenávanie údajov o výške hladiny pomocou ultrazvukových senzorov, ako napríklad HC-SR04 alebo jeho vodotesnej varianty JSN-SR04T.
+IoT Dashboard Watmonitor pre monitorovanie hladiny vody v kopanej studni ponúka webové rozhranie ako centrálny nástroj pre vizualizáciu meraní. Táto webaplikácia umožňuje presné zaznamenávanie údajov o výške hladiny pomocou ultrazvukových senzorov, ako napríklad HC-SR04 alebo jeho vodotesnej varianty JSN-SR04T.
 Okrem vyššie uvedených senzorov je možné integrovať aj ďalšie z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™, v závislosti na konkrétnej implementácii. Senzorový uzol vykonáva každých 5 minút 10 priemerovaných meraní ultrazvukovým senzorom.
 Namerané hodnoty sa následne odosielajú serveru prostredníctvom dostupného rozhrania (WiFi / Ethernet / IoT sieť LoRaWAN / NB-IoT). Aktuálne údaje o výške hladiny sú názorne prezentované v dashboardi spolu s prepočtom na objem studne a trendom voči predchádzajúcim meraniam.
 Pre používateľa je k dispozícii nielen aktuálny stav, ale aj historické dáta o výške hladiny, ktoré môže zobrazovať prostredníctvom tabuliek alebo grafickej vizualizácie pomocou čiarových grafov. Webové rozhranie je plne responzívne a prispôsobuje sa rôznym typom zariadení, vrátane smartfónov, počítačov, tabletov a Smart TV.
@@ -242,7 +242,7 @@ Certifikát je vložený do zdrojového kódu mikrokontrolérov v .pem formáte.
 Aby certifikát nezaberal miesto v RAM pamäti mikrokontroléra, je vložený do flash pamäte mikrokontroléra - PROGMEM. 
 Certifikát certifikačnej autority platí v rozmedzí 10 až 20 rokov, nevyžaduje tak častý renew certifikátu.
 Dáta o aktuálnej výške hladiny vody a objeme vody v studni sú z webového rozhrania dostupné v JSON formáte.
-Projekt Hladinomer je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde napr. Grafana.
+Projekt Hladinomer (Watmonitor) je možné integrovať cez MQTT do domácej automatizácie (Hassio, Domoticz, Loxone) pre zobrazenie výšky hladiny vody vo vlastnom dashboarde napr. Grafana.
 Následne je možné v podsystéme vykonávať aj ovládanie periférii (zavlažovanie, polievanie, aktivácia domácej vodárne) na základe dát o výške hladiny vody v studni z web rozhrania.
 </p>
 <div class="table-responsive">   
