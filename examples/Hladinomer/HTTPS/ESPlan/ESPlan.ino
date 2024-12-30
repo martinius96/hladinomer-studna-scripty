@@ -1,6 +1,7 @@
 //Valid for LaskaKit ESPlan ESP32 LAN8720A MAX485 PoE board
 //Available at: https://www.laskakit.cz/laskakit-esplan-esp32-lan8720a-max485-poe/
 //Suitable for Water level monitor app (Watmonitor): http://hladinomer.eu/
+//Latest Arduino Core 3.0.X (ESP-IDF v5.X.X)
 
 #define ETH_PHY_TYPE ETH_PHY_LAN8720
 #define ETH_PHY_ADDR  0
