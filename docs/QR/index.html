@@ -169,7 +169,7 @@
 
         // Event listener for QR code scan
         scanner.addListener('scan', function (content) {
-            if (content.startsWith("Martin Chlebovec")) { //trigger
+            if (content.startsWith("Watmonitor")) { //trigger
                 document.getElementById('qr-result').textContent = "QR Code Detected: " + content;
                 showTableOverlay();
                 isTableVisible = true;
