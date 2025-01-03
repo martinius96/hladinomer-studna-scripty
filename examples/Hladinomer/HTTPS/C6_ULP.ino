@@ -113,6 +113,7 @@ client.setCACert(test_root_ca);
     Serial.println(F("Distance between ultrasonic sensor and water level is out of range."));
   }
   client.stop();
+  delay(750);
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) + " Seconds");
   esp_deep_sleep_start();
