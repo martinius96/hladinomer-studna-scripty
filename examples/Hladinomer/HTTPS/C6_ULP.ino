@@ -4,11 +4,11 @@
 /*|E-mail: martinius96@gmail.com                                                  |*/
 /*|Info, schematics: https://martinius96.github.io/hladinomer-studna-scripty/en/  |*/
 /*|Test web interface: https://hladinomer.eu/?lang=en                             |*/
-/*|Revision: 26. Dec. 2024                                                        |*/
+/*|Revision: 3. Jan. 2025                                                         |*/
 /*|-------------------------------------------------------------------------------|*/
 
-const char * ssid = "Dvor"; //WiFi SSID
-const char * password = "chefrolet"; //WiFi PASS
+const char * ssid = "MY_WIFI_SSID"; //WiFi SSID
+const char * password = "MY_PASSWORD"; //WiFi PASS
 
 //HOST
 const char* host = "hladinomer.eu"; //webhost
@@ -48,8 +48,6 @@ const static char* test_root_ca PROGMEM = \
 "mRGunUHBcnWEvgJBQl9nJEiU0Zsnvgc/ubhPgXRR4Xq37Z0j4r7g1SgEEzwxA57d\n" \
 "emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=\n" \
 "-----END CERTIFICATE-----\n";
-
-
 
 #include <NewPingESP8266.h>
 #include <WiFiClientSecure.h>
