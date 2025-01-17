@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html lang="sk-SK">
 <head>
-<title>IoT Dashboard pre meranie hladiny vody v studni – Real-Time Monitoring Arduino / ESP32</title>
-<meta name="description" content="Moderné IoT riešenie pre monitorovanie hladiny vody v studniach. Náš dashboard poskytuje vizualizáciu aktuálnych údajov o výške hladiny, historické dáta a analýzy pomocou ultrazvukových senzorov (HC-SR04, JSN-SR04T). Zabezpečte si spoľahlivé meranie s prehľadnou prezentáciou a podporou pre rôzne senzory a mikrokontroléry ako ESP32 a Arduino.">
-<meta name="keywords" content="IoT dashboard pre studne, meranie hladiny vody, ultrazvukové senzory pre studne, monitoring výšky hladiny vody, senzory HC-SR04, JSN-SR04T, webové rozhranie na meranie hladiny vody, Arduino a ESP32 hladinomer, LoRaWAN a NB-IoT pre IoT zariadenia, senzory pre kopané studne, online monitoring vody v studni, dashboard pre IoT, vizualizácia údajov o vode, historické dáta hladiny vody, kapacitné a tlakové senzory, detekcia výšky hladiny, senzory pre priemyselné zbernice">
+<title>IoT Dashboard na meranie vody – Hladinomer (Arduino/ESP32)</title>
+<meta name="description" content="IoT riešenie pre monitorovanie vody v studni. Dashboard zobrazuje real-time údaje, grafy a podporuje senzory (HC-SR04, JSN-SR04T), Arduino, ESP32, LoRaWAN.">
+<meta name="keywords" content=IoT dashboard, meranie hladiny vody, hladinomer pre studne, senzory HC-SR04, JSN-SR04T, monitoring vody, Arduino ESP32 IoT, LoRaWAN hladinomer, NB-IoT meranie vody, online vizualizácia hladiny, historické dáta vody, senzory pre studne">
 
 <link rel="icon" type="image/png" href="https://martinius96.github.io/termostat-ethernet/favicon.png">
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
@@ -101,29 +101,62 @@
 --->	
 </div>	
 <hr><center><h1>Hladinomer - monitor výšky hladiny vody v studni</h1></center><hr>
-<p style="text-align: justify;">
-IoT Dashboard Watmonitor pre monitorovanie hladiny vody v kopanej studni ponúka webové rozhranie ako centrálny nástroj pre vizualizáciu meraní. Táto webaplikácia umožňuje presné zaznamenávanie údajov o výške hladiny pomocou ultrazvukových senzorov, ako napríklad HC-SR04 alebo jeho vodotesnej varianty JSN-SR04T.
-Okrem vyššie uvedených senzorov je možné integrovať aj ďalšie z rady RCW, US-XXX, IOE-SR0X, SR0X, HC-SR0X, HY-SRF0X, DYP-MEXXX, Parallax PING)))™, v závislosti na konkrétnej implementácii. Senzorový uzol vykonáva každých 5 minút 10 priemerovaných meraní ultrazvukovým senzorom.
-Namerané hodnoty sa následne odosielajú serveru prostredníctvom dostupného rozhrania (WiFi / Ethernet / IoT sieť LoRaWAN / NB-IoT). Aktuálne údaje o výške hladiny sú názorne prezentované v dashboardi spolu s prepočtom na objem studne a trendom voči predchádzajúcim meraniam.
-Pre používateľa je k dispozícii nielen aktuálny stav, ale aj historické dáta o výške hladiny, ktoré môže zobrazovať prostredníctvom tabuliek alebo grafickej vizualizácie pomocou čiarových grafov. Webové rozhranie je plne responzívne a prispôsobuje sa rôznym typom zariadení, vrátane smartfónov, počítačov, tabletov a Smart TV.
-Pri prijatí údajov backend vykonáva korekciu nameranej výšky hladiny na reálnu hodnotu na základe známej hĺbky studne, keďže senzor poskytuje len rozdielovú výšku hladiny. Na základe tejto korekcie a známeho priemeru studne dokáže webové rozhranie určiť aj objem studne v litroch.
+<p style="text-align: justify;">  
+    <strong>IoT Dashboard Watmonitor</strong> je moderné riešenie na <strong>monitorovanie hladiny vody v kopaných studniach</strong>.  
+    Táto <strong>webová aplikácia</strong> ponúka prehľadné rozhranie na <strong>vizualizáciu údajov o výške hladiny vody</strong>.  
+    Využíva presné <strong>ultrazvukové senzory</strong>, ako napríklad <strong>HC-SR04</strong> a vodotesnú verziu <strong>JSN-SR04T</strong>,  
+    a umožňuje integráciu ďalších senzorov, ako sú <strong>RCW, US-XXX, IOE-SR0X, SR0X, HY-SRF0X, DYP-MEXXX</strong>  
+    alebo <strong>Parallax PING)))™</strong>, podľa potreby.  
+</p>  
+
+<p style="text-align: justify;">  
+    Každých 5 minút vykonáva senzorový uzol 10 priemerovaných meraní, pričom namerané hodnoty sú odosielané na server prostredníctvom  
+    <strong>WiFi, Ethernet, LoRaWAN alebo NB-IoT</strong>. Tieto údaje sú okamžite spracované a prezentované v <strong>IoT dashboarde</strong>,  
+    ktorý zobrazuje aktuálnu výšku hladiny, prepočítaný objem studne a trendy zmien.  
+</p>  
+
+<p style="text-align: justify;">  
+    Používatelia môžu sledovať nielen aktuálne dáta, ale aj <strong>historické merania</strong>, zobrazené v prehľadných tabuľkách  
+    alebo <strong>grafickej vizualizácii</strong> pomocou čiarových grafov. Rozhranie je plne <strong>responzívne</strong>, čo znamená, že sa bez problémov  
+    prispôsobí <strong>smartfónom, tabletom, počítačom aj Smart TV</strong>.  
+</p>  
+
+<p style="text-align: justify;">  
+    Backend systému vykonáva korekciu nameraných údajov na základe známej hĺbky studne a priemeru, čím zabezpečuje presný výpočet  
+    objemu studne v litroch. <strong>Watmonitor</strong> je ideálny nástroj pre všetkých, ktorí potrebujú <strong>spoľahlivé a real-time monitorovanie  
+    hladiny vody v studniach</strong> s možnosťou využitia pokročilých <strong>IoT technológií</strong>.  
 </p>
+
 <a href="http://arduino.clanweb.eu/studna_s_prekladom/">
 <center>
 	<img src="https://i.imgur.com/2AHKuu2.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - dashboard - automatická obnova aktuálne nameraných dát cez jQuery" title="Hladinomer - dashboard - automatická obnova aktuálne nameraných dát cez jQuery">
 </center>
 </a>
-<p style="text-align: justify;">
-Princíp merania ultrazvukových senzorov je vyslanie signálu Trigger s dĺžkou 10 μs (mikrosekúnd), ktorý sa od hladiny vody odrazí a vráti sa do prijímača - Echo. 
-Využíva sa metóda Time-of-Flight pre prepočet času medzi vyslaním a prijatím signálu na určenie vzdialenosti hladiny vody od senzora, ktorý je umiestnený na vrchu studne.
-Vzorec prepočtu počíta s rýchlosťou zvuku 343 m/s pri teplote 20 °C..
-Dôležitým parametrom ultrazvukových senzorov je šírka lúča, inými slovami detekčná charakteristika.
-Senzor HC-SR04 má 15° detekčnú charakteristiku. Lúč je relatívne úzky a senzor je tak vhodný aj pre užšie studne a nádrže, avšak nie je vodotesný a má vysoké riziko korózie vo vlhkých podmienkach studne. 
-Z toho dôvodu je tento ultrazvukový senzor vhodné umiestniť nad studňu pre zníženie účinkov vlhkosti v danom prostredí. 
-Vodotesný senzor JSN-SR04T má detekčnú charakteristiku 60°, čo ho značne limituje a zamedzuje jeho použitiu v úzkych studniach, nakoľko sa lúč so vzdialenosťou veľmi rozširuje a je potrebná studňa s priemerom niekoľko metrov (6 metrov priemer pri hĺbke studne 4,5 metra pre garanciu merania bez odrazov).
-Ultrazvukové senzory sú plne bezúdržbové. Senzor JSN-SR04T má riadiacu elektronickú dosku, ktorá nesmie byť vystavená vlhkosti a vode. 
-Maximálna merateľná výška hladiny (úrovne) senzormi je cca 400 až 450cm na základe údajov z katalógových listov (datasheetov).
+<p style="text-align: justify;">  
+    Princíp merania <strong>ultrazvukových senzorov</strong> spočíva vo vyslaní signálu <strong>Trigger</strong> s dĺžkou 10 μs (mikrosekúnd),  
+    ktorý sa od hladiny vody odrazí a vráti do prijímača – <strong>Echo</strong>. Táto metóda, známa ako <strong>Time-of-Flight</strong>,  
+    počíta čas medzi vyslaním a prijatím signálu na určenie vzdialenosti hladiny vody od senzora, umiestneného na vrchu studne.  
+    Vzorec prepočtu používa <strong>rýchlosť zvuku</strong> 343 m/s pri teplote 20 °C.  
+</p>  
+
+<p style="text-align: justify;">  
+    Dôležitým parametrom ultrazvukových senzorov je <strong>šírka lúča</strong>, známa aj ako detekčná charakteristika.  
+    Senzor <strong>HC-SR04</strong> má 15° detekčnú charakteristiku, čo znamená, že lúč je relatívne úzky. Tento senzor je vhodný  
+    pre užšie studne a nádrže, no nie je vodotesný a má vysoké riziko korózie vo vlhkých podmienkach. Preto je ideálne ho umiestniť  
+    nad studňu, aby sa minimalizovali účinky vlhkosti.  
+</p>  
+
+<p style="text-align: justify;">  
+    Vodotesný senzor <strong>JSN-SR04T</strong> má širšiu detekčnú charakteristiku 60°, čo obmedzuje jeho použitie v úzkych studniach.  
+    Lúč sa so vzdialenosťou veľmi rozširuje, a preto je vhodný iba pre širšie studne s priemerom aspoň 6 metrov (pri hĺbke 4,5 metra),  
+    aby sa predišlo odrazom signálu. Elektronická doska tohto senzora nie je odolná voči vode, a preto musí byť chránená pred vlhkosťou.  
+</p>  
+
+<p style="text-align: justify;">  
+    <strong>Ultrazvukové senzory</strong> sú však plne bezúdržbové a poskytujú spoľahlivé meranie. Maximálna merateľná výška hladiny  
+    týmito senzormi je približne 400 až 450 cm, podľa údajov uvedených v katalógových listoch (datasheetoch).  
 </p>
+
 <div class="alert alert-info">
   	<strong>Iné typy senzorov pre záznam výšky hladiny vody, ktoré je možné integrovať (nutné vytvoriť si vlastný firmvér):</strong> 
  	<li><b>Laserové (LiDAR)</b> - (DFRobot DTOF LD19 LIDAR, DFRobot ToF Laser ...)</li>
