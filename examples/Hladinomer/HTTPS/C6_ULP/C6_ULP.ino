@@ -4,7 +4,7 @@
 /*|E-mail: martinius96@gmail.com                                                  |*/
 /*|Info, schematics: https://martinius96.github.io/hladinomer-studna-scripty/en/  |*/
 /*|Test web interface: https://hladinomer.eu/?lang=en                             |*/
-/*|Revision: 3. Jan. 2025                                                         |*/
+/*|Revision: 25. Jun. 2025                                                         |*/
 /*|-------------------------------------------------------------------------------|*/
 
 const char * ssid = "MY_WIFI_SSID"; //WiFi SSID
@@ -57,7 +57,7 @@ const static char* test_root_ca PROGMEM = \
 #define pinTrigger    22
 #define pinEcho       23
 #define maxVzdialenost 450
-
+RTC_DATA_ATTR unsigned long BootCount;
 NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
 
 WiFiClientSecure client;
@@ -114,6 +114,10 @@ client.setCACert(test_root_ca);
   }
   client.stop();
   delay(250);
+  if (BootCount < 1) {
+    delay(30000);
+  }
+  BootCount++;
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) + " Seconds");
   esp_deep_sleep_start();
