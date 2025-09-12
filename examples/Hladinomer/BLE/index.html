@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 BLE Sensor</title>
+</head>
+<body>
+  <h1>ESP32 BLE Distance Sensor</h1>
+  <button id="connectBtn">Connect to Sensor</button>
+  <p>Distance: <span id="distance">--</span> cm</p>
+
+  <script>
+    const SERVICE_UUID = '12345678-1234-1234-1234-1234567890ab';
+    const CHARACTERISTIC_UUID = 'abcd1234-5678-90ab-cdef-1234567890ab';
+    let characteristic;
+
+    document.getElementById('connectBtn').addEventListener('click', async () => {
+      try {
+        console.log('Requesting Bluetooth Device...');
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [{ name: 'ESP32C6_Hladinomer' }],
+          optionalServices: [SERVICE_UUID]
+        });
+
+        console.log('Connecting to GATT Server...');
+        const server = await device.gatt.connect();
+
+        console.log('Getting Service...');
+        const service = await server.getPrimaryService(SERVICE_UUID);
+
+        console.log('Getting Characteristic...');
+        characteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
+
+        // Start notifications
+        await characteristic.startNotifications();
+        characteristic.addEventListener('characteristicvaluechanged', handleNotifications);
+
+        console.log('Connected and notifications started!');
+      } catch(error) {
+        console.error('Connection failed', error);
+      }
+    });
+
+    function handleNotifications(event) {
+      const value = new TextDecoder().decode(event.target.value);
+      document.getElementById('distance').textContent = value;
+    }
+  </script>
+</body>
+</html>
