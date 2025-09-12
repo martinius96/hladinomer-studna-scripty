@@ -14,10 +14,8 @@ The firmware is designed to be highly flexible, supporting different microcontro
 
 ## Supported Sensors:
 - **Ultrasonic Sensors**: e.g., HC-SR04, JSN-SR04T, IOE-SR0X, and others.
-- **Laser (LiDAR)**: e.g., Garmin LIDAR-Lite v3HP.
-- **Hydrostatic (Submersible)**: e.g., LMK307.
-- **Pressure Sensors**: Differential or compensating atmospheric sensors.
-- **Capacitive, Optical, and Mechanical Sensors**: For versatile monitoring options.
+- **Laser**: e.g., VL53L1X (TOF400C), VL53L0X (TOF200C).
+- **Other**: Required to do your own firmware, or set callback in case of industrial sensors
 
 ## Supported Data Transmission Protocols:
 - **Ethernet**, **WiFi**, **Sigfox**, **LoRa**.
@@ -95,48 +93,4 @@ View water level data over different time frames: 24 hours, 7 days, 30 days.
 Integration of **ESP32** with **FreeRTOS** and secure **HTTPS** connectivity for reliable and secure data transmission.
 ![Level meter - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
 
----
-
-# Supported Water Level Sensors
-
-The **Water Level Monitor** project supports various sensor types, allowing for flexible and accurate water monitoring solutions. Below are the supported sensor types:
-
-### 1. **Laser (LiDAR) Sensors**
-- **Garmin LIDAR-Lite v3HP**
-- **TFMini**
-
-### 2. **Hydrostatic (Submersible) Sensors**
-- **LMK307**
-- **LMP305**
-- **DPT200**
-
-### 3. **Electrostatic Sensors**
-- Capacitive and inductive sensors for non-contact water level measurements.
-
-### 4. **Pressure Sensors**
-- **Differential Pressure Sensors**
-- **Atmospheric Pressure Compensating Sensors**
-
-### 5. **Optical Sensors**
-- **GP2Y0A02YK0F** for accurate detection of water levels using light-based sensing.
-
-### 6. **Mechanical (Float) Sensors**
-- Float-based sensors for traditional water level measurement methods.
-
-### 7. **Magnetic (Hall Effect) Sensors**
-- Hall effect sensors for precise water level detection.
-
-### 8. **Microwave (Radar) Sensors**
-- **CS476**
-- **CS475A-L**
-- **SP69**
-- **WLR 8/15/30**
-
-### 9. **Ultrasonic Sensors with Custom Outputs**
-- Supported sensor outputs include **UART**, **RS-232**, **current loop 4-20 mA**, **Modbus TCP/RTU**, **M-bus**, **RS-485**, **PROFINET**, **CAN**, **SDI**, **DQ**, and more.
-
-**Note:** If you are using a sensor that calculates water level from the bottom (e.g., submersible or pressure sensors), ensure to set the well depth to **0 cm** in the web interface for accurate readings.
-
----
-
-By utilizing a variety of sensors, the **Water Level Monitor** project can be adapted to suit different environments, from residential water tanks to industrial-scale water management systems. Whether you're using ultrasonic, radar, or pressure sensors, you can tailor the system to your specific needs.
+--
