@@ -94,4 +94,6 @@ QR scanner that can visualise the latest data by scanning QR code
 ### 5. **Augmented reality**
 AR visualisation of the latest data as dashboard when QR code scanned
 <img width="756" height="1680" alt="Watmonitor - Augmented reality" src="https://github.com/user-attachments/assets/397c1019-1527-4200-9a24-3d66e34a9860" />
+<img width="571" height="498" alt="image" src="https://github.com/user-attachments/assets/9c3ce96e-1142-49d3-a3be-dfd694e69f0a" />
+
 
