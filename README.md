@@ -1,16 +1,16 @@
-# Water Level Monitor - Arduino / ESP32 / IoT / Sigfox / LoRa
+# 💧 Water Level Monitor - Arduino / ESP8266 / ESP32
 
-This repository contains software implementations for water level monitoring using microcontrollers such as **Arduino** (ATmega328P/ATmega2560), **ESP8266**, and **ESP32**. It supports a variety of ultrasonic sensors (e.g., RCW, HC-SR04, JSN-SR04T) to measure water levels in wells, tanks, and other water sources. The project includes data transmission via **Ethernet**, **WiFi**, and **IoT technologies** such as **Sigfox** and **LoRa**.
+This repository contains software implementations for water level monitoring using microcontrollers such as **Arduino** (ATmega328P/ATmega2560), **ESP8266**, and **ESP32**. It supports a variety of ultrasonic, ToF laser sensors to measure water levels in wells, tanks, and other water sources. The project includes data transmission via **Ethernet**, **WiFi**, and **IoT technologies** such as **Sigfox** and **LoRa / LoRaWAN**.
 
 The firmware is designed to be highly flexible, supporting different microcontroller functions, including **Ultra-Low-Power (ULP)** modes, **Remote Over-The-Air (OTA) updates**, and real-time operating systems like **FreeRTOS** for ESP32. This makes it suitable for both small-scale DIY projects and industrial IoT water monitoring solutions.
 
-## Key Features:
-- **Real-Time Water Level Monitoring**: Collect and visualize water level data using supported ultrasonic sensors.
-- **Multiple Microcontroller Support**: Compatible with **Arduino**, **ESP8266**, **ESP32**, and more.
-- **Flexible Data Transmission**: Supports **Ethernet**, **WiFi**, **Sigfox**, and **LoRa** for data transfer.
-- **Ultra-Low Power Mode**: ESP32 and ESP8266 firmware includes deep sleep functionality for energy efficiency.
-- **OTA Firmware Updates**: Remote updates for ESP8266 and ESP32 devices, allowing easy upgrades without physical access.
-- **FreeRTOS for ESP32**: Full support for the FreeRTOS real-time operating system for advanced projects.
+## 🚀 Key Features
+- 💧 **Real-Time Monitoring**: Ultrasonic sensors measure water levels continuously.
+- 🖥 **Web Interface**: Real-time graphs, history, and alerts.
+- 🔌 **Multiple Connectivity**: Ethernet, WiFi, Sigfox, LoRa.
+- 🔋 **Ultra-Low Power**: Deep sleep for ESP32/ESP8266.
+- 🔄 **OTA Updates**: Easy remote firmware upgrade.
+- 🕹 **FreeRTOS Support**: Advanced ESP32 projects.
 
 ## Supported Sensors:
 - **Ultrasonic Sensors**: e.g., HC-SR04, JSN-SR04T, IOE-SR0X, and others.
@@ -46,11 +46,11 @@ For **OTA updates**, ensure your microcontroller is configured with **WiFi** or 
 
 ## Supported Microcontroller Operation Modes:
 | Microcontroller       | Offline Tester | StandBy | Deep Sleep | StandBy + OTA | FreeRTOS |
-|-----------------------|----------------|---------|------------|---------------|----------|
-| **Arduino + Ethernet** | ✓              | ✓       | ✖          | ✖             | ✖        |
-| **ESP8266**            | ✓              | ✓       | ✓          | ✓             | ✖        |
-| **ESP32**              | ✓              | ✓       | ✓          | ✓             | ✓        |
-| **ESP32 + PHY**        | ✓              | ✓       | ✓          | ✓             | ✓        |
+|-----------------------|:-------------:|:-------:|:----------:|:-------------:|:--------:|
+| **Arduino + Ethernet** | ✅            | ✅      | ❌         | ❌            | ❌       |
+| **ESP8266**            | ✅            | ✅      | ✅         | ✅            | ❌       |
+| **ESP32**              | ✅            | ✅      | ✅         | ✅            | ✅       |
+| **ESP32 + PHY**        | ✅            | ✅      | ✅         | ✅            | ✅       |
 
 # Obtaining Root CA certificate (For ESP32 / ESP8266 - HTTPS) - OpenSSL tool
 * openssl s_client -showcerts -verify 5 -connect example.com:443 < /dev/null
