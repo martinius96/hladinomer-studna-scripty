@@ -60,14 +60,8 @@ For **OTA updates**, ensure your microcontroller is configured with **WiFi** or 
 The **Water Level Monitor** project is compatible with a wide range of hardware setups, including popular microcontrollers and sensors for measuring water levels in wells, tanks, and other water bodies. Below are the supported hardware configurations and wiring diagrams to help you get started.
 
 ### 1. **Water Level Monitor - Open-Source Hardware Setup**
-![Water level monitor open-source hardware - well water level monitor](https://i.imgur.com/RqUwKbw.jpg)
-
-### 2. **ESP32 + PHY Ethernet LAN8720 Module with Waterproof Ultrasonic Sensor (JSN-SR04T)**
-![Water level monitor - ESP32 + PHY Ethernet LAN8720 module, waterproof ultrasonic sensor JSN-SR04T](https://i.imgur.com/xLaYlmK.jpg)
-
-### 3. **Wiring Diagrams for Microcontrollers + Ultrasonic Sensors (HC-SR04 / JSN-SR04T)**
-Learn how to wire the **HC-SR04** and **JSN-SR04T** ultrasonic sensors to your microcontroller for accurate water level measurements.
-![Wiring diagram - level meter - sensor HC-SR04 / JSN-SR04T](https://i.imgur.com/8OJ9TQC.png)
+<img width="758" height="437" alt="ESP32-C6 + VL53L1X/TOF400C laser sensor" src="https://github.com/user-attachments/assets/1d818a1b-2686-49ae-952c-8d9454c1e6df" />
+<img width="1085" height="536" alt="ESP32-C6 + HC-SR04 ultrasonic sensor" src="https://github.com/user-attachments/assets/0379c117-04b7-4799-b8b0-fe7dd1c2ae32" />
 
 ## Water Level Monitor - Web Application Screenshots
 
@@ -75,22 +69,29 @@ Check out the key features of the **Water Level Monitor** web app that allows yo
 
 ### 1. **Real-Time Water Level Overview**
 Monitor water levels and volume in real time with easy-to-read visualizations.
-![Level meter - Overview of the water level in the well and the volume of the well in real time](https://i.imgur.com/VMLOkiW.gif)
+<img width="1125" height="683" alt="Watmonitor - Realtime dashboard" src="https://github.com/user-attachments/assets/554dce8c-fcc1-4dbd-b736-bd57957f3353" />
 
-### 2. **Historical Data Table**
-View the difference in water levels over time with a comprehensive table of recorded data.
-![Level meter - Table of difference records, historical data for the entire period of the well monitor](https://i.imgur.com/YrL0DG1.png)
 
-### 3. **Max/Min Data Alerts**
-Receive visual representations of max/min data to monitor water levels that exceed thresholds.
-![Level meter - Alarm representation of maximum, minimum data](https://i.imgur.com/FqqGV8o.png)
+### 2. **Historical Datas + Gauge graphs**
+View the difference in water levels over time with a comprehensive table of recorded data and minimal / maximal values recorded
+<img width="1178" height="918" alt="Watmonitor - Historical data" src="https://github.com/user-attachments/assets/6aece833-b434-4002-91b8-c43cbef81f3a" />
 
-### 4. **Graphical Data Representation**
-View water level data over different time frames: 24 hours, 7 days, 30 days.
-![Level meter - Graphical representation of measured data in 24 hours, 7 days, 30 days](https://i.imgur.com/3ynXOBb.png)
 
-### 5. **ESP32 - FreeRTOS & HTTPS Connectivity**
-Integration of **ESP32** with **FreeRTOS** and secure **HTTPS** connectivity for reliable and secure data transmission.
-![Level meter - ESP32 - ESP-IDF- FreeRTOS, HTTPS connectivity](https://i.imgur.com/xyhyH8A.png)
+### 3. **Graphs**
+Advanced graph visualisations with possiblity to export graph in .csv, .svg, .png
+<img width="1861" height="739" alt="Watmonitor - ApexCharts" src="https://github.com/user-attachments/assets/9d5c73ff-3af3-4b54-95dc-ae11ba08aa65" />
 
---
+
+### 4. **Source code generator**
+In-built source code generator for ESP32 (automatically calculated traces based on dir depth)
+<img width="1163" height="865" alt="Watmonitor - source code generator" src="https://github.com/user-attachments/assets/37ecf8b2-a80d-435c-ba8d-a58ce4503586" />
+
+
+### 5. **QR scanner**
+QR scanner that can visualise the latest data by scanning QR code
+<img width="1920" height="1445" alt="Watmonitor - QR scanner" src="https://github.com/user-attachments/assets/5983237e-c770-4fb3-b687-8e6527955a39" />
+
+### 5. **Augmented reality**
+AR visualisation of the latest data as dashboard when QR code scanned
+<img width="756" height="1680" alt="Watmonitor - Augmented reality" src="https://github.com/user-attachments/assets/397c1019-1527-4200-9a24-3d66e34a9860" />
+
