@@ -1,0 +1,133 @@
+{
+  "ruleChain": {
+    "name": "Hladinomer_GET",
+    "type": "CORE",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null,
+    "additionalInfo": {
+      "description": ""
+    }
+  },
+  "metadata": {
+    "version": 5,
+    "firstNodeIndex": null,
+    "nodes": [
+      {
+        "type": "org.thingsboard.rule.engine.debug.TbMsgGeneratorNode",
+        "name": "GEN",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 2,
+        "configuration": {
+          "msgCount": 0,
+          "periodInSeconds": 60,
+          "scriptLang": "TBEL",
+          "jsScript": "var msg = { temp: 42, humidity: 77 };\nvar metadata = { data: 40 };\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+          "tbelScript": "// Generator Node script\r\nvar msg = {};           // prázdna správa, nepotrebujeme žiadne vstupné dáta\r\nvar metadata = {};      // voliteľné, môže byť prázdne\r\nvar msgType = \"CUSTOM\"; // typ správy, pre generator môže byť ľubovoľný\r\n\r\nreturn { msg: msg, metadata: metadata, msgType: msgType };\r\n",
+          "originatorId": "f79113d0-96e6-11f0-91df-7ffa16af2ee9",
+          "originatorType": "DEVICE"
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 284,
+          "layoutY": 152
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.rest.TbRestApiCallNode",
+        "name": "HTTPS GET - JSON_OUTPUT.php",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 3,
+        "configuration": {
+          "restEndpointUrlPattern": "https://hladinomer.eu/json_output.php",
+          "requestMethod": "GET",
+          "useSimpleClientHttpFactory": false,
+          "parseToPlainText": false,
+          "ignoreRequestBody": false,
+          "enableProxy": false,
+          "useSystemProxyProperties": false,
+          "proxyScheme": null,
+          "proxyHost": null,
+          "proxyPort": 0,
+          "proxyUser": null,
+          "proxyPassword": null,
+          "readTimeoutMs": 0,
+          "maxParallelRequestsCount": 0,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "credentials": {
+            "type": "anonymous"
+          },
+          "maxInMemoryBufferSizeInKb": 256
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 619,
+          "layoutY": 148
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "JS_JSON_PARSER",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "  const value = msg.value;\n  const volume = msg.volume;\n  const name = msg.name;\n  const time = msg.time;\n\n  // Vytvorenie novej telemetrickej správy s názvami kľúčov\n  // Tieto kľúče sa potom zobrazia v ThingsBoard telemetrii\n  const newTelemetry = {\n    value: value,\n    volume: volume,\n    name: name,\n    time: time\n  };\n\n  // Vrátenie novej správy, metadát a typu správy.\n  // msgType 'POST_TELEMETRY_REQUEST' je dôležitý pre ďalšie uzly\n  // v Rule Chain, ktoré spracúvajú telemetriu.\n  return {\n    msg: newTelemetry,\n    metadata: metadata,\n    msgType: \"POST_TELEMETRY_REQUEST\"\n  };",
+          "tbelScript": "return {msg: msg, metadata: metadata, msgType: msgType};"
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 913,
+          "layoutY": 148
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "SAVE_DATA",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 1,
+        "configuration": {
+          "defaultTTL": 0,
+          "useServerTs": false,
+          "processingSettings": {
+            "type": "ON_EVERY_MESSAGE"
+          }
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1188,
+          "layoutY": 149
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 3,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}
