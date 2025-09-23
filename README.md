@@ -63,9 +63,9 @@ The **Water Level Monitor** project is compatible with a wide range of hardware 
 <img width="758" height="437" alt="ESP32-C6 + VL53L1X/TOF400C laser sensor" src="https://github.com/user-attachments/assets/1d818a1b-2686-49ae-952c-8d9454c1e6df" />
 <img width="1085" height="536" alt="ESP32-C6 + HC-SR04 ultrasonic sensor" src="https://github.com/user-attachments/assets/0379c117-04b7-4799-b8b0-fe7dd1c2ae32" />
 
-## Water Level Monitor - Web Application Screenshots
+## Watmonitor - Web Application Screenshots
 
-Check out the key features of the **Water Level Monitor** web app that allows you to visualize and analyze the water level data in real time.
+Check out the key features of the **Water Level Monitor - (Watmonitor)** web app that allows you to visualize and analyze the water level data in real time.
 
 ### 1. **Real-Time Water Level Overview**
 Monitor water levels and volume in real time with easy-to-read visualizations.
