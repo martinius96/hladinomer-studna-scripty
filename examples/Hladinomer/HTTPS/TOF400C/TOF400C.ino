@@ -13,7 +13,7 @@ const char * ssid = "SSID"; //WiFi SSID
 const char * password = "PASS"; //WiFi PASS
 
 //HOST
-const char* host = hladinomer.eu"; //webhost
+const char* host = "hladinomer.eu"; //webhost
 String url = "/data.php"; //URL address to PHP file
 
 
