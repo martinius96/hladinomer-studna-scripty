@@ -1,0 +1,26 @@
+{
+  "name": "UPLINK",
+  "type": "UPLINK",
+  "integrationType": "HTTP",
+  "debugMode": false,
+  "debugSettings": {
+    "failuresEnabled": true,
+    "allEnabled": false,
+    "allEnabledUntil": 1760817738494
+  },
+  "configuration": {
+    "scriptLang": "TBEL",
+    "decoder": null,
+    "tbelDecoder": "/** Decoder **/\r\n\r\n// decode payload to JSON\r\nvar data = decodeToJson(payload);\r\n\r\nvar deviceName = 'integration-node';\r\n\r\n// Result object\r\nvar result = {\r\n   deviceName: deviceName,\r\n   telemetry: {\r\n       level: data.water\r\n   }\r\n};\r\n\r\nreturn result;",
+    "encoder": null,
+    "tbelEncoder": null,
+    "updateOnlyKeys": [
+      "manufacturer"
+    ]
+  },
+  "additionalInfo": {
+    "description": ""
+  },
+  "edgeTemplate": false,
+  "converterVersion": 1
+}
