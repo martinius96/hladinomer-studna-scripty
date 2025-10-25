@@ -3,8 +3,8 @@
 #include <HTTPClient.h>
 
 // --- CONFIGURATION ---
-const char* ssid = "Wokwi-GUEST";
-const char* password = "";
+const char* ssid = "ENTER_SSID_HERE";
+const char* password = "ENTER_PASSWORD_HERE";
 const char* url = "https://hladinomer.eu/data.php"; // HTTPS server
 const char* token = "123456789";
 
@@ -12,20 +12,17 @@ const char* token = "123456789";
 const int TRIG_PIN = 3;
 const int ECHO_PIN = 2;
 
-// --- UART Client ---
-#define UART Serial1
-
 // --- WIFI CONNECTION ---
 void connectWiFi() {
-  UART.print("Connecting to WiFi...");
+  Serial1.print("Connecting to WiFi...");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    UART.print(".");
+    Serial1.print(".");
   }
-  UART.println("\nConnected!");
-  UART.print("IP Address: ");
-  UART.println(WiFi.localIP());
+  Serial1.println("\nConnected!");
+  Serial1.print("IP Address: ");
+  Serial1.println(WiFi.localIP());
 }
 
 // --- MEASURE DISTANCE ---
@@ -58,27 +55,27 @@ void sendData(float value) {
 
       if (httpResponseCode > 0) {
         String response = https.getString();
-        UART.print("Status: ");
-        UART.println(httpResponseCode);
-        UART.print("Response: ");
-        UART.println(response);
+        Serial1.print("Status: ");
+        Serial1.println(httpResponseCode);
+        Serial1.print("Response: ");
+        Serial1.println(response);
       } else {
-        UART.print("Error sending data: ");
-        UART.println(httpResponseCode);
+        Serial1.print("Error sending data: ");
+        Serial1.println(httpResponseCode);
       }
       https.end();
     } else {
-      UART.println("Unable to connect to server!");
+      Serial1.println("Unable to connect to server!");
     }
   } else {
-    UART.println("WiFi not connected!");
+    Serial1.println("WiFi not connected!");
   }
 }
 
 // --- SETUP ---
 void setup() {
-  UART.begin(115200);
-  UART.println("UART running");
+  Serial1.begin(115200);
+  Serial1.println("UART running");
   
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
@@ -89,9 +86,9 @@ void setup() {
 // --- MAIN LOOP ---
 void loop() {
   float distance = measureDistance();
-  UART.print("Distance: ");
-  UART.print(distance);
-  UART.println(" cm");
+  Serial1.print("Distance: ");
+  Serial1.print(distance);
+  Serial1.println(" cm");
 
   sendData(distance);
 
