@@ -1,13 +1,21 @@
+//Raspberry Pi Pico W (WiFi) compatible sketch for JSN-SR04 / HC-SR04 usage
+
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
+#include "pico/stdlib.h"
 
 // --- CONFIGURATION ---
 const char* ssid = "ENTER_SSID_HERE";
-const char* password = "ENTER_WIFI_PASS_HERE";
+const char* password = "ENTER_SSID_PASS_HERE";
 const char* url = "https://hladinomer.eu/data.php"; // HTTPS server
 const char* token = "123456789";
 
+// --- ULTRASONIC SENSOR PINS ---
+const int TRIG_PIN = 3;
+const int ECHO_PIN = 2;
+
+//Root CA cert - ISRG Root X1
 const static char* test_root_ca PROGMEM = \
 "-----BEGIN CERTIFICATE-----\n" \
 "MIIFazCCA1OgAwIBAgIRAIIQz7DSQONZRGPgu2OCiwAwDQYJKoZIhvcNAQELBQAw\n" \
@@ -41,11 +49,6 @@ const static char* test_root_ca PROGMEM = \
 "emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=\n" \
 "-----END CERTIFICATE-----\n";
 
-// --- HC-SR04 PINS ---
-const int TRIG_PIN = 3;
-const int ECHO_PIN = 2;
-
-// --- WIFI CONNECTION ---
 void connectWiFi() {
   Serial1.print("Connecting to WiFi...");
   WiFi.begin(ssid, password);
@@ -75,7 +78,7 @@ float measureDistance() {
 void sendData(float value) {
   if (WiFi.status() == WL_CONNECTED) {
     WiFiClientSecure client;
-     client.setCACert(test_root_ca);
+    client.setCACert(test_root_ca);
     HTTPClient https;
 
     String payload = "hodnota=" + String(value) + "&token=" + String(token);
@@ -105,18 +108,25 @@ void sendData(float value) {
   }
 }
 
-// --- SETUP ---
+void goToSleep(unsigned long ms) {
+  Serial1.println("Entering low power mode...");
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
+  sleep_ms(ms);
+  Serial1.println("Waking up from sleep...");
+  connectWiFi();
+}
+
 void setup() {
   Serial1.begin(115200);
   Serial1.println("UART running");
-  
+
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
   connectWiFi();
 }
 
-// --- MAIN LOOP ---
 void loop() {
   float distance = measureDistance();
   Serial1.print("Distance: ");
@@ -125,5 +135,6 @@ void loop() {
 
   sendData(distance);
 
-  delay(300000); // wait 5 minutes
+  // Spánok 5 minút (300 000 ms)
+  goToSleep(300000);
 }
