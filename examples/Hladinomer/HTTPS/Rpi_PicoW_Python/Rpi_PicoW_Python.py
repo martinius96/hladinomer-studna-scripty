@@ -1,12 +1,14 @@
+# Sketch compatible for Raspberry Pi Pico W (WiFi)
+# Usage with ultrasonic distance sensors (HC-SR04 / JSN-SR04T)
+
 import network
-import time
 import urequests
-from machine import Pin
+from machine import Pin, deepsleep
 import utime
 
 # --- CONFIGURATION ---
-WIFI_SSID = "WIFI_SSID_ENTER_HERE"
-WIFI_PASS = "WIFI_PASSWORD_HERE"
+WIFI_SSID = "Wokwi-GUEST"
+WIFI_PASS = ""
 URL = "https://hladinomer.eu/data.php"
 TOKEN = "123456789"
 
@@ -22,7 +24,7 @@ def wifi_connect():
         print("Connecting to WiFi...")
         wlan.connect(WIFI_SSID, WIFI_PASS)
         while not wlan.isconnected():
-            time.sleep(0.5)
+            utime.sleep_ms(500)
             print(".", end="")
     print("\nConnected:", wlan.ifconfig())
     return wlan
@@ -60,13 +62,13 @@ def send_data(value):
     except Exception as e:
         print("Error sending data:", e)
 
-# --- MAIN LOOP ---
+# --- MAIN FUNCTION ---
 def main():
     wifi_connect()
-    while True:
-        dist = measure_distance()
-        print(f"Distance: {dist} cm")
-        send_data(dist)
-        time.sleep(300)
+    dist = measure_distance()
+    print(f"Distance: {dist} cm")
+    send_data(dist)
+    print("Going to deep sleep for 5 minutes...")
+    deepsleep(300_000)  # 5 minutes in milliseconds
 
 main()
