@@ -1,0 +1,183 @@
+[
+    {
+        "id": "6536176522849353",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3ccbc9e88eb29f9a",
+        "type": "http request",
+        "z": "6536176522849353",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://hladinomer.eu/json_output.php",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "520a6c9e13bf7e71",
+                "f6bcce698a377b72"
+            ]
+        ]
+    },
+    {
+        "id": "520a6c9e13bf7e71",
+        "type": "json",
+        "z": "6536176522849353",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 550,
+        "y": 160,
+        "wires": [
+            [
+                "4aac3dd0425af159",
+                "b0e415e7b5957179"
+            ]
+        ]
+    },
+    {
+        "id": "01187580c8acfce3",
+        "type": "inject",
+        "z": "6536176522849353",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "3ccbc9e88eb29f9a"
+            ]
+        ]
+    },
+    {
+        "id": "4aac3dd0425af159",
+        "type": "function",
+        "z": "6536176522849353",
+        "name": "function 1",
+        "func": "let value_water = msg.payload;\n\nmsg.payload = {\n    water: value_water\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 180,
+        "wires": [
+            [
+                "ee7512fb14eb86e7",
+                "18361b272d521ecb"
+            ]
+        ]
+    },
+    {
+        "id": "ee7512fb14eb86e7",
+        "type": "debug",
+        "z": "6536176522849353",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b0e415e7b5957179",
+        "type": "debug",
+        "z": "6536176522849353",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f6bcce698a377b72",
+        "type": "debug",
+        "z": "6536176522849353",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8d9a67fd49c10a55",
+        "type": "comment",
+        "z": "6536176522849353",
+        "name": "Ubidots Publish MQTT",
+        "info": "",
+        "x": 1000,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "18361b272d521ecb",
+        "type": "ubidots_out",
+        "z": "6536176522849353",
+        "name": "",
+        "token": "BBUS-8CLfvR73Lfk75JQpZwjumeETpAkTEX",
+        "label_device": "",
+        "device_label": "watmonitor-node",
+        "tier": "business",
+        "tls_checkbox": true,
+        "x": 990,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a6a4df04a3374732",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "ubidots-nodered": "2.0.2"
+        }
+    }
+]
