@@ -1,5 +1,6 @@
 # Sketch compatible for Raspberry Pi Pico W (WiFi)
 # Usage with ultrasonic distance sensors (HC-SR04 / JSN-SR04T)
+# test at Wokwi Simulation: https://wokwi.com/projects/445827666971796481
 
 import network
 import urequests
@@ -7,8 +8,8 @@ from machine import Pin, deepsleep
 import utime
 
 # --- CONFIGURATION ---
-WIFI_SSID = "Wokwi-GUEST"
-WIFI_PASS = ""
+WIFI_SSID = "SSID_NAME"
+WIFI_PASS = "WIFI_PASSWORD"
 URL = "https://hladinomer.eu/data.php"
 TOKEN = "123456789"
 
