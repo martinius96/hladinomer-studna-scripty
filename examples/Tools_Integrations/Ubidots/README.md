@@ -1,5 +1,6 @@
 # Ubidots
 * Integrations of Watmonitor's JSON endpoint into Ubidots
+* For Node-RED it is required to install a package node-red-contrib-ubidots via Palette Manager
 #
 | Files | Integration | Article |
 |-------|--------------|----------|
