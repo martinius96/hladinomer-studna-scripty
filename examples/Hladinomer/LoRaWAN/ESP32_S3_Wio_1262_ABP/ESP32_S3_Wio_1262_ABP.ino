@@ -108,41 +108,26 @@ uint32_t previousMillis = 0;
 
 void setup() {
   Serial.begin(115200);
+  delay(5000);  // Give time to switch to the serial monitor
+  Serial.println(F("\nSetup ... "));
 
-  /*
-    if (!EEPROM.begin(LORAWAN_DEV_INFO_SIZE))
-    {
-      Serial.println("Failed to initialize EEPROM");
-      while (1);
-    }
-
-    uint32_t now = millis();
-    while (1)
-    {
-      deviceInfoSet();
-      if (millis() - now >= 5000) break;
-    }
-
-    deviceInfoLoad();
-  */
   Serial.println(F("Initialise the radio"));
   int state = radio.begin();
   debug(state != RADIOLIB_ERR_NONE, F("Initialise radio failed"), state, true);
-
+  // SX1262 rf switch order: setRfSwitchPins(rxEn, txEn);
+  radio.setRfSwitchPins(38, RADIOLIB_NC);
   Serial.println(F("Initialise LoRaWAN Network credentials"));
   node.beginABP(devAddr, fNwkSIntKey, sNwkSIntKey, nwkSEncKey, appSKey);
-
   node.activateABP();
-  debug(state != RADIOLIB_ERR_NONE, F("Activate ABP failed"), state, true);
-
+  delay(500);
   Serial.println(F("Ready!\n"));
-  node.setADR(false);
+  // Voliteľné – užitočné nastavenia (môžeš zmeniť podľa potreby)
+  node.setADR(false);                    // vypnúť adaptívny datarate
+  node.setDatarate(LORAWAN_UPLINK_DATA_RATE);                   // EU868: DR3 = SF9 / BW125 → bežná hodnota pre TTN
 
-  // Set a fixed datarate
-  node.setDatarate(LORAWAN_UPLINK_DATA_RATE);
+  node.setDutyCycle(false);              // pre testovanie vypnúť duty-cycle (pozor na TTN fair use!)
 
-  // Manages uplink intervals to the TTN Fair Use Policy
-  node.setDutyCycle(false);
+  Serial.println(F("LoRaWAN ABP node ready\n"));
 }
 
 void loop() {
