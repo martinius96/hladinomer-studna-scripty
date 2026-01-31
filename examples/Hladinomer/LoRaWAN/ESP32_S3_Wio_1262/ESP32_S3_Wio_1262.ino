@@ -16,8 +16,8 @@ const LoRaWANBand_t Region = EU868;
 const uint8_t subBand = 0; // For US915 and AU915
 #define uS_TO_S_FACTOR 1000000
 #define TIME_TO_SLEEP  300
-#define pinTrigger    5 //SDA
-#define pinEcho       6 //SCL
+#define pinTrigger    6 //SCL
+#define pinEcho       5 //SDA
 #define maxVzdialenost 450
 RTC_DATA_ATTR unsigned long BootCount;
 NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
@@ -151,6 +151,8 @@ void setup() {
   node.setDutyCycle(false);
 
   Serial.println(F("Ready!\n"));
+
+
 
 }
 
