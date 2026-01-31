@@ -116,11 +116,11 @@ void setup() {
   uint32_t now = millis();
   while (1)
   {
-    deviceInfoLoad();
+    deviceInfoSet();
     if (millis() - now >= 5000) break;
   }
 
-  // deviceInfoLoad();
+  deviceInfoLoad();
   Serial.println(F("\nSetup... "));
   Serial.println(F("Initialise the radio"));
   int16_t state = radio.begin();
@@ -130,17 +130,18 @@ void setup() {
   radio.setRfSwitchPins(38, RADIOLIB_NC);
 
   // Setup the OTAA session information
-  node.beginOTAA(joinEUI, devEUI, nwkKey, appKey);
-  Serial.println(F("Join ('login') the LoRaWAN Network"));
+  if (BootCount < 1) {
+    node.beginOTAA(joinEUI, devEUI, nwkKey, appKey);
+    Serial.println(F("Join ('login') the LoRaWAN Network"));
 
-  while (1)
-  {
-    state = node.activateOTAA(LORAWAN_UPLINK_DATA_RATE);
-    if (state == RADIOLIB_LORAWAN_NEW_SESSION) break;
-    debug(state != RADIOLIB_LORAWAN_NEW_SESSION, F("Join failed"), state, true);
-    delay(15000);
+    while (1)
+    {
+      state = node.activateOTAA(LORAWAN_UPLINK_DATA_RATE);
+      if (state == RADIOLIB_LORAWAN_NEW_SESSION) break;
+      debug(state != RADIOLIB_LORAWAN_NEW_SESSION, F("Join failed"), state, true);
+      delay(15000);
+    }
   }
-
   // Disable the ADR algorithm (on by default which is preferable)
   node.setADR(false);
 
