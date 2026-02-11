@@ -195,64 +195,6 @@ Cette version vise à améliorer la clarté et l'optimisation pour les moteurs d
 <li> Dans des endroits avec un changement soudain de température (la température affecte le temps de propagation du son, de sorte que même le niveau stationnaire semble fluctuer) </li>
 <li> Réservoirs à vide (mesure impossible) </li>
 </div>
-<div class="alert alert-info">
-	<strong>Caractéristiques de détection des capteurs de distance à ultrasons - Scripts MATLAB:</strong>
-	<li><a href="../MATLAB/HCSR04.m">HC-SR04</a></li>
-	<li><a href="../MATLAB/JSN04T.m">JSN-SR04T</a></li>
-</div>
-<hr><center><h4>Plug n' play firmware - Ultra Low Power / StandBy</h4></center><hr>
-<div class="alert alert-success">
-  <strong>Micrologiciel compilé disponible pour téléchargement immédiat sur le microcontrôleur!</strong>
-</div>
-<div class="table-responsive">   
-<table class="table" style="border: 1px solid black;">
-<thead>
-<tr>
-<th style="width: 25%">Nom du micrologiciel</th>
-<th style="width: 50%">Fonction micrologiciel</th>
-<th style="width: 12.50%">ESP8266</th>
-<th style="width: 12.50%">ESP32</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="width: 25%"><b>Ultra Low Power</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmware pour applications ULP à faible consommation de courant (voir schéma de câblage). Le firmware est chargé automatiquement via l'outil ESPTOOL fourni, qui est exécuté avec un script .bat (dans le script, il est nécessaire de changer le port COM de votre carte ESP).
-Après avoir téléchargé le micrologiciel et en supposant qu'ESP n'a pas stocké le SSID et le mot de passe du projet précédent, WiFiManager démarrera, qui est utilisé pour configurer le réseau WiFi existant.
-ESP commencera à diffuser un réseau WiFi ouvert avec SSID en mode AP --> <b>Hladinomer_AP</b>. Après avoir connecté le client (Windows / Android / iOS) le portail captif démarrera sur 192.168.4.1 (le client doit être redirigé automatiquement).
-WiFiManager vous permet de sélectionner un réseau WiFi à portée dans l'interface Web, de définir un mot de passe.
-Après avoir connecté avec succès ESP au réseau WiFi spécifié et attribué IPv4 à partir de la plage donnée, le portail captif sera désactivé, ESP reste en mode STA-Station.
-Par la suite, le nœud de capteur commencera à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=fr"> Jauges de niveau </a>.
-<b> Au prochain démarrage du nœud de capteur, Captive Portal et WiFiManager ne démarreront plus, car la configuration du réseau WiFi est conservée en permanence. </b>
-Après avoir envoyé les données, le microcontrôleur passe en mode veille profonde. Le processeur principal Xtens est éteint en mode veille.
-L'ESP8266 est réveillé via la minuterie WAKE (cavalier entre GPIO16 et RST requis), ESP32 via la minuterie RTC.
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmware</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_ULP" class="btn btn-danger" role="button">ESP32 firmware</a></td>
-</tr>
-<tr>
-<td style="width: 25%"><b>StandBy</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmware pour le mode StandBy du microcontrôleur, qui envoie à intervalles réguliers (5 min) des mesures du niveau d'eau au serveur Web et maintient en même temps la connectivité avec l'AP dans le réseau LAN.
-Le firmware est chargé automatiquement via l'outil ESPTOOL fourni, qui est exécuté avec un script .bat (dans le script, il est nécessaire de changer le port COM de votre carte ESP).
-Après avoir téléchargé le micrologiciel et en supposant qu'ESP n'a pas stocké le SSID et le mot de passe du projet précédent, WiFiManager démarrera, qui est utilisé pour configurer le réseau WiFi existant.
-ESP commencera à diffuser un réseau WiFi ouvert avec SSID en mode AP --> <b>Hladinomer_AP</b>. Après avoir connecté le client (Windows / Android / iOS) le portail captif démarrera sur 192.168.4.1 (le client doit être redirigé automatiquement).
-WiFiManager vous permet de sélectionner un réseau WiFi à portée dans l'interface Web, de définir un mot de passe.
-Après avoir connecté avec succès ESP au réseau WiFi spécifié et attribué IPv4 à partir de la plage donnée, le portail captif sera désactivé, ESP reste en mode STA-Station.
-Par la suite, le nœud de capteur commence à transmettre des données à l'interface Web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=fr">Indicateur de niveau</a>.
-<b>Au prochain démarrage du nœud de capteur, Captive Portal et WiFiManager ne démarreront plus, car la configuration du réseau WiFi est stockée de manière permanente.</b>
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_StandBy" class="btn btn-success" role="button">ESP8266 firmware</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_StandBy" class="btn btn-danger" role="button">ESP32 firmware</a></td>
-</tr>
-</tbody>
-</table>
-	</div>
 <hr><center><h3>Principe de fonctionnement du mesureur de niveau - Schéma fonctionnel</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Indicateur de niveau pour puisard, fosse septique, puits, principe de mesure - capteur de distance à ultrasons" title="Indicateur de niveau pour puisard, fosse septique, puits, principe de mesure - capteur de distance à ultrasons"></center>
 <p style="text-align: justify;">
@@ -266,7 +208,7 @@ Le projet peut être intégré au projet Level meter via MQTT dans des systèmes
 Cette version vise à améliorer la lisibilité tout en incorporant des termes pertinents pour le référencement.
 </p>
 <div class="alert alert-info">
-	<strong>Implémentations de programmes pour Arduino, ESP8266, ESP32 (nécessite l'installation de la bibliothèque): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=fr">Disponible ici</a>
+	<strong>Implémentations de programmes pour Arduino, ESP8266, ESP32 (nécessite l'installation de la bibliothèque): </strong><a href="https://hladinomer.eu/program.php?lang=fr">Disponible ici</a>
 </div>	
 <hr><center><h4>Bibliothèques disponibles pour les microcontrôleurs (Arduino / ESP)</h4></center><hr>
 <div class="alert alert-danger" style="word-wrap:break-word;">
@@ -345,7 +287,7 @@ Cette version vise à rendre le texte plus accessible tout en optimisant pour le
 <b>Indicateur de niveau:</b>
 <li>Callbacks --> Custom --> New</li>
 <li><b>Nous écrirons dans "Custom payload config":</b> cislo1::uint:16</li>
-<li><b>Nous URL pattern:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (ou une autre URL de votre serveur web où le projet s'exécutera), la possibilité d'utiliser HTTPS</li>
+<li><b>Nous URL pattern:</b> https://hladinomer.eu/data.php (ou une autre URL de votre serveur web où le projet s'exécutera), la possibilité d'utiliser HTTPS</li>
 <li><b>Dans la méthode HTTP, sélectionnez:</b> POST</li>
 <li><b>Ajouter "Body" (corps du message):</b></li>
 <li>hodnota={customData#cislo1}&token=123456789</li>
@@ -355,7 +297,7 @@ Cette version vise à rendre le texte plus accessible tout en optimisant pour le
 <center> 
      <h3>Captures d'écran de l'interface Web du projet de mesure de niveau</h3>
      <hr>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=fr">
+<a href="https://hladinomer.eu/?lang=fr">
     	<img src="https://i.imgur.com/t1jF9dw.png" style="display: block; max-width: 100%; height: auto;" alt="Moniteur de niveau WaterWell - webapp - page principale - Dernières valeurs mesurées avec rafraîchissement automatique - AJAX" title="Moniteur de niveau WaterWell - webapp - page principale - Dernières valeurs mesurées avec rafraîchissement automatique - AJAX">
     	<img src="https://i.imgur.com/HodoJsm.png" style="display: block; max-width: 100%; height: auto;" alt="Moniteur de niveau de puits d'eau - application Web - Données mesurées historiques avec horodatage" title="Moniteur de niveau de puits d'eau - application Web - Données mesurées historiques avec horodatage"> 
 	<img src="https://i.imgur.com/NPxXS2b.png" style="display: block; max-width: 100%; height: auto;" alt="Moniteur de niveau de puits d'eau - Enregistrement, valeur minimale, maximale par jour, semaine, mois" title="Moniteur de niveau de puits d'eau - Enregistrement, valeur minimale, maximale par jour, semaine, mois"> 
