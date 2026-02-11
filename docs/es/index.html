@@ -170,64 +170,7 @@ Integrate various water level sensors into your system by creating customized fi
 <li> En lugares con un cambio repentino de temperatura (la temperatura afecta el tiempo de propagación del sonido, por lo que incluso el nivel estacionario parece fluctuar) </li>
 <li> Tanques de vacío (la medición no es posible) </li>
 </div>
-<div class="alert alert-info">
-	<strong>Características de detección de sensores de proximidad ultrasónicos - Scripts de MATLAB:</strong>
-	<li><a href="../MATLAB/HCSR04.m" class="btn btn-success" role="button">HC-SR04.m Download</a></li>
-	<li><a href="../MATLAB/JSN04T.m" class="btn btn-primary" role="button">JSN-SR04T.m Download</a></li>
-</div>
-<hr><center><h4>Firmware Plug and Play: consumo ultrabajo / modo de espera</h4></center><hr>
-<div class="alert alert-success">
-  <strong>Firmware compilado disponible para carga inmediata al microcontrolador (no se requieren bibliotecas)!</strong>
-</div>
-<div class="table-responsive">   
-<table class="table" style="border: 1px solid black;">
-<thead>
-<tr>
-<th style="width: 25%">Nombre del firmware</th>
-<th style="width: 50%">Función del firmware</th>
-<th style="width: 12.50%">ESP8266</th>
-<th style="width: 12.50%">ESP32</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="width: 25%"><b>Ultra Low Power</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmware para aplicaciones ULP con bajo consumo de corriente. El firmware se carga automáticamente a través de la herramienta ESPTOOL incluida, que se ejecuta con un script .bat (en el script es necesario cambiar el puerto COM de su placa ESP).
-Después de cargar el firmware y suponiendo que ESP no tiene almacenados el SSID y la contraseña del proyecto anterior, se iniciará WiFiManager, que se utiliza para configurar la red WiFi existente.
-ESP comenzará a transmitir una red WiFi abierta con SSID -> <b> Hladinomer_AP </b> en modo AP. Después de conectar el cliente (Windows / Android / iOS), el portal cautivo se iniciará en 192.168.4.1 (el cliente debe ser redirigido automáticamente).
-WiFiManager le permite seleccionar una red WiFi dentro del alcance en la interfaz web, establecer una contraseña.
-Después de conectar con éxito ESP a la red WiFi especificada y asignar IPv4 del rango dado, Captive Portal se apagará, ESP permanece en modo STA-Station.
-Posteriormente, el nodo sensor comenzará a transmitir datos a la interfaz web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en"> Monitor de nivel de agua </a>.
-<b>La próxima vez que se inicie el nodo sensor, Captive Portal y WiFiManager ya no se iniciarán, ya que la configuración de la red WiFi se conserva de forma permanente. </b>
-Después de enviar los datos al servidor, el microcontrolador ESP cambiará al modo de suspensión profunda. Apagará el procesador principal Xtensa.
-El ESP8266 se activa a través del temporizador WAKE (se requiere un puente entre GPIO16 y RST; consulte el diagrama de cableado), el ESP32 se activa a través del temporizador RTC.
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_ULP" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_ULP" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
-</tr>
-<tr>
-<td style="width: 25%"><b>StandBy</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-FFirmware para el modo StandBy del microcontrolador, que envía a intervalos regulares (5 min) mediciones del nivel de agua al servidor web y al mismo tiempo mantiene la conectividad con el AP en la red LAN.
-El firmware se carga a través de la herramienta ESPTOOL incluida automáticamente, que se ejecuta con un script .bat (en el script es necesario cambiar el puerto COM de su placa ESP).
-Después de cargar el firmware y suponiendo que ESP no tiene almacenados el SSID y la contraseña del proyecto anterior, se iniciará WiFiManager, que se utiliza para configurar la red WiFi existente.
-ESP comenzará a transmitir una red WiFi abierta con SSID en modo AP --> <b>Hladinomer_AP</b>. Después de conectar el cliente (Windows / Android / iOS), el portal cautivo se iniciará en 192.168.4.1 (el cliente debe ser redirigido automáticamente).
-WiFiManager le permite seleccionar una red WiFi dentro del alcance en la interfaz web, establecer una contraseña.
-Después de conectar con éxito el ESP a la red WiFi especificada y asignarle el IPv4 del rango indicado, el Portal Captivo se apagará y el ESP permanecerá en modo STA-Station.
-Posteriormente, el nodo sensor comienza a transmitir datos a la interfaz web <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=en">Monitor de nivel de agua</a>.
-<b>La próxima vez que se inicie el nodo del sensor, Captive Portal y WiFiManager ya no se iniciarán, ya que la configuración de la red WiFi se almacena de forma permanente.</b>
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_StandBy" class="btn btn-success" role="button">ESP8266 .bin firmware</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_StandBy" class="btn btn-danger" role="button">ESP32 .bin firmware</a></td>
-</tr>
-</tbody>
-</table>
-	</div>
+
 <hr><center><h3>Principio de medición del nivel del agua y transmisión de datos - Diagrama de bloques</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Medidor de nivel para pozos sépticos, fosas sépticas, pozos, principio de medición: sensor de proximidad ultrasónico" title="Medidor de nivel para pozos sépticos, fosas sépticas, pozos, principio de medición: sensor de proximidad ultrasónico"></center>
 <p style = "text-align: justify;">
@@ -283,7 +226,7 @@ Potencie sus capacidades de control periférico utilizando datos de la interfaz 
 </table>				
 </div>
 <div class = "alert alert-info">
-<strong>Códigos fuente para Arduino, ESP8266, ESP32 (requiere instalación de librerías): </strong> <a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=es">Disponible aquí</a>
+<strong>Códigos fuente para Arduino, ESP8266, ESP32 (requiere instalación de librerías): </strong> <a href="https://hladinomer.eu/program.php?lang=es">Disponible aquí</a>
 </div>
 <hr><center><h4>Bibliotecas disponibles para microcontroladores (Arduino / ESP)</h4></center><hr>
 <div class="alert alert-danger" style="word-wrap:break-word;">
@@ -320,6 +263,15 @@ Permite realizar mediciones con sensores de distancia ultrasónicos RCW, US-XXX,
 <td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FNewPingESP8266" class="btn btn-success" role="button">Descargar</a></td>
 </tr>
 <tr>
+<td style="width: 25%"><b>VL53L1X</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Librería para microcontroladores Arduino, ESP8266 y ESP32. Permite realizar mediciones ToF con sensores láser STMicroelectronics VL53L1X.
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2Fvl53l1x-arduino-master" class="btn btn-success" role="button">Descargar</a></td>
+</tr>	
+<tr>
 <td style="width: 25%"><b>Ethernet2</b></td>
 <td style="width: 50%">
 <p style="text-align: justify;">
@@ -341,19 +293,19 @@ Permite la comunicación con el módulo Ethernet Wiznet W5500 V2 - USR-ES1 vía 
 </tr>
 </tbody>
 </table>
-	</div>
+</div>
 <hr>
 <center> 
      <h3>Capturas de pantalla de la aplicación web de monitorización del nivel del agua</h3>
      <hr>
-	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=es">
+	<a href="https://hladinomer.eu/?lang=es">
     	<img src="https://i.imgur.com/eLLtoBv.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor de nivel de pozo de agua - aplicación web - página principal - Últimos valores medidos con actualización automática - AJAX" title="Monitor de nivel de pozo de agua - aplicación web - página principal - Últimos valores medidos con actualización automática - AJAX">
     	<img src="https://i.imgur.com/ggrh9wH.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor de nivel de pozo de agua: aplicación web: conjunto de datos históricos medidos con marca de tiempo" title="Monitor de nivel de pozo de agua: aplicación web: conjunto de datos históricos medidos con marca de tiempo"> 
 	<img src="https://i.imgur.com/08XCwWR.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor de nivel de pozo de agua: registro de valores mínimos y máximos por día, semana y mes" title="Monitor de nivel de pozo de agua: registro de valores mínimos y máximos por día, semana y mes"> 
 	<img src="https://i.imgur.com/QeeUP4b.png" style="display: block; max-width: 100%; height: auto;" alt="Monitor de nivel de pozo de agua: gráfico del nivel de agua en el tiempo (semana/año)" title="Monitor de nivel de pozo de agua: gráfico del nivel de agua en el tiempo (semana/año)">
 	</a>
 	<hr><center><h4>Salida UART de nodos de sensores - FreeRTOS - ESP32:</h4></center><hr>	
-	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=es">	
+	<a href="https://hladinomer.eu/?lang=es">	
 	<img src="https://i.imgur.com/62K3i3T.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - medición de sensor ultrasónico y transferencia de datos al servidor web a través de HTTP, método de transferencia POST" title="ESP32 - FreeRTOS - ESP-IDF - medición de sensor ultrasónico y transferencia de datos al servidor web a través de HTTP, método de transferencia POST"> 	
 	<img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - medición de sensor ultrasónico y transferencia de datos al servidor web a través de HTTPS, método de transferencia POST" title="ESP32 - FreeRTOS - ESP-IDF - medición de sensor ultrasónico y transferencia de datos al servidor web a través de HTTPS, método de transferencia POST"> 
 	<img src="https://i.imgur.com/U3LqXzP.jpeg" style="display: block; max-width: 100%; height: auto;" alt="Hardware compatible para proyecto de nivel de pozo - Arduino - Conectividad Ethernet y WiFi - ESP8266 - ESP32" title="Hardware compatible para proyecto de nivel de pozo - Arduino - Conectividad Ethernet y WiFi - ESP8266 - ESP32">   
