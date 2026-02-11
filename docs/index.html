@@ -113,7 +113,7 @@
     hladiny vody v studniach</strong> s možnosťou využitia pokročilých <strong>IoT technológií</strong>.  
 </p>
 
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/">
+<a href="https://hladinomer.eu/?lang=sk">
 <center>
 	<img src="https://i.imgur.com/Cfygvzn.png" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer - dashboard - automatická obnova aktuálne nameraných dát cez jQuery" title="Hladinomer - dashboard - automatická obnova aktuálne nameraných dát cez jQuery">
 </center>
@@ -211,64 +211,6 @@
 <li>Do miest s náhlou zmenou teplôt (teplota ovplyvňuje čas šírenia zvuku, teda aj stacionárna hladina sa javí ako kolísavá)</li>
 <li>Vákuových nádrží (meranie je nemožné, zvuk sa nešíri)</li>
 </div>
-<div class="alert alert-info">
-	<strong>Detekčná charakteristika ultrazvukových senzorov vzdialenosti - MATLAB scripty pre vizualizáciu:</strong>
-	<li><a href="MATLAB/HCSR04.m" class="btn btn-success" role="button">HC-SR04.m stiahnuť</a></li>
-	<li><a href="MATLAB/JSN04T.m" class="btn btn-primary" role="button">JSN-SR04T.m stiahnuť</a></li>
-</div>
-<hr><center><h4>Plug n' play firmware - Ultra Low Power / StandBy</h4></center><hr>
-<div class="alert alert-success">
-  <strong>Skompilovaný firmvér dostupný pre okamžité nahratie do mikrokontroléra (nevyžaduje inštaláciu knižníc).</strong>
-</div>
-<div class="table-responsive">   
-<table class="table" style="border: 1px solid black;">
-<thead>
-<tr>
-<th style="width: 25%">Názov firmvéru</th>
-<th style="width: 50%">Funkcia firmvéru</th>
-<th style="width: 12.50%">ESP8266</th>
-<th style="width: 12.50%">ESP32</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="width: 25%"><b>Ultra Low Power</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmvér pre ULP aplikácie s nízkym prúdovým odberom (viz. schéma zapojenia). Firmvér sa nahráva cez pribalený nástroj ESPTOOL automatizovane, ktorý je spustený s .bat scriptom (v scripte nutné zmeniť COM port vašej ESP dosky). 
-Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
-ESP začne vysielať v režime AP otvorenú WiFi sieť s SSID --> <b>Hladinomer_AP</b>. Po pripojení klienta (Windows / Android / iOS) sa spustí Captive portál na 192.168.4.1 (klient by mal byť presmerovaný automaticky). 
-WiFiManager umožní vo web rozhraní vybrať WiFi sieť v dosahu, nastaviť heslo. 
-Po úspešnom pripojení ESP na zadanú WiFi sieť a pridelení IPv4 z daného rozsahu sa Captive Portal vypne, ESP zostáva v móde STA - Station.
-Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="http://arduino.clanweb.eu/studna_s_prekladom/">Hladinomera</a>.
-<b>Pri následnom spustení senzorového uzla sa už Captive Portal a WiFiManager nespustí, nakoľko je konfigurácia WiFi siete permanetne uchovaná.</b>
-Mikrokontróler po odoslaní dát prechádza do režimu hlbokého spánku - Deep Sleep. V režime spánku je vypnutý hlavný procesor Xtensa. 
-ESP8266 je prebudené cez WAKE timer (vyžaduje sa prepojka medzi GPIO16 a RST), ESP32 cez RTC Timer.
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_ULP" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_ULP" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
-</tr>
-<tr>
-<td style="width: 25%"><b>StandBy</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmvér pre StandBy režim mikrokontroléra, ktorý odosiela v pravidelných intervaloch (5 min) meranie o výšky hladiny vody na webserver a zároveň udržuje konektivitu s AP v LAN sieti. 
-Firmvér sa nahráva cez pribalený nástroj ESPTOOL automatizovane, ktorý je spustený s .bat scriptom (v scripte nutné zmeniť COM port vašej ESP dosky). 
-Po nahratí firmvéru a za predpokladu, že ESP nemá uložené SSID a heslo z predchádzajúceho projektu, spustí sa WiFiManager, ktorý slúži pre konfiguráciu existujúcej WiFi siete.
-ESP začne vysielať v režime AP otvorenú WiFi sieť s SSID --> <b>Hladinomer_AP</b>. Po pripojení klienta (Windows / Android / iOS) sa spustí Captive portál na 192.168.4.1 (klient by mal byť presmerovaný automaticky). 
-WiFiManager umožní vo web rozhraní vybrať WiFi sieť v dosahu, nastaviť heslo. 
-Po úspešnom pripojení ESP na zadanú WiFi sieť a pridelení IPv4 z daného rozsahu sa Captive Portal vypne, ESP zostáva v móde STA - Station.
-Následne senzorový uzol začne prenášať dáta do web rozhrania <a href="http://arduino.clanweb.eu/studna_s_prekladom/">Hladinomera</a>.
-<b>Pri následnom spustení senzorového uzla sa už Captive Portal a WiFiManager nespustí, nakoľko je konfigurácia WiFi siete permanetne uchovaná.</b>
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_StandBy" class="btn btn-success" role="button">ESP8266 firmvér</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_StandBy" class="btn btn-danger" role="button">ESP32 firmvér</a></td>
-</tr>
-</tbody>
-</table>
-	</div>
 <hr><center><h3>Princíp fungovania hladinomera - Bloková schéma</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
@@ -337,7 +279,7 @@ Následne je možné v podsystéme vykonávať aj ovládanie periférii (zavlaž
 </table>				
 </div>
 <div class="alert alert-info">
-	<strong>Programové implementácie pre Arduino, ESP8266, ESP32 (vyžadujú doinštalovanie knižníc): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php">Dostupné tu</a>
+	<strong>Programové implementácie pre Arduino, ESP8266, ESP32 (vyžadujú doinštalovanie knižníc): </strong><a href="https://hladinomer.eu/?lang=sk">Dostupné tu</a>
 </div>	
 <hr><center><h4>Dostupné knižnice pre mikrokontroléry (Arduino / ESP)</h4></center><hr>
 <div class="alert alert-danger" style="word-wrap:break-word;">
@@ -372,6 +314,16 @@ Umožňuje vykonávať meranie ultrazvukovými senzormi vzdialenosti RCW, US-XXX
 </p>
 </td>
 <td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FNewPingESP8266" class="btn btn-success" role="button">Stiahnuť</a></td>
+</tr>
+	<tr>
+<td style="width: 25%"><b>VL53L1X</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Knižnica pre Arduino, ESP8266 a ESP32 mikrokontroléry. 
+Umožňuje vykonávať meranie ToF laserovými snímačmi STMicroelectronics VL53L1X. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2Fvl53l1x-arduino-master" class="btn btn-success" role="button">Stiahnuť</a></td>
 </tr>
 <tr>
 <td style="width: 25%"><b>Ethernet2</b></td>
@@ -410,14 +362,14 @@ Umožňuje komunikáciu s Ethernet modulom ENC28J60 od Microchipu cez SPI rozhra
 <center> 
      <h3>Screenshoty webového rozhrania pre projekt Hladinomer</h3>
      <hr>
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/">
+<a href="https://hladinomer.eu/?lang=sk">
     	<img src="https://i.imgur.com/3fnNJ8f.png" style="display: block; max-width: 100%; height: auto;" alt="Hlavný prehľad - Hladinomer - výška hladiny vody v studni" title="Hlavný prehľad - Hladinomer - výška hladiny vody v studni">
     	<img src="https://i.imgur.com/gavXk9s.png" style="display: block; max-width: 100%; height: auto;" alt="Historický prehľad nameraných údajov s časovou značkou - Hladiomer" title="Historický prehľad nameraných údajov s časovou značkou - Hladiomer"> 
 	<img src="https://i.imgur.com/EGyADyO.png" style="display: block; max-width: 100%; height: auto;" alt="Grafická vizualizácia výšky hladiny vody za deň, 7 dní, 30 dní, rok - Hladinomer" title="Grafická vizualizácia výšky hladiny vody za deň, 7 dní, 30 dní, rok - Hladinomer">     
 	<img src="https://i.imgur.com/1usrOnG.jpeg" style="display: block; max-width: 100%; height: auto;" alt="Maximálne a minimálne hodnoty výšky hladiny vody v studni za 24 hodín, 7 dní, 30 dní" title="Maximálne a minimálne hodnoty výšky hladiny vody v studni za 24 hodín, 7 dní, 30 dní"> 	
 <img src="https://i.imgur.com/xyhyH8A.png" style="display: block; max-width: 100%; height: auto;" alt="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTPS, POST metóda prenosu" title="ESP32 - FreeRTOS - ESP-IDF - meranie a prenos dát na webserver cez HTTPS, POST metóda prenosu"> 
 <hr><center><h4>Kompatibilný hardvér pre projekt hladinomer</h4></center><hr>		
-<a href="http://arduino.clanweb.eu/studna_s_prekladom/">
+<a href="https://hladinomer.eu/?lang=sk">
 <img src="https://i.imgur.com/U3LqXzP.jpeg" style="display: block; max-width: 100%; height: auto;" alt="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32" title="Podporovaný hardvér pre projekt Hladinomer - Arduino - Ethernet - WiFi - ESP8266 - ESP32"> 
 <img src="https://i.imgur.com/du39Nwp.jpg" style="display: block; max-width: 100%; height: auto;" alt="Ultrazvukové snímače vzdialenosti - HC-SR04 a JSN-SR04T s hardvérom pre Watmonitor" title="Ultrazvukové snímače vzdialenosti - HC-SR04 a JSN-SR04T s hardvérom pre Watmonitor"> 
 <img src="https://i.imgur.com/wSRR2Y5.jpg" style="display: block; max-width: 100%; height: auto;" alt="QR code scanner - AR for ultrasonic sensor" title="QR code scanner - AR for ultrasonic sensor"> 	
