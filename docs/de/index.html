@@ -168,59 +168,6 @@ Im Gegensatz dazu hat der wasserdichte Sensor JSN-SR04T eine Erfassungscharakter
 <li> An Orten mit einer plötzlichen Temperaturänderung (die Temperatur beeinflusst die Zeit der Schallausbreitung, sodass sogar der stationäre Pegel zu schwanken scheint) </li>
 <li> Vakuumtanks (Messung nicht möglich) </li>
 </div>
-<hr><center><h4>Plug n play firmware - Ultra Low Power / StandBy</h4></center><hr>
-<div class="alert alert-success">
-  <strong>Kompilierte Firmware zum sofortigen Hochladen auf den Mikrocontroller verfügbar (erfordert keine Installation der Bibliothek).</strong>
-</div>
-<div class="table-responsive">   
-<table class="table" style="border: 1px solid black;">
-<thead>
-<tr>
-<th style="width: 25%">Firmware-Name</th>
-<th style="width: 50%">Firmware-Funktion</th>
-<th style="width: 12.50%">ESP8266</th>
-<th style="width: 12.50%">ESP32</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="width: 25%"><b>Ultra Low Power</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmware für ULP-Anwendungen mit geringer Stromaufnahme (siehe Schaltplan). Die Firmware wird über das mitgelieferte ESPTOOL-Tool automatisch geladen, das mit einem .bat-Skript ausgeführt wird (im Skript ist es notwendig, den COM-Port Ihres ESP-Boards zu ändern).
-Nach dem Hochladen der Firmware und unter der Annahme, dass ESP nicht die SSID und das Passwort aus dem vorherigen Projekt gespeichert hat, startet WiFiManager, der zur Konfiguration des bestehenden WiFi-Netzwerks verwendet wird.
-ESP beginnt mit der Übertragung eines offenen WLAN-Netzwerks mit SSID im AP-Modus --> <b>Hladinomer_AP</b>. Nach dem Verbinden des Clients (Windows / Android / iOS) startet das Captive Portal auf 192.168.4.1 (der Client sollte automatisch umgeleitet werden).
-Mit WiFiManager können Sie ein WiFi-Netzwerk in Reichweite im Webinterface auswählen und ein Passwort festlegen.
-Nachdem ESP erfolgreich mit dem angegebenen WLAN-Netzwerk verbunden und IPv4 aus dem angegebenen Bereich zugewiesen wurde, wird das Captive Portal deaktiviert, ESP bleibt im STA-Station-Modus.
-Anschließend beginnt der Sensorknoten mit der Übertragung von Daten an das Webinterface <a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=de"> Füllstandsmessgeräte </a>.
-<b> Beim nächsten Start des Sensorknotens werden Captive Portal und WiFiManager nicht mehr gestartet, da die WLAN-Netzwerkkonfiguration dauerhaft erhalten bleibt. </b>
-Nach dem Senden der Daten geht der Mikrocontroller in den Tiefschlafmodus. Der Hauptprozessor des Xtens ist im Schlafmodus ausgeschaltet.
-ESP8266 wird per WAKE Timer geweckt (Jumper zwischen GPIO16 und RST erforderlich), ESP32 per RTC Timer.
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_ULP" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_ULP" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
-</tr>
-<tr>
-<td style="width: 25%"><b>StandBy</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Firmware für den StandBy-Modus des Mikrocontrollers, der in regelmäßigen Abständen (5 min) Messwerte des Wasserstands an den Webserver sendet und gleichzeitig die Verbindung zum AP im LAN-Netzwerk aufrechterhält.
-Die Firmware wird über das mitgelieferte ESPTOOL-Tool automatisch geladen, das mit einem .bat-Skript ausgeführt wird (im Skript ist es notwendig, den COM-Port Ihres ESP-Boards zu ändern).
-Nach dem Hochladen der Firmware und unter der Annahme, dass ESP nicht die SSID und das Passwort aus dem vorherigen Projekt gespeichert hat, startet WiFiManager, der zur Konfiguration des bestehenden WiFi-Netzwerks verwendet wird.
-ESP beginnt mit der Übertragung eines offenen WLAN-Netzwerks mit SSID im AP-Modus --> <b>Hladinomer_AP</b>. Nach dem Verbinden des Clients (Windows / Android / iOS) startet das Captive Portal auf 192.168.4.1 (der Client sollte automatisch umgeleitet werden).
-Mit WiFiManager können Sie ein WiFi-Netzwerk in Reichweite im Webinterface auswählen und ein Passwort festlegen.
-Nachdem ESP erfolgreich mit dem angegebenen WLAN-Netzwerk verbunden und IPv4 aus dem angegebenen Bereich zugewiesen wurde, wird das Captive Portal deaktiviert, ESP bleibt im STA-Station-Modus.
-Anschließend beginnt der Sensorknoten mit der Übertragung von Daten an das Webinterface <a href="http://arduino.clanweb.eu/studna_s_prekladom/"> Füllstandsmesser </a>.
-<b> Beim nächsten Start des Sensorknotens werden Captive Portal und WiFiManager nicht mehr gestartet, da die WiFi-Netzwerkkonfiguration dauerhaft erhalten bleibt.</b>
-</p>
-</td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP8266_StandBy" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
-<td style="width: 12.50%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fexamples%2FHladinomer%2FHTTP%2FFirmware%2FESP32_StandBy" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
-</tr>
-</tbody>
-</table>
-	</div>
 <hr><center><h3>Funktionsprinzip des Füllstandsmessers - Blockschaltbild</h3></center><hr>
 <center><img src="https://i.imgur.com/VCobc6h.jpg" style="display: block; max-width: 100%; height: auto;" alt="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti" title="Hladinomer do žumpy, septiku, studne, princíp merania - ultrazvukový senzor vzdialenosti"></center>
 <p style="text-align: justify;">
@@ -231,7 +178,7 @@ ESP-Mikrocontroller ermöglichen auch die Implementierung von HTTPS (verschlüss
 Das Zertifikat der Zertifizierungsstelle hat eine Gültigkeitsdauer von 10 bis 20 Jahren, erfordert also keine häufige Erneuerung. Informationen zum aktuellen Wasserstand und Wasservolumen im Brunnen stehen im JSON-Format über das Webinterface zur Verfügung. Das Projekt kann das Level-Meter-Projekt über MQTT in die Hausautomation (Hassio, Domoticz, Loxone) integrieren, um den Wasserstand in einem eigenen Dashboard, z.B. Grafana, anzuzeigen.
 </p>
 <div class="alert alert-info">
-	<strong>Softwareimplementierungen für Arduino, ESP8266, ESP32 (erfordert Bibliotheksinstallation): </strong><a href="http://arduino.clanweb.eu/studna_s_prekladom/program.php?lang=de">Hier verfügbar</a>
+	<strong>Softwareimplementierungen für Arduino, ESP8266, ESP32 (erfordert Bibliotheksinstallation): </strong><a href="https://hladinomer.eu/?lang=de">Hier verfügbar</a>
 </div>	
 <hr><center><h4>Verfügbare Bibliotheken für Mikrocontroller (Arduino / ESP)</h4></center><hr>
 <div class="alert alert-danger" style="word-wrap:break-word;">
@@ -268,6 +215,15 @@ Es ermöglicht Messungen mit Ultraschall-Distanzsensoren US-02X, IOE-SR0X, HC-SR
 <td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2FNewPingESP8266" class="btn btn-success" role="button">Herunterladen</a></td>
 </tr>
 <tr>
+<td style="width: 25%"><b>VL53L1X</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für Arduino-, ESP8266- und ESP32-Mikrocontroller. Ermöglicht ToF-Messungen mit STMicroelectronics VL53L1X-Lasersensoren. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fmartinius96%2Fhladinomer-studna-scripty%2Ftree%2Fmaster%2Fsrc%2Fvl53l1x-arduino-master" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>	
+<tr>
 <td style="width: 25%"><b>Ethernet2</b></td>
 <td style="width: 50%">
 <p style="text-align: justify;">
@@ -302,7 +258,7 @@ Es ermöglicht die Kommunikation mit dem Ethernet-Modul Wiznet W5500 V2 - USR-ES
 <b>Pegelmesser:</b>
 <li>Callbacks --> Custom --> New</li>
 <li><b>In "Benutzerdefinierte Payload-Konfiguration" schreiben wir:</b> cislo1::uint:16</li>
-<li><b>Wir werden das "URL-Muster" hinzufügen:</b> http://arduino.clanweb.eu/studna_s_prekladom/data.php (oder eine andere URL Ihres Webservers, auf dem das Projekt ausgeführt wird), die Möglichkeit, HTTPS zu verwenden</li>
+<li><b>Wir werden das "URL-Muster" hinzufügen:</b> https://hladinomer.eu/?lang=de (oder eine andere URL Ihres Webservers, auf dem das Projekt ausgeführt wird), die Möglichkeit, HTTPS zu verwenden</li>
 <li><b>Bei der HTTP-Methode wählen wir:</b> POST</li>
 <li><b>Wir werden zum Body (Nachrichtentext) hinzufügen:</b></li>
 <li>hodnota={customData#cislo1}&token=123456789</li>
@@ -312,7 +268,7 @@ Es ermöglicht die Kommunikation mit dem Ethernet-Modul Wiznet W5500 V2 - USR-ES
 <center> 
      <h3>Screenshots der Webapp zur Wasserstandsüberwachung</h3>
      <hr>
-	<a href="http://arduino.clanweb.eu/studna_s_prekladom/?lang=de">
+	<a href="https://hladinomer.eu/?lang=de">
     	<img src="https://i.imgur.com/0d1jvFm.png" style="display: block; max-width: 100%; height: auto;" alt="Meter für Webanwendungsprojektebene. Es visualisiert den Wasserstand und das Wasservolumen im Brunnen mit automatischer Wiederherstellung der Messdaten." title="Meter für Webanwendungsprojektebene. Es visualisiert den Wasserstand und das Wasservolumen im Brunnen mit automatischer Wiederherstellung der Messdaten.">
     	<img src="https://i.imgur.com/xxT1Mbj.png" style="display: block; max-width: 100%; height: auto;" alt="Meter für Webanwendungsprojektebene. Historische Daten in tabellarischer Darstellung mit der Möglichkeit, den Datensatz zu löschen." title="Meter für Webanwendungsprojektebene. Historische Daten in tabellarischer Darstellung mit der Möglichkeit, den Datensatz zu löschen."> 
 	<img src="https://i.imgur.com/vE2DAiE.png" style="display: block; max-width: 100%; height: auto;" alt="Meter für Webanwendungsprojektebene. Alarmvisualisierung des maximalen und minimalen Füllstands im Brunnen für den aktuellen Tag, Woche, Monat." title="Meter für Webanwendungsprojektebene. Alarmvisualisierung des maximalen und minimalen Füllstands im Brunnen für den aktuellen Tag, Woche, Monat."> 
