@@ -1,0 +1,165 @@
+{
+  "info": {
+    "_postman_id": "121bfa5f-9315-480f-bd7d-0aa118a13c5e",
+    "name": "Watmonitor API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39345124"
+  },
+  "item": [
+    {
+      "name": "PUSH DATA",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "hodnota",
+              "value": "30",
+              "description": "water level (differential or total measurement)",
+              "type": "text",
+              "uuid": "38582104-3eef-4c34-854c-44582b507ad5"
+            },
+            {
+              "key": "token",
+              "value": "123456789",
+              "description": "token for request authorization",
+              "type": "text",
+              "uuid": "08c46000-39b1-4a80-b34b-c415ac07cf47"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://hladinomer.eu/data.php",
+          "protocol": "https",
+          "host": [
+            "hladinomer",
+            "eu"
+          ],
+          "path": [
+            "data.php"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET LATEST DATA",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hladinomer.eu/json_output.php",
+          "protocol": "https",
+          "host": [
+            "hladinomer",
+            "eu"
+          ],
+          "path": [
+            "json_output.php"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET ALL DATA",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hladinomer.eu/json_output2.php",
+          "protocol": "https",
+          "host": [
+            "hladinomer",
+            "eu"
+          ],
+          "path": [
+            "json_output2.php"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET ALL DATA FROM",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hladinomer.eu/json_output2.php?from=2026-01-01",
+          "protocol": "https",
+          "host": [
+            "hladinomer",
+            "eu"
+          ],
+          "path": [
+            "json_output2.php"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "2026-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET ALL DATA TO",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hladinomer.eu/json_output2.php?to=2026-01-01",
+          "protocol": "https",
+          "host": [
+            "hladinomer",
+            "eu"
+          ],
+          "path": [
+            "json_output2.php"
+          ],
+          "query": [
+            {
+              "key": "to",
+              "value": "2026-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET ALL DATA FROM TO",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hladinomer.eu/json_output2.php?from=2025-01-01&to=2026-01-01",
+          "protocol": "https",
+          "host": [
+            "hladinomer",
+            "eu"
+          ],
+          "path": [
+            "json_output2.php"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "2025-01-01"
+            },
+            {
+              "key": "to",
+              "value": "2026-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
