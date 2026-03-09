@@ -1,0 +1,4 @@
+type: tile
+entity: sensor.water_level
+name: Water level
+icon: mdi:water
