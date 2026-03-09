@@ -1,0 +1,8 @@
+sensor:
+  - platform: rest
+    name: Water level
+    resource: https://hladinomer.eu/json_output.php
+    method: GET
+    value_template: "{{ value_json.value }}"
+    unit_of_measurement: "cm"
+    scan_interval: 300
