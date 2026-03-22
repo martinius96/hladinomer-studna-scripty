@@ -11,7 +11,7 @@
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 
 const char * ssid = "MY_WIFI"; //WiFi SSID name
 const char * password = "MY_WIFI_PASSWORD"; //WiFi password
@@ -21,8 +21,7 @@ String url = "/studna_s_prekladom/data.php"; //URL address to to target PHP file
 
 #define pinTrigger    22
 #define pinEcho       23
-#define maxVzdialenost 450
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 
 TaskHandle_t Task1; //ULTRASONIC MEASUREMENT
 TaskHandle_t Task2; //WIFI HTTP SOCKET
