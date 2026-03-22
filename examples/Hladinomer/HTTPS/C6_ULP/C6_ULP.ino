@@ -49,16 +49,15 @@ const static char* test_root_ca PROGMEM = \
 "emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=\n" \
 "-----END CERTIFICATE-----\n";
 
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 #include <WiFiClientSecure.h>
 #define uS_TO_S_FACTOR 1000000
 #define TIME_TO_SLEEP  300
 #include <WiFi.h>
 #define pinTrigger    22
 #define pinEcho       23
-#define maxVzdialenost 450
 RTC_DATA_ATTR unsigned long BootCount;
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 
 WiFiClientSecure client;
 void setup() {
