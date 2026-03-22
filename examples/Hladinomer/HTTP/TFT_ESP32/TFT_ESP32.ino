@@ -10,7 +10,7 @@
 /*|-----------------------------------------------------------------------------------|*/
 
 #include <WiFi.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 #include <TFT_eSPI.h>
 #include <WiFiManager.h>
 #include <ArduinoJson.h>
@@ -20,8 +20,7 @@ String url2 = "/studna_s_prekladom/json_output.php"; //PHP file with JSON output
 
 #define pinTrigger    22
 #define pinEcho       21 //Changed from D23, it is used for SPI communication with TFT display
-#define maxVzdialenost 450
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 TFT_eSPI tft = TFT_eSPI();
 TaskHandle_t Task1; //ULTRASONIC MEASUREMENT
 TaskHandle_t Task2; //WIFI HTTP SOCKET
