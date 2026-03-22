@@ -11,7 +11,7 @@
 
 #include <WiFiClientSecure.h>
 #include <ETH.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 
 const char* host = "hladinomer.eu"; //host (server)
 String url = "/data.php"; //URL address to to target PHP file
@@ -19,8 +19,7 @@ String url = "/data.php"; //URL address to to target PHP file
 boolean eth_state = false;
 #define pinTrigger    4
 #define pinEcho       5
-#define maxVzdialenost 450
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 
 #ifdef ETH_CLK_MODE
 #undef ETH_CLK_MODE
