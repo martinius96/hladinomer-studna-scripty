@@ -10,7 +10,7 @@
 /*|----------------------------------------------------------------------------|*/
 
 #include <ETH.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 
 const char* host = "arduino.clanweb.eu"; //host (server)
 String url = "/studna_s_prekladom/data.php"; //URL address to to target PHP file
@@ -18,8 +18,7 @@ String url = "/studna_s_prekladom/data.php"; //URL address to to target PHP file
 boolean eth_state = false;
 #define pinTrigger    4 //CONNECT TO TRIGGER PIN OF ULTRASONIC SENSOR
 #define pinEcho       5 //CONNECT TO ECHO PIN OF ULTRASONIC SENSOR
-#define maxVzdialenost 450
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 
 /*
      ETH_CLOCK_GPIO0_IN   - default: external clock from crystal oscillator
