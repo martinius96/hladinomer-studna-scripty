@@ -56,7 +56,7 @@ const static char* test_root_ca PROGMEM = \
 
 
 
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 #include <WiFiClientSecure.h>
 #if defined(ESP32)
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
@@ -64,17 +64,15 @@ const static char* test_root_ca PROGMEM = \
 #include <WiFi.h>
 #define pinTrigger    22
 #define pinEcho       23
-#define maxVzdialenost 450
     
 #elif defined(ESP8266)
 #include <ESP8266WiFi.h>
 #define pinTrigger    5 //D1
 #define pinEcho       4 //D2
-#define maxVzdialenost 450
 X509List cert(test_root_ca);
 #endif
 
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 
 WiFiClientSecure client;
 void setup() {
