@@ -5,8 +5,6 @@
 /*|E-mail: martinius96@gmail.com                                                      |*/
 /*|Info k projektu (schéma): https://martinius96.github.io/hladinomer-studna-scripty/ |*/
 /*|Testovacie webove rozhranie: http://arduino.clanweb.eu/studna_s_prekladom/         |*/
-/*|Knižnica ESP8266NewPing je dostupná v Github repozitári:                           |*/
-/*|https://github.com/martinius96/hladinomer-studna-scripty/ - stihnuť a rozbaliť     |*/
 /*|Obsah priečinka /src/ nakopírovať do C:/Users/User/Dokumenty/Arduino/libraries/    |*/
 /*|Na toto webove rozhranie posiela mikrokontroler data                               |*/
 /*|Na zaklade zvolenej platformy v Arduino IDE sa vykona kompilacia podla direktiv    |*/
@@ -20,22 +18,20 @@ const char* host = "arduino.clanweb.eu"; //adresa webservera (doména) na ktorú
 String url = "/studna_s_prekladom/data.php"; //URL adresa - cesta pod domenou k cieľovemu .php súboru, ktorý realizuje zápis
 //Pre testovacie webove rozhranie sa data odosielaju na: arduino.clanweb.eu/studna_s_prekladom/data.php (HTTP POST ONLY)
 
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 #if defined(ESP32)
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  300        /* Time ESP32 will go to sleep (in seconds) */
 #include <WiFi.h>
 #define pinTrigger    22
 #define pinEcho       23
-#define maxVzdialenost 450
 #elif defined(ESP8266)
 #include <ESP8266WiFi.h>
 #define pinTrigger    5 //D1
 #define pinEcho       4 //D2
-#define maxVzdialenost 450
 #endif
 
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 
 WiFiClient client;
 void setup() {
