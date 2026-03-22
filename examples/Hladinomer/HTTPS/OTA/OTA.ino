@@ -16,7 +16,7 @@
 
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 #include <WiFiClientSecure.h>
 
 //KONFIGURACNE UDAJE - webserver, WiFi adaptér, Root CA certifikát
@@ -80,13 +80,12 @@ void IRAM_ATTR resetModule() {
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <ArduinoOTA.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 #define pinTrigger    5 //D1
 #define pinEcho       4 //D2
-#define maxVzdialenost 450
 X509List cert(test_root_ca);
 #endif
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 unsigned long timer2 = 0;
 
 WiFiClientSecure client;
