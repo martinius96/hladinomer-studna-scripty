@@ -14,13 +14,12 @@
 
 #include <ETH.h>
 #include <WiFiClientSecure.h>
-#include <NewPingESP8266.h>
+#include <NewPing.h>
 const char* host = "hladinomer.eu"; //host (server)
 String url = "/data.php"; //URL address to to target PHP file
 #define pinTrigger    33
 #define pinEcho       32
-#define maxVzdialenost 450
-NewPingESP8266 sonar(pinTrigger, pinEcho, maxVzdialenost);
+NewPing sonar(pinTrigger, pinEcho);
 static bool eth_connected = false;
 
 WiFiClientSecure client; //Secured client object for HTTPS connection
