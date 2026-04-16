@@ -12,7 +12,7 @@ The following platforms have dedicated example code / collections in this direct
   Classic IoT cloud platform – simple data logging, charts, MATLAB analysis, alerts
 
 - **ThingsBoard**  
-  Open-source IoT platform – dashboards, Rule Chain, custom widget, MQTT / HTTP support
+  Open-source IoT platform – dashboards, Rule Chain, custom widget, MQTT / HTTP support - push / pull model
 
 - **Ubidots**  
   Modern IoT cloud service – beautiful dashboards, variables, events & notifications
