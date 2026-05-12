@@ -22,3 +22,6 @@ The following platforms have dedicated example code / collections in this direct
 
 - **Postman**  
   Collection of ready-to-import requests for testing API for pushing / pulling data
+
+- **Home Assistant**  
+  Configuration file to obtain and parse data from Watmonitor, Lovelace card for visualisation
