@@ -1,0 +1,85 @@
+{
+  "ruleChain": {
+    "name": "Periodical_data_Watmonitor",
+    "type": "CORE",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null,
+    "additionalInfo": {
+      "description": ""
+    }
+  },
+  "metadata": {
+    "version": 9,
+    "firstNodeIndex": null,
+    "nodes": [
+      {
+        "type": "org.thingsboard.rule.engine.debug.TbMsgGeneratorNode",
+        "name": "Generate",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 2,
+        "configuration": {
+          "msgCount": 0,
+          "periodInSeconds": 300,
+          "scriptLang": "TBEL",
+          "jsScript": "var msg = { temp: 42, humidity: 77 };\nvar metadata = { data: 40 };\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+          "tbelScript": "var token = 123456789;\r\nvar hodnota = Math.floor(Math.random() * (85 - 80 + 1)) + 80; \r\nmsg = \"hodnota=\" + hodnota + \"&token=\" + token;\r\nvar msgType = \"POST_TELEMETRY_REQUEST\";\r\nreturn {msg: msg, msgType: msgType};",
+          "originatorId": "13814000-1dd2-11b2-8080-808080808080",
+          "originatorType": "TENANT"
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 260,
+          "layoutY": 160
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.rest.TbRestApiCallNode",
+        "name": "Send_data",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 3,
+        "configuration": {
+          "restEndpointUrlPattern": "https://hladinomer.eu/data.php",
+          "requestMethod": "POST",
+          "useSimpleClientHttpFactory": false,
+          "parseToPlainText": true,
+          "ignoreRequestBody": false,
+          "enableProxy": false,
+          "useSystemProxyProperties": false,
+          "proxyScheme": null,
+          "proxyHost": null,
+          "proxyPort": 0,
+          "proxyUser": null,
+          "proxyPassword": null,
+          "readTimeoutMs": 0,
+          "maxParallelRequestsCount": 0,
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "credentials": {
+            "type": "anonymous"
+          },
+          "maxInMemoryBufferSizeInKb": 256
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 903,
+          "layoutY": 243
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}
