@@ -9,6 +9,7 @@
 | HTTP_INTEGRATION | - uplink_converter.json | Push - timeseries data (executed on incomming HTTP request) | [HTTP integration, uplink converter](https://medium.com/@your-iot/watmonitor-thingsboard-http-integration-7f4b7c3049b9) |
 | MQTT_ROUTER | - Rule_Chain_mqtt_router.json <br> - mqtt_profile_router.json | Push - MQTT router: Receive via MQTT, transform data, push to Watmonitor via HTTPS POST | [MQTT router ThingsBoard](https://medium.com/@your-iot/mqtt-router-via-thingsboard-watmonitor-5f193d6ea2ad) |
 | Generator_PUSH | - periodical_data_watmonitor.json | Generate (80 - 85) & Push data to Watmonitor |  No article |
+| AI_Comparison | - watmonitor_ai.json | Compare telemetry against meta data, put result in AI response |  [AI Node ThingsBoard](https://medium.com/@your-iot/setting-up-an-ai-request-node-thingsboard-gemini-llm-ceed5d85b63) |
 <img width="1338" height="154" alt="image" src="https://github.com/user-attachments/assets/d5e56ea8-e302-4bac-8a35-565505f9e06c" />
 <img width="1144" height="344" alt="image" src="https://github.com/user-attachments/assets/ebf2df37-5703-4181-9426-4ec17351bc4c" />
 <img width="1317" height="403" alt="image" src="https://github.com/user-attachments/assets/bc4f7fdf-70bb-407d-8680-7dfe6aa3d360" />
